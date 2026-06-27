@@ -1,0 +1,7 @@
+numpy
+scipy
+matplotlib
+pillow
+
+# Optional GPU backend, choose the wheel that matches your CUDA installation:
+# cupy-cuda12x

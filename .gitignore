@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+
+# HIT2D generated outputs
+2D/hit2d_snapshots/*
+!2D/hit2d_snapshots/.gitkeep
+
+# Post-processing products copied or generated outside run folders
+*.npz
+*.png
+*.gif
+*.mp4
