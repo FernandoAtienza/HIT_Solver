@@ -51,6 +51,12 @@ class HIT2DConfig:
     target_energy_injection: float | None = 1.0e-3
     min_forcing_power: float = 1.0e-6
     max_forcing_rescale: float = 20.0
+    mach_control: bool = False
+    mach_control_target: float | None = None
+    mach_control_memory: float = 0.995
+    mach_control_exponent: float = 2.0
+    mach_control_min_power: float | None = None
+    mach_control_max_power: float | None = None
     forcing_seed: int = 1234
     viscosity: float = 1.0e-3
     prandtl: float = 0.72
@@ -61,6 +67,10 @@ class HIT2DConfig:
     hyperviscosity_mn: float = 0.002
     hyperviscosity_interval: int = 5
     hyperviscosity_on_shocks_only: bool = False
+    large_scale_drag: float = 0.0
+    large_scale_drag_kmax: float = 2.0
+    cooling_time: float | None = None
+    cooling_target_pressure: float | None = None
     diagnostics_every: int = 25
     snapshot_every: int = 100
     forcing_anisotropy_warning: float = 0.2
@@ -80,15 +90,20 @@ class HIT2DConfig:
         return cls(
             nx=128,
             ny=128,
-            tfinal=12.0,
-            target_mach=0.5,
+            tfinal=15.0,
+            target_mach=0.25,
+            initial_kmin=3,
+            initial_kmax=5,
             forcing_kmin=3.0,
             forcing_kmax=5.0,
-            forcing_correlation_time=1.0,
+            forcing_correlation_time=0.5,
             forcing_alpha_memory=0.2,
             target_energy_injection=1.0e-3,
             viscosity=7.5e-4,
             hyperviscosity_mn=0.002,
+            large_scale_drag=0.10,
+            large_scale_drag_kmax=2.0,
+            cooling_time=5.0,
             snapshot_every=75,
             diagnostics_every=25,
             output_dir=output_dir,
@@ -261,6 +276,186 @@ def forcing_source(
     return source
 
 
+def turbulent_mach_from_primitive(
+    rho: np.ndarray,
+    u: np.ndarray,
+    v: np.ndarray,
+    pressure: np.ndarray,
+    gamma: float,
+) -> float:
+    """Return the same turbulent Mach definition used by the diagnostics."""
+
+    xp = array_module(rho)
+    sound_speed = xp.sqrt(gamma * pressure / rho)
+    return float(xp.sqrt(xp.mean(u**2 + v**2)) / xp.mean(sound_speed))
+
+
+def update_mach_controlled_power(
+    config: HIT2DConfig,
+    current_power: float | None,
+    rho: np.ndarray,
+    u: np.ndarray,
+    v: np.ndarray,
+    pressure: np.ndarray,
+) -> tuple[float | None, dict[str, float]]:
+    """Adapt the forcing power so the run can target a prescribed Mt.
+
+    The solver still applies constant-power forcing during each time step. This
+    slow outer feedback loop only changes that target power between steps:
+    if the measured turbulent Mach number is too low, the target power is
+    increased; if it is too high, the target power is reduced. The memory factor
+    prevents abrupt changes that would make the stochastic forcing impulsive.
+    """
+
+    target_power = current_power
+    target_mach = (
+        config.target_mach
+        if config.mach_control_target is None
+        else config.mach_control_target
+    )
+    current_mach = turbulent_mach_from_primitive(rho, u, v, pressure, config.gamma)
+    desired_power = np.nan if target_power is None else float(target_power)
+
+    if not config.mach_control or target_power is None:
+        return target_power, {
+            "mach_control_mach": current_mach,
+            "mach_control_target": float(target_mach),
+            "mach_control_power_desired": desired_power,
+        }
+
+    if target_mach <= 0.0:
+        raise ValueError("Mach control requires a positive target Mach number")
+    if not 0.0 <= config.mach_control_memory < 1.0:
+        raise ValueError("mach_control_memory must be in [0, 1)")
+    if config.mach_control_exponent <= 0.0:
+        raise ValueError("mach_control_exponent must be positive")
+
+    mach_floor = 1.0e-8
+    ratio = (target_mach / max(current_mach, mach_floor)) ** config.mach_control_exponent
+    desired_power = float(target_power * ratio)
+    if config.mach_control_min_power is not None:
+        desired_power = max(desired_power, config.mach_control_min_power)
+    if config.mach_control_max_power is not None:
+        desired_power = min(desired_power, config.mach_control_max_power)
+
+    next_power = (
+        config.mach_control_memory * target_power
+        + (1.0 - config.mach_control_memory) * desired_power
+    )
+    return next_power, {
+        "mach_control_mach": current_mach,
+        "mach_control_target": float(target_mach),
+        "mach_control_power_desired": desired_power,
+    }
+
+
+def _spectral_band_filter(
+    values: np.ndarray,
+    domain: Domain2D,
+    k_min: float = 0.0,
+    k_max: float | None = None,
+) -> np.ndarray:
+    """Return the periodic spectral content within k_min <= |k| <= k_max."""
+
+    xp = array_module(values)
+    kx, ky, k2 = _spectral_wavenumbers(domain, xp=xp)
+    magnitude = xp.sqrt(k2)
+    mask = (magnitude >= float(k_min)) & (k2 > 0.0)
+    if k_max is not None:
+        mask = mask & (magnitude <= float(k_max))
+    values_hat = xp.fft.fft2(values)
+    return xp.fft.ifft2(xp.where(mask, values_hat, 0.0)).real
+
+
+def large_scale_drag_source(
+    q: np.ndarray,
+    equation: EulerEquation2D,
+    domain: Domain2D,
+    coefficient: float,
+    kmax: float,
+) -> np.ndarray:
+    """Remove kinetic energy from only the largest Fourier modes.
+
+    In 2D turbulence, kinetic energy tends to move upscale. Without a large-scale
+    sink, energy can collect in k=1 or k=2 box-scale modes, producing bands or
+    jets that break isotropy. This source damps low-wavenumber momentum
+    fluctuations while leaving the forced shell and small scales untouched.
+    """
+
+    xp = array_module(q)
+    source = xp.zeros_like(q)
+    if coefficient <= 0.0 or kmax <= 0.0:
+        return source
+
+    _rho, u, v, _pressure = conservative_to_primitive(q, equation)
+    momentum_x = q[1] - xp.mean(q[1])
+    momentum_y = q[2] - xp.mean(q[2])
+    low_momentum_x = _spectral_band_filter(momentum_x, domain, k_min=0.0, k_max=kmax)
+    low_momentum_y = _spectral_band_filter(momentum_y, domain, k_min=0.0, k_max=kmax)
+
+    source[1] = -coefficient * low_momentum_x
+    source[2] = -coefficient * low_momentum_y
+    source[3] = u * source[1] + v * source[2]
+    return source
+
+
+def cooling_source(
+    q: np.ndarray,
+    equation: EulerEquation2D,
+    cooling_time: float | None,
+    target_pressure: float | None = None,
+) -> np.ndarray:
+    """Homogeneous pressure-relaxation cooling for long forced runs.
+
+    Large-scale forcing ultimately converts kinetic energy into internal energy.
+    A homogeneous energy sink prevents the mean pressure and sound speed from
+    drifting far from the intended nondimensional state. The source is spatially
+    uniform, so it does not directly create density or pressure structure.
+    """
+
+    xp = array_module(q)
+    source = xp.zeros_like(q)
+    if cooling_time is None or cooling_time <= 0.0:
+        return source
+
+    _rho, _u, _v, pressure = conservative_to_primitive(q, equation)
+    reference_pressure = 1.0 / equation.gamma if target_pressure is None else target_pressure
+    mean_pressure = xp.mean(pressure)
+    mean_internal_energy_error = (mean_pressure - reference_pressure) / (equation.gamma - 1.0)
+    source[3] = -mean_internal_energy_error / cooling_time
+    return source
+
+
+def large_scale_kinetic_fraction(
+    q: np.ndarray,
+    equation: EulerEquation2D,
+    domain: Domain2D,
+    kmax: float,
+) -> float:
+    """Fraction of fluctuation kinetic energy contained in low-k modes."""
+
+    if kmax <= 0.0:
+        return 0.0
+    rho, u, v, _pressure = conservative_to_primitive(q, equation)
+    xp = array_module(q)
+    u_fluct = u - xp.mean(u)
+    v_fluct = v - xp.mean(v)
+    total = float(xp.mean(rho * (u_fluct**2 + v_fluct**2)))
+    if total <= np.finfo(float).eps:
+        return 0.0
+    u_low = _spectral_band_filter(u_fluct, domain, k_min=0.0, k_max=kmax)
+    v_low = _spectral_band_filter(v_fluct, domain, k_min=0.0, k_max=kmax)
+    low = float(xp.mean(rho * (u_low**2 + v_low**2)))
+    return low / total
+
+
+def source_power(source: np.ndarray) -> float:
+    """Domain-mean total-energy source rate."""
+
+    xp = array_module(source)
+    return float(xp.mean(source[3]))
+
+
 def divergence_and_vorticity(
     u: np.ndarray,
     v: np.ndarray,
@@ -279,6 +474,9 @@ def compute_diagnostics(
     domain: Domain2D,
     initial_mass: float | None = None,
     forcing_info: dict[str, float] | None = None,
+    drag_power: float = 0.0,
+    cooling_power: float = 0.0,
+    large_scale_fraction: float = 0.0,
     weno_fraction: float = 0.0,
 ) -> dict[str, float]:
     """Compute compact scalar diagnostics for the periodic turbulence state."""
@@ -309,6 +507,9 @@ def compute_diagnostics(
         "vorticity_rms": float(xp.sqrt(xp.mean(vorticity**2))),
         "mass": mass,
         "mass_error": 0.0 if initial_mass is None else mass - initial_mass,
+        "large_scale_kinetic_fraction": large_scale_fraction,
+        "drag_power": drag_power,
+        "cooling_power": cooling_power,
         "weno_fraction": weno_fraction,
     }
     diagnostics.update(
@@ -319,6 +520,10 @@ def compute_diagnostics(
             "Fxy": 0.0,
             "A_F": 0.0,
             "forcing_alpha": 0.0,
+            "forcing_target_power": 0.0,
+            "mach_control_mach": diagnostics["turbulent_mach"],
+            "mach_control_target": 0.0,
+            "mach_control_power_desired": 0.0,
         }
     )
     if forcing_info is not None:
@@ -330,6 +535,14 @@ def compute_diagnostics(
                 "Fxy": forcing_info["Fxy"],
                 "A_F": forcing_info["A_F"],
                 "forcing_alpha": forcing_info["alpha"],
+                "forcing_target_power": forcing_info.get("target_power", 0.0),
+                "mach_control_mach": forcing_info.get(
+                    "mach_control_mach", diagnostics["turbulent_mach"]
+                ),
+                "mach_control_target": forcing_info.get("mach_control_target", 0.0),
+                "mach_control_power_desired": forcing_info.get(
+                    "mach_control_power_desired", 0.0
+                ),
             }
         )
     return diagnostics
@@ -390,7 +603,11 @@ def _print_diagnostics(step: int, time: float, dt: float, diagnostics: dict[str,
         f"A_K={diagnostics['A_K']:.3f}, "
         f"Cuv={diagnostics['C_uv']:.3f}, "
         f"P_in={diagnostics['P_in']:.3e}, "
+        f"P_tgt={diagnostics['forcing_target_power']:.3e}, "
         f"A_F={diagnostics['A_F']:.3f}, "
+        f"K_low={diagnostics['large_scale_kinetic_fraction']:.3f}, "
+        f"P_drag={diagnostics['drag_power']:.3e}, "
+        f"P_cool={diagnostics['cooling_power']:.3e}, "
         f"WENO={diagnostics['weno_fraction']:.3f}, "
         f"rho_mean={diagnostics['mean_density']:.6f}, "
         f"p_mean={diagnostics['mean_pressure']:.6f}, "
@@ -418,10 +635,38 @@ def save_diagnostic_history(
             ),
             "forcing_kmax": np.asarray(config.forcing_kmax),
             "forcing_correlation_time": np.asarray(config.forcing_correlation_time),
+            "large_scale_drag": np.asarray(config.large_scale_drag),
+            "large_scale_drag_kmax": np.asarray(config.large_scale_drag_kmax),
+            "cooling_time": np.asarray(
+                np.nan if config.cooling_time is None else config.cooling_time
+            ),
+            "cooling_target_pressure": np.asarray(
+                np.nan
+                if config.cooling_target_pressure is None
+                else config.cooling_target_pressure
+            ),
             "target_energy_injection": np.asarray(
                 np.nan
                 if config.target_energy_injection is None
                 else config.target_energy_injection
+            ),
+            "mach_control": np.asarray(config.mach_control),
+            "mach_control_target": np.asarray(
+                np.nan
+                if config.mach_control_target is None
+                else config.mach_control_target
+            ),
+            "mach_control_memory": np.asarray(config.mach_control_memory),
+            "mach_control_exponent": np.asarray(config.mach_control_exponent),
+            "mach_control_min_power": np.asarray(
+                np.nan
+                if config.mach_control_min_power is None
+                else config.mach_control_min_power
+            ),
+            "mach_control_max_power": np.asarray(
+                np.nan
+                if config.mach_control_max_power is None
+                else config.mach_control_max_power
             ),
         }
     )
@@ -488,6 +733,12 @@ def _warn_diagnostic_state(
             "warning: WENO is active over a large domain fraction "
             f"({diagnostics['weno_fraction']:.3f})"
         )
+    if diagnostics["large_scale_kinetic_fraction"] > 0.35 and config.large_scale_drag <= 0.0:
+        print(
+            "warning: a large fraction of kinetic energy is in low-k modes "
+            f"(K_low={diagnostics['large_scale_kinetic_fraction']:.3f}); "
+            "consider enabling --large-scale-drag"
+        )
 
 
 def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
@@ -531,6 +782,9 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         q,
         equation,
         domain,
+        large_scale_fraction=large_scale_kinetic_fraction(
+            q, equation, domain, config.large_scale_drag_kmax
+        ),
         weno_fraction=initial_weno_fraction,
     )
     initial_mass = initial_diagnostics["mass"]
@@ -542,20 +796,49 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
     time = 0.0
     step = 0
     forcing_info: dict[str, float] | None = None
+    adaptive_target_power = config.target_energy_injection
+    drag = xp.zeros_like(q)
+    cooling = xp.zeros_like(q)
     while time < config.tfinal:
         dt = operator.stable_time_step(q, config.cfl, config.tfinal - time)
         if config.viscosity > 0.0:
             h = min(domain.dx, domain.dy)
             dt = min(dt, 0.25 * h**2 / config.viscosity, config.tfinal - time)
 
-        rho, u, v, _pressure = conservative_to_primitive(q, equation)
+        rho, u, v, pressure = conservative_to_primitive(q, equation)
+        adaptive_target_power, mach_control_info = update_mach_controlled_power(
+            config,
+            adaptive_target_power,
+            rho,
+            u,
+            v,
+            pressure,
+        )
+        forcing.target_power = adaptive_target_power
         fx, fy, forcing_info = forcing.update(dt, rho, u, v)
+        forcing_info.update(mach_control_info)
 
         def rhs_with_forcing(state: np.ndarray) -> np.ndarray:
             rhs = operator.rhs(state)
             if hasattr(equation, "viscous_rhs"):
                 rhs = rhs + equation.viscous_rhs(state, domain.dx, domain.dy)
-            return rhs + forcing_source(state, equation, fx, fy)
+            source = rhs + forcing_source(state, equation, fx, fy)
+            if config.large_scale_drag > 0.0:
+                source = source + large_scale_drag_source(
+                    state,
+                    equation,
+                    domain,
+                    config.large_scale_drag,
+                    config.large_scale_drag_kmax,
+                )
+            if config.cooling_time is not None and config.cooling_time > 0.0:
+                source = source + cooling_source(
+                    state,
+                    equation,
+                    config.cooling_time,
+                    config.cooling_target_pressure,
+                )
+            return source
 
         q = integrator.step(q, rhs_with_forcing, dt, clean=equation.enforce_physical_state)
         step += 1
@@ -567,12 +850,30 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
 
         if step % config.diagnostics_every == 0 or time >= config.tfinal:
             weno_fraction = float(xp.mean(sensor.detect(q)))
+            drag = large_scale_drag_source(
+                q,
+                equation,
+                domain,
+                config.large_scale_drag,
+                config.large_scale_drag_kmax,
+            )
+            cooling = cooling_source(
+                q,
+                equation,
+                config.cooling_time,
+                config.cooling_target_pressure,
+            )
             diagnostics = compute_diagnostics(
                 q,
                 equation,
                 domain,
                 initial_mass=initial_mass,
                 forcing_info=forcing_info,
+                drag_power=source_power(drag),
+                cooling_power=source_power(cooling),
+                large_scale_fraction=large_scale_kinetic_fraction(
+                    q, equation, domain, config.large_scale_drag_kmax
+                ),
                 weno_fraction=weno_fraction,
             )
             diagnostic_history.append(_diagnostic_record(step, time, dt, diagnostics))
@@ -594,6 +895,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tfinal", type=float, default=1.0)
     parser.add_argument("--cfl", type=float, default=0.05)
     parser.add_argument("--mach", type=float, default=0.1, help="Initial turbulent Mach number.")
+    parser.add_argument("--initial-kmin", type=int, default=1)
+    parser.add_argument("--initial-kmax", type=int, default=3)
     parser.add_argument("--gamma", type=float, default=1.4)
     parser.add_argument("--viscosity", type=float, default=1.0e-3)
     parser.add_argument(
@@ -632,8 +935,67 @@ def parse_args() -> argparse.Namespace:
         default=20.0,
         help="Cap |P_target / P_current| to avoid impulsive random forcing. Use 0 to disable the cap.",
     )
+    parser.add_argument(
+        "--mach-control",
+        action="store_true",
+        help="Slowly adapt --p-target so the turbulent Mach number stays near the requested target.",
+    )
+    parser.add_argument(
+        "--mach-control-target",
+        type=float,
+        default=None,
+        help="Target turbulent Mach for feedback control. Defaults to --mach.",
+    )
+    parser.add_argument(
+        "--mach-control-memory",
+        type=float,
+        default=0.995,
+        help="Memory for the adaptive power target. Larger values change the power more slowly.",
+    )
+    parser.add_argument(
+        "--mach-control-exponent",
+        type=float,
+        default=2.0,
+        help="Exponent in the power correction (Mt_target/Mt)^exponent.",
+    )
+    parser.add_argument(
+        "--mach-control-min-power",
+        type=float,
+        default=0.0,
+        help="Lower bound for adaptive target power. Use 0 for no explicit lower bound.",
+    )
+    parser.add_argument(
+        "--mach-control-max-power",
+        type=float,
+        default=0.0,
+        help="Upper bound for adaptive target power. Use 0 for no explicit upper bound.",
+    )
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--mn", type=float, default=0.002, help="Periodic hyperviscosity strength.")
+    parser.add_argument(
+        "--large-scale-drag",
+        type=float,
+        default=0.0,
+        help="Linear spectral drag coefficient applied only to low-k momentum modes.",
+    )
+    parser.add_argument(
+        "--drag-kmax",
+        type=float,
+        default=2.0,
+        help="Largest wavenumber damped by --large-scale-drag.",
+    )
+    parser.add_argument(
+        "--cooling-time",
+        type=float,
+        default=0.0,
+        help="Mean-pressure relaxation time. Use 0 to disable homogeneous cooling.",
+    )
+    parser.add_argument(
+        "--cooling-target-pressure",
+        type=float,
+        default=None,
+        help="Target mean pressure for homogeneous cooling. Defaults to 1/gamma.",
+    )
     parser.add_argument("--diagnostics-every", type=int, default=25)
     parser.add_argument("--snapshot-every", type=int, default=100)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_SNAPSHOT_DIR)
@@ -655,6 +1017,8 @@ def main() -> None:
         tfinal=args.tfinal,
         cfl=args.cfl,
         target_mach=args.mach,
+        initial_kmin=args.initial_kmin,
+        initial_kmax=args.initial_kmax,
         gamma=args.gamma,
         viscosity=args.viscosity,
         forcing_kmin=args.kf_min,
@@ -665,8 +1029,22 @@ def main() -> None:
         target_energy_injection=None if args.no_forcing else args.p_target,
         min_forcing_power=args.min_forcing_power,
         max_forcing_rescale=None if args.max_forcing_rescale == 0.0 else args.max_forcing_rescale,
+        mach_control=False if args.no_forcing else args.mach_control,
+        mach_control_target=args.mach_control_target,
+        mach_control_memory=args.mach_control_memory,
+        mach_control_exponent=args.mach_control_exponent,
+        mach_control_min_power=(
+            None if args.mach_control_min_power == 0.0 else args.mach_control_min_power
+        ),
+        mach_control_max_power=(
+            None if args.mach_control_max_power == 0.0 else args.mach_control_max_power
+        ),
         forcing_seed=args.seed,
         hyperviscosity_mn=args.mn,
+        large_scale_drag=args.large_scale_drag,
+        large_scale_drag_kmax=args.drag_kmax,
+        cooling_time=None if args.cooling_time <= 0.0 else args.cooling_time,
+        cooling_target_pressure=args.cooling_target_pressure,
         diagnostics_every=args.diagnostics_every,
         snapshot_every=args.snapshot_every,
         output_dir=args.output_dir,

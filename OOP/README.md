@@ -34,4 +34,11 @@ config = HIT2DConfig.isotropic_128(backend="numpy")
 run_simulation(config)
 ```
 
+The `isotropic_128()` preset uses:
+
+- initial velocity modes in `3 <= |k| <= 5`, avoiding direct initialization of box-scale `k = 1, 2` modes;
+- stochastic solenoidal forcing in the same annular shell;
+- low-wavenumber drag for `|k| <= 2` to remove inverse-cascade condensate energy;
+- homogeneous pressure-relaxation cooling for long compressible forced runs.
+
 For normal use, prefer the scripts in `../2D/`.

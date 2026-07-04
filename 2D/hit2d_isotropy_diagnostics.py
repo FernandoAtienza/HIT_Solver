@@ -52,6 +52,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--start-time", type=float, default=None)
     parser.add_argument("--end-time", type=float, default=None)
     parser.add_argument(
+        "--start-turnover",
+        type=float,
+        default=None,
+        help="First cumulative eddy-turnover time included in the averaging interval.",
+    )
+    parser.add_argument(
+        "--end-turnover",
+        type=float,
+        default=None,
+        help="Last cumulative eddy-turnover time included in the averaging interval.",
+    )
+    parser.add_argument(
+        "--turnover-length",
+        type=float,
+        default=None,
+        help="Reference length for turnover time. Defaults to 2*pi/k_shell_center.",
+    )
+    parser.add_argument(
         "--start-snapshot",
         type=int,
         default=None,
@@ -80,6 +98,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--no-plots", action="store_true")
     parser.add_argument("--no-spectra", action="store_true")
+    parser.add_argument(
+        "--history-x-axis",
+        choices=("turnover", "time"),
+        default="turnover",
+        help="X-axis for stationarity and component-anisotropy history plots.",
+    )
     return parser.parse_args()
 
 
@@ -95,6 +119,9 @@ def main() -> None:
         gamma=args.gamma,
         start_time=args.start_time,
         end_time=args.end_time,
+        start_turnover=args.start_turnover,
+        end_turnover=args.end_turnover,
+        turnover_length=args.turnover_length,
         start_snapshot=args.start_snapshot,
         end_snapshot=args.end_snapshot,
         stride=args.stride,
@@ -109,8 +136,11 @@ def main() -> None:
         "selected interval: "
         f"t=[{results.selected_time_interval[0]:.6g}, "
         f"{results.selected_time_interval[1]:.6g}], "
+        f"Neddy=[{results.selected_turnover_interval[0]:.6g}, "
+        f"{results.selected_turnover_interval[1]:.6g}], "
         f"snapshots={results.number_of_snapshots}"
     )
+    print(f"turnover reference length: L_ref={results.turnover_length:.6e}")
     print(
         "isotropy mismatch: "
         f"E_LL={results.E_LL:.6e} "
@@ -129,7 +159,8 @@ def main() -> None:
 
     if not args.no_plots:
         for path in diagnostics.plot_all(
-            filename_suffix=run_id_from_snapshot_dir(run_dir)
+            filename_suffix=run_id_from_snapshot_dir(run_dir),
+            x_axis=args.history_x_axis,
         ):
             print(f"saved isotropy plot: {path}")
 
@@ -137,8 +168,8 @@ def main() -> None:
         spectra = HIT2DSpectra(
             run_dir=run_dir,
             fluctuation_type=args.fluctuation_type,
-            start_time=args.start_time,
-            end_time=args.end_time,
+            start_time=results.selected_time_interval[0],
+            end_time=results.selected_time_interval[1],
             stride=args.stride,
             output_dir=args.plot_dir or run_dir / "postprocess",
         )

@@ -119,6 +119,7 @@ class IsotropicShellOUForcing2D:
         return fx, fy, {
             "alpha": float(self._alpha),
             "alpha_target": float(alpha_target),
+            "target_power": float("nan") if self.target_power is None else float(self.target_power),
             "power_before_rescale": power_before,
             "injected_power": injected_power,
             "Fxx": fxx,

@@ -14,6 +14,7 @@ if __package__ is None or __package__ == "":
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from OOP.hit2d import HIT2DConfig, run_simulation
+from OOP.postprocess.turnover import cumulative_turnover, infer_turnover_length
 
 
 DEFAULT_SNAPSHOT_DIR = Path(__file__).resolve().parent / "hit2d_snapshots"
@@ -264,7 +265,11 @@ def _snapshot_cell_area(x: np.ndarray, y: np.ndarray) -> float:
     return dx * dy
 
 
-def compute_hit2d_history(snapshot_dir: Path, gamma: float = 1.4) -> dict[str, np.ndarray]:
+def compute_hit2d_history(
+    snapshot_dir: Path,
+    gamma: float = 1.4,
+    turnover_length: float | None = None,
+) -> dict[str, np.ndarray]:
     """Compute scalar time histories from all snapshots in one HIT run folder."""
 
     snapshots = find_snapshots(snapshot_dir)
@@ -276,6 +281,7 @@ def compute_hit2d_history(snapshot_dir: Path, gamma: float = 1.4) -> dict[str, n
         "vorticity_rms": [],
         "mean_pressure": [],
         "mass_error": [],
+        "u_rms": [],
     }
     initial_mass: float | None = None
 
@@ -300,25 +306,44 @@ def compute_hit2d_history(snapshot_dir: Path, gamma: float = 1.4) -> dict[str, n
 
         history["time"].append(time)
         history["kinetic_energy"].append(float(0.5 * np.mean(rho * speed_sq)))
-        history["turbulent_mach"].append(float(np.sqrt(np.mean(speed_sq)) / np.mean(sound_speed)))
+        u_rms = float(np.sqrt(np.mean(speed_sq)))
+        history["u_rms"].append(u_rms)
+        history["turbulent_mach"].append(float(u_rms / np.mean(sound_speed)))
         history["divergence_rms"].append(float(np.sqrt(np.mean(divergence**2))))
         history["vorticity_rms"].append(float(np.sqrt(np.mean(vorticity**2))))
         history["mean_pressure"].append(float(np.mean(pressure)))
         history["mass_error"].append(float(mass - initial_mass))
 
-    return {name: np.asarray(values) for name, values in history.items()}
+    arrays = {name: np.asarray(values) for name, values in history.items()}
+    length_ref = infer_turnover_length(snapshot_dir) if turnover_length is None else turnover_length
+    arrays["turnover"] = cumulative_turnover(arrays["time"], arrays["u_rms"], length_ref)
+    arrays["turnover_length"] = np.asarray(length_ref)
+    return arrays
 
 
 def plot_hit2d_history(
     snapshot_dir: Path,
     output_path: Path,
     gamma: float = 1.4,
+    x_axis: str = "turnover",
+    turnover_length: float | None = None,
     show: bool = False,
 ) -> Path:
     """Plot the main scalar HIT diagnostics as time histories."""
 
-    history = compute_hit2d_history(snapshot_dir, gamma=gamma)
-    time = history["time"]
+    history = compute_hit2d_history(
+        snapshot_dir,
+        gamma=gamma,
+        turnover_length=turnover_length,
+    )
+    if x_axis == "turnover":
+        x_values = history["turnover"]
+        x_label = r"$N_{eddy}=\int u_{rms}/L_{ref}\,dt$"
+    elif x_axis == "time":
+        x_values = history["time"]
+        x_label = "t"
+    else:
+        raise ValueError("x_axis must be 'turnover' or 'time'")
     panels = [
         ("kinetic_energy", "Kinetic energy", "K"),
         ("turbulent_mach", "Turbulent Mach", "Mt"),
@@ -332,9 +357,9 @@ def plot_hit2d_history(
     fig.suptitle("2D Forced Compressible HIT time histories", fontsize=13)
 
     for ax, (name, title, ylabel) in zip(axes.ravel(), panels):
-        ax.plot(time, history[name], linewidth=1.8)
+        ax.plot(x_values, history[name], linewidth=1.8)
         ax.set_title(title)
-        ax.set_xlabel("t")
+        ax.set_xlabel(x_label)
         ax.set_ylabel(ylabel)
         ax.grid(True, alpha=0.3)
 
@@ -786,6 +811,18 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="PNG output path for K, Mt, divergence, vorticity, pressure, and mass histories. Defaults to <run-dir>/postprocess.",
     )
+    parser.add_argument(
+        "--history-x-axis",
+        choices=("turnover", "time"),
+        default="turnover",
+        help="X-axis for scalar history plots.",
+    )
+    parser.add_argument(
+        "--turnover-length",
+        type=float,
+        default=None,
+        help="Reference length for turnover time. Defaults to 2*pi/k_shell_center.",
+    )
     parser.add_argument("--show", action="store_true", help="Open an interactive Matplotlib window.")
     parser.add_argument("--animate", action="store_true", help="Animate all snapshots instead of plotting one.")
     parser.add_argument(
@@ -837,6 +874,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cfl", type=float, default=0.05)
     parser.add_argument("--gamma", type=float, default=1.4)
     parser.add_argument("--mach", type=float, default=0.1)
+    parser.add_argument("--initial-kmin", type=int, default=1)
+    parser.add_argument("--initial-kmax", type=int, default=3)
     parser.add_argument("--viscosity", type=float, default=1.0e-3)
     parser.add_argument(
         "--kf",
@@ -858,7 +897,66 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--min-forcing-power", type=float, default=1.0e-6)
     parser.add_argument("--max-forcing-rescale", type=float, default=20.0)
+    parser.add_argument(
+        "--mach-control",
+        action="store_true",
+        help="Slowly adapt --p-target so the turbulent Mach number stays near the requested target.",
+    )
+    parser.add_argument(
+        "--mach-control-target",
+        type=float,
+        default=None,
+        help="Target turbulent Mach for feedback control. Defaults to --mach.",
+    )
+    parser.add_argument(
+        "--mach-control-memory",
+        type=float,
+        default=0.995,
+        help="Memory for the adaptive power target. Larger values change the power more slowly.",
+    )
+    parser.add_argument(
+        "--mach-control-exponent",
+        type=float,
+        default=2.0,
+        help="Exponent in the power correction (Mt_target/Mt)^exponent.",
+    )
+    parser.add_argument(
+        "--mach-control-min-power",
+        type=float,
+        default=0.0,
+        help="Lower bound for adaptive target power. Use 0 for no explicit lower bound.",
+    )
+    parser.add_argument(
+        "--mach-control-max-power",
+        type=float,
+        default=0.0,
+        help="Upper bound for adaptive target power. Use 0 for no explicit upper bound.",
+    )
     parser.add_argument("--mn", type=float, default=0.002)
+    parser.add_argument(
+        "--large-scale-drag",
+        type=float,
+        default=0.0,
+        help="Linear spectral drag coefficient applied only to low-k momentum modes.",
+    )
+    parser.add_argument(
+        "--drag-kmax",
+        type=float,
+        default=2.0,
+        help="Largest wavenumber damped by --large-scale-drag.",
+    )
+    parser.add_argument(
+        "--cooling-time",
+        type=float,
+        default=0.0,
+        help="Mean-pressure relaxation time. Use 0 to disable homogeneous cooling.",
+    )
+    parser.add_argument(
+        "--cooling-target-pressure",
+        type=float,
+        default=None,
+        help="Target mean pressure for homogeneous cooling. Defaults to 1/gamma.",
+    )
     parser.add_argument("--diagnostics-every", type=int, default=25)
     parser.add_argument("--snapshot-every", type=int, default=100)
     parser.add_argument(
@@ -887,6 +985,8 @@ def main() -> None:
             cfl=args.cfl,
             gamma=args.gamma,
             target_mach=args.mach,
+            initial_kmin=args.initial_kmin,
+            initial_kmax=args.initial_kmax,
             viscosity=args.viscosity,
             forcing_kmin=args.kf_min,
             forcing_kmax=args.kf if args.kf_max is None else args.kf_max,
@@ -895,8 +995,22 @@ def main() -> None:
             target_energy_injection=args.p_target,
             min_forcing_power=args.min_forcing_power,
             max_forcing_rescale=None if args.max_forcing_rescale == 0.0 else args.max_forcing_rescale,
+            mach_control=args.mach_control,
+            mach_control_target=args.mach_control_target,
+            mach_control_memory=args.mach_control_memory,
+            mach_control_exponent=args.mach_control_exponent,
+            mach_control_min_power=(
+                None if args.mach_control_min_power == 0.0 else args.mach_control_min_power
+            ),
+            mach_control_max_power=(
+                None if args.mach_control_max_power == 0.0 else args.mach_control_max_power
+            ),
             forcing_seed=args.seed,
             hyperviscosity_mn=args.mn,
+            large_scale_drag=args.large_scale_drag,
+            large_scale_drag_kmax=args.drag_kmax,
+            cooling_time=None if args.cooling_time <= 0.0 else args.cooling_time,
+            cooling_target_pressure=args.cooling_target_pressure,
             diagnostics_every=args.diagnostics_every,
             snapshot_every=args.snapshot_every,
             output_dir=snapshot_dir,
@@ -990,6 +1104,8 @@ def main() -> None:
             diagnostic_dir,
             history_output,
             gamma=args.gamma,
+            x_axis=args.history_x_axis,
+            turnover_length=args.turnover_length,
             show=args.show and not args.animate,
         )
 

@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from OOP.postprocess.two_point_correlation import TwoPointCorrelation2D
+from OOP.postprocess.turnover import cumulative_turnover, infer_turnover_length
 
 
 @dataclass
@@ -15,6 +16,7 @@ class IsotropyResults2D:
     """Time histories and directional correlations for a saved HIT2D run."""
 
     time: np.ndarray
+    turnover: np.ndarray
     selected_mask: np.ndarray
     K: np.ndarray
     Mt: np.ndarray
@@ -37,6 +39,8 @@ class IsotropyResults2D:
     E_NN_normalized: float
     fluctuation_type: str
     selected_time_interval: tuple[float, float]
+    selected_turnover_interval: tuple[float, float]
+    turnover_length: float
     number_of_snapshots: int
     nx: int
     ny: int
@@ -60,6 +64,9 @@ class IsotropyDiagnostics2D:
         gamma: float = 1.4,
         start_time: float | None = None,
         end_time: float | None = None,
+        start_turnover: float | None = None,
+        end_turnover: float | None = None,
+        turnover_length: float | None = None,
         start_snapshot: int | None = None,
         end_snapshot: int | None = None,
         stride: int = 1,
@@ -78,6 +85,9 @@ class IsotropyDiagnostics2D:
         self.gamma = gamma
         self.start_time = start_time
         self.end_time = end_time
+        self.start_turnover = start_turnover
+        self.end_turnover = end_turnover
+        self.turnover_length = turnover_length
         self.start_snapshot = start_snapshot
         self.end_snapshot = end_snapshot
         self.stride = stride
@@ -96,16 +106,6 @@ class IsotropyDiagnostics2D:
 
         snapshots = [self._load_snapshot(path) for path in self.snapshot_paths]
         time = np.asarray([snapshot["time"] for snapshot in snapshots], dtype=float)
-        selected_mask = self._selection_mask(time)
-        selected_indices = np.flatnonzero(selected_mask)[:: self.stride]
-        if selected_indices.size == 0:
-            raise ValueError("The selected statistically stationary interval contains no snapshots")
-        if selected_indices.size < 5:
-            warnings.warn(
-                f"Only {selected_indices.size} snapshots selected; isotropy statistics may be noisy",
-                RuntimeWarning,
-            )
-
         first = snapshots[0]
         x = first["x"]
         y = first["y"]
@@ -123,6 +123,7 @@ class IsotropyDiagnostics2D:
         Ky = np.empty(time.size)
         A_K = np.empty(time.size)
         C_uv = np.empty(time.size)
+        u_rms = np.empty(time.size)
 
         correlation_samples = {
             "Ruu_x": [],
@@ -149,23 +150,43 @@ class IsotropyDiagnostics2D:
             A_K[index] = abs(uu - vv) / denominator if denominator > 0.0 else 0.0
             covariance_scale = np.sqrt(max(uu * vv, 0.0))
             C_uv[index] = uv / covariance_scale if covariance_scale > 0.0 else 0.0
+            u_rms[index] = float(np.sqrt(np.mean(u_fluct**2 + v_fluct**2)))
 
             sound_speed = np.sqrt(
                 np.maximum(self.gamma * pressure / rho, np.finfo(float).tiny)
             )
-            Mt[index] = float(
-                np.sqrt(np.mean(u_fluct**2 + v_fluct**2)) / np.mean(sound_speed)
+            Mt[index] = float(u_rms[index] / np.mean(sound_speed))
+
+        length_ref = (
+            infer_turnover_length(self.run_dir)
+            if self.turnover_length is None
+            else float(self.turnover_length)
+        )
+        turnover = cumulative_turnover(time, u_rms, length_ref)
+        selected_mask = self._selection_mask(time, turnover)
+        selected_indices = np.flatnonzero(selected_mask)[:: self.stride]
+        if selected_indices.size == 0:
+            raise ValueError("The selected statistically stationary interval contains no snapshots")
+        if selected_indices.size < 5:
+            warnings.warn(
+                f"Only {selected_indices.size} snapshots selected; isotropy statistics may be noisy",
+                RuntimeWarning,
             )
 
-            if selected_mask[index] and index in selected_indices:
-                Ruu = TwoPointCorrelation2D.autocorrelation(u_fluct, normalize=True)
-                Rvv = TwoPointCorrelation2D.autocorrelation(v_fluct, normalize=True)
-                rx = dx * np.arange(nx // 2 + 1)
-                ry = dy * np.arange(ny // 2 + 1)
-                correlation_samples["Ruu_x"].append(np.interp(r, rx, Ruu[0, : rx.size]))
-                correlation_samples["Rvv_y"].append(np.interp(r, ry, Rvv[: ry.size, 0]))
-                correlation_samples["Rvv_x"].append(np.interp(r, rx, Rvv[0, : rx.size]))
-                correlation_samples["Ruu_y"].append(np.interp(r, ry, Ruu[: ry.size, 0]))
+        for index in selected_indices:
+            snapshot = snapshots[index]
+            rho = snapshot["rho"]
+            u = snapshot["u"]
+            v = snapshot["v"]
+            u_fluct, v_fluct = self._velocity_fluctuations(rho, u, v)
+            Ruu = TwoPointCorrelation2D.autocorrelation(u_fluct, normalize=True)
+            Rvv = TwoPointCorrelation2D.autocorrelation(v_fluct, normalize=True)
+            rx = dx * np.arange(nx // 2 + 1)
+            ry = dy * np.arange(ny // 2 + 1)
+            correlation_samples["Ruu_x"].append(np.interp(r, rx, Ruu[0, : rx.size]))
+            correlation_samples["Rvv_y"].append(np.interp(r, ry, Rvv[: ry.size, 0]))
+            correlation_samples["Rvv_x"].append(np.interp(r, rx, Rvv[0, : rx.size]))
+            correlation_samples["Ruu_y"].append(np.interp(r, ry, Ruu[: ry.size, 0]))
 
         stacks = {name: np.stack(values) for name, values in correlation_samples.items()}
         means = {name: np.mean(values, axis=0) for name, values in stacks.items()}
@@ -180,8 +201,10 @@ class IsotropyDiagnostics2D:
         )
 
         selected_times = time[selected_indices]
+        selected_turnovers = turnover[selected_indices]
         results = IsotropyResults2D(
             time=time,
+            turnover=turnover,
             selected_mask=selected_mask,
             K=K,
             Mt=Mt,
@@ -204,6 +227,11 @@ class IsotropyDiagnostics2D:
             E_NN_normalized=E_NN_normalized,
             fluctuation_type=self.fluctuation_type,
             selected_time_interval=(float(selected_times[0]), float(selected_times[-1])),
+            selected_turnover_interval=(
+                float(selected_turnovers[0]),
+                float(selected_turnovers[-1]),
+            ),
+            turnover_length=length_ref,
             number_of_snapshots=int(selected_indices.size),
             nx=nx,
             ny=ny,
@@ -223,6 +251,7 @@ class IsotropyDiagnostics2D:
         np.savez_compressed(
             output_path,
             time=result.time,
+            turnover=result.turnover,
             selected_mask=result.selected_mask,
             K=result.K,
             Mt=result.Mt,
@@ -245,6 +274,8 @@ class IsotropyDiagnostics2D:
             E_NN_normalized=np.asarray(result.E_NN_normalized),
             fluctuation_type=np.asarray(result.fluctuation_type),
             selected_time_interval=np.asarray(result.selected_time_interval),
+            selected_turnover_interval=np.asarray(result.selected_turnover_interval),
+            turnover_length=np.asarray(result.turnover_length),
             number_of_snapshots=np.asarray(result.number_of_snapshots),
             Nx=np.asarray(result.nx),
             Ny=np.asarray(result.ny),
@@ -253,11 +284,16 @@ class IsotropyDiagnostics2D:
         )
         return output_path
 
-    def plot_stationarity(self, output_path: str | Path | None = None) -> Path:
-        """Plot the complete K(t) and Mt(t) histories."""
+    def plot_stationarity(
+        self,
+        output_path: str | Path | None = None,
+        x_axis: str = "turnover",
+    ) -> Path:
+        """Plot the complete K and Mt histories."""
 
         result = self._require_results()
         output_path = self._output_path(output_path, "stationarity_K_Mt.png")
+        x_values, x_label = self._history_axis(result, x_axis)
         fig, axes = plt.subplots(2, 1, figsize=(8.2, 7.0), sharex=True, constrained_layout=True)
 
         panels = [
@@ -265,11 +301,11 @@ class IsotropyDiagnostics2D:
             (result.Mt, "Turbulent Mach number", "Mt"),
         ]
         for ax, (values, title, ylabel) in zip(axes, panels):
-            ax.plot(result.time, values, linewidth=1.6)
+            ax.plot(x_values, values, linewidth=1.6)
             ax.set_title(title)
             ax.set_ylabel(ylabel)
             ax.grid(True, alpha=0.3)
-        axes[-1].set_xlabel("t")
+        axes[-1].set_xlabel(x_label)
         fig.savefig(output_path, dpi=200, bbox_inches="tight")
         plt.close(fig)
         return output_path
@@ -311,23 +347,28 @@ class IsotropyDiagnostics2D:
         plt.close(fig)
         return output_path
 
-    def plot_component_anisotropy(self, output_path: str | Path | None = None) -> Path:
+    def plot_component_anisotropy(
+        self,
+        output_path: str | Path | None = None,
+        x_axis: str = "turnover",
+    ) -> Path:
         """Plot component energies, anisotropy index, and cross covariance."""
 
         result = self._require_results()
         output_path = self._output_path(output_path, "component_energy_anisotropy.png")
+        x_values, x_label = self._history_axis(result, x_axis)
         fig, axes = plt.subplots(2, 1, figsize=(8.2, 7.0), sharex=True, constrained_layout=True)
 
-        axes[0].plot(result.time, result.Kx, label="Kx", linewidth=1.5)
-        axes[0].plot(result.time, result.Ky, label="Ky", linewidth=1.5)
+        axes[0].plot(x_values, result.Kx, label="Kx", linewidth=1.5)
+        axes[0].plot(x_values, result.Ky, label="Ky", linewidth=1.5)
         axes[0].set_ylabel("component energy")
         axes[0].set_title("Velocity-component turbulent energy")
         axes[0].legend()
 
-        axes[1].plot(result.time, result.A_K, label="A_K", linewidth=1.5)
-        axes[1].plot(result.time, result.C_uv, label="C_uv", linewidth=1.3)
+        axes[1].plot(x_values, result.A_K, label="A_K", linewidth=1.5)
+        axes[1].plot(x_values, result.C_uv, label="C_uv", linewidth=1.3)
         axes[1].axhline(0.0, color="black", linewidth=0.8)
-        axes[1].set_xlabel("t")
+        axes[1].set_xlabel(x_label)
         axes[1].set_ylabel("anisotropy measure")
         axes[1].set_title("Component-energy anisotropy and covariance")
         axes[1].legend()
@@ -338,25 +379,31 @@ class IsotropyDiagnostics2D:
         plt.close(fig)
         return output_path
 
-    def plot_all(self, filename_suffix: str | None = None) -> list[Path]:
+    def plot_all(self, filename_suffix: str | None = None, x_axis: str = "turnover") -> list[Path]:
         suffix = f"_{filename_suffix}" if filename_suffix else ""
         return [
-            self.plot_stationarity(self.output_dir / f"stationarity_K_Mt{suffix}.png"),
+            self.plot_stationarity(
+                self.output_dir / f"stationarity_K_Mt{suffix}.png",
+                x_axis=x_axis,
+            ),
             self.plot_directional_correlations(
                 self.output_dir / f"directional_isotropy_correlations{suffix}.png"
             ),
             self.plot_component_anisotropy(
-                self.output_dir / f"component_energy_anisotropy{suffix}.png"
+                self.output_dir / f"component_energy_anisotropy{suffix}.png",
+                x_axis=x_axis,
             ),
         ]
 
-    def _selection_mask(self, time: np.ndarray) -> np.ndarray:
+    def _selection_mask(self, time: np.ndarray, turnover: np.ndarray) -> np.ndarray:
         mask = np.ones(time.size, dtype=bool)
         interval_supplied = any(
             value is not None
             for value in (
                 self.start_time,
                 self.end_time,
+                self.start_turnover,
+                self.end_turnover,
                 self.start_snapshot,
                 self.end_snapshot,
             )
@@ -370,6 +417,10 @@ class IsotropyDiagnostics2D:
             mask &= time >= self.start_time
         if self.end_time is not None:
             mask &= time <= self.end_time
+        if self.start_turnover is not None:
+            mask &= turnover >= self.start_turnover
+        if self.end_turnover is not None:
+            mask &= turnover <= self.end_turnover
         index_mask = np.zeros(time.size, dtype=bool)
         start = 0 if self.start_snapshot is None else self.start_snapshot
         stop = time.size if self.end_snapshot is None else self.end_snapshot
@@ -377,6 +428,15 @@ class IsotropyDiagnostics2D:
         if self.start_snapshot is not None or self.end_snapshot is not None:
             mask &= index_mask
         return mask
+
+    @staticmethod
+    def _history_axis(result: IsotropyResults2D, x_axis: str) -> tuple[np.ndarray, str]:
+        axis = x_axis.lower()
+        if axis in {"turnover", "eddy", "eddy-turnover"}:
+            return result.turnover, r"$N_{eddy}=\int u_{rms}/L_{ref}\,dt$"
+        if axis in {"time", "t"}:
+            return result.time, "t"
+        raise ValueError("x_axis must be 'turnover' or 'time'")
 
     def _velocity_fluctuations(
         self, rho: np.ndarray, u: np.ndarray, v: np.ndarray
