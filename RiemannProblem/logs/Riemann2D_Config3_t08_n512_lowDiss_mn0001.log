@@ -1,0 +1,88 @@
+Hybrid 2D Euler Config 3: nx=512, ny=512, dt=2.23414e-05, steps=35808, tfinal=0.8
+Local hyperviscosity enabled: mn=0.001, interval=1
+step=   500, time=0.011171
+step=  1000, time=0.022341
+step=  1500, time=0.033512
+step=  2000, time=0.044683
+step=  2500, time=0.055853
+step=  3000, time=0.067024
+step=  3500, time=0.078195
+step=  4000, time=0.089366
+step=  4500, time=0.100536
+step=  5000, time=0.111707
+step=  5500, time=0.122878
+step=  6000, time=0.134048
+step=  6500, time=0.145219
+step=  7000, time=0.156390
+step=  7500, time=0.167560
+step=  8000, time=0.178731
+step=  8500, time=0.189902
+step=  9000, time=0.201072
+step=  9500, time=0.212243
+step= 10000, time=0.223414
+step= 10500, time=0.234584
+step= 11000, time=0.245755
+step= 11500, time=0.256926
+step= 12000, time=0.268097
+step= 12500, time=0.279267
+step= 13000, time=0.290438
+step= 13500, time=0.301609
+step= 14000, time=0.312779
+step= 14500, time=0.323950
+step= 15000, time=0.335121
+step= 15500, time=0.346291
+step= 16000, time=0.357462
+step= 16500, time=0.368633
+step= 17000, time=0.379803
+step= 17500, time=0.390974
+step= 18000, time=0.402145
+step= 18500, time=0.413315
+step= 19000, time=0.424486
+step= 19500, time=0.435657
+step= 20000, time=0.446828
+step= 20500, time=0.457998
+step= 21000, time=0.469169
+step= 21500, time=0.480340
+step= 22000, time=0.491510
+step= 22500, time=0.502681
+step= 23000, time=0.513852
+step= 23500, time=0.525022
+step= 24000, time=0.536193
+step= 24500, time=0.547364
+step= 25000, time=0.558534
+step= 25500, time=0.569705
+step= 26000, time=0.580876
+step= 26500, time=0.592046
+step= 27000, time=0.603217
+step= 27500, time=0.614388
+step= 28000, time=0.625559
+step= 28500, time=0.636729
+step= 29000, time=0.647900
+step= 29500, time=0.659071
+step= 30000, time=0.670241
+step= 30500, time=0.681412
+step= 31000, time=0.692583
+step= 31500, time=0.703753
+step= 32000, time=0.714924
+step= 32500, time=0.726095
+step= 33000, time=0.737265
+step= 33500, time=0.748436
+step= 34000, time=0.759607
+step= 34500, time=0.770777
+step= 35000, time=0.781948
+step= 35500, time=0.793119
+step= 35808, time=0.800000
+Completed hybrid Configuration 3 at t=0.800000 in 35808 steps.
+Diagnostic summary:
+  density min/max       : 2.90612619e-01 / 1.96370791e+00
+  pressure min/max      : 1.62903248e-01 / 2.22771277e+00
+  max |vorticity|       : 1.34601096e+02
+  NaN/Inf present       : False
+  density positive      : True
+  pressure positive     : True
+  final sensor fraction : 0.117836
+  hyperviscosity applied: True (35808 applications)
+Saved figure to results/Riemann2D_Config3_t08_n512_lowDiss_mn0001.png
+Saved contour figure to results/Riemann2D_Config3_t08_n512_lowDiss_mn0001_contours.png
+Saved schlieren figure to results/Riemann2D_Config3_t08_n512_lowDiss_mn0001_schlieren.png
+Saved zoom figure to results/Riemann2D_Config3_t08_n512_lowDiss_mn0001_zoom.png

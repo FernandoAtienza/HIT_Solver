@@ -14,7 +14,12 @@ if __package__ is None or __package__ == "":
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from OOP.hit2d import HIT2DConfig, run_simulation
-from OOP.postprocess.turnover import cumulative_turnover, infer_turnover_length
+from OOP.postprocess.turnover import (
+    cumulative_turnover,
+    infer_turnover_length,
+    resolve_turnover_window,
+    turnover_for_snapshots,
+)
 
 
 DEFAULT_SNAPSHOT_DIR = Path(__file__).resolve().parent / "hit2d_snapshots"
@@ -265,6 +270,43 @@ def _snapshot_cell_area(x: np.ndarray, y: np.ndarray) -> float:
     return dx * dy
 
 
+def _helmholtz_velocity_energies(
+    u: np.ndarray,
+    v: np.ndarray,
+    x: np.ndarray,
+    y: np.ndarray,
+) -> tuple[float, float, float]:
+    """Decompose velocity fluctuations into solenoidal and dilatational parts."""
+
+    dx = float(x[1] - x[0]) if x.size > 1 else 1.0
+    dy = float(y[1] - y[0]) if y.size > 1 else 1.0
+    kx_1d = 2.0 * np.pi * np.fft.fftfreq(x.size, d=dx)
+    ky_1d = 2.0 * np.pi * np.fft.fftfreq(y.size, d=dy)
+    kx, ky = np.meshgrid(kx_1d, ky_1d, indexing="xy")
+    k2 = kx**2 + ky**2
+    nonzero = k2 > 0.0
+    k2_safe = np.where(nonzero, k2, 1.0)
+
+    u_hat = np.fft.fft2(u - np.mean(u))
+    v_hat = np.fft.fft2(v - np.mean(v))
+    k_dot_u = kx * u_hat + ky * v_hat
+    u_d_hat = np.where(nonzero, kx * k_dot_u / k2_safe, 0.0)
+    v_d_hat = np.where(nonzero, ky * k_dot_u / k2_safe, 0.0)
+    u_s_hat = u_hat - u_d_hat
+    v_s_hat = v_hat - v_d_hat
+
+    normalization = float((x.size * y.size) ** 2)
+    k_sol = 0.5 * float(
+        np.sum(np.abs(u_s_hat) ** 2 + np.abs(v_s_hat) ** 2) / normalization
+    )
+    k_dil = 0.5 * float(
+        np.sum(np.abs(u_d_hat) ** 2 + np.abs(v_d_hat) ** 2) / normalization
+    )
+    total = k_sol + k_dil
+    chi = k_dil / total if total > np.finfo(float).eps else 0.0
+    return k_sol, k_dil, chi
+
+
 def compute_hit2d_history(
     snapshot_dir: Path,
     gamma: float = 1.4,
@@ -282,6 +324,9 @@ def compute_hit2d_history(
         "mean_pressure": [],
         "mass_error": [],
         "u_rms": [],
+        "solenoidal_velocity_energy": [],
+        "dilatational_velocity_energy": [],
+        "velocity_dilatational_fraction": [],
     }
     initial_mass: float | None = None
 
@@ -313,11 +358,30 @@ def compute_hit2d_history(
         history["vorticity_rms"].append(float(np.sqrt(np.mean(vorticity**2))))
         history["mean_pressure"].append(float(np.mean(pressure)))
         history["mass_error"].append(float(mass - initial_mass))
+        k_sol, k_dil, chi_dil = _helmholtz_velocity_energies(u, v, x, y)
+        history["solenoidal_velocity_energy"].append(k_sol)
+        history["dilatational_velocity_energy"].append(k_dil)
+        history["velocity_dilatational_fraction"].append(chi_dil)
 
     arrays = {name: np.asarray(values) for name, values in history.items()}
     length_ref = infer_turnover_length(snapshot_dir) if turnover_length is None else turnover_length
-    arrays["turnover"] = cumulative_turnover(arrays["time"], arrays["u_rms"], length_ref)
+    try:
+        _time, turnover, length_ref = turnover_for_snapshots(
+            snapshot_dir,
+            snapshots,
+            length_ref=length_ref,
+        )
+    except (FileNotFoundError, KeyError, ValueError):
+        turnover = cumulative_turnover(arrays["time"], arrays["u_rms"], length_ref)
+    arrays["turnover"] = turnover
     arrays["turnover_length"] = np.asarray(length_ref)
+    start_turnover, end_turnover = resolve_turnover_window(snapshot_dir)
+    arrays["analysis_start_turnover"] = np.asarray(
+        np.nan if start_turnover is None else start_turnover
+    )
+    arrays["analysis_end_turnover"] = np.asarray(
+        np.nan if end_turnover is None else end_turnover
+    )
     return arrays
 
 
@@ -327,6 +391,8 @@ def plot_hit2d_history(
     gamma: float = 1.4,
     x_axis: str = "turnover",
     turnover_length: float | None = None,
+    start_turnover: float | None = None,
+    end_turnover: float | None = None,
     show: bool = False,
 ) -> Path:
     """Plot the main scalar HIT diagnostics as time histories."""
@@ -335,6 +401,9 @@ def plot_hit2d_history(
         snapshot_dir,
         gamma=gamma,
         turnover_length=turnover_length,
+    )
+    start_turnover, end_turnover = resolve_turnover_window(
+        snapshot_dir, start_turnover, end_turnover
     )
     if x_axis == "turnover":
         x_values = history["turnover"]
@@ -358,6 +427,13 @@ def plot_hit2d_history(
 
     for ax, (name, title, ylabel) in zip(axes.ravel(), panels):
         ax.plot(x_values, history[name], linewidth=1.8)
+        if start_turnover is not None and end_turnover is not None:
+            if x_axis == "turnover":
+                span_start, span_end = start_turnover, end_turnover
+            else:
+                span_start = float(np.interp(start_turnover, history["turnover"], history["time"]))
+                span_end = float(np.interp(end_turnover, history["turnover"], history["time"]))
+            ax.axvspan(span_start, span_end, alpha=0.08, label="statistics window")
         ax.set_title(title)
         ax.set_xlabel(x_label)
         ax.set_ylabel(ylabel)
@@ -372,6 +448,80 @@ def plot_hit2d_history(
         print(f"could not write to {output_path}; saved in snapshot directory instead")
         output_path = fallback_path
     print(f"saved HIT history plot: {output_path}")
+    if show:
+        plt.show(block=True)
+    else:
+        plt.close(fig)
+    return output_path
+
+
+def plot_hit2d_helmholtz_history(
+    snapshot_dir: Path,
+    output_path: Path,
+    gamma: float = 1.4,
+    x_axis: str = "turnover",
+    turnover_length: float | None = None,
+    start_turnover: float | None = None,
+    end_turnover: float | None = None,
+    show: bool = False,
+) -> Path:
+    """Plot the solenoidal/dilatational velocity-energy partition."""
+
+    history = compute_hit2d_history(
+        snapshot_dir,
+        gamma=gamma,
+        turnover_length=turnover_length,
+    )
+    start_turnover, end_turnover = resolve_turnover_window(
+        snapshot_dir, start_turnover, end_turnover
+    )
+    if x_axis == "turnover":
+        x_values = history["turnover"]
+        x_label = r"$N_{eddy}=\int u_{rms}/L_{ref}\,dt$"
+    elif x_axis == "time":
+        x_values = history["time"]
+        x_label = "t"
+    else:
+        raise ValueError("x_axis must be 'turnover' or 'time'")
+
+    fig, axes = plt.subplots(2, 1, figsize=(9.0, 7.5), constrained_layout=True)
+    fig.suptitle("Velocity Helmholtz decomposition", fontsize=13)
+    axes[0].plot(
+        x_values, history["solenoidal_velocity_energy"], label=r"$K_s$", linewidth=1.8
+    )
+    axes[0].plot(
+        x_values, history["dilatational_velocity_energy"], label=r"$K_d$", linewidth=1.8
+    )
+    if start_turnover is not None and end_turnover is not None:
+        if x_axis == "turnover":
+            span_start, span_end = start_turnover, end_turnover
+        else:
+            span_start = float(np.interp(start_turnover, history["turnover"], history["time"]))
+            span_end = float(np.interp(end_turnover, history["turnover"], history["time"]))
+        axes[0].axvspan(span_start, span_end, alpha=0.08, label="statistics window")
+        axes[1].axvspan(span_start, span_end, alpha=0.08)
+    axes[0].set_ylabel("velocity energy")
+    axes[0].set_xlabel(x_label)
+    axes[0].legend()
+    axes[0].grid(True, alpha=0.3)
+
+    axes[1].plot(
+        x_values, history["velocity_dilatational_fraction"], linewidth=1.8
+    )
+    axes[1].set_ylabel(r"$\chi_u=K_d/(K_s+K_d)$")
+    axes[1].set_xlabel(x_label)
+    axes[1].set_ylim(-0.02, 1.02)
+    axes[1].grid(True, alpha=0.3)
+
+    try:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(output_path, bbox_inches="tight", dpi=200)
+    except PermissionError:
+        fallback_path = snapshot_dir / output_path.name
+        fig.savefig(fallback_path, bbox_inches="tight", dpi=200)
+        print(f"could not write to {output_path}; saved in snapshot directory instead")
+        output_path = fallback_path
+    print(f"saved HIT Helmholtz history plot: {output_path}")
     if show:
         plt.show(block=True)
     else:
@@ -800,6 +950,14 @@ def parse_args() -> argparse.Namespace:
         help="Save derived-field and scalar time-history diagnostic PNGs.",
     )
     parser.add_argument(
+        "--diagnostic-plots-only",
+        action="store_true",
+        help=(
+            "Save diagnostic/history plots only: disables GIF animations and "
+            "suppresses the primitive final-field PNG."
+        ),
+    )
+    parser.add_argument(
         "--physics-output",
         type=Path,
         default=None,
@@ -810,6 +968,12 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=None,
         help="PNG output path for K, Mt, divergence, vorticity, pressure, and mass histories. Defaults to <run-dir>/postprocess.",
+    )
+    parser.add_argument(
+        "--helmholtz-output",
+        type=Path,
+        default=None,
+        help="PNG output path for solenoidal/dilatational velocity-energy histories.",
     )
     parser.add_argument(
         "--history-x-axis",
@@ -870,7 +1034,35 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--nx", type=int, default=128)
     parser.add_argument("--ny", type=int, default=128)
-    parser.add_argument("--tfinal", type=float, default=1.0)
+    parser.add_argument(
+        "--tfinal",
+        type=float,
+        default=1.0,
+        help="Physical final time used only when --tot-final is omitted.",
+    )
+    parser.add_argument(
+        "--tot-final",
+        "--tot_final",
+        "--ToT-final",
+        "--ToT_final",
+        dest="tot_final",
+        type=float,
+        default=None,
+        help="Stop the HIT run at this cumulative eddy-turnover count.",
+    )
+    parser.add_argument(
+        "--tot-initial-data",
+        "--tot_initial_data",
+        "--ToT-initial-data",
+        "--ToT_initial_data",
+        dest="tot_initial_data",
+        type=float,
+        default=None,
+        help=(
+            "First turnover used for statistical post-processing. During a new "
+            "run, defaults to 0; for an existing run, defaults to saved metadata."
+        ),
+    )
     parser.add_argument("--cfl", type=float, default=0.05)
     parser.add_argument("--gamma", type=float, default=1.4)
     parser.add_argument("--mach", type=float, default=0.1)
@@ -893,6 +1085,24 @@ def parse_args() -> argparse.Namespace:
         default=1.0e-3,
     )
     parser.add_argument("--forcing-correlation-time", type=float, default=1.0)
+    parser.add_argument(
+        "--forcing-mode",
+        choices=("solenoidal", "dilatational", "mixed"),
+        default="solenoidal",
+        help=(
+            "Helmholtz component receiving large-scale forcing. "
+            "Use 'mixed' with --forcing-dilatational-fraction."
+        ),
+    )
+    parser.add_argument(
+        "--forcing-dilatational-fraction",
+        type=float,
+        default=0.5,
+        help=(
+            "Dilatational forcing-variance fraction for --forcing-mode mixed; "
+            "0 is purely solenoidal and 1 is purely dilatational."
+        ),
+    )
     parser.add_argument("--forcing-alpha-memory", type=float, default=0.2)
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--min-forcing-power", type=float, default=1.0e-6)
@@ -970,6 +1180,12 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    if args.diagnostic_plots_only:
+        args.physics_plots = True
+        args.animate = False
+        args.physics_animate = False
+        print("diagnostic-plots-only mode: GIFs and primitive final-field plot disabled")
+
     snapshot_dir = args.snapshot_dir
     run_id = run_id_from_snapshot_dir(snapshot_dir)
     if args.run:
@@ -982,6 +1198,11 @@ def main() -> None:
             nx=args.nx,
             ny=args.ny,
             tfinal=args.tfinal,
+            turnover_final=args.tot_final,
+            turnover_data_start=(
+                0.0 if args.tot_initial_data is None else args.tot_initial_data
+            ),
+            turnover_length=args.turnover_length,
             cfl=args.cfl,
             gamma=args.gamma,
             target_mach=args.mach,
@@ -992,6 +1213,8 @@ def main() -> None:
             forcing_kmax=args.kf if args.kf_max is None else args.kf_max,
             forcing_correlation_time=args.forcing_correlation_time,
             forcing_alpha_memory=args.forcing_alpha_memory,
+            forcing_mode=args.forcing_mode,
+            forcing_dilatational_fraction=args.forcing_dilatational_fraction,
             target_energy_injection=args.p_target,
             min_forcing_power=args.min_forcing_power,
             max_forcing_rescale=None if args.max_forcing_rescale == 0.0 else args.max_forcing_rescale,
@@ -1092,8 +1315,14 @@ def main() -> None:
             if diagnostic_run_id
             else "hit2d_history.png"
         )
+        helmholtz_name = (
+            f"hit2d_helmholtz_{diagnostic_run_id}.png"
+            if diagnostic_run_id
+            else "hit2d_helmholtz.png"
+        )
         physics_output = args.physics_output or (postprocess_dir / physics_name)
         history_output = args.history_output or (postprocess_dir / history_name)
+        helmholtz_output = args.helmholtz_output or (postprocess_dir / helmholtz_name)
         plot_hit2d_physics_fields(
             diagnostic_snapshot,
             physics_output,
@@ -1106,6 +1335,18 @@ def main() -> None:
             gamma=args.gamma,
             x_axis=args.history_x_axis,
             turnover_length=args.turnover_length,
+            start_turnover=args.tot_initial_data,
+            end_turnover=args.tot_final,
+            show=args.show and not args.animate,
+        )
+        plot_hit2d_helmholtz_history(
+            diagnostic_dir,
+            helmholtz_output,
+            gamma=args.gamma,
+            x_axis=args.history_x_axis,
+            turnover_length=args.turnover_length,
+            start_turnover=args.tot_initial_data,
+            end_turnover=args.tot_final,
             show=args.show and not args.animate,
         )
 

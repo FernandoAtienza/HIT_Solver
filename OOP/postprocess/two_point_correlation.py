@@ -7,6 +7,8 @@ import warnings
 import matplotlib.pyplot as plt
 import numpy as np
 
+from OOP.postprocess.turnover import resolve_turnover_window, turnover_for_snapshots
+
 
 @dataclass
 class CorrelationResults2D:
@@ -71,6 +73,7 @@ class TwoPointCorrelation2D:
         self.Ly = Ly
         self.output_dir = Path(output_dir) if output_dir is not None else self.run_dir
         self.results: CorrelationResults2D | None = None
+        self.selection_metadata: dict[str, float] = {}
 
     def load_snapshots(
         self,
@@ -78,29 +81,80 @@ class TwoPointCorrelation2D:
         stop: int | None = None,
         stride: int = 1,
         max_snapshots: int | None = None,
+        start_time: float | None = None,
+        end_time: float | None = None,
+        start_turnover: float | None = None,
+        end_turnover: float | None = None,
+        turnover_length: float | None = None,
     ) -> list[Path]:
-        """Select snapshots from a HIT2D execution folder.
+        """Select snapshots by turnover, time and then optional list indices.
 
-        start, stop, and stride are applied to the sorted snapshot list by
-        index, not by solver step number. This makes it easy to select a
-        statistically stationary interval after inspecting the saved run.
+        Explicit turnover bounds take precedence over the defaults stored by the
+        run. When they are omitted, new runs automatically use the interval
+        configured with ``turnover_data_start`` and ``turnover_final``.
+        ``start``, ``stop`` and ``stride`` are applied after the physical
+        interval has been selected.
         """
 
+        if stride <= 0:
+            raise ValueError("stride must be positive")
         if self.run_dir is None:
             if not self.snapshot_paths:
                 raise ValueError("Provide run_dir or snapshot_paths before loading")
-            selected = self.snapshot_paths
+            all_paths = list(self.snapshot_paths)
+            if start_turnover is not None or end_turnover is not None:
+                raise ValueError("turnover selection requires run_dir metadata")
+            filtered = all_paths
+            selected_turnovers = None
         else:
-            selected = sorted(self.run_dir.glob("hit2d_step*.npz"))
-            if not selected:
+            all_paths = sorted(self.run_dir.glob("hit2d_step*.npz"))
+            if not all_paths:
                 raise FileNotFoundError(f"No HIT2D .npz snapshots found in {self.run_dir}")
+            times, turnovers, _length = turnover_for_snapshots(
+                self.run_dir,
+                all_paths,
+                length_ref=turnover_length,
+            )
+            start_turnover, end_turnover = resolve_turnover_window(
+                self.run_dir,
+                start_turnover,
+                end_turnover,
+            )
+            mask = np.ones(len(all_paths), dtype=bool)
+            if start_time is not None:
+                mask &= times >= start_time
+            if end_time is not None:
+                mask &= times <= end_time
+            if start_turnover is not None:
+                tolerance = 1.0e-6 * max(1.0, abs(start_turnover))
+                mask &= turnovers >= start_turnover - tolerance
+            if end_turnover is not None:
+                tolerance = 1.0e-6 * max(1.0, abs(end_turnover))
+                mask &= turnovers <= end_turnover + tolerance
+            indices = np.flatnonzero(mask)
+            filtered = [all_paths[index] for index in indices]
+            selected_turnovers = turnovers[indices]
 
-        selected = selected[slice(start, stop, max(stride, 1))]
+        selected = filtered[slice(start, stop, stride)]
         if max_snapshots is not None:
             selected = selected[:max_snapshots]
         if not selected:
             raise ValueError("Snapshot selection is empty")
         self.snapshot_paths = selected
+
+        if self.run_dir is not None:
+            selected_times, selected_N, length = turnover_for_snapshots(
+                self.run_dir,
+                selected,
+                length_ref=turnover_length,
+            )
+            self.selection_metadata = {
+                "selected_time_start": float(selected_times[0]),
+                "selected_time_end": float(selected_times[-1]),
+                "selected_turnover_start": float(selected_N[0]),
+                "selected_turnover_end": float(selected_N[-1]),
+                "turnover_length": float(length),
+            }
         return selected
 
     @staticmethod
@@ -243,6 +297,8 @@ class TwoPointCorrelation2D:
         R_NN_std = np.std(R_NN_stack, axis=0)
         L_integral = self.integral_length_scale(r, R_LL_mean)
         lambda_taylor = self.taylor_microscale(r, R_LL_mean)
+
+        metadata.update(self.selection_metadata)
 
         results = CorrelationResults2D(
             r=r,

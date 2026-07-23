@@ -66,6 +66,30 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--start", type=int, default=None, help="First snapshot index to use.")
     parser.add_argument("--stop", type=int, default=None, help="Stop snapshot index, exclusive.")
     parser.add_argument("--stride", type=int, default=1, help="Use every Nth selected snapshot.")
+    parser.add_argument(
+        "--tot-initial-data",
+        "--tot_initial_data",
+        "--ToT_initial_data",
+        dest="tot_initial_data",
+        type=float,
+        default=None,
+        help="First turnover included; defaults to the simulation metadata.",
+    )
+    parser.add_argument(
+        "--tot-final-data",
+        "--tot_final_data",
+        "--ToT_final_data",
+        dest="tot_final_data",
+        type=float,
+        default=None,
+        help="Last turnover included; defaults to the simulation target.",
+    )
+    parser.add_argument(
+        "--turnover-length",
+        type=float,
+        default=None,
+        help="Override the turnover reference length saved by the run.",
+    )
     parser.add_argument("--max-snapshots", type=int, default=None, help="Limit number of snapshots.")
     parser.add_argument("--lx", type=float, default=2.0 * np.pi, help="Domain length in x.")
     parser.add_argument("--ly", type=float, default=2.0 * np.pi, help="Domain length in y.")
@@ -103,8 +127,19 @@ def main() -> None:
         stop=args.stop,
         stride=args.stride,
         max_snapshots=args.max_snapshots,
+        start_turnover=args.tot_initial_data,
+        end_turnover=args.tot_final_data,
+        turnover_length=args.turnover_length,
     )
     print(f"processing {len(selected)} snapshots from {run_dir}")
+    if corr.selection_metadata:
+        print(
+            "selected interval: "
+            f"Neddy=[{corr.selection_metadata['selected_turnover_start']:.6g}, "
+            f"{corr.selection_metadata['selected_turnover_end']:.6g}], "
+            f"t=[{corr.selection_metadata['selected_time_start']:.6g}, "
+            f"{corr.selection_metadata['selected_time_end']:.6g}]"
+        )
     results = corr.compute()
     output_path = corr.save(args.output)
     print(f"saved correlation results: {output_path}")

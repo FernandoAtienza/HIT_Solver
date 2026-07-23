@@ -7,6 +7,8 @@ import warnings
 import matplotlib.pyplot as plt
 import numpy as np
 
+from OOP.postprocess.turnover import resolve_turnover_window, turnover_for_snapshots
+
 
 @dataclass
 class SpectrumResults2D:
@@ -17,6 +19,7 @@ class SpectrumResults2D:
     enstrophy_std: np.ndarray
     number_of_snapshots: int
     selected_time_interval: tuple[float, float]
+    selected_turnover_interval: tuple[float, float]
     high_k_energy_ratio: float
     high_k_enstrophy_ratio: float
 
@@ -30,6 +33,9 @@ class HIT2DSpectra:
         fluctuation_type: str = "reynolds",
         start_time: float | None = None,
         end_time: float | None = None,
+        start_turnover: float | None = None,
+        end_turnover: float | None = None,
+        turnover_length: float | None = None,
         stride: int = 1,
         output_dir: str | Path | None = None,
     ) -> None:
@@ -41,6 +47,9 @@ class HIT2DSpectra:
             raise ValueError("stride must be positive")
         self.start_time = start_time
         self.end_time = end_time
+        self.start_turnover = start_turnover
+        self.end_turnover = end_turnover
+        self.turnover_length = turnover_length
         self.stride = stride
         self.output_dir = Path(output_dir) if output_dir is not None else self.run_dir / "postprocess"
         self.results: SpectrumResults2D | None = None
@@ -50,17 +59,37 @@ class HIT2DSpectra:
         if not paths:
             raise FileNotFoundError(f"No HIT2D snapshots found in {self.run_dir}")
 
-        selected: list[tuple[float, dict[str, np.ndarray]]] = []
-        for path in paths:
+        _snapshot_times, snapshot_turnovers, _length = turnover_for_snapshots(
+            self.run_dir,
+            paths,
+            length_ref=self.turnover_length,
+        )
+        self.start_turnover, self.end_turnover = resolve_turnover_window(
+            self.run_dir,
+            self.start_turnover,
+            self.end_turnover,
+        )
+
+        selected: list[tuple[float, float, dict[str, np.ndarray]]] = []
+        for path, turnover in zip(paths, snapshot_turnovers):
             with np.load(path) as data:
                 time = float(data["time"])
                 if self.start_time is not None and time < self.start_time:
                     continue
                 if self.end_time is not None and time > self.end_time:
                     continue
+                if self.start_turnover is not None:
+                    tolerance = 1.0e-6 * max(1.0, abs(self.start_turnover))
+                    if turnover < self.start_turnover - tolerance:
+                        continue
+                if self.end_turnover is not None:
+                    tolerance = 1.0e-6 * max(1.0, abs(self.end_turnover))
+                    if turnover > self.end_turnover + tolerance:
+                        continue
                 selected.append(
                     (
                         time,
+                        float(turnover),
                         {
                             "x": np.asarray(data["x"], dtype=float),
                             "y": np.asarray(data["y"], dtype=float),
@@ -79,7 +108,7 @@ class HIT2DSpectra:
         energy_samples = []
         enstrophy_samples = []
         k_shell = None
-        for _time, fields in selected:
+        for _time, _turnover, fields in selected:
             x = fields["x"]
             y = fields["y"]
             rho = fields["rho"]
@@ -135,6 +164,7 @@ class HIT2DSpectra:
             warnings.warn("Enstrophy spectrum may be piling up near k_max", RuntimeWarning)
 
         times = [item[0] for item in selected]
+        turnovers = [item[1] for item in selected]
         self.results = SpectrumResults2D(
             k=k_shell,
             energy_mean=energy_mean,
@@ -143,6 +173,7 @@ class HIT2DSpectra:
             enstrophy_std=np.std(enstrophy_stack, axis=0),
             number_of_snapshots=len(selected),
             selected_time_interval=(float(times[0]), float(times[-1])),
+            selected_turnover_interval=(float(turnovers[0]), float(turnovers[-1])),
             high_k_energy_ratio=high_k_energy_ratio,
             high_k_enstrophy_ratio=high_k_enstrophy_ratio,
         )
@@ -161,6 +192,7 @@ class HIT2DSpectra:
             enstrophy_std=result.enstrophy_std,
             number_of_snapshots=np.asarray(result.number_of_snapshots),
             selected_time_interval=np.asarray(result.selected_time_interval),
+            selected_turnover_interval=np.asarray(result.selected_turnover_interval),
             high_k_energy_ratio=np.asarray(result.high_k_energy_ratio),
             high_k_enstrophy_ratio=np.asarray(result.high_k_enstrophy_ratio),
             fluctuation_type=np.asarray(self.fluctuation_type),

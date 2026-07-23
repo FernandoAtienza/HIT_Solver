@@ -8,7 +8,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from OOP.postprocess.two_point_correlation import TwoPointCorrelation2D
-from OOP.postprocess.turnover import cumulative_turnover, infer_turnover_length
+from OOP.postprocess.turnover import (
+    cumulative_turnover,
+    infer_turnover_length,
+    resolve_turnover_window,
+    turnover_for_snapshots,
+)
 
 
 @dataclass
@@ -162,7 +167,20 @@ class IsotropyDiagnostics2D:
             if self.turnover_length is None
             else float(self.turnover_length)
         )
-        turnover = cumulative_turnover(time, u_rms, length_ref)
+        try:
+            _snapshot_time, turnover, length_ref = turnover_for_snapshots(
+                self.run_dir,
+                self.snapshot_paths,
+                length_ref=length_ref,
+            )
+        except (FileNotFoundError, KeyError, ValueError):
+            turnover = cumulative_turnover(time, u_rms, length_ref)
+
+        self.start_turnover, self.end_turnover = resolve_turnover_window(
+            self.run_dir,
+            self.start_turnover,
+            self.end_turnover,
+        )
         selected_mask = self._selection_mask(time, turnover)
         selected_indices = np.flatnonzero(selected_mask)[:: self.stride]
         if selected_indices.size == 0:
@@ -302,6 +320,7 @@ class IsotropyDiagnostics2D:
         ]
         for ax, (values, title, ylabel) in zip(axes, panels):
             ax.plot(x_values, values, linewidth=1.6)
+            self._shade_selected_interval(ax, result, x_axis)
             ax.set_title(title)
             ax.set_ylabel(ylabel)
             ax.grid(True, alpha=0.3)
@@ -361,12 +380,14 @@ class IsotropyDiagnostics2D:
 
         axes[0].plot(x_values, result.Kx, label="Kx", linewidth=1.5)
         axes[0].plot(x_values, result.Ky, label="Ky", linewidth=1.5)
+        self._shade_selected_interval(axes[0], result, x_axis)
         axes[0].set_ylabel("component energy")
         axes[0].set_title("Velocity-component turbulent energy")
         axes[0].legend()
 
         axes[1].plot(x_values, result.A_K, label="A_K", linewidth=1.5)
         axes[1].plot(x_values, result.C_uv, label="C_uv", linewidth=1.3)
+        self._shade_selected_interval(axes[1], result, x_axis)
         axes[1].axhline(0.0, color="black", linewidth=0.8)
         axes[1].set_xlabel(x_label)
         axes[1].set_ylabel("anisotropy measure")
@@ -418,9 +439,11 @@ class IsotropyDiagnostics2D:
         if self.end_time is not None:
             mask &= time <= self.end_time
         if self.start_turnover is not None:
-            mask &= turnover >= self.start_turnover
+            tolerance = 1.0e-6 * max(1.0, abs(self.start_turnover))
+            mask &= turnover >= self.start_turnover - tolerance
         if self.end_turnover is not None:
-            mask &= turnover <= self.end_turnover
+            tolerance = 1.0e-6 * max(1.0, abs(self.end_turnover))
+            mask &= turnover <= self.end_turnover + tolerance
         index_mask = np.zeros(time.size, dtype=bool)
         start = 0 if self.start_snapshot is None else self.start_snapshot
         stop = time.size if self.end_snapshot is None else self.end_snapshot
@@ -437,6 +460,19 @@ class IsotropyDiagnostics2D:
         if axis in {"time", "t"}:
             return result.time, "t"
         raise ValueError("x_axis must be 'turnover' or 'time'")
+
+    @staticmethod
+    def _shade_selected_interval(
+        ax: plt.Axes,
+        result: IsotropyResults2D,
+        x_axis: str,
+    ) -> None:
+        axis = x_axis.lower()
+        if axis in {"turnover", "eddy", "eddy-turnover"}:
+            start, end = result.selected_turnover_interval
+        else:
+            start, end = result.selected_time_interval
+        ax.axvspan(start, end, alpha=0.08, label="statistics window")
 
     def _velocity_fluctuations(
         self, rho: np.ndarray, u: np.ndarray, v: np.ndarray

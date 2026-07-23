@@ -1,0 +1,1288 @@
+diagnostic-plots-only mode: GIFs and primitive final-field plot disabled
+created timestamped run folder: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320
+Using array backend: numpy
+step=     0, t=0.000000, dt=0.000e+00, KE=5.000000e-01, Mt=1.0000, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.018, rho_mean=1.000000, p_mean=0.714286, div_rms=2.328e-14, vort_rms=3.900e+00, mass_err=0.000e+00
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0000150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0000300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0000450.npz
+step=   500, t=0.120144, dt=2.406e-04, KE=4.947701e-01, Mt=0.9951, A_K=0.000, Cuv=-0.000, P_in=1.990e-03, P_tgt=2.007e-03, A_F=0.059, K_low=0.006, P_drag=-1.691e-04, P_cool=-7.255e-04, WENO=0.042, rho_mean=1.000000, p_mean=0.716462, div_rms=1.328e+00, vort_rms=3.748e+00, mass_err=-1.215e-12
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0000600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0000750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0000900.npz
+step=  1000, t=0.240887, dt=2.430e-04, KE=4.559585e-01, Mt=0.9643, A_K=0.004, Cuv=-0.003, P_in=2.079e-03, P_tgt=2.089e-03, A_F=0.266, K_low=0.022, P_drag=-5.887e-04, P_cool=-5.883e-03, WENO=0.399, rho_mean=1.000000, p_mean=0.731933, div_rms=1.926e+00, vort_rms=3.548e+00, mass_err=-2.402e-12
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0001050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0001200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0001350.npz
+warning: WENO is active over a large domain fraction (0.685)
+step=  1500, t=0.363917, dt=2.501e-04, KE=3.966408e-01, Mt=0.9175, A_K=0.004, Cuv=-0.001, P_in=2.423e-03, P_tgt=2.418e-03, A_F=0.133, K_low=0.045, P_drag=-1.022e-03, P_cool=-1.365e-02, WENO=0.685, rho_mean=1.000000, p_mean=0.755242, div_rms=2.989e+00, vort_rms=3.522e+00, mass_err=-3.567e-12
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0001500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0001650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0001800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0001950.npz
+warning: WENO is active over a large domain fraction (0.707)
+step=  2000, t=0.493146, dt=2.701e-04, KE=3.629405e-01, Mt=0.8992, A_K=0.001, Cuv=0.012, P_in=3.106e-03, P_tgt=3.079e-03, A_F=0.116, K_low=0.064, P_drag=-1.285e-03, P_cool=-1.790e-02, WENO=0.707, rho_mean=1.000000, p_mean=0.767986, div_rms=3.877e+00, vort_rms=3.572e+00, mass_err=-4.725e-12
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0002100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0002250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0002400.npz
+warning: WENO is active over a large domain fraction (0.712)
+step=  2500, t=0.630364, dt=2.783e-04, KE=3.493097e-01, Mt=0.9054, A_K=0.002, Cuv=0.011, P_in=3.905e-03, P_tgt=3.960e-03, A_F=0.007, K_low=0.075, P_drag=-1.325e-03, P_cool=-1.943e-02, WENO=0.712, rho_mean=1.000000, p_mean=0.772572, div_rms=4.135e+00, vort_rms=3.635e+00, mass_err=-5.890e-12
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0002550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0002700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0002850.npz
+warning: WENO is active over a large domain fraction (0.691)
+step=  3000, t=0.765246, dt=2.679e-04, KE=3.420827e-01, Mt=0.9079, A_K=0.021, Cuv=-0.011, P_in=5.009e-03, P_tgt=5.006e-03, A_F=0.107, K_low=0.083, P_drag=-1.242e-03, P_cool=-2.011e-02, WENO=0.691, rho_mean=1.000000, p_mean=0.774629, div_rms=4.095e+00, vort_rms=3.640e+00, mass_err=-7.063e-12
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0003000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0003150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0003300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0003450.npz
+warning: WENO is active over a large domain fraction (0.681)
+step=  3500, t=0.899721, dt=2.728e-04, KE=3.370851e-01, Mt=0.8946, A_K=0.027, Cuv=-0.021, P_in=6.367e-03, P_tgt=6.426e-03, A_F=0.367, K_low=0.088, P_drag=-1.147e-03, P_cool=-2.049e-02, WENO=0.681, rho_mean=1.000000, p_mean=0.775763, div_rms=3.822e+00, vort_rms=3.609e+00, mass_err=-8.221e-12
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0003600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0003750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0003900.npz
+warning: WENO is active over a large domain fraction (0.681)
+step=  4000, t=1.033874, dt=2.624e-04, KE=3.338269e-01, Mt=0.8711, A_K=0.003, Cuv=-0.013, P_in=8.837e-03, P_tgt=8.736e-03, A_F=0.152, K_low=0.091, P_drag=-1.110e-03, P_cool=-2.065e-02, WENO=0.681, rho_mean=1.000000, p_mean=0.776241, div_rms=3.513e+00, vort_rms=3.560e+00, mass_err=-9.386e-12
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0004050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0004200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0004350.npz
+warning: WENO is active over a large domain fraction (0.683)
+step=  4500, t=1.166914, dt=2.701e-04, KE=3.308020e-01, Mt=0.8503, A_K=0.043, Cuv=0.002, P_in=1.275e-02, P_tgt=1.278e-02, A_F=0.057, K_low=0.094, P_drag=-1.181e-03, P_cool=-2.084e-02, WENO=0.683, rho_mean=1.000000, p_mean=0.776811, div_rms=3.243e+00, vort_rms=3.523e+00, mass_err=-1.054e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0004500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0004650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0004800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0004950.npz
+warning: WENO is active over a large domain fraction (0.709)
+step=  5000, t=1.302741, dt=2.684e-04, KE=3.273317e-01, Mt=0.8367, A_K=0.077, Cuv=0.038, P_in=1.816e-02, P_tgt=1.802e-02, A_F=0.136, K_low=0.100, P_drag=-1.358e-03, P_cool=-2.119e-02, WENO=0.709, rho_mean=1.000000, p_mean=0.777848, div_rms=3.140e+00, vort_rms=3.499e+00, mass_err=-1.170e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0005100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0005250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0005400.npz
+warning: WENO is active over a large domain fraction (0.715)
+step=  5500, t=1.436865, dt=2.664e-04, KE=3.206908e-01, Mt=0.8250, A_K=0.078, Cuv=0.071, P_in=1.958e-02, P_tgt=1.956e-02, A_F=0.090, K_low=0.110, P_drag=-1.596e-03, P_cool=-2.201e-02, WENO=0.715, rho_mean=1.000000, p_mean=0.780309, div_rms=3.047e+00, vort_rms=3.465e+00, mass_err=-1.286e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0005550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0005700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0005850.npz
+warning: WENO is active over a large domain fraction (0.731)
+step=  6000, t=1.573419, dt=2.754e-04, KE=3.130435e-01, Mt=0.8122, A_K=0.060, Cuv=0.072, P_in=1.985e-02, P_tgt=1.990e-02, A_F=0.021, K_low=0.121, P_drag=-1.815e-03, P_cool=-2.295e-02, WENO=0.731, rho_mean=1.000000, p_mean=0.783142, div_rms=2.997e+00, vort_rms=3.394e+00, mass_err=-1.403e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0006000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0006150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0006300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0006450.npz
+warning: WENO is active over a large domain fraction (0.707)
+step=  6500, t=1.708740, dt=2.701e-04, KE=3.067080e-01, Mt=0.7995, A_K=0.047, Cuv=0.070, P_in=1.984e-02, P_tgt=1.998e-02, A_F=0.370, K_low=0.127, P_drag=-1.932e-03, P_cool=-2.371e-02, WENO=0.707, rho_mean=1.000000, p_mean=0.785408, div_rms=2.981e+00, vort_rms=3.343e+00, mass_err=-1.518e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0006600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0006750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0006900.npz
+warning: WENO is active over a large domain fraction (0.686)
+step=  7000, t=1.843707, dt=2.679e-04, KE=2.997222e-01, Mt=0.7869, A_K=0.040, Cuv=0.087, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.092, K_low=0.122, P_drag=-1.877e-03, P_cool=-2.454e-02, WENO=0.686, rho_mean=1.000000, p_mean=0.787895, div_rms=2.957e+00, vort_rms=3.306e+00, mass_err=-1.634e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0007050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0007200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0007350.npz
+warning: WENO is active over a large domain fraction (0.681)
+step=  7500, t=1.976171, dt=2.642e-04, KE=2.932703e-01, Mt=0.7734, A_K=0.022, Cuv=0.092, P_in=2.008e-02, P_tgt=2.000e-02, A_F=0.077, K_low=0.109, P_drag=-1.681e-03, P_cool=-2.527e-02, WENO=0.681, rho_mean=1.000000, p_mean=0.790109, div_rms=2.885e+00, vort_rms=3.267e+00, mass_err=-1.749e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0007500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0007650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0007800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0007950.npz
+warning: WENO is active over a large domain fraction (0.658)
+step=  8000, t=2.109024, dt=2.682e-04, KE=2.866794e-01, Mt=0.7595, A_K=0.003, Cuv=0.091, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.082, K_low=0.093, P_drag=-1.427e-03, P_cool=-2.602e-02, WENO=0.658, rho_mean=1.000000, p_mean=0.792348, div_rms=2.838e+00, vort_rms=3.222e+00, mass_err=-1.866e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0008100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0008250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0008400.npz
+warning: WENO is active over a large domain fraction (0.682)
+step=  8500, t=2.245682, dt=2.783e-04, KE=2.776041e-01, Mt=0.7445, A_K=0.027, Cuv=0.078, P_in=2.011e-02, P_tgt=2.000e-02, A_F=0.081, K_low=0.082, P_drag=-1.240e-03, P_cool=-2.708e-02, WENO=0.682, rho_mean=1.000000, p_mean=0.795537, div_rms=2.746e+00, vort_rms=3.184e+00, mass_err=-1.982e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0008550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0008700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0008850.npz
+warning: WENO is active over a large domain fraction (0.673)
+step=  9000, t=2.386268, dt=2.833e-04, KE=2.723360e-01, Mt=0.7351, A_K=0.040, Cuv=0.047, P_in=1.988e-02, P_tgt=2.000e-02, A_F=0.006, K_low=0.081, P_drag=-1.208e-03, P_cool=-2.762e-02, WENO=0.673, rho_mean=1.000000, p_mean=0.797140, div_rms=2.650e+00, vort_rms=3.133e+00, mass_err=-2.098e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0009000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0009150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0009300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0009450.npz
+warning: WENO is active over a large domain fraction (0.668)
+step=  9500, t=2.529415, dt=2.901e-04, KE=2.712321e-01, Mt=0.7348, A_K=0.057, Cuv=0.007, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.027, K_low=0.090, P_drag=-1.365e-03, P_cool=-2.759e-02, WENO=0.668, rho_mean=1.000000, p_mean=0.797054, div_rms=2.605e+00, vort_rms=3.099e+00, mass_err=-2.215e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0009600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0009750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0009900.npz
+warning: WENO is active over a large domain fraction (0.681)
+step= 10000, t=2.671345, dt=2.759e-04, KE=2.710545e-01, Mt=0.7385, A_K=0.082, Cuv=-0.028, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.123, K_low=0.109, P_drag=-1.685e-03, P_cool=-2.744e-02, WENO=0.681, rho_mean=1.000000, p_mean=0.796619, div_rms=2.564e+00, vort_rms=3.059e+00, mass_err=-2.331e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0010050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0010200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0010350.npz
+warning: WENO is active over a large domain fraction (0.657)
+step= 10500, t=2.811959, dt=2.893e-04, KE=2.723480e-01, Mt=0.7420, A_K=0.104, Cuv=-0.045, P_in=2.028e-02, P_tgt=2.000e-02, A_F=0.024, K_low=0.135, P_drag=-2.110e-03, P_cool=-2.712e-02, WENO=0.657, rho_mean=1.000000, p_mean=0.795643, div_rms=2.532e+00, vort_rms=3.000e+00, mass_err=-2.448e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0010500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0010650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0010800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0010950.npz
+warning: WENO is active over a large domain fraction (0.616)
+step= 11000, t=2.956696, dt=2.884e-04, KE=2.744413e-01, Mt=0.7457, A_K=0.119, Cuv=-0.050, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.012, K_low=0.164, P_drag=-2.556e-03, P_cool=-2.669e-02, WENO=0.616, rho_mean=1.000000, p_mean=0.794363, div_rms=2.495e+00, vort_rms=2.944e+00, mass_err=-2.565e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0011100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0011250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0011400.npz
+warning: WENO is active over a large domain fraction (0.613)
+step= 11500, t=3.101228, dt=2.884e-04, KE=2.753103e-01, Mt=0.7478, A_K=0.128, Cuv=-0.054, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.020, K_low=0.188, P_drag=-2.932e-03, P_cool=-2.641e-02, WENO=0.613, rho_mean=1.000000, p_mean=0.793517, div_rms=2.462e+00, vort_rms=2.903e+00, mass_err=-2.680e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0011550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0011700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0011850.npz
+warning: WENO is active over a large domain fraction (0.612)
+step= 12000, t=3.246753, dt=2.875e-04, KE=2.746209e-01, Mt=0.7448, A_K=0.138, Cuv=-0.039, P_in=2.012e-02, P_tgt=2.000e-02, A_F=0.122, K_low=0.204, P_drag=-3.203e-03, P_cool=-2.631e-02, WENO=0.612, rho_mean=1.000000, p_mean=0.793209, div_rms=2.464e+00, vort_rms=2.853e+00, mass_err=-2.796e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0012000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0012150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0012300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0012450.npz
+warning: WENO is active over a large domain fraction (0.584)
+step= 12500, t=3.384854, dt=2.679e-04, KE=2.723333e-01, Mt=0.7389, A_K=0.153, Cuv=-0.011, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.158, K_low=0.214, P_drag=-3.338e-03, P_cool=-2.642e-02, WENO=0.584, rho_mean=1.000000, p_mean=0.793543, div_rms=2.427e+00, vort_rms=2.813e+00, mass_err=-2.912e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0012600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0012750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0012900.npz
+warning: WENO is active over a large domain fraction (0.603)
+step= 13000, t=3.521001, dt=2.781e-04, KE=2.663164e-01, Mt=0.7286, A_K=0.176, Cuv=0.019, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.039, K_low=0.222, P_drag=-3.379e-03, P_cool=-2.702e-02, WENO=0.603, rho_mean=1.000000, p_mean=0.795356, div_rms=2.352e+00, vort_rms=2.787e+00, mass_err=-3.028e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0013050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0013200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0013350.npz
+warning: WENO is active over a large domain fraction (0.587)
+step= 13500, t=3.662127, dt=2.828e-04, KE=2.626488e-01, Mt=0.7213, A_K=0.191, Cuv=0.051, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.092, K_low=0.225, P_drag=-3.342e-03, P_cool=-2.730e-02, WENO=0.587, rho_mean=1.000000, p_mean=0.796199, div_rms=2.365e+00, vort_rms=2.760e+00, mass_err=-3.144e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0013500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0013650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0013800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0013950.npz
+warning: WENO is active over a large domain fraction (0.578)
+step= 14000, t=3.804661, dt=2.890e-04, KE=2.614232e-01, Mt=0.7183, A_K=0.177, Cuv=0.085, P_in=2.011e-02, P_tgt=2.000e-02, A_F=0.055, K_low=0.221, P_drag=-3.227e-03, P_cool=-2.726e-02, WENO=0.578, rho_mean=1.000000, p_mean=0.796065, div_rms=2.365e+00, vort_rms=2.755e+00, mass_err=-3.259e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0014100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0014250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0014400.npz
+warning: WENO is active over a large domain fraction (0.545)
+step= 14500, t=3.947961, dt=2.842e-04, KE=2.618811e-01, Mt=0.7184, A_K=0.132, Cuv=0.126, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.180, K_low=0.208, P_drag=-3.051e-03, P_cool=-2.700e-02, WENO=0.545, rho_mean=1.000000, p_mean=0.795279, div_rms=2.436e+00, vort_rms=2.753e+00, mass_err=-3.374e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0014550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0014700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0014850.npz
+warning: WENO is active over a large domain fraction (0.544)
+step= 15000, t=4.088940, dt=2.769e-04, KE=2.572485e-01, Mt=0.7116, A_K=0.072, Cuv=0.187, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.158, K_low=0.198, P_drag=-2.899e-03, P_cool=-2.742e-02, WENO=0.544, rho_mean=1.000000, p_mean=0.796555, div_rms=2.434e+00, vort_rms=2.748e+00, mass_err=-3.489e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0015000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0015150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0015300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0015450.npz
+warning: WENO is active over a large domain fraction (0.543)
+step= 15500, t=4.225155, dt=2.688e-04, KE=2.529833e-01, Mt=0.7026, A_K=0.013, Cuv=0.244, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.040, K_low=0.192, P_drag=-2.797e-03, P_cool=-2.780e-02, WENO=0.543, rho_mean=1.000000, p_mean=0.797692, div_rms=2.368e+00, vort_rms=2.714e+00, mass_err=-3.607e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0015600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0015750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0015900.npz
+warning: WENO is active over a large domain fraction (0.512)
+step= 16000, t=4.359941, dt=2.699e-04, KE=2.509006e-01, Mt=0.6938, A_K=0.024, Cuv=0.273, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.115, K_low=0.186, P_drag=-2.687e-03, P_cool=-2.789e-02, WENO=0.512, rho_mean=1.000000, p_mean=0.797962, div_rms=2.334e+00, vort_rms=2.671e+00, mass_err=-3.725e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0016050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0016200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0016350.npz
+warning: WENO is active over a large domain fraction (0.529)
+step= 16500, t=4.495840, dt=2.729e-04, KE=2.472211e-01, Mt=0.6846, A_K=0.045, Cuv=0.266, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.044, K_low=0.180, P_drag=-2.551e-03, P_cool=-2.819e-02, WENO=0.529, rho_mean=1.000000, p_mean=0.798864, div_rms=2.276e+00, vort_rms=2.630e+00, mass_err=-3.840e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0016500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0016650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0016800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0016950.npz
+warning: WENO is active over a large domain fraction (0.549)
+step= 17000, t=4.632798, dt=2.739e-04, KE=2.423309e-01, Mt=0.6756, A_K=0.065, Cuv=0.243, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.096, K_low=0.176, P_drag=-2.411e-03, P_cool=-2.864e-02, WENO=0.549, rho_mean=1.000000, p_mean=0.800218, div_rms=2.194e+00, vort_rms=2.589e+00, mass_err=-3.957e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0017100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0017250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0017400.npz
+warning: WENO is active over a large domain fraction (0.526)
+step= 17500, t=4.769951, dt=2.716e-04, KE=2.373135e-01, Mt=0.6675, A_K=0.089, Cuv=0.222, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.186, K_low=0.173, P_drag=-2.288e-03, P_cool=-2.910e-02, WENO=0.526, rho_mean=1.000000, p_mean=0.801599, div_rms=2.148e+00, vort_rms=2.556e+00, mass_err=-4.071e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0017550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0017700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0017850.npz
+warning: WENO is active over a large domain fraction (0.530)
+step= 18000, t=4.905098, dt=2.694e-04, KE=2.318594e-01, Mt=0.6607, A_K=0.116, Cuv=0.206, P_in=1.982e-02, P_tgt=2.000e-02, A_F=0.204, K_low=0.174, P_drag=-2.228e-03, P_cool=-2.962e-02, WENO=0.530, rho_mean=1.000000, p_mean=0.803158, div_rms=2.079e+00, vort_rms=2.533e+00, mass_err=-4.187e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0018000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0018150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0018300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0018450.npz
+warning: WENO is active over a large domain fraction (0.525)
+step= 18500, t=5.040362, dt=2.729e-04, KE=2.311138e-01, Mt=0.6610, A_K=0.138, Cuv=0.184, P_in=1.985e-02, P_tgt=2.000e-02, A_F=0.041, K_low=0.175, P_drag=-2.264e-03, P_cool=-2.952e-02, WENO=0.525, rho_mean=1.000000, p_mean=0.802841, div_rms=2.100e+00, vort_rms=2.506e+00, mass_err=-4.303e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0018600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0018750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0018900.npz
+warning: WENO is active over a large domain fraction (0.525)
+step= 19000, t=5.177916, dt=2.777e-04, KE=2.339599e-01, Mt=0.6690, A_K=0.138, Cuv=0.158, P_in=1.994e-02, P_tgt=2.000e-02, A_F=0.035, K_low=0.181, P_drag=-2.424e-03, P_cool=-2.893e-02, WENO=0.525, rho_mean=1.000000, p_mean=0.801084, div_rms=2.118e+00, vort_rms=2.489e+00, mass_err=-4.419e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0019050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0019200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0019350.npz
+warning: WENO is active over a large domain fraction (0.509)
+step= 19500, t=5.318712, dt=2.857e-04, KE=2.382165e-01, Mt=0.6818, A_K=0.126, Cuv=0.150, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.025, K_low=0.195, P_drag=-2.714e-03, P_cool=-2.815e-02, WENO=0.509, rho_mean=1.000000, p_mean=0.798742, div_rms=2.115e+00, vort_rms=2.469e+00, mass_err=-4.534e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0019500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0019650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0019800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0019950.npz
+warning: WENO is active over a large domain fraction (0.506)
+step= 20000, t=5.461585, dt=2.834e-04, KE=2.402722e-01, Mt=0.6911, A_K=0.114, Cuv=0.139, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.165, K_low=0.222, P_drag=-3.095e-03, P_cool=-2.767e-02, WENO=0.506, rho_mean=1.000000, p_mean=0.797281, div_rms=2.089e+00, vort_rms=2.442e+00, mass_err=-4.650e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0020100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0020250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0020400.npz
+warning: WENO is active over a large domain fraction (0.506)
+step= 20500, t=5.605015, dt=2.893e-04, KE=2.403164e-01, Mt=0.6963, A_K=0.110, Cuv=0.117, P_in=1.989e-02, P_tgt=2.000e-02, A_F=0.007, K_low=0.257, P_drag=-3.501e-03, P_cool=-2.745e-02, WENO=0.506, rho_mean=1.000000, p_mean=0.796629, div_rms=2.056e+00, vort_rms=2.414e+00, mass_err=-4.765e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0020550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0020700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0020850.npz
+warning: WENO is active over a large domain fraction (0.503)
+step= 21000, t=5.750470, dt=2.899e-04, KE=2.397227e-01, Mt=0.7010, A_K=0.110, Cuv=0.101, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.024, K_low=0.289, P_drag=-3.846e-03, P_cool=-2.731e-02, WENO=0.503, rho_mean=1.000000, p_mean=0.796219, div_rms=2.072e+00, vort_rms=2.390e+00, mass_err=-4.880e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0021000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0021150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0021300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0021450.npz
+warning: WENO is active over a large domain fraction (0.507)
+step= 21500, t=5.894243, dt=2.857e-04, KE=2.358485e-01, Mt=0.7014, A_K=0.113, Cuv=0.090, P_in=1.981e-02, P_tgt=2.000e-02, A_F=0.123, K_low=0.312, P_drag=-4.049e-03, P_cool=-2.761e-02, WENO=0.507, rho_mean=1.000000, p_mean=0.797112, div_rms=2.039e+00, vort_rms=2.369e+00, mass_err=-4.994e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0021600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0021750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0021900.npz
+warning: WENO is active over a large domain fraction (0.500)
+step= 22000, t=6.034294, dt=2.742e-04, KE=2.326630e-01, Mt=0.6984, A_K=0.118, Cuv=0.086, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.200, K_low=0.319, P_drag=-4.088e-03, P_cool=-2.782e-02, WENO=0.500, rho_mean=1.000000, p_mean=0.797736, div_rms=2.067e+00, vort_rms=2.354e+00, mass_err=-5.110e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0022050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0022200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0022350.npz
+step= 22500, t=6.173298, dt=2.818e-04, KE=2.281239e-01, Mt=0.6909, A_K=0.131, Cuv=0.103, P_in=1.981e-02, P_tgt=2.000e-02, A_F=0.115, K_low=0.319, P_drag=-4.025e-03, P_cool=-2.820e-02, WENO=0.493, rho_mean=1.000000, p_mean=0.798893, div_rms=2.039e+00, vort_rms=2.356e+00, mass_err=-5.225e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0022500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0022650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0022800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0022950.npz
+step= 23000, t=6.315338, dt=2.873e-04, KE=2.250605e-01, Mt=0.6844, A_K=0.137, Cuv=0.138, P_in=2.010e-02, P_tgt=2.000e-02, A_F=0.025, K_low=0.312, P_drag=-3.912e-03, P_cool=-2.838e-02, WENO=0.478, rho_mean=1.000000, p_mean=0.799438, div_rms=2.008e+00, vort_rms=2.354e+00, mass_err=-5.338e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0023100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0023250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0023400.npz
+step= 23500, t=6.460092, dt=2.921e-04, KE=2.230777e-01, Mt=0.6790, A_K=0.131, Cuv=0.174, P_in=2.009e-02, P_tgt=2.000e-02, A_F=0.162, K_low=0.303, P_drag=-3.776e-03, P_cool=-2.842e-02, WENO=0.447, rho_mean=1.000000, p_mean=0.799540, div_rms=1.998e+00, vort_rms=2.350e+00, mass_err=-5.452e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0023550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0023700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0023850.npz
+step= 24000, t=6.607322, dt=2.917e-04, KE=2.197153e-01, Mt=0.6719, A_K=0.132, Cuv=0.208, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.244, K_low=0.302, P_drag=-3.679e-03, P_cool=-2.863e-02, WENO=0.437, rho_mean=1.000000, p_mean=0.800183, div_rms=1.966e+00, vort_rms=2.356e+00, mass_err=-5.567e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0024000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0024150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0024300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0024450.npz
+step= 24500, t=6.751717, dt=2.913e-04, KE=2.156840e-01, Mt=0.6629, A_K=0.132, Cuv=0.226, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.068, K_low=0.307, P_drag=-3.651e-03, P_cool=-2.894e-02, WENO=0.411, rho_mean=1.000000, p_mean=0.801104, div_rms=1.947e+00, vort_rms=2.335e+00, mass_err=-5.682e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0024600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0024750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0024900.npz
+step= 25000, t=6.896612, dt=2.932e-04, KE=2.132807e-01, Mt=0.6564, A_K=0.128, Cuv=0.235, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.035, K_low=0.315, P_drag=-3.698e-03, P_cool=-2.903e-02, WENO=0.421, rho_mean=1.000000, p_mean=0.801371, div_rms=1.874e+00, vort_rms=2.312e+00, mass_err=-5.798e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0025050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0025200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0025350.npz
+step= 25500, t=7.046392, dt=2.999e-04, KE=2.126329e-01, Mt=0.6545, A_K=0.133, Cuv=0.231, P_in=1.989e-02, P_tgt=2.000e-02, A_F=0.064, K_low=0.324, P_drag=-3.808e-03, P_cool=-2.887e-02, WENO=0.423, rho_mean=1.000000, p_mean=0.800908, div_rms=1.807e+00, vort_rms=2.304e+00, mass_err=-5.912e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0025500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0025650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0025800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0025950.npz
+step= 26000, t=7.195460, dt=2.965e-04, KE=2.146217e-01, Mt=0.6578, A_K=0.148, Cuv=0.219, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.101, K_low=0.331, P_drag=-3.950e-03, P_cool=-2.837e-02, WENO=0.413, rho_mean=1.000000, p_mean=0.799388, div_rms=1.765e+00, vort_rms=2.312e+00, mass_err=-6.028e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0026100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0026250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0026400.npz
+step= 26500, t=7.343528, dt=2.956e-04, KE=2.175636e-01, Mt=0.6644, A_K=0.167, Cuv=0.210, P_in=2.010e-02, P_tgt=2.000e-02, A_F=0.164, K_low=0.339, P_drag=-4.113e-03, P_cool=-2.774e-02, WENO=0.421, rho_mean=1.000000, p_mean=0.797491, div_rms=1.759e+00, vort_rms=2.321e+00, mass_err=-6.141e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0026550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0026700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0026850.npz
+step= 27000, t=7.490159, dt=2.899e-04, KE=2.192525e-01, Mt=0.6682, A_K=0.186, Cuv=0.210, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.216, K_low=0.348, P_drag=-4.273e-03, P_cool=-2.728e-02, WENO=0.418, rho_mean=1.000000, p_mean=0.796133, div_rms=1.808e+00, vort_rms=2.306e+00, mass_err=-6.256e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0027000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0027150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0027300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0027450.npz
+step= 27500, t=7.636389, dt=2.959e-04, KE=2.188921e-01, Mt=0.6679, A_K=0.189, Cuv=0.208, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.065, K_low=0.360, P_drag=-4.412e-03, P_cool=-2.711e-02, WENO=0.408, rho_mean=1.000000, p_mean=0.795612, div_rms=1.797e+00, vort_rms=2.280e+00, mass_err=-6.370e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0027600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0027750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0027900.npz
+step= 28000, t=7.782237, dt=2.894e-04, KE=2.190095e-01, Mt=0.6687, A_K=0.174, Cuv=0.201, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.125, K_low=0.369, P_drag=-4.523e-03, P_cool=-2.687e-02, WENO=0.407, rho_mean=1.000000, p_mean=0.794898, div_rms=1.747e+00, vort_rms=2.263e+00, mass_err=-6.484e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0028050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0028200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0028350.npz
+step= 28500, t=7.927489, dt=2.924e-04, KE=2.201120e-01, Mt=0.6722, A_K=0.148, Cuv=0.183, P_in=2.035e-02, P_tgt=2.000e-02, A_F=0.131, K_low=0.374, P_drag=-4.603e-03, P_cool=-2.650e-02, WENO=0.376, rho_mean=1.000000, p_mean=0.793782, div_rms=1.770e+00, vort_rms=2.249e+00, mass_err=-6.600e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0028500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0028650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0028800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0028950.npz
+step= 29000, t=8.071826, dt=2.824e-04, KE=2.190151e-01, Mt=0.6712, A_K=0.118, Cuv=0.144, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.228, K_low=0.381, P_drag=-4.653e-03, P_cool=-2.642e-02, WENO=0.385, rho_mean=1.000000, p_mean=0.793534, div_rms=1.752e+00, vort_rms=2.236e+00, mass_err=-6.716e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0029100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0029250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0029400.npz
+step= 29500, t=8.213608, dt=2.839e-04, KE=2.181824e-01, Mt=0.6706, A_K=0.086, Cuv=0.110, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.184, K_low=0.388, P_drag=-4.706e-03, P_cool=-2.630e-02, WENO=0.410, rho_mean=1.000000, p_mean=0.793197, div_rms=1.737e+00, vort_rms=2.217e+00, mass_err=-6.833e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0029550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0029700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0029850.npz
+step= 30000, t=8.354774, dt=2.821e-04, KE=2.184305e-01, Mt=0.6719, A_K=0.051, Cuv=0.083, P_in=1.975e-02, P_tgt=2.000e-02, A_F=0.069, K_low=0.390, P_drag=-4.739e-03, P_cool=-2.606e-02, WENO=0.422, rho_mean=1.000000, p_mean=0.792470, div_rms=1.777e+00, vort_rms=2.194e+00, mass_err=-6.948e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0030000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0030150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0030300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0030450.npz
+step= 30500, t=8.495179, dt=2.798e-04, KE=2.190574e-01, Mt=0.6740, A_K=0.030, Cuv=0.063, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.161, K_low=0.387, P_drag=-4.727e-03, P_cool=-2.578e-02, WENO=0.406, rho_mean=1.000000, p_mean=0.791633, div_rms=1.866e+00, vort_rms=2.193e+00, mass_err=-7.063e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0030600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0030750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0030900.npz
+step= 31000, t=8.635143, dt=2.804e-04, KE=2.194932e-01, Mt=0.6747, A_K=0.030, Cuv=0.050, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.040, K_low=0.380, P_drag=-4.673e-03, P_cool=-2.553e-02, WENO=0.408, rho_mean=1.000000, p_mean=0.790885, div_rms=1.903e+00, vort_rms=2.205e+00, mass_err=-7.178e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0031050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0031200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0031350.npz
+step= 31500, t=8.775602, dt=2.812e-04, KE=2.195259e-01, Mt=0.6734, A_K=0.038, Cuv=0.044, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.240, K_low=0.371, P_drag=-4.605e-03, P_cool=-2.533e-02, WENO=0.395, rho_mean=1.000000, p_mean=0.790291, div_rms=1.871e+00, vort_rms=2.219e+00, mass_err=-7.293e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0031500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0031650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0031800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0031950.npz
+step= 32000, t=8.914793, dt=2.768e-04, KE=2.196332e-01, Mt=0.6700, A_K=0.052, Cuv=0.045, P_in=2.007e-02, P_tgt=2.000e-02, A_F=0.098, K_low=0.364, P_drag=-4.548e-03, P_cool=-2.513e-02, WENO=0.381, rho_mean=1.000000, p_mean=0.789672, div_rms=1.841e+00, vort_rms=2.226e+00, mass_err=-7.408e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0032100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0032250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0032400.npz
+step= 32500, t=9.052834, dt=2.766e-04, KE=2.190925e-01, Mt=0.6642, A_K=0.067, Cuv=0.043, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.039, K_low=0.361, P_drag=-4.503e-03, P_cool=-2.502e-02, WENO=0.368, rho_mean=1.000000, p_mean=0.789342, div_rms=1.785e+00, vort_rms=2.237e+00, mass_err=-7.525e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0032550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0032700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0032850.npz
+step= 33000, t=9.193285, dt=2.870e-04, KE=2.188272e-01, Mt=0.6585, A_K=0.085, Cuv=0.024, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.007, K_low=0.358, P_drag=-4.456e-03, P_cool=-2.488e-02, WENO=0.353, rho_mean=1.000000, p_mean=0.788924, div_rms=1.727e+00, vort_rms=2.254e+00, mass_err=-7.642e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0033000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0033150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0033300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0033450.npz
+step= 33500, t=9.336642, dt=2.744e-04, KE=2.187774e-01, Mt=0.6535, A_K=0.125, Cuv=-0.001, P_in=2.007e-02, P_tgt=2.000e-02, A_F=0.043, K_low=0.353, P_drag=-4.395e-03, P_cool=-2.471e-02, WENO=0.354, rho_mean=1.000000, p_mean=0.788427, div_rms=1.652e+00, vort_rms=2.279e+00, mass_err=-7.760e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0033600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0033750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0033900.npz
+step= 34000, t=9.472064, dt=2.722e-04, KE=2.194176e-01, Mt=0.6497, A_K=0.172, Cuv=-0.039, P_in=2.009e-02, P_tgt=2.000e-02, A_F=0.204, K_low=0.346, P_drag=-4.319e-03, P_cool=-2.446e-02, WENO=0.349, rho_mean=1.000000, p_mean=0.787681, div_rms=1.600e+00, vort_rms=2.275e+00, mass_err=-7.876e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0034050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0034200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0034350.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 34500, t=9.614320, dt=2.942e-04, KE=2.193623e-01, Mt=0.6479, A_K=0.225, Cuv=-0.084, P_in=1.983e-02, P_tgt=2.000e-02, A_F=0.102, K_low=0.340, P_drag=-4.253e-03, P_cool=-2.430e-02, WENO=0.342, rho_mean=1.000000, p_mean=0.787196, div_rms=1.543e+00, vort_rms=2.266e+00, mass_err=-7.992e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0034500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0034650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0034800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0034950.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 35000, t=9.763341, dt=2.976e-04, KE=2.190721e-01, Mt=0.6495, A_K=0.258, Cuv=-0.123, P_in=2.034e-02, P_tgt=2.000e-02, A_F=0.054, K_low=0.337, P_drag=-4.196e-03, P_cool=-2.417e-02, WENO=0.343, rho_mean=1.000000, p_mean=0.786799, div_rms=1.541e+00, vort_rms=2.266e+00, mass_err=-8.109e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0035100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0035250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0035400.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 35500, t=9.909428, dt=2.878e-04, KE=2.189864e-01, Mt=0.6535, A_K=0.265, Cuv=-0.158, P_in=2.019e-02, P_tgt=2.000e-02, A_F=0.040, K_low=0.333, P_drag=-4.133e-03, P_cool=-2.402e-02, WENO=0.347, rho_mean=1.000000, p_mean=0.786354, div_rms=1.548e+00, vort_rms=2.269e+00, mass_err=-8.227e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0035550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0035700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0035850.npz
+step= 36000, t=10.052604, dt=2.818e-04, KE=2.181223e-01, Mt=0.6583, A_K=0.262, Cuv=-0.191, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.078, K_low=0.331, P_drag=-4.045e-03, P_cool=-2.399e-02, WENO=0.371, rho_mean=1.000000, p_mean=0.786248, div_rms=1.544e+00, vort_rms=2.266e+00, mass_err=-8.344e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0036000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0036150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0036300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0036450.npz
+step= 36500, t=10.193027, dt=2.799e-04, KE=2.162838e-01, Mt=0.6615, A_K=0.255, Cuv=-0.209, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.012, K_low=0.333, P_drag=-3.968e-03, P_cool=-2.409e-02, WENO=0.361, rho_mean=1.000000, p_mean=0.786549, div_rms=1.527e+00, vort_rms=2.252e+00, mass_err=-8.462e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0036600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0036750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0036900.npz
+step= 37000, t=10.331730, dt=2.758e-04, KE=2.139985e-01, Mt=0.6645, A_K=0.248, Cuv=-0.216, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.047, K_low=0.339, P_drag=-3.928e-03, P_cool=-2.425e-02, WENO=0.368, rho_mean=1.000000, p_mean=0.787031, div_rms=1.497e+00, vort_rms=2.235e+00, mass_err=-8.578e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0037050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0037200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0037350.npz
+step= 37500, t=10.469364, dt=2.756e-04, KE=2.122480e-01, Mt=0.6696, A_K=0.248, Cuv=-0.219, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.123, K_low=0.346, P_drag=-3.923e-03, P_cool=-2.433e-02, WENO=0.369, rho_mean=1.000000, p_mean=0.787290, div_rms=1.498e+00, vort_rms=2.229e+00, mass_err=-8.692e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0037500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0037650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0037800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0037950.npz
+step= 38000, t=10.607382, dt=2.763e-04, KE=2.113549e-01, Mt=0.6753, A_K=0.246, Cuv=-0.212, P_in=1.986e-02, P_tgt=2.000e-02, A_F=0.058, K_low=0.350, P_drag=-3.936e-03, P_cool=-2.430e-02, WENO=0.363, rho_mean=1.000000, p_mean=0.787198, div_rms=1.500e+00, vort_rms=2.234e+00, mass_err=-8.806e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0038100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0038250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0038400.npz
+step= 38500, t=10.747123, dt=2.826e-04, KE=2.112883e-01, Mt=0.6793, A_K=0.242, Cuv=-0.196, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.121, K_low=0.350, P_drag=-3.935e-03, P_cool=-2.416e-02, WENO=0.355, rho_mean=1.000000, p_mean=0.786774, div_rms=1.576e+00, vort_rms=2.244e+00, mass_err=-8.921e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0038550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0038700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0038850.npz
+step= 39000, t=10.891863, dt=3.026e-04, KE=2.111192e-01, Mt=0.6806, A_K=0.233, Cuv=-0.185, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.207, K_low=0.346, P_drag=-3.914e-03, P_cool=-2.403e-02, WENO=0.360, rho_mean=1.000000, p_mean=0.786368, div_rms=1.695e+00, vort_rms=2.250e+00, mass_err=-9.036e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0039000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0039150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0039300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0039450.npz
+step= 39500, t=11.041337, dt=2.962e-04, KE=2.104769e-01, Mt=0.6796, A_K=0.218, Cuv=-0.184, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.036, K_low=0.339, P_drag=-3.866e-03, P_cool=-2.395e-02, WENO=0.378, rho_mean=1.000000, p_mean=0.786123, div_rms=1.758e+00, vort_rms=2.252e+00, mass_err=-9.150e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0039600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0039750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0039900.npz
+step= 40000, t=11.191420, dt=3.072e-04, KE=2.102279e-01, Mt=0.6785, A_K=0.201, Cuv=-0.184, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.040, K_low=0.332, P_drag=-3.807e-03, P_cool=-2.381e-02, WENO=0.383, rho_mean=1.000000, p_mean=0.785729, div_rms=1.799e+00, vort_rms=2.240e+00, mass_err=-9.264e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0040050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0040200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0040350.npz
+step= 40500, t=11.346565, dt=3.125e-04, KE=2.108871e-01, Mt=0.6783, A_K=0.185, Cuv=-0.166, P_in=2.010e-02, P_tgt=2.000e-02, A_F=0.184, K_low=0.323, P_drag=-3.751e-03, P_cool=-2.357e-02, WENO=0.368, rho_mean=1.000000, p_mean=0.784986, div_rms=1.810e+00, vort_rms=2.234e+00, mass_err=-9.379e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0040500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0040650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0040800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0040950.npz
+step= 41000, t=11.502648, dt=3.098e-04, KE=2.122072e-01, Mt=0.6759, A_K=0.183, Cuv=-0.136, P_in=2.014e-02, P_tgt=2.000e-02, A_F=0.076, K_low=0.311, P_drag=-3.689e-03, P_cool=-2.324e-02, WENO=0.363, rho_mean=1.000000, p_mean=0.784013, div_rms=1.805e+00, vort_rms=2.234e+00, mass_err=-9.494e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0041100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0041250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0041400.npz
+step= 41500, t=11.659995, dt=3.203e-04, KE=2.131065e-01, Mt=0.6704, A_K=0.207, Cuv=-0.120, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.021, K_low=0.298, P_drag=-3.622e-03, P_cool=-2.299e-02, WENO=0.369, rho_mean=1.000000, p_mean=0.783245, div_rms=1.782e+00, vort_rms=2.239e+00, mass_err=-9.609e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0041550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0041700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0041850.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 42000, t=11.816750, dt=3.024e-04, KE=2.137585e-01, Mt=0.6651, A_K=0.236, Cuv=-0.126, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.059, K_low=0.288, P_drag=-3.578e-03, P_cool=-2.277e-02, WENO=0.356, rho_mean=1.000000, p_mean=0.782600, div_rms=1.797e+00, vort_rms=2.243e+00, mass_err=-9.723e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0042000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0042150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0042300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0042450.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 42500, t=11.966169, dt=2.996e-04, KE=2.131133e-01, Mt=0.6605, A_K=0.253, Cuv=-0.144, P_in=1.982e-02, P_tgt=2.000e-02, A_F=0.162, K_low=0.285, P_drag=-3.567e-03, P_cool=-2.273e-02, WENO=0.363, rho_mean=1.000000, p_mean=0.782474, div_rms=1.794e+00, vort_rms=2.268e+00, mass_err=-9.837e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0042600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0042750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0042900.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 43000, t=12.116493, dt=3.030e-04, KE=2.132332e-01, Mt=0.6584, A_K=0.257, Cuv=-0.149, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.164, K_low=0.287, P_drag=-3.606e-03, P_cool=-2.258e-02, WENO=0.336, rho_mean=1.000000, p_mean=0.782016, div_rms=1.778e+00, vort_rms=2.288e+00, mass_err=-9.953e-11
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0043050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0043200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0043350.npz
+step= 43500, t=12.268667, dt=3.030e-04, KE=2.147623e-01, Mt=0.6580, A_K=0.247, Cuv=-0.136, P_in=2.020e-02, P_tgt=2.000e-02, A_F=0.018, K_low=0.292, P_drag=-3.685e-03, P_cool=-2.225e-02, WENO=0.318, rho_mean=1.000000, p_mean=0.781034, div_rms=1.741e+00, vort_rms=2.288e+00, mass_err=-1.007e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0043500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0043650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0043800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0043950.npz
+step= 44000, t=12.418243, dt=2.991e-04, KE=2.151042e-01, Mt=0.6571, A_K=0.232, Cuv=-0.119, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.120, K_low=0.302, P_drag=-3.793e-03, P_cool=-2.210e-02, WENO=0.318, rho_mean=1.000000, p_mean=0.780588, div_rms=1.687e+00, vort_rms=2.281e+00, mass_err=-1.018e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0044100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0044250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0044400.npz
+step= 44500, t=12.568363, dt=3.018e-04, KE=2.141395e-01, Mt=0.6561, A_K=0.232, Cuv=-0.110, P_in=1.994e-02, P_tgt=2.000e-02, A_F=0.020, K_low=0.316, P_drag=-3.920e-03, P_cool=-2.212e-02, WENO=0.317, rho_mean=1.000000, p_mean=0.780654, div_rms=1.647e+00, vort_rms=2.276e+00, mass_err=-1.030e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0044550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0044700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0044850.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 45000, t=12.717784, dt=2.972e-04, KE=2.124968e-01, Mt=0.6560, A_K=0.238, Cuv=-0.101, P_in=2.007e-02, P_tgt=2.000e-02, A_F=0.124, K_low=0.333, P_drag=-4.052e-03, P_cool=-2.222e-02, WENO=0.314, rho_mean=1.000000, p_mean=0.780951, div_rms=1.587e+00, vort_rms=2.267e+00, mass_err=-1.042e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0045000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0045150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0045300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0045450.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 45500, t=12.865640, dt=2.939e-04, KE=2.091744e-01, Mt=0.6547, A_K=0.242, Cuv=-0.105, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.252, K_low=0.353, P_drag=-4.167e-03, P_cool=-2.253e-02, WENO=0.333, rho_mean=1.000000, p_mean=0.781887, div_rms=1.540e+00, vort_rms=2.260e+00, mass_err=-1.053e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0045600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0045750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0045900.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 46000, t=13.011262, dt=2.858e-04, KE=2.060634e-01, Mt=0.6533, A_K=0.244, Cuv=-0.120, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.259, K_low=0.368, P_drag=-4.253e-03, P_cool=-2.281e-02, WENO=0.343, rho_mean=1.000000, p_mean=0.782701, div_rms=1.523e+00, vort_rms=2.256e+00, mass_err=-1.065e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0046050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0046200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0046350.npz
+step= 46500, t=13.152311, dt=2.833e-04, KE=2.038516e-01, Mt=0.6515, A_K=0.240, Cuv=-0.142, P_in=1.981e-02, P_tgt=2.000e-02, A_F=0.081, K_low=0.377, P_drag=-4.304e-03, P_cool=-2.296e-02, WENO=0.348, rho_mean=1.000000, p_mean=0.783159, div_rms=1.496e+00, vort_rms=2.251e+00, mass_err=-1.076e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0046500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0046650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0046800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0046950.npz
+step= 47000, t=13.294962, dt=2.882e-04, KE=2.024790e-01, Mt=0.6501, A_K=0.240, Cuv=-0.174, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.039, K_low=0.382, P_drag=-4.341e-03, P_cool=-2.300e-02, WENO=0.348, rho_mean=1.000000, p_mean=0.783286, div_rms=1.479e+00, vort_rms=2.242e+00, mass_err=-1.088e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0047100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0047250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0047400.npz
+step= 47500, t=13.442598, dt=3.020e-04, KE=2.034013e-01, Mt=0.6511, A_K=0.241, Cuv=-0.198, P_in=2.007e-02, P_tgt=2.000e-02, A_F=0.007, K_low=0.384, P_drag=-4.389e-03, P_cool=-2.274e-02, WENO=0.350, rho_mean=1.000000, p_mean=0.782515, div_rms=1.497e+00, vort_rms=2.223e+00, mass_err=-1.099e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0047550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0047700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0047850.npz
+step= 48000, t=13.593524, dt=3.004e-04, KE=2.056031e-01, Mt=0.6534, A_K=0.238, Cuv=-0.215, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.045, K_low=0.385, P_drag=-4.436e-03, P_cool=-2.232e-02, WENO=0.349, rho_mean=1.000000, p_mean=0.781244, div_rms=1.532e+00, vort_rms=2.206e+00, mass_err=-1.111e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0048000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0048150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0048300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0048450.npz
+step= 48500, t=13.742338, dt=2.938e-04, KE=2.077636e-01, Mt=0.6559, A_K=0.237, Cuv=-0.218, P_in=1.989e-02, P_tgt=2.000e-02, A_F=0.133, K_low=0.384, P_drag=-4.470e-03, P_cool=-2.191e-02, WENO=0.345, rho_mean=1.000000, p_mean=0.780009, div_rms=1.527e+00, vort_rms=2.199e+00, mass_err=-1.122e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0048600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0048750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0048900.npz
+step= 49000, t=13.887684, dt=2.890e-04, KE=2.096345e-01, Mt=0.6583, A_K=0.240, Cuv=-0.220, P_in=2.013e-02, P_tgt=2.000e-02, A_F=0.033, K_low=0.383, P_drag=-4.481e-03, P_cool=-2.154e-02, WENO=0.324, rho_mean=1.000000, p_mean=0.778901, div_rms=1.506e+00, vort_rms=2.195e+00, mass_err=-1.133e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0049050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0049200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0049350.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 49500, t=14.032341, dt=2.909e-04, KE=2.102038e-01, Mt=0.6584, A_K=0.249, Cuv=-0.212, P_in=1.992e-02, P_tgt=2.000e-02, A_F=0.079, K_low=0.380, P_drag=-4.446e-03, P_cool=-2.134e-02, WENO=0.316, rho_mean=1.000000, p_mean=0.778310, div_rms=1.470e+00, vort_rms=2.187e+00, mass_err=-1.145e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0049500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0049650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0049800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0049950.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 50000, t=14.179276, dt=2.965e-04, KE=2.091601e-01, Mt=0.6554, A_K=0.250, Cuv=-0.204, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.150, K_low=0.374, P_drag=-4.339e-03, P_cool=-2.136e-02, WENO=0.331, rho_mean=1.000000, p_mean=0.778358, div_rms=1.434e+00, vort_rms=2.188e+00, mass_err=-1.156e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0050100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0050250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0050400.npz
+step= 50500, t=14.329773, dt=3.043e-04, KE=2.091286e-01, Mt=0.6525, A_K=0.248, Cuv=-0.203, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.060, K_low=0.361, P_drag=-4.205e-03, P_cool=-2.124e-02, WENO=0.334, rho_mean=1.000000, p_mean=0.777994, div_rms=1.423e+00, vort_rms=2.197e+00, mass_err=-1.168e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0050550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0050700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0050850.npz
+step= 51000, t=14.481238, dt=2.934e-04, KE=2.103380e-01, Mt=0.6506, A_K=0.234, Cuv=-0.196, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.040, K_low=0.345, P_drag=-4.067e-03, P_cool=-2.096e-02, WENO=0.336, rho_mean=1.000000, p_mean=0.777178, div_rms=1.432e+00, vort_rms=2.195e+00, mass_err=-1.179e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0051000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0051150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0051300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0051450.npz
+step= 51500, t=14.627299, dt=2.993e-04, KE=2.113133e-01, Mt=0.6491, A_K=0.216, Cuv=-0.193, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.013, K_low=0.333, P_drag=-3.956e-03, P_cool=-2.074e-02, WENO=0.327, rho_mean=1.000000, p_mean=0.776518, div_rms=1.467e+00, vort_rms=2.191e+00, mass_err=-1.191e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0051600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0051750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0051900.npz
+step= 52000, t=14.778084, dt=3.033e-04, KE=2.116451e-01, Mt=0.6490, A_K=0.200, Cuv=-0.193, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.075, K_low=0.327, P_drag=-3.878e-03, P_cool=-2.062e-02, WENO=0.341, rho_mean=1.000000, p_mean=0.776141, div_rms=1.497e+00, vort_rms=2.199e+00, mass_err=-1.202e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0052050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0052200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0052350.npz
+step= 52500, t=14.930107, dt=3.023e-04, KE=2.113676e-01, Mt=0.6508, A_K=0.188, Cuv=-0.187, P_in=2.008e-02, P_tgt=2.000e-02, A_F=0.195, K_low=0.324, P_drag=-3.810e-03, P_cool=-2.058e-02, WENO=0.329, rho_mean=1.000000, p_mean=0.776015, div_rms=1.523e+00, vort_rms=2.208e+00, mass_err=-1.214e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0052500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0052650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0052800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0052950.npz
+step= 53000, t=15.081184, dt=3.032e-04, KE=2.095262e-01, Mt=0.6511, A_K=0.186, Cuv=-0.176, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.147, K_low=0.321, P_drag=-3.733e-03, P_cool=-2.074e-02, WENO=0.322, rho_mean=1.000000, p_mean=0.776508, div_rms=1.506e+00, vort_rms=2.193e+00, mass_err=-1.225e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0053100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0053250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0053400.npz
+step= 53500, t=15.232280, dt=2.978e-04, KE=2.078465e-01, Mt=0.6509, A_K=0.201, Cuv=-0.160, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.157, K_low=0.315, P_drag=-3.648e-03, P_cool=-2.088e-02, WENO=0.323, rho_mean=1.000000, p_mean=0.776929, div_rms=1.518e+00, vort_rms=2.177e+00, mass_err=-1.237e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0053550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0053700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0053850.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 54000, t=15.380624, dt=3.005e-04, KE=2.065751e-01, Mt=0.6511, A_K=0.233, Cuv=-0.145, P_in=2.013e-02, P_tgt=2.000e-02, A_F=0.040, K_low=0.308, P_drag=-3.565e-03, P_cool=-2.097e-02, WENO=0.326, rho_mean=1.000000, p_mean=0.777192, div_rms=1.542e+00, vort_rms=2.167e+00, mass_err=-1.249e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0054000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0054150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0054300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0054450.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 54500, t=15.534050, dt=3.126e-04, KE=2.054122e-01, Mt=0.6501, A_K=0.267, Cuv=-0.138, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.046, K_low=0.300, P_drag=-3.480e-03, P_cool=-2.104e-02, WENO=0.327, rho_mean=1.000000, p_mean=0.777407, div_rms=1.530e+00, vort_rms=2.156e+00, mass_err=-1.260e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0054600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0054750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0054900.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 55000, t=15.690121, dt=3.114e-04, KE=2.047731e-01, Mt=0.6502, A_K=0.294, Cuv=-0.131, P_in=2.015e-02, P_tgt=2.000e-02, A_F=0.048, K_low=0.294, P_drag=-3.422e-03, P_cool=-2.104e-02, WENO=0.323, rho_mean=1.000000, p_mean=0.777392, div_rms=1.522e+00, vort_rms=2.148e+00, mass_err=-1.272e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0055050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0055200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0055350.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 55500, t=15.844224, dt=3.058e-04, KE=2.059416e-01, Mt=0.6530, A_K=0.308, Cuv=-0.119, P_in=1.985e-02, P_tgt=2.000e-02, A_F=0.155, K_low=0.291, P_drag=-3.417e-03, P_cool=-2.078e-02, WENO=0.304, rho_mean=1.000000, p_mean=0.776639, div_rms=1.534e+00, vort_rms=2.138e+00, mass_err=-1.283e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0055500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0055650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0055800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0055950.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 56000, t=15.997979, dt=3.105e-04, KE=2.081692e-01, Mt=0.6578, A_K=0.321, Cuv=-0.101, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.084, K_low=0.291, P_drag=-3.466e-03, P_cool=-2.039e-02, WENO=0.287, rho_mean=1.000000, p_mean=0.775461, div_rms=1.511e+00, vort_rms=2.135e+00, mass_err=-1.295e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0056100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0056250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0056400.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 56500, t=16.153416, dt=3.080e-04, KE=2.101482e-01, Mt=0.6636, A_K=0.331, Cuv=-0.084, P_in=1.992e-02, P_tgt=2.000e-02, A_F=0.049, K_low=0.296, P_drag=-3.558e-03, P_cool=-2.003e-02, WENO=0.292, rho_mean=1.000000, p_mean=0.774384, div_rms=1.457e+00, vort_rms=2.138e+00, mass_err=-1.306e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0056550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0056700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0056850.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 57000, t=16.305776, dt=3.031e-04, KE=2.111877e-01, Mt=0.6669, A_K=0.335, Cuv=-0.071, P_in=1.987e-02, P_tgt=2.000e-02, A_F=0.126, K_low=0.304, P_drag=-3.677e-03, P_cool=-1.981e-02, WENO=0.297, rho_mean=1.000000, p_mean=0.773714, div_rms=1.438e+00, vort_rms=2.139e+00, mass_err=-1.317e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0057000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0057150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0057300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0057450.npz
+step= 57500, t=16.457709, dt=3.035e-04, KE=2.118809e-01, Mt=0.6703, A_K=0.332, Cuv=-0.069, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.185, K_low=0.316, P_drag=-3.818e-03, P_cool=-1.964e-02, WENO=0.290, rho_mean=1.000000, p_mean=0.773210, div_rms=1.419e+00, vort_rms=2.146e+00, mass_err=-1.329e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0057600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0057750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0057900.npz
+step= 58000, t=16.608530, dt=2.994e-04, KE=2.126859e-01, Mt=0.6747, A_K=0.324, Cuv=-0.074, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.217, K_low=0.330, P_drag=-3.948e-03, P_cool=-1.946e-02, WENO=0.280, rho_mean=1.000000, p_mean=0.772677, div_rms=1.442e+00, vort_rms=2.156e+00, mass_err=-1.340e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0058050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0058200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0058350.npz
+step= 58500, t=16.756323, dt=2.932e-04, KE=2.126704e-01, Mt=0.6771, A_K=0.314, Cuv=-0.082, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.087, K_low=0.342, P_drag=-4.048e-03, P_cool=-1.940e-02, WENO=0.275, rho_mean=1.000000, p_mean=0.772486, div_rms=1.526e+00, vort_rms=2.172e+00, mass_err=-1.351e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0058500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0058650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0058800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0058950.npz
+step= 59000, t=16.904171, dt=2.977e-04, KE=2.119602e-01, Mt=0.6766, A_K=0.299, Cuv=-0.092, P_in=1.994e-02, P_tgt=2.000e-02, A_F=0.175, K_low=0.352, P_drag=-4.099e-03, P_cool=-1.943e-02, WENO=0.259, rho_mean=1.000000, p_mean=0.772576, div_rms=1.612e+00, vort_rms=2.186e+00, mass_err=-1.362e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0059100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0059250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0059400.npz
+step= 59500, t=17.053758, dt=2.994e-04, KE=2.103960e-01, Mt=0.6735, A_K=0.276, Cuv=-0.114, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.044, K_low=0.357, P_drag=-4.087e-03, P_cool=-1.957e-02, WENO=0.250, rho_mean=1.000000, p_mean=0.773001, div_rms=1.645e+00, vort_rms=2.205e+00, mass_err=-1.374e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0059550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0059700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0059850.npz
+step= 60000, t=17.203348, dt=2.994e-04, KE=2.083622e-01, Mt=0.6685, A_K=0.240, Cuv=-0.146, P_in=2.010e-02, P_tgt=2.000e-02, A_F=0.166, K_low=0.356, P_drag=-4.026e-03, P_cool=-1.978e-02, WENO=0.248, rho_mean=1.000000, p_mean=0.773613, div_rms=1.640e+00, vort_rms=2.236e+00, mass_err=-1.385e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0060000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0060150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0060300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0060450.npz
+step= 60500, t=17.353045, dt=3.009e-04, KE=2.063743e-01, Mt=0.6620, A_K=0.194, Cuv=-0.179, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.053, K_low=0.349, P_drag=-3.942e-03, P_cool=-1.998e-02, WENO=0.256, rho_mean=1.000000, p_mean=0.774224, div_rms=1.573e+00, vort_rms=2.255e+00, mass_err=-1.397e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0060600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0060750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0060900.npz
+step= 61000, t=17.504659, dt=3.013e-04, KE=2.054022e-01, Mt=0.6569, A_K=0.157, Cuv=-0.211, P_in=2.016e-02, P_tgt=2.000e-02, A_F=0.121, K_low=0.338, P_drag=-3.856e-03, P_cool=-2.006e-02, WENO=0.269, rho_mean=1.000000, p_mean=0.774458, div_rms=1.516e+00, vort_rms=2.250e+00, mass_err=-1.408e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0061050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0061200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0061350.npz
+step= 61500, t=17.653986, dt=2.984e-04, KE=2.058989e-01, Mt=0.6561, A_K=0.136, Cuv=-0.238, P_in=2.007e-02, P_tgt=2.000e-02, A_F=0.276, K_low=0.326, P_drag=-3.788e-03, P_cool=-1.995e-02, WENO=0.282, rho_mean=1.000000, p_mean=0.774128, div_rms=1.506e+00, vort_rms=2.246e+00, mass_err=-1.420e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0061500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0061650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0061800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0061950.npz
+step= 62000, t=17.803886, dt=3.028e-04, KE=2.070828e-01, Mt=0.6581, A_K=0.128, Cuv=-0.251, P_in=2.009e-02, P_tgt=2.000e-02, A_F=0.176, K_low=0.316, P_drag=-3.729e-03, P_cool=-1.974e-02, WENO=0.294, rho_mean=1.000000, p_mean=0.773514, div_rms=1.517e+00, vort_rms=2.240e+00, mass_err=-1.431e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0062100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0062250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0062400.npz
+step= 62500, t=17.952828, dt=2.947e-04, KE=2.083228e-01, Mt=0.6608, A_K=0.123, Cuv=-0.256, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.339, K_low=0.308, P_drag=-3.681e-03, P_cool=-1.951e-02, WENO=0.295, rho_mean=1.000000, p_mean=0.772818, div_rms=1.556e+00, vort_rms=2.244e+00, mass_err=-1.443e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0062550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0062700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0062850.npz
+step= 63000, t=18.099027, dt=2.943e-04, KE=2.091578e-01, Mt=0.6637, A_K=0.114, Cuv=-0.254, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.007, K_low=0.303, P_drag=-3.645e-03, P_cool=-1.932e-02, WENO=0.285, rho_mean=1.000000, p_mean=0.772231, div_rms=1.592e+00, vort_rms=2.253e+00, mass_err=-1.454e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0063000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0063150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0063300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0063450.npz
+step= 63500, t=18.249385, dt=3.032e-04, KE=2.095796e-01, Mt=0.6650, A_K=0.102, Cuv=-0.250, P_in=1.992e-02, P_tgt=2.000e-02, A_F=0.196, K_low=0.300, P_drag=-3.621e-03, P_cool=-1.917e-02, WENO=0.281, rho_mean=1.000000, p_mean=0.771782, div_rms=1.602e+00, vort_rms=2.253e+00, mass_err=-1.465e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0063600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0063750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0063900.npz
+step= 64000, t=18.401260, dt=3.041e-04, KE=2.092271e-01, Mt=0.6641, A_K=0.092, Cuv=-0.244, P_in=1.994e-02, P_tgt=2.000e-02, A_F=0.163, K_low=0.299, P_drag=-3.600e-03, P_cool=-1.913e-02, WENO=0.284, rho_mean=1.000000, p_mean=0.771666, div_rms=1.583e+00, vort_rms=2.245e+00, mass_err=-1.477e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0064050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0064200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0064350.npz
+step= 64500, t=18.554108, dt=3.066e-04, KE=2.086144e-01, Mt=0.6631, A_K=0.090, Cuv=-0.239, P_in=2.016e-02, P_tgt=2.000e-02, A_F=0.241, K_low=0.298, P_drag=-3.576e-03, P_cool=-1.914e-02, WENO=0.286, rho_mean=1.000000, p_mean=0.771704, div_rms=1.545e+00, vort_rms=2.236e+00, mass_err=-1.488e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0064500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0064650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0064800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0064950.npz
+step= 65000, t=18.706489, dt=3.060e-04, KE=2.084158e-01, Mt=0.6628, A_K=0.095, Cuv=-0.230, P_in=2.006e-02, P_tgt=2.000e-02, A_F=0.090, K_low=0.295, P_drag=-3.538e-03, P_cool=-1.912e-02, WENO=0.283, rho_mean=1.000000, p_mean=0.771642, div_rms=1.533e+00, vort_rms=2.219e+00, mass_err=-1.500e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0065100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0065250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0065400.npz
+step= 65500, t=18.859929, dt=3.067e-04, KE=2.073684e-01, Mt=0.6615, A_K=0.102, Cuv=-0.224, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.044, K_low=0.289, P_drag=-3.476e-03, P_cool=-1.922e-02, WENO=0.287, rho_mean=1.000000, p_mean=0.771955, div_rms=1.495e+00, vort_rms=2.207e+00, mass_err=-1.511e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0065550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0065700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0065850.npz
+step= 66000, t=19.013507, dt=3.082e-04, KE=2.070086e-01, Mt=0.6621, A_K=0.103, Cuv=-0.228, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.089, K_low=0.282, P_drag=-3.403e-03, P_cool=-1.924e-02, WENO=0.314, rho_mean=1.000000, p_mean=0.771996, div_rms=1.491e+00, vort_rms=2.207e+00, mass_err=-1.523e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0066000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0066150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0066300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0066450.npz
+step= 66500, t=19.167512, dt=3.086e-04, KE=2.070507e-01, Mt=0.6642, A_K=0.097, Cuv=-0.237, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.047, K_low=0.276, P_drag=-3.350e-03, P_cool=-1.919e-02, WENO=0.312, rho_mean=1.000000, p_mean=0.771861, div_rms=1.497e+00, vort_rms=2.212e+00, mass_err=-1.535e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0066600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0066750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0066900.npz
+step= 67000, t=19.321994, dt=3.083e-04, KE=2.065798e-01, Mt=0.6651, A_K=0.097, Cuv=-0.249, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.154, K_low=0.274, P_drag=-3.331e-03, P_cool=-1.921e-02, WENO=0.292, rho_mean=1.000000, p_mean=0.771907, div_rms=1.511e+00, vort_rms=2.213e+00, mass_err=-1.547e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0067050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0067200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0067350.npz
+step= 67500, t=19.475281, dt=3.061e-04, KE=2.074125e-01, Mt=0.6658, A_K=0.109, Cuv=-0.256, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.194, K_low=0.275, P_drag=-3.359e-03, P_cool=-1.904e-02, WENO=0.296, rho_mean=1.000000, p_mean=0.771408, div_rms=1.503e+00, vort_rms=2.203e+00, mass_err=-1.558e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0067500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0067650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0067800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0067950.npz
+step= 68000, t=19.628760, dt=3.062e-04, KE=2.095262e-01, Mt=0.6675, A_K=0.129, Cuv=-0.248, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.005, K_low=0.278, P_drag=-3.425e-03, P_cool=-1.870e-02, WENO=0.280, rho_mean=1.000000, p_mean=0.770393, div_rms=1.471e+00, vort_rms=2.192e+00, mass_err=-1.570e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0068100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0068250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0068400.npz
+step= 68500, t=19.781175, dt=3.039e-04, KE=2.111423e-01, Mt=0.6682, A_K=0.148, Cuv=-0.225, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.001, K_low=0.284, P_drag=-3.515e-03, P_cool=-1.844e-02, WENO=0.265, rho_mean=1.000000, p_mean=0.769591, div_rms=1.446e+00, vort_rms=2.185e+00, mass_err=-1.581e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0068550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0068700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0068850.npz
+step= 69000, t=19.934857, dt=3.123e-04, KE=2.114972e-01, Mt=0.6668, A_K=0.166, Cuv=-0.193, P_in=1.992e-02, P_tgt=2.000e-02, A_F=0.079, K_low=0.294, P_drag=-3.617e-03, P_cool=-1.834e-02, WENO=0.274, rho_mean=1.000000, p_mean=0.769306, div_rms=1.449e+00, vort_rms=2.179e+00, mass_err=-1.593e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0069000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0069150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0069300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0069450.npz
+step= 69500, t=20.093175, dt=3.194e-04, KE=2.110159e-01, Mt=0.6644, A_K=0.189, Cuv=-0.161, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.076, K_low=0.302, P_drag=-3.708e-03, P_cool=-1.835e-02, WENO=0.282, rho_mean=1.000000, p_mean=0.769350, div_rms=1.414e+00, vort_rms=2.175e+00, mass_err=-1.604e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0069600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0069750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0069900.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 70000, t=20.253432, dt=3.206e-04, KE=2.109123e-01, Mt=0.6650, A_K=0.211, Cuv=-0.126, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.107, K_low=0.308, P_drag=-3.784e-03, P_cool=-1.832e-02, WENO=0.289, rho_mean=1.000000, p_mean=0.769239, div_rms=1.391e+00, vort_rms=2.176e+00, mass_err=-1.616e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0070050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0070200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0070350.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 70500, t=20.412662, dt=3.129e-04, KE=2.116207e-01, Mt=0.6689, A_K=0.220, Cuv=-0.088, P_in=1.980e-02, P_tgt=2.000e-02, A_F=0.069, K_low=0.314, P_drag=-3.855e-03, P_cool=-1.817e-02, WENO=0.294, rho_mean=1.000000, p_mean=0.768810, div_rms=1.444e+00, vort_rms=2.171e+00, mass_err=-1.627e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0070500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0070650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0070800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0070950.npz
+step= 71000, t=20.567663, dt=3.094e-04, KE=2.121393e-01, Mt=0.6716, A_K=0.207, Cuv=-0.056, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.153, K_low=0.320, P_drag=-3.921e-03, P_cool=-1.806e-02, WENO=0.303, rho_mean=1.000000, p_mean=0.768458, div_rms=1.482e+00, vort_rms=2.157e+00, mass_err=-1.638e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0071100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0071250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0071400.npz
+step= 71500, t=20.722999, dt=3.131e-04, KE=2.126903e-01, Mt=0.6733, A_K=0.179, Cuv=-0.025, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.132, K_low=0.327, P_drag=-3.970e-03, P_cool=-1.793e-02, WENO=0.305, rho_mean=1.000000, p_mean=0.768079, div_rms=1.475e+00, vort_rms=2.148e+00, mass_err=-1.650e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0071550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0071700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0071850.npz
+step= 72000, t=20.879850, dt=3.147e-04, KE=2.130366e-01, Mt=0.6755, A_K=0.146, Cuv=0.010, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.107, K_low=0.333, P_drag=-4.010e-03, P_cool=-1.784e-02, WENO=0.310, rho_mean=1.000000, p_mean=0.767794, div_rms=1.464e+00, vort_rms=2.166e+00, mass_err=-1.661e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0072000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0072150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0072300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0072450.npz
+step= 72500, t=21.037130, dt=3.143e-04, KE=2.132723e-01, Mt=0.6772, A_K=0.115, Cuv=0.035, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.058, K_low=0.340, P_drag=-4.061e-03, P_cool=-1.777e-02, WENO=0.310, rho_mean=1.000000, p_mean=0.767593, div_rms=1.432e+00, vort_rms=2.183e+00, mass_err=-1.673e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0072600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0072750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0072900.npz
+step= 73000, t=21.194605, dt=3.097e-04, KE=2.144722e-01, Mt=0.6782, A_K=0.092, Cuv=0.057, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.088, K_low=0.346, P_drag=-4.144e-03, P_cool=-1.758e-02, WENO=0.296, rho_mean=1.000000, p_mean=0.767039, div_rms=1.425e+00, vort_rms=2.188e+00, mass_err=-1.684e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0073050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0073200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0073350.npz
+step= 73500, t=21.348011, dt=3.090e-04, KE=2.159269e-01, Mt=0.6791, A_K=0.078, Cuv=0.092, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.128, K_low=0.354, P_drag=-4.277e-03, P_cool=-1.737e-02, WENO=0.267, rho_mean=1.000000, p_mean=0.766390, div_rms=1.414e+00, vort_rms=2.187e+00, mass_err=-1.696e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0073500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0073650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0073800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0073950.npz
+step= 74000, t=21.500672, dt=3.027e-04, KE=2.181946e-01, Mt=0.6822, A_K=0.075, Cuv=0.132, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.207, K_low=0.364, P_drag=-4.456e-03, P_cool=-1.704e-02, WENO=0.258, rho_mean=1.000000, p_mean=0.765412, div_rms=1.415e+00, vort_rms=2.194e+00, mass_err=-1.708e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0074100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0074250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0074400.npz
+step= 74500, t=21.650245, dt=2.950e-04, KE=2.203339e-01, Mt=0.6862, A_K=0.066, Cuv=0.164, P_in=2.008e-02, P_tgt=2.000e-02, A_F=0.248, K_low=0.377, P_drag=-4.664e-03, P_cool=-1.673e-02, WENO=0.257, rho_mean=1.000000, p_mean=0.764475, div_rms=1.383e+00, vort_rms=2.205e+00, mass_err=-1.719e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0074550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0074700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0074850.npz
+step= 75000, t=21.795926, dt=2.895e-04, KE=2.208539e-01, Mt=0.6884, A_K=0.055, Cuv=0.187, P_in=2.009e-02, P_tgt=2.000e-02, A_F=0.092, K_low=0.392, P_drag=-4.874e-03, P_cool=-1.663e-02, WENO=0.245, rho_mean=1.000000, p_mean=0.764163, div_rms=1.329e+00, vort_rms=2.212e+00, mass_err=-1.731e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0075000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0075150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0075300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0075450.npz
+step= 75500, t=21.939634, dt=2.864e-04, KE=2.205568e-01, Mt=0.6888, A_K=0.051, Cuv=0.206, P_in=1.989e-02, P_tgt=2.000e-02, A_F=0.222, K_low=0.406, P_drag=-5.062e-03, P_cool=-1.662e-02, WENO=0.239, rho_mean=1.000000, p_mean=0.764153, div_rms=1.322e+00, vort_rms=2.214e+00, mass_err=-1.742e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0075600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0075750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0075900.npz
+step= 76000, t=22.082778, dt=2.888e-04, KE=2.193816e-01, Mt=0.6872, A_K=0.054, Cuv=0.228, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.296, K_low=0.419, P_drag=-5.232e-03, P_cool=-1.673e-02, WENO=0.242, rho_mean=1.000000, p_mean=0.764482, div_rms=1.333e+00, vort_rms=2.216e+00, mass_err=-1.754e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0076050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0076200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0076350.npz
+step= 76500, t=22.228786, dt=2.927e-04, KE=2.176391e-01, Mt=0.6842, A_K=0.057, Cuv=0.252, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.247, K_low=0.432, P_drag=-5.395e-03, P_cool=-1.691e-02, WENO=0.270, rho_mean=1.000000, p_mean=0.765023, div_rms=1.353e+00, vort_rms=2.211e+00, mass_err=-1.766e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0076500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0076650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0076800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0076950.npz
+step= 77000, t=22.375917, dt=2.956e-04, KE=2.168702e-01, Mt=0.6819, A_K=0.054, Cuv=0.278, P_in=1.991e-02, P_tgt=2.000e-02, A_F=0.248, K_low=0.444, P_drag=-5.535e-03, P_cool=-1.696e-02, WENO=0.292, rho_mean=1.000000, p_mean=0.765174, div_rms=1.384e+00, vort_rms=2.207e+00, mass_err=-1.777e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0077100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0077250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0077400.npz
+step= 77500, t=22.523229, dt=2.927e-04, KE=2.177142e-01, Mt=0.6815, A_K=0.041, Cuv=0.302, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.117, K_low=0.451, P_drag=-5.661e-03, P_cool=-1.680e-02, WENO=0.288, rho_mean=1.000000, p_mean=0.764690, div_rms=1.413e+00, vort_rms=2.204e+00, mass_err=-1.789e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0077550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0077700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0077850.npz
+step= 78000, t=22.668672, dt=2.910e-04, KE=2.195716e-01, Mt=0.6820, A_K=0.018, Cuv=0.324, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.012, K_low=0.455, P_drag=-5.775e-03, P_cool=-1.651e-02, WENO=0.286, rho_mean=1.000000, p_mean=0.763819, div_rms=1.450e+00, vort_rms=2.210e+00, mass_err=-1.801e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0078000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0078150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0078300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0078450.npz
+step= 78500, t=22.815119, dt=2.923e-04, KE=2.213032e-01, Mt=0.6816, A_K=0.015, Cuv=0.345, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.024, K_low=0.457, P_drag=-5.873e-03, P_cool=-1.624e-02, WENO=0.279, rho_mean=1.000000, p_mean=0.763016, div_rms=1.487e+00, vort_rms=2.229e+00, mass_err=-1.812e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0078600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0078750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0078900.npz
+step= 79000, t=22.962600, dt=2.983e-04, KE=2.222909e-01, Mt=0.6783, A_K=0.059, Cuv=0.359, P_in=2.012e-02, P_tgt=2.000e-02, A_F=0.107, K_low=0.460, P_drag=-5.968e-03, P_cool=-1.608e-02, WENO=0.289, rho_mean=1.000000, p_mean=0.762532, div_rms=1.442e+00, vort_rms=2.244e+00, mass_err=-1.824e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0079050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0079200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0079350.npz
+step= 79500, t=23.114612, dt=3.104e-04, KE=2.236424e-01, Mt=0.6744, A_K=0.106, Cuv=0.365, P_in=2.016e-02, P_tgt=2.000e-02, A_F=0.002, K_low=0.462, P_drag=-6.059e-03, P_cool=-1.588e-02, WENO=0.301, rho_mean=1.000000, p_mean=0.761917, div_rms=1.359e+00, vort_rms=2.247e+00, mass_err=-1.835e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0079500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0079650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0079800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0079950.npz
+step= 80000, t=23.267582, dt=2.994e-04, KE=2.251992e-01, Mt=0.6725, A_K=0.143, Cuv=0.367, P_in=1.985e-02, P_tgt=2.000e-02, A_F=0.061, K_low=0.461, P_drag=-6.119e-03, P_cool=-1.565e-02, WENO=0.311, rho_mean=1.000000, p_mean=0.761224, div_rms=1.322e+00, vort_rms=2.248e+00, mass_err=-1.847e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0080100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0080250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0080400.npz
+step= 80500, t=23.414155, dt=2.893e-04, KE=2.259272e-01, Mt=0.6736, A_K=0.181, Cuv=0.370, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.167, K_low=0.461, P_drag=-6.152e-03, P_cool=-1.552e-02, WENO=0.315, rho_mean=1.000000, p_mean=0.760832, div_rms=1.304e+00, vort_rms=2.262e+00, mass_err=-1.858e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0080550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0080700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0080850.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 81000, t=23.556383, dt=2.816e-04, KE=2.264727e-01, Mt=0.6776, A_K=0.207, Cuv=0.369, P_in=2.006e-02, P_tgt=2.000e-02, A_F=0.089, K_low=0.461, P_drag=-6.148e-03, P_cool=-1.540e-02, WENO=0.308, rho_mean=1.000000, p_mean=0.760480, div_rms=1.319e+00, vort_rms=2.284e+00, mass_err=-1.870e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0081000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0081150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0081300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0081450.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 81500, t=23.699149, dt=2.920e-04, KE=2.266782e-01, Mt=0.6816, A_K=0.223, Cuv=0.365, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.238, K_low=0.461, P_drag=-6.111e-03, P_cool=-1.532e-02, WENO=0.308, rho_mean=1.000000, p_mean=0.760259, div_rms=1.326e+00, vort_rms=2.294e+00, mass_err=-1.882e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0081600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0081750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0081900.npz
+step= 82000, t=23.848533, dt=3.023e-04, KE=2.262263e-01, Mt=0.6844, A_K=0.216, Cuv=0.355, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.013, K_low=0.460, P_drag=-6.025e-03, P_cool=-1.535e-02, WENO=0.283, rho_mean=1.000000, p_mean=0.760322, div_rms=1.337e+00, vort_rms=2.298e+00, mass_err=-1.893e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0082050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0082200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0082350.npz
+step= 82500, t=24.000381, dt=3.047e-04, KE=2.242893e-01, Mt=0.6840, A_K=0.195, Cuv=0.353, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.031, K_low=0.456, P_drag=-5.902e-03, P_cool=-1.557e-02, WENO=0.265, rho_mean=1.000000, p_mean=0.761006, div_rms=1.332e+00, vort_rms=2.287e+00, mass_err=-1.905e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0082500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0082650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0082800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0082950.npz
+step= 83000, t=24.152943, dt=3.054e-04, KE=2.221153e-01, Mt=0.6822, A_K=0.157, Cuv=0.345, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.176, K_low=0.450, P_drag=-5.764e-03, P_cool=-1.583e-02, WENO=0.261, rho_mean=1.000000, p_mean=0.761784, div_rms=1.339e+00, vort_rms=2.276e+00, mass_err=-1.916e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0083100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0083250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0083400.npz
+step= 83500, t=24.306097, dt=3.069e-04, KE=2.212149e-01, Mt=0.6816, A_K=0.102, Cuv=0.327, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.176, K_low=0.442, P_drag=-5.647e-03, P_cool=-1.592e-02, WENO=0.263, rho_mean=1.000000, p_mean=0.762049, div_rms=1.372e+00, vort_rms=2.282e+00, mass_err=-1.928e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0083550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0083700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0083850.npz
+step= 84000, t=24.459255, dt=3.050e-04, KE=2.212166e-01, Mt=0.6799, A_K=0.048, Cuv=0.300, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.021, K_low=0.434, P_drag=-5.563e-03, P_cool=-1.589e-02, WENO=0.277, rho_mean=1.000000, p_mean=0.761950, div_rms=1.434e+00, vort_rms=2.284e+00, mass_err=-1.939e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0084000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0084150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0084300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0084450.npz
+step= 84500, t=24.612328, dt=3.072e-04, KE=2.218603e-01, Mt=0.6765, A_K=0.003, Cuv=0.258, P_in=2.006e-02, P_tgt=2.000e-02, A_F=0.028, K_low=0.427, P_drag=-5.512e-03, P_cool=-1.577e-02, WENO=0.284, rho_mean=1.000000, p_mean=0.761596, div_rms=1.478e+00, vort_rms=2.262e+00, mass_err=-1.951e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0084600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0084750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0084900.npz
+step= 85000, t=24.762384, dt=2.942e-04, KE=2.222534e-01, Mt=0.6731, A_K=0.030, Cuv=0.199, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.217, K_low=0.424, P_drag=-5.498e-03, P_cool=-1.569e-02, WENO=0.311, rho_mean=1.000000, p_mean=0.761364, div_rms=1.484e+00, vort_rms=2.251e+00, mass_err=-1.962e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0085050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0085200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0085350.npz
+step= 85500, t=24.907797, dt=2.898e-04, KE=2.226484e-01, Mt=0.6721, A_K=0.056, Cuv=0.146, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.137, K_low=0.425, P_drag=-5.510e-03, P_cool=-1.562e-02, WENO=0.324, rho_mean=1.000000, p_mean=0.761155, div_rms=1.475e+00, vort_rms=2.259e+00, mass_err=-1.974e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0085500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0085650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0085800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0085950.npz
+step= 86000, t=25.053338, dt=2.911e-04, KE=2.230267e-01, Mt=0.6734, A_K=0.082, Cuv=0.100, P_in=2.006e-02, P_tgt=2.000e-02, A_F=0.083, K_low=0.426, P_drag=-5.522e-03, P_cool=-1.556e-02, WENO=0.337, rho_mean=1.000000, p_mean=0.760958, div_rms=1.451e+00, vort_rms=2.263e+00, mass_err=-1.985e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0086100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0086250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0086400.npz
+step= 86500, t=25.198032, dt=2.885e-04, KE=2.220925e-01, Mt=0.6745, A_K=0.106, Cuv=0.057, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.106, K_low=0.427, P_drag=-5.500e-03, P_cool=-1.567e-02, WENO=0.344, rho_mean=1.000000, p_mean=0.761287, div_rms=1.435e+00, vort_rms=2.252e+00, mass_err=-1.997e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0086550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0086700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0086850.npz
+step= 87000, t=25.342509, dt=2.898e-04, KE=2.196531e-01, Mt=0.6745, A_K=0.135, Cuv=0.024, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.035, K_low=0.429, P_drag=-5.445e-03, P_cool=-1.597e-02, WENO=0.352, rho_mean=1.000000, p_mean=0.762192, div_rms=1.411e+00, vort_rms=2.239e+00, mass_err=-2.008e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0087000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0087150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0087300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0087450.npz
+step= 87500, t=25.484612, dt=2.828e-04, KE=2.171838e-01, Mt=0.6758, A_K=0.168, Cuv=0.006, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.050, K_low=0.431, P_drag=-5.373e-03, P_cool=-1.626e-02, WENO=0.357, rho_mean=1.000000, p_mean=0.763073, div_rms=1.408e+00, vort_rms=2.237e+00, mass_err=-2.020e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0087600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0087750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0087900.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 88000, t=25.625703, dt=2.817e-04, KE=2.156329e-01, Mt=0.6793, A_K=0.208, Cuv=-0.014, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.115, K_low=0.432, P_drag=-5.280e-03, P_cool=-1.643e-02, WENO=0.350, rho_mean=1.000000, p_mean=0.763586, div_rms=1.420e+00, vort_rms=2.237e+00, mass_err=-2.031e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0088050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0088200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0088350.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 88500, t=25.765906, dt=2.791e-04, KE=2.153115e-01, Mt=0.6844, A_K=0.242, Cuv=-0.028, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.136, K_low=0.429, P_drag=-5.178e-03, P_cool=-1.645e-02, WENO=0.345, rho_mean=1.000000, p_mean=0.763638, div_rms=1.461e+00, vort_rms=2.235e+00, mass_err=-2.043e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0088500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0088650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0088800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0088950.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 89000, t=25.904768, dt=2.768e-04, KE=2.159104e-01, Mt=0.6880, A_K=0.268, Cuv=-0.036, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.077, K_low=0.422, P_drag=-5.067e-03, P_cool=-1.636e-02, WENO=0.320, rho_mean=1.000000, p_mean=0.763359, div_rms=1.504e+00, vort_rms=2.227e+00, mass_err=-2.054e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0089100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0089250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0089400.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 89500, t=26.042737, dt=2.754e-04, KE=2.169702e-01, Mt=0.6881, A_K=0.285, Cuv=-0.038, P_in=2.007e-02, P_tgt=2.000e-02, A_F=0.125, K_low=0.411, P_drag=-4.945e-03, P_cool=-1.621e-02, WENO=0.304, rho_mean=1.000000, p_mean=0.762917, div_rms=1.628e+00, vort_rms=2.215e+00, mass_err=-2.065e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0089550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0089700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0089850.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 90000, t=26.180085, dt=2.740e-04, KE=2.181534e-01, Mt=0.6857, A_K=0.298, Cuv=-0.030, P_in=1.990e-02, P_tgt=2.000e-02, A_F=0.111, K_low=0.397, P_drag=-4.819e-03, P_cool=-1.605e-02, WENO=0.300, rho_mean=1.000000, p_mean=0.762434, div_rms=1.659e+00, vort_rms=2.209e+00, mass_err=-2.077e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0090000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0090150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0090300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0090450.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 90500, t=26.317814, dt=2.756e-04, KE=2.189429e-01, Mt=0.6827, A_K=0.310, Cuv=-0.024, P_in=1.992e-02, P_tgt=2.000e-02, A_F=0.077, K_low=0.385, P_drag=-4.705e-03, P_cool=-1.594e-02, WENO=0.286, rho_mean=1.000000, p_mean=0.762111, div_rms=1.654e+00, vort_rms=2.208e+00, mass_err=-2.088e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0090600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0090750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0090900.npz
+step= 91000, t=26.455229, dt=2.745e-04, KE=2.195798e-01, Mt=0.6799, A_K=0.306, Cuv=-0.021, P_in=2.020e-02, P_tgt=2.000e-02, A_F=0.013, K_low=0.373, P_drag=-4.599e-03, P_cool=-1.586e-02, WENO=0.297, rho_mean=1.000000, p_mean=0.761851, div_rms=1.655e+00, vort_rms=2.218e+00, mass_err=-2.100e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0091050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0091200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0091350.npz
+step= 91500, t=26.593131, dt=2.769e-04, KE=2.197727e-01, Mt=0.6759, A_K=0.285, Cuv=-0.019, P_in=2.018e-02, P_tgt=2.000e-02, A_F=0.108, K_low=0.363, P_drag=-4.515e-03, P_cool=-1.583e-02, WENO=0.285, rho_mean=1.000000, p_mean=0.761769, div_rms=1.631e+00, vort_rms=2.224e+00, mass_err=-2.111e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0091500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0091650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0091800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0091950.npz
+step= 92000, t=26.732419, dt=2.813e-04, KE=2.191651e-01, Mt=0.6712, A_K=0.258, Cuv=-0.020, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.073, K_low=0.357, P_drag=-4.463e-03, P_cool=-1.591e-02, WENO=0.271, rho_mean=1.000000, p_mean=0.762004, div_rms=1.588e+00, vort_rms=2.223e+00, mass_err=-2.123e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0092100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0092250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0092400.npz
+step= 92500, t=26.875698, dt=2.883e-04, KE=2.179360e-01, Mt=0.6672, A_K=0.233, Cuv=-0.030, P_in=1.991e-02, P_tgt=2.000e-02, A_F=0.191, K_low=0.358, P_drag=-4.460e-03, P_cool=-1.606e-02, WENO=0.286, rho_mean=1.000000, p_mean=0.762468, div_rms=1.543e+00, vort_rms=2.223e+00, mass_err=-2.134e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0092550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0092700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0092850.npz
+step= 93000, t=27.022459, dt=2.966e-04, KE=2.176580e-01, Mt=0.6668, A_K=0.214, Cuv=-0.049, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.011, K_low=0.361, P_drag=-4.498e-03, P_cool=-1.608e-02, WENO=0.292, rho_mean=1.000000, p_mean=0.762519, div_rms=1.521e+00, vort_rms=2.219e+00, mass_err=-2.146e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0093000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0093150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0093300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0093450.npz
+step= 93500, t=27.172642, dt=3.047e-04, KE=2.178639e-01, Mt=0.6673, A_K=0.198, Cuv=-0.067, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.051, K_low=0.364, P_drag=-4.547e-03, P_cool=-1.602e-02, WENO=0.321, rho_mean=1.000000, p_mean=0.762345, div_rms=1.469e+00, vort_rms=2.207e+00, mass_err=-2.158e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0093600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0093750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0093900.npz
+step= 94000, t=27.324431, dt=3.013e-04, KE=2.189200e-01, Mt=0.6676, A_K=0.185, Cuv=-0.079, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.187, K_low=0.364, P_drag=-4.576e-03, P_cool=-1.585e-02, WENO=0.326, rho_mean=1.000000, p_mean=0.761835, div_rms=1.431e+00, vort_rms=2.189e+00, mass_err=-2.169e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0094050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0094200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0094350.npz
+step= 94500, t=27.474600, dt=2.993e-04, KE=2.206712e-01, Mt=0.6689, A_K=0.175, Cuv=-0.085, P_in=2.009e-02, P_tgt=2.000e-02, A_F=0.148, K_low=0.359, P_drag=-4.578e-03, P_cool=-1.560e-02, WENO=0.316, rho_mean=1.000000, p_mean=0.761083, div_rms=1.406e+00, vort_rms=2.185e+00, mass_err=-2.181e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0094500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0094650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0094800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0094950.npz
+step= 95000, t=27.622132, dt=2.910e-04, KE=2.225698e-01, Mt=0.6715, A_K=0.166, Cuv=-0.081, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.074, K_low=0.355, P_drag=-4.569e-03, P_cool=-1.534e-02, WENO=0.322, rho_mean=1.000000, p_mean=0.760311, div_rms=1.365e+00, vort_rms=2.192e+00, mass_err=-2.193e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0095100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0095250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0095400.npz
+step= 95500, t=27.767148, dt=2.898e-04, KE=2.240077e-01, Mt=0.6746, A_K=0.156, Cuv=-0.072, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.010, K_low=0.351, P_drag=-4.559e-03, P_cool=-1.515e-02, WENO=0.315, rho_mean=1.000000, p_mean=0.759742, div_rms=1.342e+00, vort_rms=2.197e+00, mass_err=-2.204e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0095550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0095700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0095850.npz
+step= 96000, t=27.912239, dt=2.916e-04, KE=2.238060e-01, Mt=0.6760, A_K=0.154, Cuv=-0.057, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.014, K_low=0.351, P_drag=-4.556e-03, P_cool=-1.518e-02, WENO=0.304, rho_mean=1.000000, p_mean=0.759826, div_rms=1.319e+00, vort_rms=2.202e+00, mass_err=-2.216e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0096000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0096150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0096300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0096450.npz
+step= 96500, t=28.057473, dt=2.895e-04, KE=2.226209e-01, Mt=0.6753, A_K=0.164, Cuv=-0.041, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.015, K_low=0.354, P_drag=-4.575e-03, P_cool=-1.534e-02, WENO=0.323, rho_mean=1.000000, p_mean=0.760305, div_rms=1.308e+00, vort_rms=2.199e+00, mass_err=-2.228e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0096600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0096750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0096900.npz
+step= 97000, t=28.200784, dt=2.843e-04, KE=2.215164e-01, Mt=0.6740, A_K=0.182, Cuv=-0.020, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.027, K_low=0.360, P_drag=-4.631e-03, P_cool=-1.549e-02, WENO=0.335, rho_mean=1.000000, p_mean=0.760750, div_rms=1.338e+00, vort_rms=2.195e+00, mass_err=-2.239e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0097050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0097200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0097350.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 97500, t=28.343043, dt=2.851e-04, KE=2.208622e-01, Mt=0.6749, A_K=0.204, Cuv=-0.006, P_in=1.981e-02, P_tgt=2.000e-02, A_F=0.102, K_low=0.370, P_drag=-4.726e-03, P_cool=-1.558e-02, WENO=0.336, rho_mean=1.000000, p_mean=0.761015, div_rms=1.394e+00, vort_rms=2.191e+00, mass_err=-2.251e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0097500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0097650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0097800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0097950.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 98000, t=28.487013, dt=2.901e-04, KE=2.216108e-01, Mt=0.6807, A_K=0.216, Cuv=0.012, P_in=1.989e-02, P_tgt=2.000e-02, A_F=0.154, K_low=0.380, P_drag=-4.848e-03, P_cool=-1.548e-02, WENO=0.304, rho_mean=1.000000, p_mean=0.760741, div_rms=1.445e+00, vort_rms=2.212e+00, mass_err=-2.263e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0098100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0098250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0098400.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 98500, t=28.632221, dt=2.908e-04, KE=2.238609e-01, Mt=0.6865, A_K=0.224, Cuv=0.015, P_in=1.988e-02, P_tgt=2.000e-02, A_F=0.266, K_low=0.387, P_drag=-4.984e-03, P_cool=-1.519e-02, WENO=0.289, rho_mean=1.000000, p_mean=0.759861, div_rms=1.494e+00, vort_rms=2.220e+00, mass_err=-2.274e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0098550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0098700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0098850.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 99000, t=28.777571, dt=2.908e-04, KE=2.251522e-01, Mt=0.6899, A_K=0.234, Cuv=0.018, P_in=2.033e-02, P_tgt=2.000e-02, A_F=0.363, K_low=0.395, P_drag=-5.121e-03, P_cool=-1.502e-02, WENO=0.292, rho_mean=1.000000, p_mean=0.759351, div_rms=1.491e+00, vort_rms=2.221e+00, mass_err=-2.285e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0099000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0099150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0099300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0099450.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 99500, t=28.922116, dt=2.875e-04, KE=2.246904e-01, Mt=0.6909, A_K=0.251, Cuv=0.023, P_in=1.993e-02, P_tgt=2.000e-02, A_F=0.126, K_low=0.408, P_drag=-5.253e-03, P_cool=-1.507e-02, WENO=0.295, rho_mean=1.000000, p_mean=0.759503, div_rms=1.453e+00, vort_rms=2.217e+00, mass_err=-2.297e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0099600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0099750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0099900.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step=100000, t=29.065045, dt=2.841e-04, KE=2.241144e-01, Mt=0.6918, A_K=0.275, Cuv=0.026, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.367, K_low=0.419, P_drag=-5.363e-03, P_cool=-1.513e-02, WENO=0.295, rho_mean=1.000000, p_mean=0.759673, div_rms=1.439e+00, vort_rms=2.213e+00, mass_err=-2.308e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0100050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0100200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0100350.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step=100500, t=29.207326, dt=2.867e-04, KE=2.239932e-01, Mt=0.6940, A_K=0.302, Cuv=0.018, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.293, K_low=0.425, P_drag=-5.425e-03, P_cool=-1.513e-02, WENO=0.289, rho_mean=1.000000, p_mean=0.759664, div_rms=1.500e+00, vort_rms=2.217e+00, mass_err=-2.320e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0100500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0100650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0100800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0100950.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step=101000, t=29.352029, dt=2.904e-04, KE=2.227003e-01, Mt=0.6950, A_K=0.323, Cuv=0.003, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.198, K_low=0.427, P_drag=-5.413e-03, P_cool=-1.528e-02, WENO=0.303, rho_mean=1.000000, p_mean=0.760126, div_rms=1.500e+00, vort_rms=2.224e+00, mass_err=-2.331e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0101100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0101250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0101400.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step=101500, t=29.495643, dt=2.853e-04, KE=2.207805e-01, Mt=0.6926, A_K=0.324, Cuv=-0.009, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.283, K_low=0.421, P_drag=-5.320e-03, P_cool=-1.552e-02, WENO=0.303, rho_mean=1.000000, p_mean=0.760832, div_rms=1.539e+00, vort_rms=2.231e+00, mass_err=-2.343e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0101550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0101700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0101850.npz
+step=102000, t=29.639612, dt=2.890e-04, KE=2.191438e-01, Mt=0.6878, A_K=0.314, Cuv=-0.015, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.098, K_low=0.408, P_drag=-5.173e-03, P_cool=-1.571e-02, WENO=0.318, rho_mean=1.000000, p_mean=0.761430, div_rms=1.553e+00, vort_rms=2.231e+00, mass_err=-2.354e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0102000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0102150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0102300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0102450.npz
+step=102500, t=29.783957, dt=2.878e-04, KE=2.178472e-01, Mt=0.6822, A_K=0.303, Cuv=-0.021, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.102, K_low=0.394, P_drag=-5.020e-03, P_cool=-1.588e-02, WENO=0.320, rho_mean=1.000000, p_mean=0.761917, div_rms=1.496e+00, vort_rms=2.231e+00, mass_err=-2.365e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0102600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0102750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0102900.npz
+step=103000, t=29.927524, dt=2.868e-04, KE=2.168831e-01, Mt=0.6768, A_K=0.290, Cuv=-0.027, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.087, K_low=0.381, P_drag=-4.880e-03, P_cool=-1.600e-02, WENO=0.330, rho_mean=1.000000, p_mean=0.762296, div_rms=1.432e+00, vort_rms=2.242e+00, mass_err=-2.377e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0103050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0103200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0103350.npz
+step=103500, t=30.072292, dt=2.924e-04, KE=2.166229e-01, Mt=0.6718, A_K=0.272, Cuv=-0.027, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.002, K_low=0.368, P_drag=-4.759e-03, P_cool=-1.604e-02, WENO=0.322, rho_mean=1.000000, p_mean=0.762400, div_rms=1.397e+00, vort_rms=2.260e+00, mass_err=-2.388e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0103500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0103650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0103800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0103950.npz
+step=104000, t=30.220550, dt=2.987e-04, KE=2.170423e-01, Mt=0.6678, A_K=0.266, Cuv=-0.033, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.129, K_low=0.360, P_drag=-4.685e-03, P_cool=-1.598e-02, WENO=0.325, rho_mean=1.000000, p_mean=0.762220, div_rms=1.359e+00, vort_rms=2.275e+00, mass_err=-2.400e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0104100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0104250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0104400.npz
+step=104500, t=30.370485, dt=3.002e-04, KE=2.178498e-01, Mt=0.6654, A_K=0.262, Cuv=-0.050, P_in=1.987e-02, P_tgt=2.000e-02, A_F=0.177, K_low=0.355, P_drag=-4.654e-03, P_cool=-1.586e-02, WENO=0.323, rho_mean=1.000000, p_mean=0.761869, div_rms=1.337e+00, vort_rms=2.278e+00, mass_err=-2.411e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0104550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0104700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0104850.npz
+step=105000, t=30.520887, dt=3.021e-04, KE=2.192887e-01, Mt=0.6662, A_K=0.250, Cuv=-0.077, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.036, K_low=0.355, P_drag=-4.687e-03, P_cool=-1.566e-02, WENO=0.310, rho_mean=1.000000, p_mean=0.761266, div_rms=1.329e+00, vort_rms=2.280e+00, mass_err=-2.422e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0105000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0105150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0105300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0105450.npz
+step=105500, t=30.671088, dt=2.953e-04, KE=2.211691e-01, Mt=0.6688, A_K=0.231, Cuv=-0.097, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.172, K_low=0.359, P_drag=-4.769e-03, P_cool=-1.541e-02, WENO=0.309, rho_mean=1.000000, p_mean=0.760507, div_rms=1.316e+00, vort_rms=2.275e+00, mass_err=-2.434e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0105600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0105750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0105900.npz
+step=106000, t=30.817369, dt=2.915e-04, KE=2.225712e-01, Mt=0.6729, A_K=0.211, Cuv=-0.112, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.052, K_low=0.367, P_drag=-4.876e-03, P_cool=-1.522e-02, WENO=0.294, rho_mean=1.000000, p_mean=0.759940, div_rms=1.324e+00, vort_rms=2.283e+00, mass_err=-2.445e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0106050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0106200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0106350.npz
+step=106500, t=30.964346, dt=2.956e-04, KE=2.237673e-01, Mt=0.6764, A_K=0.202, Cuv=-0.113, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.067, K_low=0.377, P_drag=-5.004e-03, P_cool=-1.505e-02, WENO=0.276, rho_mean=1.000000, p_mean=0.759434, div_rms=1.385e+00, vort_rms=2.294e+00, mass_err=-2.456e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0106500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0106650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0106800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0106950.npz
+step=107000, t=31.109419, dt=2.845e-04, KE=2.246503e-01, Mt=0.6779, A_K=0.198, Cuv=-0.103, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.086, K_low=0.386, P_drag=-5.142e-03, P_cool=-1.492e-02, WENO=0.296, rho_mean=1.000000, p_mean=0.759047, div_rms=1.387e+00, vort_rms=2.288e+00, mass_err=-2.468e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0107100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0107250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0107400.npz
+step=107500, t=31.251780, dt=2.866e-04, KE=2.251168e-01, Mt=0.6787, A_K=0.199, Cuv=-0.092, P_in=1.995e-02, P_tgt=2.000e-02, A_F=0.199, K_low=0.396, P_drag=-5.289e-03, P_cool=-1.485e-02, WENO=0.309, rho_mean=1.000000, p_mean=0.758840, div_rms=1.376e+00, vort_rms=2.282e+00, mass_err=-2.479e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0107550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0107700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0107850.npz
+step=108000, t=31.397658, dt=2.991e-04, KE=2.248584e-01, Mt=0.6794, A_K=0.197, Cuv=-0.085, P_in=1.994e-02, P_tgt=2.000e-02, A_F=0.158, K_low=0.409, P_drag=-5.474e-03, P_cool=-1.488e-02, WENO=0.324, rho_mean=1.000000, p_mean=0.758927, div_rms=1.345e+00, vort_rms=2.286e+00, mass_err=-2.491e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0108000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0108150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0108300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0108450.npz
+step=108500, t=31.547814, dt=2.985e-04, KE=2.254280e-01, Mt=0.6812, A_K=0.185, Cuv=-0.080, P_in=1.986e-02, P_tgt=2.000e-02, A_F=0.089, K_low=0.424, P_drag=-5.692e-03, P_cool=-1.479e-02, WENO=0.324, rho_mean=1.000000, p_mean=0.758668, div_rms=1.343e+00, vort_rms=2.271e+00, mass_err=-2.502e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0108600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0108750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0108900.npz
+step=109000, t=31.697200, dt=2.996e-04, KE=2.262963e-01, Mt=0.6830, A_K=0.169, Cuv=-0.091, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.015, K_low=0.439, P_drag=-5.899e-03, P_cool=-1.466e-02, WENO=0.319, rho_mean=1.000000, p_mean=0.758275, div_rms=1.376e+00, vort_rms=2.256e+00, mass_err=-2.514e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0109050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0109200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0109350.npz
+step=109500, t=31.847971, dt=3.039e-04, KE=2.261326e-01, Mt=0.6833, A_K=0.151, Cuv=-0.095, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.027, K_low=0.456, P_drag=-6.091e-03, P_cool=-1.467e-02, WENO=0.322, rho_mean=1.000000, p_mean=0.758283, div_rms=1.389e+00, vort_rms=2.229e+00, mass_err=-2.525e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0109500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0109650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0109800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0109950.npz
+step=110000, t=32.000312, dt=3.049e-04, KE=2.256246e-01, Mt=0.6839, A_K=0.129, Cuv=-0.087, P_in=2.012e-02, P_tgt=2.000e-02, A_F=0.018, K_low=0.473, P_drag=-6.258e-03, P_cool=-1.471e-02, WENO=0.326, rho_mean=1.000000, p_mean=0.758416, div_rms=1.396e+00, vort_rms=2.221e+00, mass_err=-2.537e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0110100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0110250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0110400.npz
+step=110500, t=32.151647, dt=2.987e-04, KE=2.259002e-01, Mt=0.6860, A_K=0.112, Cuv=-0.080, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.139, K_low=0.484, P_drag=-6.374e-03, P_cool=-1.465e-02, WENO=0.317, rho_mean=1.000000, p_mean=0.758239, div_rms=1.421e+00, vort_rms=2.221e+00, mass_err=-2.549e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0110550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0110700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0110850.npz
+step=111000, t=32.300436, dt=2.965e-04, KE=2.268167e-01, Mt=0.6884, A_K=0.100, Cuv=-0.076, P_in=1.987e-02, P_tgt=2.000e-02, A_F=0.234, K_low=0.486, P_drag=-6.420e-03, P_cool=-1.452e-02, WENO=0.288, rho_mean=1.000000, p_mean=0.757838, div_rms=1.436e+00, vort_rms=2.231e+00, mass_err=-2.560e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0111000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0111150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0111300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0111450.npz
+step=111500, t=32.449117, dt=2.976e-04, KE=2.272876e-01, Mt=0.6891, A_K=0.080, Cuv=-0.070, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.086, K_low=0.483, P_drag=-6.428e-03, P_cool=-1.446e-02, WENO=0.279, rho_mean=1.000000, p_mean=0.757658, div_rms=1.459e+00, vort_rms=2.253e+00, mass_err=-2.572e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0111600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0111750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0111900.npz
+step=112000, t=32.597652, dt=2.988e-04, KE=2.272028e-01, Mt=0.6874, A_K=0.048, Cuv=-0.062, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.003, K_low=0.482, P_drag=-6.448e-03, P_cool=-1.447e-02, WENO=0.281, rho_mean=1.000000, p_mean=0.757687, div_rms=1.464e+00, vort_rms=2.264e+00, mass_err=-2.584e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0112050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0112200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0112350.npz
+step=112500, t=32.749232, dt=3.051e-04, KE=2.270244e-01, Mt=0.6848, A_K=0.017, Cuv=-0.053, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.030, K_low=0.485, P_drag=-6.491e-03, P_cool=-1.448e-02, WENO=0.278, rho_mean=1.000000, p_mean=0.757731, div_rms=1.435e+00, vort_rms=2.251e+00, mass_err=-2.595e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0112500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0112650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0112800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0112950.npz
+step=113000, t=32.900258, dt=2.978e-04, KE=2.260085e-01, Mt=0.6827, A_K=0.006, Cuv=-0.042, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.090, K_low=0.493, P_drag=-6.555e-03, P_cool=-1.460e-02, WENO=0.280, rho_mean=1.000000, p_mean=0.758092, div_rms=1.402e+00, vort_rms=2.237e+00, mass_err=-2.607e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0113100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0113250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0113400.npz
+step=113500, t=33.049175, dt=3.000e-04, KE=2.244676e-01, Mt=0.6825, A_K=0.010, Cuv=-0.031, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.198, K_low=0.504, P_drag=-6.627e-03, P_cool=-1.479e-02, WENO=0.290, rho_mean=1.000000, p_mean=0.758644, div_rms=1.382e+00, vort_rms=2.233e+00, mass_err=-2.618e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0113550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0113700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0113850.npz
+step=114000, t=33.201436, dt=3.083e-04, KE=2.230384e-01, Mt=0.6831, A_K=0.017, Cuv=-0.022, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.105, K_low=0.515, P_drag=-6.702e-03, P_cool=-1.495e-02, WENO=0.298, rho_mean=1.000000, p_mean=0.759130, div_rms=1.356e+00, vort_rms=2.224e+00, mass_err=-2.630e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0114000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0114150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0114300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0114450.npz
+step=114500, t=33.355574, dt=3.084e-04, KE=2.223332e-01, Mt=0.6839, A_K=0.020, Cuv=-0.009, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.097, K_low=0.522, P_drag=-6.778e-03, P_cool=-1.500e-02, WENO=0.294, rho_mean=1.000000, p_mean=0.759294, div_rms=1.337e+00, vort_rms=2.209e+00, mass_err=-2.641e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0114600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0114750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0114900.npz
+step=115000, t=33.508313, dt=3.024e-04, KE=2.222435e-01, Mt=0.6851, A_K=0.028, Cuv=0.011, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.329, K_low=0.529, P_drag=-6.857e-03, P_cool=-1.497e-02, WENO=0.295, rho_mean=1.000000, p_mean=0.759192, div_rms=1.361e+00, vort_rms=2.215e+00, mass_err=-2.652e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0115050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0115200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0115350.npz
+step=115500, t=33.658450, dt=2.984e-04, KE=2.220653e-01, Mt=0.6845, A_K=0.034, Cuv=0.036, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.149, K_low=0.535, P_drag=-6.947e-03, P_cool=-1.494e-02, WENO=0.289, rho_mean=1.000000, p_mean=0.759121, div_rms=1.401e+00, vort_rms=2.220e+00, mass_err=-2.664e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0115500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0115650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0115800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0115950.npz
+step=116000, t=33.808461, dt=3.003e-04, KE=2.222592e-01, Mt=0.6828, A_K=0.037, Cuv=0.064, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.038, K_low=0.540, P_drag=-7.027e-03, P_cool=-1.487e-02, WENO=0.290, rho_mean=1.000000, p_mean=0.758889, div_rms=1.436e+00, vort_rms=2.225e+00, mass_err=-2.675e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0116100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0116250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0116400.npz
+step=116500, t=33.959004, dt=2.989e-04, KE=2.221975e-01, Mt=0.6806, A_K=0.041, Cuv=0.087, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.037, K_low=0.544, P_drag=-7.069e-03, P_cool=-1.482e-02, WENO=0.286, rho_mean=1.000000, p_mean=0.758757, div_rms=1.443e+00, vort_rms=2.229e+00, mass_err=-2.686e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0116550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0116700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0116850.npz
+step=117000, t=34.106994, dt=2.935e-04, KE=2.226256e-01, Mt=0.6802, A_K=0.042, Cuv=0.109, P_in=2.008e-02, P_tgt=2.000e-02, A_F=0.111, K_low=0.542, P_drag=-7.045e-03, P_cool=-1.472e-02, WENO=0.290, rho_mean=1.000000, p_mean=0.758443, div_rms=1.457e+00, vort_rms=2.236e+00, mass_err=-2.698e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0117000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0117150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0117300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0117450.npz
+step=117500, t=34.253119, dt=2.933e-04, KE=2.233156e-01, Mt=0.6816, A_K=0.039, Cuv=0.124, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.233, K_low=0.532, P_drag=-6.940e-03, P_cool=-1.459e-02, WENO=0.291, rho_mean=1.000000, p_mean=0.758051, div_rms=1.454e+00, vort_rms=2.243e+00, mass_err=-2.709e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0117600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0117750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0117900.npz
+step=118000, t=34.401122, dt=2.949e-04, KE=2.233659e-01, Mt=0.6830, A_K=0.032, Cuv=0.131, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.202, K_low=0.517, P_drag=-6.765e-03, P_cool=-1.456e-02, WENO=0.280, rho_mean=1.000000, p_mean=0.757953, div_rms=1.445e+00, vort_rms=2.241e+00, mass_err=-2.720e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0118050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0118200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0118350.npz
+step=118500, t=34.549224, dt=2.988e-04, KE=2.228789e-01, Mt=0.6842, A_K=0.031, Cuv=0.126, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.092, K_low=0.500, P_drag=-6.556e-03, P_cool=-1.461e-02, WENO=0.287, rho_mean=1.000000, p_mean=0.758112, div_rms=1.452e+00, vort_rms=2.244e+00, mass_err=-2.732e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0118500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0118650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0118800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0118950.npz
+step=119000, t=34.698821, dt=2.989e-04, KE=2.211557e-01, Mt=0.6833, A_K=0.037, Cuv=0.098, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.154, K_low=0.486, P_drag=-6.335e-03, P_cool=-1.483e-02, WENO=0.296, rho_mean=1.000000, p_mean=0.758790, div_rms=1.476e+00, vort_rms=2.256e+00, mass_err=-2.744e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0119100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0119250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0119400.npz
+step=119500, t=34.845092, dt=2.851e-04, KE=2.193788e-01, Mt=0.6807, A_K=0.047, Cuv=0.057, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.030, K_low=0.472, P_drag=-6.133e-03, P_cool=-1.507e-02, WENO=0.284, rho_mean=1.000000, p_mean=0.759493, div_rms=1.483e+00, vort_rms=2.264e+00, mass_err=-2.755e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0119550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0119700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0119850.npz
+step=120000, t=34.988101, dt=2.890e-04, KE=2.187638e-01, Mt=0.6785, A_K=0.053, Cuv=0.013, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.127, K_low=0.459, P_drag=-5.970e-03, P_cool=-1.515e-02, WENO=0.283, rho_mean=1.000000, p_mean=0.759721, div_rms=1.491e+00, vort_rms=2.267e+00, mass_err=-2.767e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0120000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0120150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0120300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0120450.npz
+step=120500, t=35.132556, dt=2.888e-04, KE=2.189990e-01, Mt=0.6768, A_K=0.057, Cuv=-0.031, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.141, K_low=0.447, P_drag=-5.852e-03, P_cool=-1.510e-02, WENO=0.275, rho_mean=1.000000, p_mean=0.759594, div_rms=1.449e+00, vort_rms=2.259e+00, mass_err=-2.779e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0120600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0120750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0120900.npz
+step=121000, t=35.276920, dt=2.881e-04, KE=2.198859e-01, Mt=0.6768, A_K=0.059, Cuv=-0.074, P_in=1.985e-02, P_tgt=2.000e-02, A_F=0.080, K_low=0.439, P_drag=-5.787e-03, P_cool=-1.497e-02, WENO=0.270, rho_mean=1.000000, p_mean=0.759182, div_rms=1.385e+00, vort_rms=2.261e+00, mass_err=-2.790e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0121050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0121200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0121350.npz
+step=121500, t=35.422311, dt=2.955e-04, KE=2.211589e-01, Mt=0.6784, A_K=0.058, Cuv=-0.113, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.037, K_low=0.435, P_drag=-5.763e-03, P_cool=-1.477e-02, WENO=0.271, rho_mean=1.000000, p_mean=0.758594, div_rms=1.319e+00, vort_rms=2.266e+00, mass_err=-2.802e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0121500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0121650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0121800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0121950.npz
+step=122000, t=35.572047, dt=3.026e-04, KE=2.227731e-01, Mt=0.6797, A_K=0.054, Cuv=-0.139, P_in=1.994e-02, P_tgt=2.000e-02, A_F=0.050, K_low=0.432, P_drag=-5.766e-03, P_cool=-1.453e-02, WENO=0.255, rho_mean=1.000000, p_mean=0.757873, div_rms=1.268e+00, vort_rms=2.267e+00, mass_err=-2.814e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0122100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0122250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0122400.npz
+step=122500, t=35.723161, dt=3.004e-04, KE=2.241294e-01, Mt=0.6800, A_K=0.057, Cuv=-0.161, P_in=2.004e-02, P_tgt=2.000e-02, A_F=0.084, K_low=0.430, P_drag=-5.777e-03, P_cool=-1.433e-02, WENO=0.249, rho_mean=1.000000, p_mean=0.757290, div_rms=1.228e+00, vort_rms=2.264e+00, mass_err=-2.825e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0122550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0122700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0122850.npz
+step=123000, t=35.875223, dt=3.090e-04, KE=2.243057e-01, Mt=0.6791, A_K=0.064, Cuv=-0.178, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.097, K_low=0.431, P_drag=-5.794e-03, P_cool=-1.431e-02, WENO=0.245, rho_mean=1.000000, p_mean=0.757202, div_rms=1.224e+00, vort_rms=2.255e+00, mass_err=-2.837e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0123000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0123150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0123300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0123450.npz
+step=123500, t=36.030086, dt=3.090e-04, KE=2.230788e-01, Mt=0.6782, A_K=0.068, Cuv=-0.196, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.141, K_low=0.437, P_drag=-5.815e-03, P_cool=-1.446e-02, WENO=0.238, rho_mean=1.000000, p_mean=0.757666, div_rms=1.224e+00, vort_rms=2.245e+00, mass_err=-2.848e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0123600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0123750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0123900.npz
+step=124000, t=36.183644, dt=3.057e-04, KE=2.210585e-01, Mt=0.6763, A_K=0.065, Cuv=-0.214, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.014, K_low=0.445, P_drag=-5.829e-03, P_cool=-1.471e-02, WENO=0.258, rho_mean=1.000000, p_mean=0.758427, div_rms=1.216e+00, vort_rms=2.233e+00, mass_err=-2.859e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0124050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0124200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0124350.npz
+step=124500, t=36.336686, dt=3.052e-04, KE=2.201120e-01, Mt=0.6744, A_K=0.052, Cuv=-0.227, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.114, K_low=0.449, P_drag=-5.834e-03, P_cool=-1.482e-02, WENO=0.278, rho_mean=1.000000, p_mean=0.758754, div_rms=1.232e+00, vort_rms=2.219e+00, mass_err=-2.871e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0124500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0124650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0124800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0124950.npz
+step=125000, t=36.485941, dt=2.953e-04, KE=2.211566e-01, Mt=0.6751, A_K=0.033, Cuv=-0.229, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.046, K_low=0.448, P_drag=-5.847e-03, P_cool=-1.467e-02, WENO=0.264, rho_mean=1.000000, p_mean=0.758291, div_rms=1.278e+00, vort_rms=2.218e+00, mass_err=-2.882e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0125100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0125250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0125400.npz
+step=125500, t=36.633848, dt=2.965e-04, KE=2.233939e-01, Mt=0.6782, A_K=0.013, Cuv=-0.223, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.120, K_low=0.447, P_drag=-5.888e-03, P_cool=-1.436e-02, WENO=0.265, rho_mean=1.000000, p_mean=0.757359, div_rms=1.293e+00, vort_rms=2.236e+00, mass_err=-2.894e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0125550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0125700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0125850.npz
+step=126000, t=36.782278, dt=2.966e-04, KE=2.265814e-01, Mt=0.6822, A_K=0.007, Cuv=-0.209, P_in=1.983e-02, P_tgt=2.000e-02, A_F=0.054, K_low=0.448, P_drag=-5.978e-03, P_cool=-1.393e-02, WENO=0.249, rho_mean=1.000000, p_mean=0.756067, div_rms=1.353e+00, vort_rms=2.250e+00, mass_err=-2.905e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0126000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0126150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0126300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0126450.npz
+step=126500, t=36.931988, dt=3.015e-04, KE=2.297560e-01, Mt=0.6862, A_K=0.024, Cuv=-0.187, P_in=2.006e-02, P_tgt=2.000e-02, A_F=0.053, K_low=0.453, P_drag=-6.118e-03, P_cool=-1.351e-02, WENO=0.237, rho_mean=1.000000, p_mean=0.754806, div_rms=1.399e+00, vort_rms=2.260e+00, mass_err=-2.917e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0126600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0126750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0126900.npz
+step=127000, t=37.083463, dt=3.079e-04, KE=2.316029e-01, Mt=0.6888, A_K=0.037, Cuv=-0.165, P_in=1.985e-02, P_tgt=2.000e-02, A_F=0.172, K_low=0.464, P_drag=-6.282e-03, P_cool=-1.327e-02, WENO=0.250, rho_mean=1.000000, p_mean=0.754108, div_rms=1.388e+00, vort_rms=2.263e+00, mass_err=-2.929e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0127050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0127200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0127350.npz
+step=127500, t=37.240569, dt=3.156e-04, KE=2.315958e-01, Mt=0.6907, A_K=0.047, Cuv=-0.146, P_in=1.992e-02, P_tgt=2.000e-02, A_F=0.009, K_low=0.479, P_drag=-6.446e-03, P_cool=-1.329e-02, WENO=0.273, rho_mean=1.000000, p_mean=0.754161, div_rms=1.324e+00, vort_rms=2.269e+00, mass_err=-2.940e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0127500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0127650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0127800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0127950.npz
+step=128000, t=37.397809, dt=3.121e-04, KE=2.312290e-01, Mt=0.6920, A_K=0.062, Cuv=-0.133, P_in=1.997e-02, P_tgt=2.000e-02, A_F=0.171, K_low=0.490, P_drag=-6.563e-03, P_cool=-1.335e-02, WENO=0.286, rho_mean=1.000000, p_mean=0.754338, div_rms=1.302e+00, vort_rms=2.273e+00, mass_err=-2.952e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0128100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0128250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0128400.npz
+step=128500, t=37.551748, dt=3.025e-04, KE=2.314737e-01, Mt=0.6921, A_K=0.076, Cuv=-0.125, P_in=1.994e-02, P_tgt=2.000e-02, A_F=0.125, K_low=0.493, P_drag=-6.626e-03, P_cool=-1.332e-02, WENO=0.301, rho_mean=1.000000, p_mean=0.754243, div_rms=1.293e+00, vort_rms=2.266e+00, mass_err=-2.964e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0128550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0128700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0128850.npz
+step=129000, t=37.703537, dt=3.041e-04, KE=2.326650e-01, Mt=0.6937, A_K=0.086, Cuv=-0.117, P_in=1.996e-02, P_tgt=2.000e-02, A_F=0.023, K_low=0.493, P_drag=-6.667e-03, P_cool=-1.316e-02, WENO=0.302, rho_mean=1.000000, p_mean=0.753756, div_rms=1.299e+00, vort_rms=2.269e+00, mass_err=-2.975e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0129000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0129150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0129300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0129450.npz
+step=129500, t=37.855183, dt=3.023e-04, KE=2.338919e-01, Mt=0.6965, A_K=0.088, Cuv=-0.103, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.005, K_low=0.496, P_drag=-6.722e-03, P_cool=-1.299e-02, WENO=0.297, rho_mean=1.000000, p_mean=0.753263, div_rms=1.280e+00, vort_rms=2.261e+00, mass_err=-2.987e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0129600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0129750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0129900.npz
+step=130000, t=38.007685, dt=3.080e-04, KE=2.351937e-01, Mt=0.6998, A_K=0.083, Cuv=-0.086, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.073, K_low=0.500, P_drag=-6.784e-03, P_cool=-1.282e-02, WENO=0.294, rho_mean=1.000000, p_mean=0.752754, div_rms=1.284e+00, vort_rms=2.251e+00, mass_err=-2.998e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0130050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0130200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0130350.npz
+step=130500, t=38.163111, dt=3.115e-04, KE=2.359663e-01, Mt=0.7015, A_K=0.076, Cuv=-0.068, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.352, K_low=0.504, P_drag=-6.836e-03, P_cool=-1.273e-02, WENO=0.297, rho_mean=1.000000, p_mean=0.752473, div_rms=1.291e+00, vort_rms=2.247e+00, mass_err=-3.010e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0130500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0130650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0130800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0130950.npz
+step=131000, t=38.322247, dt=3.208e-04, KE=2.359460e-01, Mt=0.7007, A_K=0.066, Cuv=-0.050, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.310, K_low=0.507, P_drag=-6.881e-03, P_cool=-1.274e-02, WENO=0.281, rho_mean=1.000000, p_mean=0.752520, div_rms=1.262e+00, vort_rms=2.243e+00, mass_err=-3.021e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0131100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0131250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0131400.npz
+step=131500, t=38.483058, dt=3.219e-04, KE=2.357734e-01, Mt=0.6984, A_K=0.057, Cuv=-0.026, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.102, K_low=0.508, P_drag=-6.916e-03, P_cool=-1.278e-02, WENO=0.288, rho_mean=1.000000, p_mean=0.752628, div_rms=1.224e+00, vort_rms=2.236e+00, mass_err=-3.032e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0131550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0131700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0131850.npz
+step=132000, t=38.644318, dt=3.228e-04, KE=2.355853e-01, Mt=0.6972, A_K=0.055, Cuv=0.001, P_in=2.005e-02, P_tgt=2.000e-02, A_F=0.189, K_low=0.509, P_drag=-6.938e-03, P_cool=-1.282e-02, WENO=0.274, rho_mean=1.000000, p_mean=0.752739, div_rms=1.229e+00, vort_rms=2.235e+00, mass_err=-3.044e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0132000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0132150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0132300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0132450.npz
+step=132500, t=38.804918, dt=3.204e-04, KE=2.342614e-01, Mt=0.6963, A_K=0.055, Cuv=0.035, P_in=2.001e-02, P_tgt=2.000e-02, A_F=0.091, K_low=0.513, P_drag=-6.936e-03, P_cool=-1.300e-02, WENO=0.264, rho_mean=1.000000, p_mean=0.753299, div_rms=1.252e+00, vort_rms=2.233e+00, mass_err=-3.055e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0132600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0132750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0132900.npz
+step=133000, t=38.963561, dt=3.160e-04, KE=2.322672e-01, Mt=0.6949, A_K=0.062, Cuv=0.069, P_in=1.992e-02, P_tgt=2.000e-02, A_F=0.215, K_low=0.516, P_drag=-6.914e-03, P_cool=-1.327e-02, WENO=0.282, rho_mean=1.000000, p_mean=0.754110, div_rms=1.282e+00, vort_rms=2.222e+00, mass_err=-3.067e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0133050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0133200.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0133350.npz
+step=133500, t=39.123766, dt=3.200e-04, KE=2.303385e-01, Mt=0.6942, A_K=0.063, Cuv=0.097, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.030, K_low=0.518, P_drag=-6.875e-03, P_cool=-1.353e-02, WENO=0.280, rho_mean=1.000000, p_mean=0.754879, div_rms=1.308e+00, vort_rms=2.210e+00, mass_err=-3.078e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0133500.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0133650.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0133800.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0133950.npz
+step=134000, t=39.282585, dt=3.172e-04, KE=2.284777e-01, Mt=0.6926, A_K=0.060, Cuv=0.133, P_in=1.999e-02, P_tgt=2.000e-02, A_F=0.027, K_low=0.519, P_drag=-6.823e-03, P_cool=-1.378e-02, WENO=0.274, rho_mean=1.000000, p_mean=0.755619, div_rms=1.339e+00, vort_rms=2.210e+00, mass_err=-3.090e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0134100.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0134250.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0134400.npz
+step=134500, t=39.442580, dt=3.215e-04, KE=2.268017e-01, Mt=0.6887, A_K=0.065, Cuv=0.179, P_in=1.998e-02, P_tgt=2.000e-02, A_F=0.102, K_low=0.520, P_drag=-6.785e-03, P_cool=-1.400e-02, WENO=0.273, rho_mean=1.000000, p_mean=0.756274, div_rms=1.328e+00, vort_rms=2.198e+00, mass_err=-3.101e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0134550.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0134700.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0134850.npz
+step=135000, t=39.603076, dt=3.195e-04, KE=2.262470e-01, Mt=0.6864, A_K=0.082, Cuv=0.230, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.095, K_low=0.521, P_drag=-6.794e-03, P_cool=-1.405e-02, WENO=0.277, rho_mean=1.000000, p_mean=0.756446, div_rms=1.314e+00, vort_rms=2.181e+00, mass_err=-3.112e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0135000.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0135150.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0135300.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0135450.npz
+step=135500, t=39.761409, dt=3.230e-04, KE=2.270160e-01, Mt=0.6880, A_K=0.096, Cuv=0.270, P_in=2.003e-02, P_tgt=2.000e-02, A_F=0.179, K_low=0.526, P_drag=-6.838e-03, P_cool=-1.393e-02, WENO=0.270, rho_mean=1.000000, p_mean=0.756068, div_rms=1.310e+00, vort_rms=2.169e+00, mass_err=-3.124e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0135600.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0135750.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0135900.npz
+step=136000, t=39.923084, dt=3.205e-04, KE=2.283898e-01, Mt=0.6934, A_K=0.091, Cuv=0.300, P_in=2.000e-02, P_tgt=2.000e-02, A_F=0.240, K_low=0.530, P_drag=-6.894e-03, P_cool=-1.372e-02, WENO=0.286, rho_mean=1.000000, p_mean=0.755457, div_rms=1.326e+00, vort_rms=2.169e+00, mass_err=-3.135e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0136050.npz
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0136200.npz
+step=136242, t=40.000000, dt=1.333e-05, KE=2.288538e-01, Mt=0.6960, A_K=0.088, Cuv=0.314, P_in=2.002e-02, P_tgt=2.000e-02, A_F=0.177, K_low=0.531, P_drag=-6.911e-03, P_cool=-1.365e-02, WENO=0.273, rho_mean=1.000000, p_mean=0.755250, div_rms=1.341e+00, vort_rms=2.175e+00, mass_err=-3.140e-10
+saved snapshot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/hit2d_step0136242.npz
+saved HIT diagnostic field plot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/postprocess/hit2d_physics_fields_20260711_040320.png
+saved HIT history plot: /home/fatienza/github/HIT_Solver/2D/hit2d_snapshots/run_20260711_040320/postprocess/hit2d_history_20260711_040320.png
+using latest snapshot run folder: 2D/hit2d_snapshots/run_20260711_040320
+/home/fatienza/github/HIT_Solver/OOP/postprocess/isotropy_diagnostics.py:412: RuntimeWarning: No stationary interval supplied; processing all snapshots, including the transient
+  warnings.warn(
+saved isotropy diagnostics: 2D/hit2d_snapshots/run_20260711_040320/isotropy_diagnostics.npz
+selected interval: t=[0, 40], Neddy=[0, 17.9322], snapshots=910
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=8.104205e-02 (normalized=1.940854e-01), E_NN=4.014327e-02 (normalized=1.180216e-01)
+selected means: K=2.303498e-01, Mt=6.889106e-01, A_K=1.416023e-01, C_uv=-7.923249e-03
+saved isotropy plot: 2D/hit2d_snapshots/run_20260711_040320/postprocess/stationarity_K_Mt_20260711_040320.png
+saved isotropy plot: 2D/hit2d_snapshots/run_20260711_040320/postprocess/directional_isotropy_correlations_20260711_040320.png
+saved isotropy plot: 2D/hit2d_snapshots/run_20260711_040320/postprocess/component_energy_anisotropy_20260711_040320.png
+saved spectra diagnostics: 2D/hit2d_snapshots/run_20260711_040320/spectra_diagnostics.npz
+saved spectra plot: 2D/hit2d_snapshots/run_20260711_040320/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=5.148e-01, enstrophy=1.466e+00
+using latest snapshot run folder: 2D/hit2d_snapshots/run_20260711_040320
+processing 455 snapshots from 2D/hit2d_snapshots/run_20260711_040320
+saved correlation results: 2D/hit2d_snapshots/run_20260711_040320/two_point_correlation_results.npz
+summary: L_integral=8.168841e-01, lambda_taylor=4.515158e-01, fluctuation_type=reynolds
+saved correlation plot: 2D/hit2d_snapshots/run_20260711_040320/postprocess/two_point_RLL_RNN_20260711_040320.png
+saved correlation plot: 2D/hit2d_snapshots/run_20260711_040320/postprocess/two_point_directional_velocity_20260711_040320.png
+saved correlation plot: 2D/hit2d_snapshots/run_20260711_040320/postprocess/two_point_Ruu_Rvv_2d_20260711_040320.png

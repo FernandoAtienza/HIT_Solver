@@ -1,0 +1,200 @@
+libEGL warning: DRI3 error: Could not get DRI3 device
+libEGL warning: Ensure your X server supports DRI3 to get accelerated rendering
+Using CUDA device: NVIDIA RTX PRO 5000 Blackwell
+GPU hybrid 2D Euler Config 3: nx=512, ny=512, adaptive CFL=0.05, tfinal=0.85, device=0
+step=   250, time=0.006978, dt=2.79037e-05, chunk=41.11 ms/step, avg=41.11 ms/step, pool=8.0/327.3 MiB
+step=   500, time=0.013953, dt=2.79017e-05, chunk=40.88 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step=   750, time=0.020867, dt=2.68025e-05, chunk=40.89 ms/step, avg=40.96 ms/step, pool=8.0/327.3 MiB
+step=  1000, time=0.027381, dt=2.54146e-05, chunk=40.90 ms/step, avg=40.95 ms/step, pool=8.0/327.3 MiB
+step=  1250, time=0.033596, dt=2.42482e-05, chunk=40.87 ms/step, avg=40.93 ms/step, pool=8.0/327.3 MiB
+step=  1500, time=0.039566, dt=2.36239e-05, chunk=40.90 ms/step, avg=40.93 ms/step, pool=8.0/327.3 MiB
+step=  1750, time=0.045377, dt=2.31378e-05, chunk=40.88 ms/step, avg=40.92 ms/step, pool=8.0/327.3 MiB
+step=  2000, time=0.051102, dt=2.27564e-05, chunk=40.89 ms/step, avg=40.92 ms/step, pool=8.0/327.3 MiB
+step=  2250, time=0.056751, dt=2.24468e-05, chunk=40.89 ms/step, avg=40.91 ms/step, pool=8.0/327.3 MiB
+step=  2500, time=0.062356, dt=2.22645e-05, chunk=40.90 ms/step, avg=40.91 ms/step, pool=8.0/327.3 MiB
+step=  2750, time=0.067904, dt=2.21401e-05, chunk=40.98 ms/step, avg=40.92 ms/step, pool=8.0/327.3 MiB
+step=  3000, time=0.073429, dt=2.21033e-05, chunk=40.97 ms/step, avg=40.92 ms/step, pool=8.0/327.3 MiB
+step=  3250, time=0.078942, dt=2.20025e-05, chunk=40.99 ms/step, avg=40.93 ms/step, pool=8.0/327.3 MiB
+step=  3500, time=0.084445, dt=2.19922e-05, chunk=40.98 ms/step, avg=40.93 ms/step, pool=8.0/327.3 MiB
+step=  3750, time=0.089932, dt=2.18807e-05, chunk=40.95 ms/step, avg=40.93 ms/step, pool=8.0/327.3 MiB
+step=  4000, time=0.095386, dt=2.17226e-05, chunk=40.96 ms/step, avg=40.93 ms/step, pool=8.0/327.3 MiB
+step=  4250, time=0.100828, dt=2.18098e-05, chunk=40.97 ms/step, avg=40.94 ms/step, pool=8.0/327.3 MiB
+step=  4500, time=0.106259, dt=2.16461e-05, chunk=40.96 ms/step, avg=40.94 ms/step, pool=8.0/327.3 MiB
+step=  4750, time=0.111645, dt=2.14390e-05, chunk=40.97 ms/step, avg=40.94 ms/step, pool=8.0/327.3 MiB
+step=  5000, time=0.116981, dt=2.12866e-05, chunk=40.96 ms/step, avg=40.94 ms/step, pool=8.0/327.3 MiB
+step=  5250, time=0.122285, dt=2.11088e-05, chunk=40.97 ms/step, avg=40.94 ms/step, pool=8.0/327.3 MiB
+step=  5500, time=0.127559, dt=2.11350e-05, chunk=40.96 ms/step, avg=40.94 ms/step, pool=8.0/327.3 MiB
+step=  5750, time=0.132847, dt=2.11938e-05, chunk=40.97 ms/step, avg=40.94 ms/step, pool=8.0/327.3 MiB
+step=  6000, time=0.138138, dt=2.11724e-05, chunk=40.98 ms/step, avg=40.95 ms/step, pool=8.0/327.3 MiB
+step=  6250, time=0.143448, dt=2.12195e-05, chunk=40.96 ms/step, avg=40.95 ms/step, pool=8.0/327.3 MiB
+step=  6500, time=0.148752, dt=2.12002e-05, chunk=41.20 ms/step, avg=40.96 ms/step, pool=8.0/327.3 MiB
+step=  6750, time=0.154055, dt=2.12389e-05, chunk=41.14 ms/step, avg=40.96 ms/step, pool=8.0/327.3 MiB
+step=  7000, time=0.159358, dt=2.11845e-05, chunk=40.97 ms/step, avg=40.96 ms/step, pool=8.0/327.3 MiB
+step=  7250, time=0.164642, dt=2.11008e-05, chunk=40.97 ms/step, avg=40.96 ms/step, pool=8.0/327.3 MiB
+step=  7500, time=0.169908, dt=2.10852e-05, chunk=40.95 ms/step, avg=40.96 ms/step, pool=8.0/327.3 MiB
+step=  7750, time=0.175172, dt=2.10975e-05, chunk=40.96 ms/step, avg=40.96 ms/step, pool=8.0/327.3 MiB
+step=  8000, time=0.180452, dt=2.11434e-05, chunk=40.99 ms/step, avg=40.96 ms/step, pool=8.0/327.3 MiB
+step=  8250, time=0.185735, dt=2.10989e-05, chunk=41.37 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step=  8500, time=0.191005, dt=2.10488e-05, chunk=40.96 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step=  8750, time=0.196261, dt=2.09836e-05, chunk=40.96 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step=  9000, time=0.201491, dt=2.09164e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step=  9250, time=0.206706, dt=2.08304e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step=  9500, time=0.211905, dt=2.07350e-05, chunk=40.96 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step=  9750, time=0.217088, dt=2.07354e-05, chunk=40.96 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 10000, time=0.222263, dt=2.06740e-05, chunk=40.96 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 10250, time=0.227412, dt=2.05246e-05, chunk=40.97 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 10500, time=0.232555, dt=2.05940e-05, chunk=40.97 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 10750, time=0.237688, dt=2.05432e-05, chunk=40.96 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 11000, time=0.242816, dt=2.05382e-05, chunk=40.97 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 11250, time=0.247942, dt=2.04762e-05, chunk=40.98 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 11500, time=0.253076, dt=2.05446e-05, chunk=41.00 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 11750, time=0.258216, dt=2.05581e-05, chunk=40.99 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 12000, time=0.263350, dt=2.05289e-05, chunk=40.98 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 12250, time=0.268482, dt=2.05197e-05, chunk=40.98 ms/step, avg=40.97 ms/step, pool=8.0/327.3 MiB
+step= 12500, time=0.273602, dt=2.04702e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 12750, time=0.278714, dt=2.04390e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 13000, time=0.283815, dt=2.03762e-05, chunk=41.01 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 13250, time=0.288906, dt=2.03665e-05, chunk=41.01 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 13500, time=0.293987, dt=2.02944e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 13750, time=0.299050, dt=2.02467e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 14000, time=0.304129, dt=2.03181e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 14250, time=0.309205, dt=2.03257e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 14500, time=0.314285, dt=2.03004e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 14750, time=0.319357, dt=2.02777e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 15000, time=0.324416, dt=2.02174e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 15250, time=0.329463, dt=2.00795e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 15500, time=0.334496, dt=2.01841e-05, chunk=40.97 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 15750, time=0.339531, dt=2.01406e-05, chunk=40.97 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 16000, time=0.344548, dt=1.99831e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 16250, time=0.349560, dt=1.99562e-05, chunk=40.97 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 16500, time=0.354568, dt=2.01673e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 16750, time=0.359600, dt=2.00736e-05, chunk=40.97 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 17000, time=0.364601, dt=1.99382e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 17250, time=0.369583, dt=2.00016e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 17500, time=0.374588, dt=2.00441e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 17750, time=0.379590, dt=1.99717e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 18000, time=0.384552, dt=1.97027e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 18250, time=0.389494, dt=1.97723e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 18500, time=0.394442, dt=1.98278e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 18750, time=0.399402, dt=1.98766e-05, chunk=41.08 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 19000, time=0.404368, dt=1.99107e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 19250, time=0.409326, dt=1.98477e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 19500, time=0.414268, dt=1.96618e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 19750, time=0.419221, dt=1.98395e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 20000, time=0.424220, dt=2.00877e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 20250, time=0.429254, dt=2.01770e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 20500, time=0.434268, dt=2.00410e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 20750, time=0.439255, dt=1.98143e-05, chunk=40.96 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 21000, time=0.444205, dt=1.99763e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 21250, time=0.449209, dt=1.99994e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 21500, time=0.454201, dt=1.98765e-05, chunk=41.11 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 21750, time=0.459154, dt=1.96770e-05, chunk=40.96 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 22000, time=0.464072, dt=1.96236e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 22250, time=0.468963, dt=1.94580e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 22500, time=0.473805, dt=1.92874e-05, chunk=40.97 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 22750, time=0.478616, dt=1.91156e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 23000, time=0.483397, dt=1.89620e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 23250, time=0.488207, dt=1.93318e-05, chunk=40.97 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 23500, time=0.493006, dt=1.90754e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 23750, time=0.497743, dt=1.88576e-05, chunk=40.97 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 24000, time=0.502436, dt=1.86859e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 24250, time=0.507130, dt=1.88026e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 24500, time=0.511820, dt=1.87188e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 24750, time=0.516507, dt=1.87909e-05, chunk=40.97 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 25000, time=0.521216, dt=1.89556e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 25250, time=0.525973, dt=1.90312e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 25500, time=0.530716, dt=1.90055e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 25750, time=0.535468, dt=1.89802e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 26000, time=0.540251, dt=1.92428e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 26250, time=0.545072, dt=1.92864e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 26500, time=0.549955, dt=1.97054e-05, chunk=41.00 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 26750, time=0.554908, dt=1.99621e-05, chunk=41.02 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 27000, time=0.559898, dt=1.99892e-05, chunk=41.01 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 27250, time=0.564882, dt=1.97846e-05, chunk=40.98 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 27500, time=0.569789, dt=1.95671e-05, chunk=40.99 ms/step, avg=40.98 ms/step, pool=8.0/327.3 MiB
+step= 27750, time=0.574647, dt=1.93604e-05, chunk=41.18 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 28000, time=0.579461, dt=1.91348e-05, chunk=41.17 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 28250, time=0.584190, dt=1.88401e-05, chunk=41.35 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 28500, time=0.588880, dt=1.86775e-05, chunk=40.98 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 28750, time=0.593472, dt=1.79267e-05, chunk=40.98 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 29000, time=0.597948, dt=1.81570e-05, chunk=40.97 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 29250, time=0.602474, dt=1.83266e-05, chunk=40.97 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 29500, time=0.607067, dt=1.85854e-05, chunk=40.97 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 29750, time=0.611676, dt=1.83539e-05, chunk=40.99 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 30000, time=0.616259, dt=1.81924e-05, chunk=40.99 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 30250, time=0.620803, dt=1.79766e-05, chunk=40.99 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 30500, time=0.625296, dt=1.80456e-05, chunk=40.99 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 30750, time=0.629791, dt=1.78339e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 31000, time=0.634198, dt=1.74585e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 31250, time=0.638461, dt=1.68875e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 31500, time=0.642696, dt=1.69735e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 31750, time=0.646959, dt=1.71068e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 32000, time=0.651203, dt=1.69008e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 32250, time=0.655407, dt=1.68996e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 32500, time=0.659591, dt=1.68040e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 32750, time=0.663760, dt=1.55229e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 33000, time=0.667354, dt=1.33207e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 33250, time=0.670513, dt=1.22754e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 33500, time=0.673559, dt=1.22582e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 33750, time=0.676620, dt=1.23552e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 34000, time=0.679812, dt=1.33242e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 34250, time=0.683396, dt=1.55268e-05, chunk=41.03 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 34500, time=0.687610, dt=1.81122e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 34750, time=0.692253, dt=1.86143e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 35000, time=0.696879, dt=1.83085e-05, chunk=41.00 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 35250, time=0.701490, dt=1.86596e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 35500, time=0.706155, dt=1.86174e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 35750, time=0.710811, dt=1.87093e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 36000, time=0.715479, dt=1.86393e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 36250, time=0.720168, dt=1.88701e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 36500, time=0.724904, dt=1.89274e-05, chunk=41.01 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 36750, time=0.729586, dt=1.88254e-05, chunk=41.02 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 37000, time=0.734291, dt=1.88074e-05, chunk=41.03 ms/step, avg=40.99 ms/step, pool=8.0/327.3 MiB
+step= 37250, time=0.739009, dt=1.89367e-05, chunk=41.19 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 37500, time=0.743720, dt=1.87392e-05, chunk=41.01 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 37750, time=0.748392, dt=1.87930e-05, chunk=41.35 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 38000, time=0.753077, dt=1.88054e-05, chunk=41.12 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 38250, time=0.757771, dt=1.87526e-05, chunk=41.19 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 38500, time=0.762506, dt=1.91007e-05, chunk=41.00 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 38750, time=0.767400, dt=1.99347e-05, chunk=41.18 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 39000, time=0.772345, dt=1.96301e-05, chunk=40.99 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 39250, time=0.777230, dt=1.95321e-05, chunk=41.19 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 39500, time=0.782114, dt=1.95259e-05, chunk=41.00 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 39750, time=0.787083, dt=1.98969e-05, chunk=40.99 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 40000, time=0.792027, dt=1.97549e-05, chunk=41.01 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 40250, time=0.796949, dt=1.96509e-05, chunk=40.99 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 40500, time=0.801848, dt=1.95312e-05, chunk=40.98 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 40750, time=0.806711, dt=1.95167e-05, chunk=40.99 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 41000, time=0.811578, dt=1.94773e-05, chunk=41.00 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 41250, time=0.816419, dt=1.92487e-05, chunk=40.99 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 41500, time=0.821238, dt=1.92452e-05, chunk=40.99 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 41750, time=0.826026, dt=1.90298e-05, chunk=41.00 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 42000, time=0.830787, dt=1.90281e-05, chunk=41.01 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 42250, time=0.835599, dt=1.96016e-05, chunk=40.99 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 42500, time=0.840472, dt=1.93988e-05, chunk=40.98 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 42750, time=0.845368, dt=1.96966e-05, chunk=41.00 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+step= 42985, time=0.850000, dt=1.92197e-05, chunk=41.00 ms/step, avg=41.00 ms/step, pool=8.0/327.3 MiB
+GPU solve wall time: 1762.466 s (41.002 ms/step)
+Final density range: 2.39028490e-01 / 2.16441551e+00
+Completed GPU hybrid Configuration 3 at t=0.850000 in 42985 steps.
+Final sensor fraction: 0.246578
+Saved final state and metadata to results/Riemann2D_Config3_GPU_t03_n512_mn0001.npz
+{
+  "nx": 512,
+  "ny": 512,
+  "tfinal": 0.85,
+  "steps": 42985,
+  "cfl": 0.05,
+  "mn": 0.001,
+  "hyperviscosity_interval": 5,
+  "sensor_width": 8,
+  "jump_threshold": 0.015,
+  "compression_threshold": 2.5,
+  "shear_threshold": 2.0,
+  "sensor_fraction": 0.24657821655273438,
+  "elapsed_seconds": 1762.4663185849786,
+  "milliseconds_per_step": 41.0018917898099,
+  "cupy_version": "14.1.1",
+  "device": "NVIDIA RTX PRO 5000 Blackwell"
+}
+Saved density figure to results/Riemann2D_Config3_GPU_t03_n512_mn0001.png

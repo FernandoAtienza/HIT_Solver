@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 import argparse
 import sys
@@ -40,6 +40,9 @@ class HIT2DConfig:
     gamma: float = 1.4
     cfl: float = 0.05
     tfinal: float = 1.0
+    turnover_final: float | None = None
+    turnover_data_start: float = 0.0
+    turnover_length: float | None = None
     target_mach: float = 0.1
     initial_kmin: int = 1
     initial_kmax: int = 3
@@ -48,6 +51,8 @@ class HIT2DConfig:
     forcing_rms: float = 1.0
     forcing_correlation_time: float = 1.0
     forcing_alpha_memory: float = 0.2
+    forcing_mode: str = "solenoidal"
+    forcing_dilatational_fraction: float = 0.5
     target_energy_injection: float | None = 1.0e-3
     min_forcing_power: float = 1.0e-6
     max_forcing_rescale: float = 20.0
@@ -91,6 +96,8 @@ class HIT2DConfig:
             nx=128,
             ny=128,
             tfinal=15.0,
+            turnover_final=16.0,
+            turnover_data_start=4.0,
             target_mach=0.25,
             initial_kmin=3,
             initial_kmax=5,
@@ -468,6 +475,46 @@ def divergence_and_vorticity(
     return divergence, vorticity
 
 
+def helmholtz_velocity_energies(
+    u: np.ndarray,
+    v: np.ndarray,
+    domain: Domain2D,
+) -> tuple[float, float, float]:
+    """Return solenoidal/dilatational velocity energies and compressive ratio.
+
+    The mean velocity is removed before the Fourier-space Helmholtz
+    decomposition. Energies are defined per unit mass so the two projected
+    components are orthogonal under Parseval's identity.
+    """
+
+    xp = array_module(u)
+    u_fluct = u - xp.mean(u)
+    v_fluct = v - xp.mean(v)
+    u_hat = xp.fft.fft2(u_fluct)
+    v_hat = xp.fft.fft2(v_fluct)
+    kx, ky, k2 = _spectral_wavenumbers(domain, xp=xp)
+    nonzero = k2 > 0.0
+    k2_safe = xp.where(nonzero, k2, 1.0)
+    k_dot_u = kx * u_hat + ky * v_hat
+    u_d_hat = xp.where(nonzero, kx * k_dot_u / k2_safe, 0.0)
+    v_d_hat = xp.where(nonzero, ky * k_dot_u / k2_safe, 0.0)
+    u_s_hat = u_hat - u_d_hat
+    v_s_hat = v_hat - v_d_hat
+
+    number_of_points_sq = float((domain.nx * domain.ny) ** 2)
+    solenoidal_energy = 0.5 * float(
+        xp.sum(xp.abs(u_s_hat) ** 2 + xp.abs(v_s_hat) ** 2)
+        / number_of_points_sq
+    )
+    dilatational_energy = 0.5 * float(
+        xp.sum(xp.abs(u_d_hat) ** 2 + xp.abs(v_d_hat) ** 2)
+        / number_of_points_sq
+    )
+    total = solenoidal_energy + dilatational_energy
+    fraction = dilatational_energy / total if total > np.finfo(float).eps else 0.0
+    return solenoidal_energy, dilatational_energy, fraction
+
+
 def compute_diagnostics(
     q: np.ndarray,
     equation: EulerEquation2D,
@@ -483,6 +530,9 @@ def compute_diagnostics(
 
     rho, u, v, pressure = conservative_to_primitive(q, equation)
     divergence, vorticity = divergence_and_vorticity(u, v, domain)
+    velocity_solenoidal_energy, velocity_dilatational_energy, velocity_dilatational_fraction = (
+        helmholtz_velocity_energies(u, v, domain)
+    )
     xp = array_module(q)
     sound_speed = xp.sqrt(equation.gamma * pressure / rho)
     mass = float(xp.mean(rho) * (domain.x_max - domain.x_min) * (domain.y_max - domain.y_min))
@@ -505,6 +555,9 @@ def compute_diagnostics(
         "mean_pressure": float(xp.mean(pressure)),
         "divergence_rms": float(xp.sqrt(xp.mean(divergence**2))),
         "vorticity_rms": float(xp.sqrt(xp.mean(vorticity**2))),
+        "velocity_solenoidal_energy": velocity_solenoidal_energy,
+        "velocity_dilatational_energy": velocity_dilatational_energy,
+        "velocity_dilatational_fraction": velocity_dilatational_fraction,
         "mass": mass,
         "mass_error": 0.0 if initial_mass is None else mass - initial_mass,
         "large_scale_kinetic_fraction": large_scale_fraction,
@@ -521,6 +574,10 @@ def compute_diagnostics(
             "A_F": 0.0,
             "forcing_alpha": 0.0,
             "forcing_target_power": 0.0,
+            "forcing_dilatational_fraction": 0.0,
+            "forcing_solenoidal_fraction": 0.0,
+            "forcing_divergence_rms": 0.0,
+            "forcing_curl_rms": 0.0,
             "mach_control_mach": diagnostics["turbulent_mach"],
             "mach_control_target": 0.0,
             "mach_control_power_desired": 0.0,
@@ -536,6 +593,18 @@ def compute_diagnostics(
                 "A_F": forcing_info["A_F"],
                 "forcing_alpha": forcing_info["alpha"],
                 "forcing_target_power": forcing_info.get("target_power", 0.0),
+                "forcing_dilatational_fraction": forcing_info.get(
+                    "forcing_dilatational_fraction", 0.0
+                ),
+                "forcing_solenoidal_fraction": forcing_info.get(
+                    "forcing_solenoidal_fraction", 0.0
+                ),
+                "forcing_divergence_rms": forcing_info.get(
+                    "forcing_divergence_rms", 0.0
+                ),
+                "forcing_curl_rms": forcing_info.get(
+                    "forcing_curl_rms", 0.0
+                ),
                 "mach_control_mach": forcing_info.get(
                     "mach_control_mach", diagnostics["turbulent_mach"]
                 ),
@@ -552,9 +621,11 @@ def save_snapshot(
     output_dir: Path,
     step: int,
     time: float,
+    turnover: float,
     q: np.ndarray,
     equation: EulerEquation2D,
     domain: Domain2D,
+    turnover_data_start: float = 0.0,
 ) -> Path:
     rho, u, v, pressure = conservative_to_primitive(q, equation)
     divergence, vorticity = divergence_and_vorticity(u, v, domain)
@@ -564,6 +635,8 @@ def save_snapshot(
         path,
         step=step,
         time=time,
+        turnover=turnover,
+        analysis_eligible=np.asarray(turnover >= turnover_data_start),
         x=domain.x,
         y=domain.y,
         rho=to_numpy(rho),
@@ -595,9 +668,15 @@ def _make_equation(config: HIT2DConfig, xp=np):
     return EulerEquation2D(gamma=config.gamma)
 
 
-def _print_diagnostics(step: int, time: float, dt: float, diagnostics: dict[str, float]) -> None:
+def _print_diagnostics(
+    step: int,
+    time: float,
+    turnover: float,
+    dt: float,
+    diagnostics: dict[str, float],
+) -> None:
     print(
-        f"step={step:6d}, t={time:.6f}, dt={dt:.3e}, "
+        f"step={step:6d}, t={time:.6f}, Neddy={turnover:.6f}, dt={dt:.3e}, "
         f"KE={diagnostics['kinetic_energy']:.6e}, "
         f"Mt={diagnostics['turbulent_mach']:.4f}, "
         f"A_K={diagnostics['A_K']:.3f}, "
@@ -605,6 +684,10 @@ def _print_diagnostics(step: int, time: float, dt: float, diagnostics: dict[str,
         f"P_in={diagnostics['P_in']:.3e}, "
         f"P_tgt={diagnostics['forcing_target_power']:.3e}, "
         f"A_F={diagnostics['A_F']:.3f}, "
+        f"chi_d={diagnostics['forcing_dilatational_fraction']:.2f}, "
+        f"divF={diagnostics['forcing_divergence_rms']:.2e}, "
+        f"curlF={diagnostics['forcing_curl_rms']:.2e}, "
+        f"chi_u={diagnostics['velocity_dilatational_fraction']:.3f}, "
         f"K_low={diagnostics['large_scale_kinetic_fraction']:.3f}, "
         f"P_drag={diagnostics['drag_power']:.3e}, "
         f"P_cool={diagnostics['cooling_power']:.3e}, "
@@ -635,6 +718,17 @@ def save_diagnostic_history(
             ),
             "forcing_kmax": np.asarray(config.forcing_kmax),
             "forcing_correlation_time": np.asarray(config.forcing_correlation_time),
+            "turnover_final_target": np.asarray(
+                np.nan if config.turnover_final is None else config.turnover_final
+            ),
+            "turnover_data_start": np.asarray(config.turnover_data_start),
+            "turnover_length": np.asarray(
+                np.nan if config.turnover_length is None else config.turnover_length
+            ),
+            "forcing_mode": np.asarray(config.forcing_mode),
+            "forcing_dilatational_fraction_config": np.asarray(
+                config.forcing_dilatational_fraction
+            ),
             "large_scale_drag": np.asarray(config.large_scale_drag),
             "large_scale_drag_kmax": np.asarray(config.large_scale_drag_kmax),
             "cooling_time": np.asarray(
@@ -677,12 +771,14 @@ def save_diagnostic_history(
 def _diagnostic_record(
     step: int,
     time: float,
+    turnover: float,
     dt: float,
     diagnostics: dict[str, float],
 ) -> dict[str, float]:
     return {
         "step": float(step),
         "time": time,
+        "turnover": turnover,
         "dt": dt,
         **diagnostics,
     }
@@ -741,9 +837,69 @@ def _warn_diagnostic_state(
         )
 
 
+def _turnover_reference_length(config: HIT2DConfig) -> float:
+    """Return the length scale used in Neddy = integral(u_rms/L_ref dt)."""
+
+    if config.turnover_length is not None:
+        if config.turnover_length <= 0.0:
+            raise ValueError("turnover_length must be positive")
+        return float(config.turnover_length)
+    k_min = 0.0 if config.forcing_kmin is None else float(config.forcing_kmin)
+    k_max = float(config.forcing_kmax)
+    if k_max <= 0.0:
+        raise ValueError("forcing_kmax must be positive to infer the turnover length")
+    k_ref = k_max if k_min <= 0.0 else 0.5 * (k_min + k_max)
+    return float(2.0 * np.pi / k_ref)
+
+
+def _state_rms_velocity(q: np.ndarray, equation: EulerEquation2D) -> float:
+    _rho, u, v, _pressure = conservative_to_primitive(q, equation)
+    xp = array_module(q)
+    return float(xp.sqrt(xp.mean(u**2 + v**2)))
+
+
+def _validate_turnover_config(config: HIT2DConfig) -> None:
+    if config.turnover_final is not None and config.turnover_final <= 0.0:
+        raise ValueError("turnover_final must be positive")
+    if config.turnover_data_start < 0.0:
+        raise ValueError("turnover_data_start must be non-negative")
+    if (
+        config.turnover_final is not None
+        and config.turnover_data_start >= config.turnover_final
+    ):
+        raise ValueError("turnover_data_start must be smaller than turnover_final")
+    if config.turnover_final is None and config.tfinal <= 0.0:
+        raise ValueError("tfinal must be positive when turnover_final is not supplied")
+
+
 def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
+    """Run HIT until a physical-time or cumulative-turnover target is reached.
+
+    When ``turnover_final`` is supplied it is the primary stopping criterion and
+    ``tfinal`` is ignored. Turnover is integrated online at every solver step
+    with the trapezoidal rule, so simulations at different Mach numbers cover
+    the same number of large-eddy turnover times.
+    """
+
+    _validate_turnover_config(config)
+    turnover_length = _turnover_reference_length(config)
+    runtime_config = replace(config, turnover_length=turnover_length)
+
     xp = select_array_module(config.backend)
     print(f"Using array backend: {xp.__name__}")
+    if config.turnover_final is not None:
+        print(
+            "Turnover-controlled run: "
+            f"Neddy_final={config.turnover_final:.6g}, "
+            f"post-processing starts at Neddy={config.turnover_data_start:.6g}, "
+            f"L_ref={turnover_length:.6e}"
+        )
+    else:
+        print(
+            f"Time-controlled run: t_final={config.tfinal:.6g}, "
+            f"L_ref={turnover_length:.6e}"
+        )
+
     domain, _x_grid, _y_grid = create_grid(config)
     equation = _make_equation(config, xp=xp)
     sensor_class = ParallelPeriodicEulerShockSensor2D if xp is not np else PeriodicEulerShockSensor2D
@@ -773,6 +929,8 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         max_rescale=config.max_forcing_rescale,
         alpha_memory=config.forcing_alpha_memory,
         seed=config.forcing_seed + 1,
+        forcing_mode=config.forcing_mode,
+        dilatational_fraction=config.forcing_dilatational_fraction,
         xp=xp,
     )
 
@@ -787,23 +945,61 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         ),
         weno_fraction=initial_weno_fraction,
     )
+    initial_diagnostics["forcing_dilatational_fraction"] = forcing.resolved_dilatational_fraction
+    initial_diagnostics["forcing_solenoidal_fraction"] = 1.0 - forcing.resolved_dilatational_fraction
     initial_mass = initial_diagnostics["mass"]
-    diagnostic_history = [_diagnostic_record(0, 0.0, 0.0, initial_diagnostics)]
-    save_snapshot(config.output_dir, 0, 0.0, q, equation, domain)
-    save_diagnostic_history(config.output_dir, diagnostic_history, config)
-    _print_diagnostics(0, 0.0, 0.0, initial_diagnostics)
 
     time = 0.0
+    turnover = 0.0
     step = 0
+    previous_u_rms = initial_diagnostics["rms_velocity"]
+    data_start_snapshot_saved = config.turnover_data_start <= 0.0
+    diagnostic_history = [
+        _diagnostic_record(0, time, turnover, 0.0, initial_diagnostics)
+    ]
+    save_snapshot(
+        config.output_dir,
+        0,
+        time,
+        turnover,
+        q,
+        equation,
+        domain,
+        turnover_data_start=config.turnover_data_start,
+    )
+    save_diagnostic_history(config.output_dir, diagnostic_history, runtime_config)
+    _print_diagnostics(0, time, turnover, 0.0, initial_diagnostics)
+
     forcing_info: dict[str, float] | None = None
     adaptive_target_power = config.target_energy_injection
     drag = xp.zeros_like(q)
     cooling = xp.zeros_like(q)
-    while time < config.tfinal:
-        dt = operator.stable_time_step(q, config.cfl, config.tfinal - time)
+
+    def target_reached() -> bool:
+        if config.turnover_final is not None:
+            return turnover >= config.turnover_final - 10.0 * np.finfo(float).eps
+        return time >= config.tfinal - 10.0 * np.finfo(float).eps
+
+    while not target_reached():
+        remaining_time = None
+        if config.turnover_final is None:
+            remaining_time = max(config.tfinal - time, 0.0)
+        dt = operator.stable_time_step(q, config.cfl, remaining_time)
         if config.viscosity > 0.0:
             h = min(domain.dx, domain.dy)
-            dt = min(dt, 0.25 * h**2 / config.viscosity, config.tfinal - time)
+            dt = min(dt, 0.25 * h**2 / config.viscosity)
+            if remaining_time is not None:
+                dt = min(dt, remaining_time)
+
+        # Restrict the last turnover-controlled step using the current turnover
+        # rate. The trapezoidal update below may still produce a tiny overshoot
+        # if u_rms changes during the step, but the error is O(dt^2).
+        if config.turnover_final is not None:
+            remaining_turnover = max(config.turnover_final - turnover, 0.0)
+            rate_estimate = max(previous_u_rms / turnover_length, np.finfo(float).tiny)
+            dt = min(dt, remaining_turnover / rate_estimate)
+        if not np.isfinite(dt) or dt <= 0.0:
+            raise FloatingPointError(f"invalid HIT time step: dt={dt}")
 
         rho, u, v, pressure = conservative_to_primitive(q, equation)
         adaptive_target_power, mach_control_info = update_mach_controlled_power(
@@ -848,7 +1044,18 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
             active_mask = sensor.detect(q) if config.hyperviscosity_on_shocks_only else None
             q = hyperviscosity.apply(q, equation, active_mask=active_mask)
 
-        if step % config.diagnostics_every == 0 or time >= config.tfinal:
+        current_u_rms = _state_rms_velocity(q, equation)
+        turnover += 0.5 * (previous_u_rms + current_u_rms) * dt / turnover_length
+        previous_u_rms = current_u_rms
+
+        crossed_data_start = (
+            not data_start_snapshot_saved
+            and turnover >= config.turnover_data_start
+        )
+        completed = target_reached()
+        force_output = crossed_data_start or completed
+
+        if step % config.diagnostics_every == 0 or force_output:
             weno_fraction = float(xp.mean(sensor.detect(q)))
             drag = large_scale_drag_source(
                 q,
@@ -876,23 +1083,71 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
                 ),
                 weno_fraction=weno_fraction,
             )
-            diagnostic_history.append(_diagnostic_record(step, time, dt, diagnostics))
+            diagnostic_history.append(
+                _diagnostic_record(step, time, turnover, dt, diagnostics)
+            )
             _warn_diagnostic_state(diagnostics, diagnostic_history[1:], config)
-            save_diagnostic_history(config.output_dir, diagnostic_history, config)
-            _print_diagnostics(step, time, dt, diagnostics)
+            save_diagnostic_history(config.output_dir, diagnostic_history, runtime_config)
+            _print_diagnostics(step, time, turnover, dt, diagnostics)
 
-        if step % config.snapshot_every == 0 or time >= config.tfinal:
-            path = save_snapshot(config.output_dir, step, time, q, equation, domain)
+        if step % config.snapshot_every == 0 or force_output:
+            path = save_snapshot(
+                config.output_dir,
+                step,
+                time,
+                turnover,
+                q,
+                equation,
+                domain,
+                turnover_data_start=config.turnover_data_start,
+            )
             print(f"saved snapshot: {path}")
 
-    return q, time, step
+        if crossed_data_start:
+            data_start_snapshot_saved = True
+            print(
+                "post-processing collection window opened at "
+                f"Neddy={turnover:.6f} (target {config.turnover_data_start:.6f})"
+            )
 
+    return q, time, step
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Preliminary 2D forced compressible HIT setup.")
     parser.add_argument("--nx", type=int, default=128)
     parser.add_argument("--ny", type=int, default=128)
-    parser.add_argument("--tfinal", type=float, default=1.0)
+    parser.add_argument(
+        "--tfinal",
+        type=float,
+        default=1.0,
+        help="Physical final time used only when --tot-final is not supplied.",
+    )
+    parser.add_argument(
+        "--tot-final",
+        "--tot_final",
+        "--ToT-final",
+        "--ToT_final",
+        dest="tot_final",
+        type=float,
+        default=None,
+        help="Stop when the cumulative eddy-turnover count Neddy reaches this value.",
+    )
+    parser.add_argument(
+        "--tot-initial-data",
+        "--tot_initial_data",
+        "--ToT-initial-data",
+        "--ToT_initial_data",
+        dest="tot_initial_data",
+        type=float,
+        default=0.0,
+        help="Default lower turnover bound used by post-processing; e.g. 4.",
+    )
+    parser.add_argument(
+        "--turnover-length",
+        type=float,
+        default=None,
+        help="Reference length in Neddy=integral(u_rms/L_ref dt). Defaults to the forced-shell wavelength.",
+    )
     parser.add_argument("--cfl", type=float, default=0.05)
     parser.add_argument("--mach", type=float, default=0.1, help="Initial turbulent Mach number.")
     parser.add_argument("--initial-kmin", type=int, default=1)
@@ -917,6 +1172,24 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--force-rms", type=float, default=1.0)
     parser.add_argument("--forcing-correlation-time", type=float, default=1.0)
+    parser.add_argument(
+        "--forcing-mode",
+        choices=("solenoidal", "dilatational", "mixed"),
+        default="solenoidal",
+        help=(
+            "Helmholtz component receiving large-scale forcing. "
+            "Use 'mixed' with --forcing-dilatational-fraction."
+        ),
+    )
+    parser.add_argument(
+        "--forcing-dilatational-fraction",
+        type=float,
+        default=0.5,
+        help=(
+            "Dilatational forcing-variance fraction for --forcing-mode mixed; "
+            "0 is purely solenoidal and 1 is purely dilatational."
+        ),
+    )
     parser.add_argument(
         "--forcing-alpha-memory",
         type=float,
@@ -1015,6 +1288,9 @@ def main() -> None:
         nx=args.nx,
         ny=args.ny,
         tfinal=args.tfinal,
+        turnover_final=args.tot_final,
+        turnover_data_start=args.tot_initial_data,
+        turnover_length=args.turnover_length,
         cfl=args.cfl,
         target_mach=args.mach,
         initial_kmin=args.initial_kmin,
@@ -1026,6 +1302,8 @@ def main() -> None:
         forcing_rms=0.0 if args.no_forcing else args.force_rms,
         forcing_correlation_time=args.forcing_correlation_time,
         forcing_alpha_memory=args.forcing_alpha_memory,
+        forcing_mode=args.forcing_mode,
+        forcing_dilatational_fraction=args.forcing_dilatational_fraction,
         target_energy_injection=None if args.no_forcing else args.p_target,
         min_forcing_power=args.min_forcing_power,
         max_forcing_rescale=None if args.max_forcing_rescale == 0.0 else args.max_forcing_rescale,
@@ -1051,7 +1329,16 @@ def main() -> None:
         backend=args.backend,
     )
     _q_final, time, steps = run_simulation(config)
-    print(f"completed 2D HIT run at t={time:.6f} in {steps} steps")
+    history_path = config.output_dir / "diagnostic_history.npz"
+    final_turnover = float("nan")
+    if history_path.exists():
+        with np.load(history_path) as history:
+            if "turnover" in history.files:
+                final_turnover = float(np.asarray(history["turnover"])[-1])
+    print(
+        f"completed 2D HIT run at t={time:.6f}, "
+        f"Neddy={final_turnover:.6f}, in {steps} steps"
+    )
 
 
 if __name__ == "__main__":

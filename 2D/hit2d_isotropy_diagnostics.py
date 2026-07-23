@@ -53,15 +53,29 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--end-time", type=float, default=None)
     parser.add_argument(
         "--start-turnover",
+        "--tot-initial-data",
+        "--tot_initial_data",
+        "--ToT_initial_data",
+        dest="start_turnover",
         type=float,
         default=None,
-        help="First cumulative eddy-turnover time included in the averaging interval.",
+        help=(
+            "First cumulative eddy-turnover time included in the statistics. "
+            "Defaults to the value saved by the simulation."
+        ),
     )
     parser.add_argument(
         "--end-turnover",
+        "--tot-final-data",
+        "--tot_final_data",
+        "--ToT_final_data",
+        dest="end_turnover",
         type=float,
         default=None,
-        help="Last cumulative eddy-turnover time included in the averaging interval.",
+        help=(
+            "Last cumulative eddy-turnover time included in the statistics. "
+            "Defaults to the run target."
+        ),
     )
     parser.add_argument(
         "--turnover-length",
@@ -168,8 +182,9 @@ def main() -> None:
         spectra = HIT2DSpectra(
             run_dir=run_dir,
             fluctuation_type=args.fluctuation_type,
-            start_time=results.selected_time_interval[0],
-            end_time=results.selected_time_interval[1],
+            start_turnover=results.selected_turnover_interval[0],
+            end_turnover=results.selected_turnover_interval[1],
+            turnover_length=results.turnover_length,
             stride=args.stride,
             output_dir=args.plot_dir or run_dir / "postprocess",
         )
