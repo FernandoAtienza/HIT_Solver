@@ -1,9 +1,9 @@
-# HIT2D / Riemann Configuration 3 Solver
+# HIT2D / 2D Riemann Solver
 
 This repository contains the object-oriented code used for the thesis simulations:
 
 - 2D forced compressible homogeneous isotropic turbulence (HIT).
-- 2D Euler Riemann problem, Lax--Liu Configuration 3.
+- 2D Euler Riemann problems, Lax--Liu Configurations 3 and 6.
 
 The numerical strategy is the same family of methods used throughout the thesis: high-order compact finite differences in smooth regions, WENO near discontinuities, a shock/smoothness sensor, SSP-RK3 time integration, and optional numerical hyperviscosity.
 
@@ -39,7 +39,7 @@ The HIT solver already supports:
 --backend auto
 ```
 
-The Riemann Configuration 3 implementation in `OOP/problems/riemann_config3.py` is also written with the shared NumPy/CuPy backend helper. It avoids SciPy sparse solves for the new non-periodic compact line derivative and uses a batched Thomas algorithm, so it can run with NumPy arrays or CuPy arrays.
+The Riemann implementations are written with the shared NumPy/CuPy backend helper. They avoid SciPy sparse solves for the non-periodic compact line derivative and use a batched Thomas algorithm, so the evolving state and numerical operators can remain on the GPU.
 
 CuPy mode is GPU array acceleration, not MPI or multi-GPU parallelism. Before trusting long GPU runs, compare short CPU/GPU smoke tests on a small grid.
 
@@ -130,12 +130,63 @@ python3 -B scripts/run_riemann_config3.py \
 
 The standard benchmark comparison should remain `t=0.3`. Later times such as `t=0.6` or `t=0.85` are useful for qualitative vortex visualization, but boundary effects and domain placement must be interpreted carefully.
 
+## Run 2D Riemann Configuration 6 on the GPU
+
+Configuration 6 uses the standard Lax--Liu quadrant ordering
+
+```text
+II | I
+---+---
+III| IV
+```
+
+with primitive states `(rho, p, u, v)`:
+
+```text
+I   = (1.0, 1.0,  0.75, -0.50)
+II  = (2.0, 1.0,  0.75,  0.50)
+III = (1.0, 1.0, -0.75,  0.50)
+IV  = (3.0, 1.0, -0.75, -0.50)
+```
+
+The benchmark domain is `[0, 1] x [0, 1]`, uses outflow boundaries, and runs to `t=0.25`. The Configuration 6 runner defaults to CuPy:
+
+```bash
+python3 -B scripts/run_riemann_config6.py \
+  --backend cupy \
+  --scheme hybrid \
+  --nx 512 --ny 512 \
+  --tfinal 0.25 \
+  --cfl 0.04 \
+  --density-contours \
+  --fixed-density-limits 0 3.2
+```
+
+Unified launcher equivalent:
+
+```bash
+python3 -B scripts/run_case.py --problem riemann6 \
+  --backend cupy --scheme hybrid \
+  --nx 512 --ny 512 --tfinal 0.25 --cfl 0.04 \
+  --density-contours --fixed-density-limits 0 3.2
+```
+
+Use `--backend numpy` for a CPU reference run. CuPy keeps the evolving conservative state, sensor, flux reconstruction, compact derivative solves, Runge--Kutta stages, and hyperviscosity operations on the GPU; arrays are copied to the CPU only while saving or plotting.
+
+The Configuration 6 entry points are:
+
+- `OOP/problems/riemann_config6.py`
+- `scripts/run_riemann_config6.py`
+- `scripts/plot_riemann_config6.py`
+- `scripts/run_case.py --problem riemann6`
+
 ## Riemann output files
 
-Every Riemann run creates a timestamped run folder under:
+Every Riemann run creates a timestamped run folder under the matching configuration directory:
 
 ```text
 results/riemann_config3/<run_id>/
+results/riemann_config6/<run_id>/
 ```
 
 Each folder contains:
@@ -150,7 +201,7 @@ config.json
 The `.npz` file stores the final numerical state so plots can be regenerated without rerunning the simulation. It includes:
 
 ```text
-x, y, q, rho, u, v, pressure, omega_z, time, steps, config_json, diagnostics_json
+x, y, q, rho, u, v, pressure, omega_z, time, steps, configuration_number, config_json, diagnostics_json
 ```
 
 ## Replot a Riemann result from `.npz`
@@ -175,6 +226,15 @@ python3 -B scripts/plot_riemann_config3.py \
   --schlieren \
   --zoom-center \
   --zoom-window 0.35
+```
+
+Configuration 6 uses the corresponding replot wrapper:
+
+```bash
+python3 -B scripts/plot_riemann_config6.py \
+  results/riemann_config6/<run_id>/<run_id>_final.npz \
+  --density-contours \
+  --fixed-density-limits 0 3.2
 ```
 
 Use `--vorticity-limit 0` for automatic vorticity scaling. Use a fixed value such as `--vorticity-limit 100` when comparing different runs.

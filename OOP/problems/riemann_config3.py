@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, asdict
 from pathlib import Path
 import json
+from typing import ClassVar
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,6 +19,8 @@ from OOP.run_utils import make_run_id, write_json
 @dataclass(frozen=True)
 class RiemannConfig3:
     """2D Euler Riemann problem, Lax-Liu/Kurganov-Tadmor Configuration 3."""
+
+    configuration_number: ClassVar[int] = 3
 
     nx: int = 512
     ny: int = 512
@@ -469,6 +472,10 @@ def _extent_from_domain(domain: Domain2D):
     return [domain.x_min, domain.x_max, domain.y_min, domain.y_max]
 
 
+def riemann_config_dict(config: RiemannConfig3) -> dict:
+    return {"configuration_number": config.configuration_number, **asdict(config)}
+
+
 def save_riemann_npz(path: Path, q, config: RiemannConfig3, diagnostics: RiemannDiagnostics) -> Path:
     domain = config.domain
     equation = config.equation
@@ -487,7 +494,8 @@ def save_riemann_npz(path: Path, q, config: RiemannConfig3, diagnostics: Riemann
         omega_z=to_numpy(omega),
         time=np.asarray(diagnostics.time),
         steps=np.asarray(diagnostics.steps),
-        config_json=np.asarray(json.dumps(asdict(config), default=str)),
+        configuration_number=np.asarray(config.configuration_number),
+        config_json=np.asarray(json.dumps(riemann_config_dict(config), default=str)),
         diagnostics_json=np.asarray(json.dumps(asdict(diagnostics), default=str)),
     )
     return path
@@ -496,7 +504,14 @@ def save_riemann_npz(path: Path, q, config: RiemannConfig3, diagnostics: Riemann
 def load_riemann_npz(path: Path):
     data = np.load(path, allow_pickle=False)
     config_data = json.loads(str(data["config_json"])) if "config_json" in data else {}
-    config = RiemannConfig3(**{k: v for k, v in config_data.items() if k in RiemannConfig3.__dataclass_fields__})
+    fields = RiemannConfig3.__dataclass_fields__
+    config = RiemannConfig3(
+        **{
+            key: value
+            for key, value in config_data.items()
+            if key != "configuration_number" and key in fields
+        }
+    )
     return data, config
 
 
@@ -520,6 +535,7 @@ def plot_riemann_solution(
     zoom_y: float = 0.375,
     fixed_density_limits: tuple[float, float] | None = None,
     fixed_pressure_limits: tuple[float, float] | None = None,
+    configuration_number: int = 3,
 ):
     rho = np.asarray(rho)
     pressure = np.asarray(pressure)
@@ -541,7 +557,11 @@ def plot_riemann_solution(
     fig_width = 19.5 if len(fields) == 4 else 15.0
     fig, axes = plt.subplots(1, len(fields), figsize=(fig_width, 4.8), constrained_layout=True)
     axes = np.atleast_1d(axes)
-    fig.suptitle(f"2-D Riemann problem, Configuration 3 — t={time:.3f}", fontsize=13, fontweight="bold")
+    fig.suptitle(
+        f"2-D Riemann problem, Configuration {configuration_number} — t={time:.3f}",
+        fontsize=13,
+        fontweight="bold",
+    )
     for index, (ax, (values, title, label, cmap, vmin, vmax)) in enumerate(zip(axes, fields)):
         image = ax.imshow(values, origin="lower", extent=extent, cmap=cmap, aspect="equal", vmin=vmin, vmax=vmax)
         ax.set_title(title)
@@ -573,12 +593,14 @@ def plot_from_npz(npz_path: Path, output_path: Path | None = None, **kwargs):
         x = data["x"]
         y = data["y"]
         time = float(data["time"])
+        configuration_number = int(data["configuration_number"]) if "configuration_number" in data else 3
     if kwargs.pop("schlieren", False):
         domain = Domain2D(float(x[0] - 0.5 * (x[1] - x[0])), float(x[-1] + 0.5 * (x[1] - x[0])), float(y[0] - 0.5 * (y[1] - y[0])), float(y[-1] + 0.5 * (y[1] - y[0])), len(x), len(y))
         schlieren_values = to_numpy(schlieren_field(np.asarray(rho), domain, kwargs.pop("schlieren_k", 20.0)))
     else:
         schlieren_values = None
         kwargs.pop("schlieren_k", None)
+    kwargs.setdefault("configuration_number", configuration_number)
     return plot_riemann_solution(rho, pressure, omega, x, y, time, output_path=output_path, schlieren_values=schlieren_values, **kwargs)
 
 
@@ -620,7 +642,7 @@ def print_diagnostic_summary(diagnostics: RiemannDiagnostics) -> None:
     print(f"  hyperviscosity       : {diagnostics.hyperviscosity_enabled} ({diagnostics.hyperviscosity_applications} applications)")
 
 
-def run_riemann_config3(config: RiemannConfig3):
+def run_riemann(config: RiemannConfig3):
     xp = select_array_module(config.backend)
     print(f"Using array backend: {xp.__name__}")
     q = config.initial_state()
@@ -649,7 +671,10 @@ def run_riemann_config3(config: RiemannConfig3):
     ) if hyperviscosity_enabled else None
     integrator = SSPRK3()
 
-    print(f"Riemann Config 3: nx={config.nx}, ny={config.ny}, dt={dt:.5e}, steps={n_steps}, tfinal={config.tfinal}")
+    print(
+        f"Riemann Config {config.configuration_number}: nx={config.nx}, ny={config.ny}, "
+        f"dt={dt:.5e}, steps={n_steps}, tfinal={config.tfinal}"
+    )
     print(f"scheme={config.scheme}; local hyperviscosity {'enabled' if hyperviscosity_enabled else 'disabled'} (mn={config.mn})")
     time = 0.0
     hyperviscosity_applications = 0
@@ -675,6 +700,10 @@ def run_riemann_config3(config: RiemannConfig3):
     return q, diagnostics
 
 
+def run_riemann_config3(config: RiemannConfig3):
+    return run_riemann(config)
+
+
 def save_run_outputs(
     q,
     config: RiemannConfig3,
@@ -693,10 +722,10 @@ def save_run_outputs(
     fixed_density_limits: tuple[float, float] | None = None,
     fixed_pressure_limits: tuple[float, float] | None = None,
 ) -> dict[str, Path]:
-    run_id = run_id or make_run_id("riemann3")
+    run_id = run_id or make_run_id(f"riemann{config.configuration_number}")
     run_dir = output_dir / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
-    write_json(run_dir / "config.json", asdict(config))
+    write_json(run_dir / "config.json", riemann_config_dict(config))
     write_json(run_dir / "diagnostics.json", asdict(diagnostics))
     paths: dict[str, Path] = {}
     npz_path = run_dir / f"{run_id}_final.npz"
@@ -724,6 +753,7 @@ def save_run_outputs(
             zoom_window=zoom_window,
             fixed_density_limits=fixed_density_limits,
             fixed_pressure_limits=fixed_pressure_limits,
+            configuration_number=config.configuration_number,
         )
         paths["figure"] = plot_path
     return paths

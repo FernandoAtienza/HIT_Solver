@@ -2,6 +2,14 @@
 
 Implemented first-pass OOP integration of the 2D Euler Riemann Configuration 3 benchmark while preserving the existing HIT solver.
 
+## Configuration 6 GPU scenario
+
+- Added the published Lax--Liu Configuration 6 quadrant states and benchmark final time (`t=0.25`).
+- Reused the backend-aware non-periodic solver so the full time evolution runs on CuPy arrays.
+- Added dedicated run/replot scripts and the `--problem riemann6` unified-launcher option.
+- Saved results now carry their Riemann configuration number, so shared plotting labels remain correct.
+- Added regression coverage for the Configuration 6 initial data.
+
 ## Added
 
 - `OOP/problems/riemann_config3.py`
