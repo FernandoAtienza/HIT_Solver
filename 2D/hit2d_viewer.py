@@ -957,8 +957,8 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Target mean pressure for homogeneous cooling. Defaults to 1/gamma.",
     )
-    parser.add_argument("--diagnostics-every", type=int, default=25)
-    parser.add_argument("--snapshot-every", type=int, default=100)
+    parser.add_argument("--diagnostics-every", type=int, default=1000)
+    parser.add_argument("--snapshot-every", type=int, default=10000)
     parser.add_argument(
         "--backend",
         choices=("auto", "numpy", "cupy"),
