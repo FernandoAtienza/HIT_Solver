@@ -16,7 +16,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--nx", type=int, default=512)
     parser.add_argument("--ny", type=int, default=512)
     parser.add_argument("--tfinal", type=float, default=0.3)
-    parser.add_argument("--cfl", type=float, default=0.04)
+    parser.add_argument("--cfl", type=float, default=0.4)
     parser.add_argument("--gamma", type=float, default=1.4)
     parser.add_argument("--backend", choices=("auto", "numpy", "cupy"), default="numpy")
     parser.add_argument("--scheme", choices=("hybrid", "weno"), default="hybrid")

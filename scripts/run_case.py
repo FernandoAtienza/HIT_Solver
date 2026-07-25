@@ -14,7 +14,7 @@ def parse_dispatch_args() -> tuple[str, list[str]]:
     )
     parser.add_argument(
         "--problem",
-        choices=("hit2d", "riemann3", "riemann6"),
+        choices=("hit2d", "riemann3", "riemann3_08", "riemann6"),
         required=True,
         help="Problem to run. Remaining arguments are forwarded to that problem driver.",
     )
@@ -32,6 +32,11 @@ def main() -> None:
         return
     if problem == "riemann3":
         from scripts.run_riemann_config3 import main as riemann_main
+
+        riemann_main()
+        return
+    if problem == "riemann3_08":
+        from scripts.run_riemann_config3_08 import main as riemann_main
 
         riemann_main()
         return

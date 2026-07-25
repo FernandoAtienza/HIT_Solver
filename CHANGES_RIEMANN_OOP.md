@@ -10,6 +10,13 @@ Implemented first-pass OOP integration of the 2D Euler Riemann Configuration 3 b
 - Saved results now carry their Riemann configuration number, so shared plotting labels remain correct.
 - Added regression coverage for the Configuration 6 initial data.
 
+## Tutor Configuration 3 at x0=y0=0.8
+
+- Added `RiemannConfig3Offset08` without changing the centered Configuration 3 preset.
+- Added the dedicated `scripts/run_riemann_config3_08.py` CuPy runner.
+- Defaults to hybrid compact/WENO fluxes and local hyperviscosity every five steps.
+- Added the `--problem riemann3_08` unified-launcher option and regression tests.
+
 ## Added
 
 - `OOP/problems/riemann_config3.py`

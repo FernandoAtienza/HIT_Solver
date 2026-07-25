@@ -8,23 +8,34 @@ if __package__ is None or __package__ == "":
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from OOP.problems.riemann_config3 import save_run_outputs
-from OOP.problems.riemann_config6 import RiemannConfig6, run_riemann_config6
+from OOP.problems.riemann_config3_08 import (
+    RiemannConfig3Offset08,
+    run_riemann_config3_08,
+)
 from OOP.run_utils import make_run_id
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run the 2D Euler Lax-Liu Riemann problem, Configuration 6."
+        description=(
+            "Run 2D Euler Riemann Configuration 3 with the tutor's "
+            "displaced interface x0=y0=0.8."
+        )
     )
     parser.add_argument("--nx", type=int, default=512)
     parser.add_argument("--ny", type=int, default=512)
-    parser.add_argument("--tfinal", type=float, default=0.25)
-    parser.add_argument("--cfl", type=float, default=0.4)
+    parser.add_argument("--tfinal", type=float, default=0.3)
+    parser.add_argument(
+        "--cfl",
+        type=float,
+        default=0.4,
+        help="Courant number used by the shared 2D Riemann time-step estimate.",
+    )
     parser.add_argument("--gamma", type=float, default=1.4)
     parser.add_argument("--backend", choices=("auto", "numpy", "cupy"), default="cupy")
     parser.add_argument("--scheme", choices=("hybrid", "weno"), default="hybrid")
-    parser.add_argument("--x-split", type=float, default=0.5)
-    parser.add_argument("--y-split", type=float, default=0.5)
+    parser.add_argument("--x-split", type=float, default=0.8)
+    parser.add_argument("--y-split", type=float, default=0.8)
     parser.add_argument("--sensor-width", type=int, default=4)
     parser.add_argument("--jump-threshold", type=float, default=0.025)
     parser.add_argument("--compression-threshold", type=float, default=2.5)
@@ -36,13 +47,17 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--boundary-guard", type=int, default=4)
     parser.add_argument("--mn", type=float, default=0.001)
-    parser.add_argument("--hyperviscosity-interval", type=int, default=1)
+    parser.add_argument("--hyperviscosity-interval", type=int, default=5)
     parser.add_argument("--hyperviscosity-density-weight", type=float, default=1.0)
     parser.add_argument("--hyperviscosity-momentum-weight", type=float, default=1.0)
     parser.add_argument("--hyperviscosity-energy-weight", type=float, default=1.0)
     parser.add_argument("--guard-cells", type=int, default=2)
-    parser.add_argument("--progress-every", type=int, default=1000)
-    parser.add_argument("--output-dir", type=Path, default=Path("results/riemann_config6"))
+    parser.add_argument("--progress-every", type=int, default=500)
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("results/riemann_config3_08"),
+    )
     parser.add_argument("--run-id", type=str, default=None)
     parser.add_argument("--no-plot", action="store_true")
     parser.add_argument("--show", action="store_true")
@@ -52,15 +67,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--schlieren-k", type=float, default=20.0)
     parser.add_argument("--zoom-center", action="store_true")
     parser.add_argument("--zoom-window", type=float, default=0.35)
-    parser.add_argument("--vorticity-limit", type=float, default=100.0, help="Use 0 for automatic scaling.")
-    parser.add_argument("--fixed-density-limits", type=float, nargs=2, metavar=("MIN", "MAX"))
+    parser.add_argument(
+        "--vorticity-limit",
+        type=float,
+        default=100.0,
+        help="Use 0 for automatic scaling.",
+    )
+    parser.add_argument(
+        "--fixed-density-limits",
+        type=float,
+        nargs=2,
+        metavar=("MIN", "MAX"),
+        default=(0.13, 1.75),
+    )
     parser.add_argument("--fixed-pressure-limits", type=float, nargs=2, metavar=("MIN", "MAX"))
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    config = RiemannConfig6(
+    config = RiemannConfig3Offset08(
         nx=args.nx,
         ny=args.ny,
         tfinal=args.tfinal,
@@ -83,8 +109,10 @@ def main() -> None:
         guard_cells=args.guard_cells,
         progress_every=args.progress_every,
     )
-    run_id = args.run_id or make_run_id(f"riemann6_{args.scheme}_t{args.tfinal:.3f}".replace(".", "p"))
-    q, diagnostics = run_riemann_config6(config)
+    run_id = args.run_id or make_run_id(
+        f"riemann3_08_{args.scheme}_t{args.tfinal:.3f}".replace(".", "p")
+    )
+    q, diagnostics = run_riemann_config3_08(config)
     paths = save_run_outputs(
         q,
         config,
@@ -100,8 +128,10 @@ def main() -> None:
         zoom_center=args.zoom_center,
         zoom_window=args.zoom_window,
         vorticity_limit=None if args.vorticity_limit == 0.0 else args.vorticity_limit,
-        fixed_density_limits=tuple(args.fixed_density_limits) if args.fixed_density_limits else None,
-        fixed_pressure_limits=tuple(args.fixed_pressure_limits) if args.fixed_pressure_limits else None,
+        fixed_density_limits=tuple(args.fixed_density_limits),
+        fixed_pressure_limits=(
+            tuple(args.fixed_pressure_limits) if args.fixed_pressure_limits else None
+        ),
     )
     for label, path in paths.items():
         print(f"saved {label}: {path}")

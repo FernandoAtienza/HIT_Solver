@@ -25,7 +25,7 @@ class RiemannConfig3:
     nx: int = 512
     ny: int = 512
     tfinal: float = 0.3
-    cfl: float = 0.04
+    cfl: float = 0.4
     gamma: float = 1.4
     x_min: float = 0.0
     x_max: float = 1.0
@@ -473,7 +473,14 @@ def _extent_from_domain(domain: Domain2D):
 
 
 def riemann_config_dict(config: RiemannConfig3) -> dict:
-    return {"configuration_number": config.configuration_number, **asdict(config)}
+    values = {"configuration_number": config.configuration_number, **asdict(config)}
+    scenario_name = getattr(config, "scenario_name", None)
+    if scenario_name is not None:
+        values["scenario_name"] = scenario_name
+    configuration_label = getattr(config, "configuration_label", None)
+    if configuration_label is not None:
+        values["configuration_label"] = configuration_label
+    return values
 
 
 def save_riemann_npz(path: Path, q, config: RiemannConfig3, diagnostics: RiemannDiagnostics) -> Path:
@@ -536,6 +543,7 @@ def plot_riemann_solution(
     fixed_density_limits: tuple[float, float] | None = None,
     fixed_pressure_limits: tuple[float, float] | None = None,
     configuration_number: int = 3,
+    configuration_label: str | None = None,
 ):
     rho = np.asarray(rho)
     pressure = np.asarray(pressure)
@@ -557,11 +565,8 @@ def plot_riemann_solution(
     fig_width = 19.5 if len(fields) == 4 else 15.0
     fig, axes = plt.subplots(1, len(fields), figsize=(fig_width, 4.8), constrained_layout=True)
     axes = np.atleast_1d(axes)
-    fig.suptitle(
-        f"2-D Riemann problem, Configuration {configuration_number} — t={time:.3f}",
-        fontsize=13,
-        fontweight="bold",
-    )
+    label = configuration_label or f"Configuration {configuration_number}"
+    fig.suptitle(f"2-D Riemann problem, {label} — t={time:.3f}", fontsize=13, fontweight="bold")
     for index, (ax, (values, title, label, cmap, vmin, vmax)) in enumerate(zip(axes, fields)):
         image = ax.imshow(values, origin="lower", extent=extent, cmap=cmap, aspect="equal", vmin=vmin, vmax=vmax)
         ax.set_title(title)
@@ -594,6 +599,11 @@ def plot_from_npz(npz_path: Path, output_path: Path | None = None, **kwargs):
         y = data["y"]
         time = float(data["time"])
         configuration_number = int(data["configuration_number"]) if "configuration_number" in data else 3
+        if "config_json" in data:
+            saved_config = json.loads(str(data["config_json"]))
+            configuration_label = saved_config.get("configuration_label")
+        else:
+            configuration_label = None
     if kwargs.pop("schlieren", False):
         domain = Domain2D(float(x[0] - 0.5 * (x[1] - x[0])), float(x[-1] + 0.5 * (x[1] - x[0])), float(y[0] - 0.5 * (y[1] - y[0])), float(y[-1] + 0.5 * (y[1] - y[0])), len(x), len(y))
         schlieren_values = to_numpy(schlieren_field(np.asarray(rho), domain, kwargs.pop("schlieren_k", 20.0)))
@@ -601,6 +611,7 @@ def plot_from_npz(npz_path: Path, output_path: Path | None = None, **kwargs):
         schlieren_values = None
         kwargs.pop("schlieren_k", None)
     kwargs.setdefault("configuration_number", configuration_number)
+    kwargs.setdefault("configuration_label", configuration_label)
     return plot_riemann_solution(rho, pressure, omega, x, y, time, output_path=output_path, schlieren_values=schlieren_values, **kwargs)
 
 
@@ -671,8 +682,9 @@ def run_riemann(config: RiemannConfig3):
     ) if hyperviscosity_enabled else None
     integrator = SSPRK3()
 
+    label = getattr(config, "configuration_label", f"Config {config.configuration_number}")
     print(
-        f"Riemann Config {config.configuration_number}: nx={config.nx}, ny={config.ny}, "
+        f"Riemann {label}: nx={config.nx}, ny={config.ny}, "
         f"dt={dt:.5e}, steps={n_steps}, tfinal={config.tfinal}"
     )
     print(f"scheme={config.scheme}; local hyperviscosity {'enabled' if hyperviscosity_enabled else 'disabled'} (mn={config.mn})")
@@ -754,6 +766,7 @@ def save_run_outputs(
             fixed_density_limits=fixed_density_limits,
             fixed_pressure_limits=fixed_pressure_limits,
             configuration_number=config.configuration_number,
+            configuration_label=getattr(config, "configuration_label", None),
         )
         paths["figure"] = plot_path
     return paths

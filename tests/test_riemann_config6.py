@@ -46,6 +46,7 @@ class RiemannConfig6InitialStateTests(unittest.TestCase):
         config = RiemannConfig6()
         self.assertEqual(config.configuration_number, 6)
         self.assertEqual(config.tfinal, 0.25)
+        self.assertEqual(config.cfl, 0.4)
         self.assertEqual(config.backend, "cupy")
 
 

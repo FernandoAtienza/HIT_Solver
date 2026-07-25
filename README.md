@@ -88,7 +88,7 @@ python3 -B scripts/run_riemann_config3.py \
   --scheme hybrid \
   --nx 512 --ny 512 \
   --tfinal 0.3 \
-  --cfl 0.04 \
+  --cfl 0.4 \
   --sensor-width 4 \
   --jump-threshold 0.025 \
   --shear-threshold 0 \
@@ -104,7 +104,7 @@ Unified launcher equivalent:
 ```bash
 python3 -B scripts/run_case.py --problem riemann3 \
   --backend numpy --scheme hybrid \
-  --nx 512 --ny 512 --tfinal 0.3 --cfl 0.04 \
+  --nx 512 --ny 512 --tfinal 0.3 --cfl 0.4 \
   --sensor-width 4 --jump-threshold 0.025 --shear-threshold 0 \
   --mn 0.001 --density-contours --schlieren --vorticity-limit 100
 ```
@@ -114,7 +114,7 @@ WENO-only comparison:
 ```bash
 python3 -B scripts/run_riemann_config3.py \
   --backend numpy --scheme weno \
-  --nx 512 --ny 512 --tfinal 0.3 --cfl 0.04 \
+  --nx 512 --ny 512 --tfinal 0.3 --cfl 0.4 \
   --mn 0.001 --density-contours --schlieren
 ```
 
@@ -123,12 +123,40 @@ Late-time qualitative visualization:
 ```bash
 python3 -B scripts/run_riemann_config3.py \
   --backend numpy --scheme hybrid \
-  --nx 512 --ny 512 --tfinal 0.6 --cfl 0.04 \
+  --nx 512 --ny 512 --tfinal 0.6 --cfl 0.4 \
   --sensor-width 4 --jump-threshold 0.025 --shear-threshold 0 \
   --mn 0.001 --density-contours --schlieren --zoom-center
 ```
 
 The standard benchmark comparison should remain `t=0.3`. Later times such as `t=0.6` or `t=0.85` are useful for qualitative vortex visualization, but boundary effects and domain placement must be interpreted carefully.
+
+## Run tutor Configuration 3 with x0=y0=0.8
+
+The tutor case uses the same four primitive states as Configuration 3, but moves the initial quadrant intersection from `(0.5, 0.5)` to `(0.8, 0.8)`. It is kept separate from the centered benchmark through `RiemannConfig3Offset08` and `scripts/run_riemann_config3_08.py`.
+
+The dedicated runner defaults to CuPy, the hybrid compact/WENO scheme, `mn=0.001`, and one hyperviscosity application every five time steps:
+
+```bash
+MPLBACKEND=Agg python -B scripts/run_riemann_config3_08.py \
+  --backend cupy \
+  --scheme hybrid \
+  --nx 512 --ny 512 \
+  --tfinal 0.3 \
+  --cfl 0.4 \
+  --mn 0.001 \
+  --hyperviscosity-interval 5 \
+  --fixed-density-limits 0.13 1.75 \
+  --progress-every 500 \
+  --run-id config3_08_hybrid_hv5_gpu_512_t03
+```
+
+Unified launcher equivalent:
+
+```bash
+python -B scripts/run_case.py --problem riemann3_08 --backend cupy --nx 512 --ny 512
+```
+
+All 2D Riemann presets default to `CFL=0.4`, matching the tutor setup. You can still override it with `--cfl`; reduce it if a modified grid, scheme, or dissipation setting fails the positivity diagnostics.
 
 ## Run 2D Riemann Configuration 6 on the GPU
 
@@ -157,7 +185,7 @@ python3 -B scripts/run_riemann_config6.py \
   --scheme hybrid \
   --nx 512 --ny 512 \
   --tfinal 0.25 \
-  --cfl 0.04 \
+  --cfl 0.4 \
   --density-contours \
   --fixed-density-limits 0 3.2
 ```
@@ -167,7 +195,7 @@ Unified launcher equivalent:
 ```bash
 python3 -B scripts/run_case.py --problem riemann6 \
   --backend cupy --scheme hybrid \
-  --nx 512 --ny 512 --tfinal 0.25 --cfl 0.04 \
+  --nx 512 --ny 512 --tfinal 0.25 --cfl 0.4 \
   --density-contours --fixed-density-limits 0 3.2
 ```
 
