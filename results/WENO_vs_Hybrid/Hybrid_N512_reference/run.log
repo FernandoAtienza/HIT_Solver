@@ -1,0 +1,77 @@
+Using array backend: cupy
+Riemann Configuration 3 (x0=y0=0.8): nx=512, ny=512, dt=1.39619e-04, steps=6088, tfinal=0.85
+scheme=hybrid; local hyperviscosity enabled (mn=0.004)
+step=   100, time=0.013962
+step=   200, time=0.027924
+step=   300, time=0.041886
+step=   400, time=0.055848
+step=   500, time=0.069809
+step=   600, time=0.083771
+step=   700, time=0.097733
+step=   800, time=0.111695
+step=   900, time=0.125657
+step=  1000, time=0.139619
+step=  1100, time=0.153581
+step=  1200, time=0.167543
+step=  1300, time=0.181505
+step=  1400, time=0.195466
+step=  1500, time=0.209428
+step=  1600, time=0.223390
+step=  1700, time=0.237352
+step=  1800, time=0.251314
+step=  1900, time=0.265276
+step=  2000, time=0.279238
+step=  2100, time=0.293200
+step=  2200, time=0.307162
+step=  2300, time=0.321124
+step=  2400, time=0.335085
+step=  2500, time=0.349047
+step=  2600, time=0.363009
+step=  2700, time=0.376971
+step=  2800, time=0.390933
+step=  2900, time=0.404895
+step=  3000, time=0.418857
+step=  3100, time=0.432819
+step=  3200, time=0.446781
+step=  3300, time=0.460742
+step=  3400, time=0.474704
+step=  3500, time=0.488666
+step=  3600, time=0.502628
+step=  3700, time=0.516590
+step=  3800, time=0.530552
+step=  3900, time=0.544514
+step=  4000, time=0.558476
+step=  4100, time=0.572438
+step=  4200, time=0.586399
+step=  4300, time=0.600361
+step=  4400, time=0.614323
+step=  4500, time=0.628285
+step=  4600, time=0.642247
+step=  4700, time=0.656209
+step=  4800, time=0.670171
+step=  4900, time=0.684133
+step=  5000, time=0.698095
+step=  5100, time=0.712057
+step=  5200, time=0.726018
+step=  5300, time=0.739980
+step=  5400, time=0.753942
+step=  5500, time=0.767904
+step=  5600, time=0.781866
+step=  5700, time=0.795828
+step=  5800, time=0.809790
+step=  5900, time=0.823752
+step=  6000, time=0.837714
+step=  6088, time=0.850000
+Diagnostic summary:
+  backend              : cupy
+  scheme               : hybrid
+  density min/max      : 1.27552488e-01 / 1.75333909e+00
+  pressure min/max     : 9.42294378e-03 / 1.67910813e+00
+  max |vorticity|      : 2.72676774e+02
+  NaN/Inf present      : False
+  density positive     : True
+  pressure positive    : True
+  final sensor fraction: 0.451469
+  hyperviscosity       : True (6088 applications)
+saved npz: /home/fatienza/github/HIT_Solver/results/WENO_vs_Hybrid/Hybrid_N512_reference/riemann3_08_hybrid_t0p850_20260729_201729_807492_c98ef0c8/riemann3_08_hybrid_t0p850_20260729_201729_807492_c98ef0c8_final.npz
+saved figure: /home/fatienza/github/HIT_Solver/results/WENO_vs_Hybrid/Hybrid_N512_reference/riemann3_08_hybrid_t0p850_20260729_201729_807492_c98ef0c8/riemann3_08_hybrid_t0p850_20260729_201729_807492_c98ef0c8_fields.png

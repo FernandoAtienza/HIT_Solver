@@ -1,0 +1,32 @@
+Using array backend: cupy
+Riemann Configuration 3 (x0=y0=0.8): nx=128, ny=128, dt=5.58476e-04, steps=1522, tfinal=0.85
+scheme=weno; local hyperviscosity enabled (mn=0.001)
+step=   100, time=0.055848
+step=   200, time=0.111695
+step=   300, time=0.167543
+step=   400, time=0.223390
+step=   500, time=0.279238
+step=   600, time=0.335085
+step=   700, time=0.390933
+step=   800, time=0.446781
+step=   900, time=0.502628
+step=  1000, time=0.558476
+step=  1100, time=0.614323
+step=  1200, time=0.670171
+step=  1300, time=0.726018
+step=  1400, time=0.781866
+step=  1500, time=0.837714
+step=  1522, time=0.850000
+Diagnostic summary:
+  backend              : cupy
+  scheme               : weno
+  density min/max      : 1.37228825e-01 / 1.76635086e+00
+  pressure min/max     : 2.71606920e-02 / 1.68648014e+00
+  max |vorticity|      : 7.15848784e+01
+  NaN/Inf present      : False
+  density positive     : True
+  pressure positive    : True
+  final sensor fraction: 0.610779
+  hyperviscosity       : True (304 applications)
+saved npz: /home/fatienza/github/HIT_Solver/results/WENO_vs_Hybrid/WENO_N128/riemann3_08_weno_t0p850_20260729_200528_978046_a83cb89c/riemann3_08_weno_t0p850_20260729_200528_978046_a83cb89c_final.npz
+saved figure: /home/fatienza/github/HIT_Solver/results/WENO_vs_Hybrid/WENO_N128/riemann3_08_weno_t0p850_20260729_200528_978046_a83cb89c/riemann3_08_weno_t0p850_20260729_200528_978046_a83cb89c_fields.png
