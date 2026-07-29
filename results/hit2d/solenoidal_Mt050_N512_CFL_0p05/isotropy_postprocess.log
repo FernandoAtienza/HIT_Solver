@@ -1,0 +1,11 @@
+saved isotropy diagnostics: results/hit2d/solenoidal_Mt050_N512_CFL_0p05/isotropy_diagnostics.npz
+selected interval: t=[13.9408, 49.7041], Neddy=[4.4421, 15.8451], snapshots=22
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=8.510518e-02 (normalized=2.081812e-01), E_NN=9.803594e-02 (normalized=2.864441e-01)
+selected means: K=1.191041e-01, Mt=5.007382e-01, A_K=1.035275e-01, C_uv=-1.664783e-02
+saved isotropy plot: results/hit2d/solenoidal_Mt050_N512_CFL_0p05/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/solenoidal_Mt050_N512_CFL_0p05/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/solenoidal_Mt050_N512_CFL_0p05/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/solenoidal_Mt050_N512_CFL_0p05/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/solenoidal_Mt050_N512_CFL_0p05/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=4.904e-01, enstrophy=1.753e+00
