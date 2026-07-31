@@ -1,0 +1,174 @@
+Using array backend: cupy
+Forcing mode: dilatational
+step=     0, t=0.000000, dt=0.000e+00, KE=1.250000e-01, Mt=0.5000, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.035, rho_mean=1.000000, p_mean=0.714286, div_rms=4.613e-15, vort_rms=1.950e+00, K_dil=0.000, mass_err=0.000e+00
+warning: WENO is active over a large domain fraction (0.796)
+step=  1000, t=0.681331, dt=7.450e-04, KE=1.157975e-01, Mt=0.4986, A_K=0.006, Cuv=-0.006, P_in=9.636e-03, P_tgt=1.200e-02, A_F=0.116, K_low=0.030, P_drag=-5.205e-04, P_cool=-1.140e-02, WENO=0.796, rho_mean=1.000000, p_mean=0.725688, div_rms=1.141e+00, vort_rms=1.857e+00, K_dil=0.144, mass_err=-2.366e-12
+warning: WENO is active over a large domain fraction (0.897)
+step=  2000, t=1.403177, dt=6.833e-04, KE=1.172297e-01, Mt=0.5060, A_K=0.005, Cuv=0.028, P_in=2.086e-02, P_tgt=1.200e-02, A_F=0.265, K_low=0.030, P_drag=-4.963e-04, P_cool=-1.159e-02, WENO=0.897, rho_mean=1.000000, p_mean=0.725880, div_rms=1.508e+00, vort_rms=1.836e+00, K_dil=0.199, mass_err=-4.668e-12
+warning: WENO is active over a large domain fraction (0.921)
+step=  3000, t=2.102173, dt=7.061e-04, KE=1.141446e-01, Mt=0.4901, A_K=0.096, Cuv=-0.054, P_in=2.962e-02, P_tgt=1.200e-02, A_F=0.053, K_low=0.039, P_drag=-8.363e-04, P_cool=-1.271e-02, WENO=0.921, rho_mean=1.000000, p_mean=0.726994, div_rms=1.618e+00, vort_rms=1.747e+00, K_dil=0.226, mass_err=-6.985e-12
+warning: WENO is active over a large domain fraction (0.945)
+step=  4000, t=2.808999, dt=6.964e-04, KE=1.065541e-01, Mt=0.4686, A_K=0.007, Cuv=0.085, P_in=2.527e-02, P_tgt=1.200e-02, A_F=0.014, K_low=0.032, P_drag=-6.184e-04, P_cool=-1.599e-02, WENO=0.945, rho_mean=1.000000, p_mean=0.730280, div_rms=1.567e+00, vort_rms=1.710e+00, K_dil=0.200, mass_err=-9.294e-12
+warning: WENO is active over a large domain fraction (0.947)
+step=  5000, t=3.512440, dt=7.054e-04, KE=1.041408e-01, Mt=0.4704, A_K=0.042, Cuv=-0.107, P_in=1.748e-02, P_tgt=1.202e-02, A_F=0.021, K_low=0.073, P_drag=-1.254e-03, P_cool=-1.745e-02, WENO=0.947, rho_mean=1.000000, p_mean=0.731735, div_rms=1.630e+00, vort_rms=1.621e+00, K_dil=0.247, mass_err=-1.162e-11
+warning: WENO is active over a large domain fraction (0.947)
+step=  6000, t=4.238957, dt=7.231e-04, KE=9.623732e-02, Mt=0.4537, A_K=0.004, Cuv=0.003, P_in=1.243e-02, P_tgt=1.206e-02, A_F=0.044, K_low=0.080, P_drag=-1.536e-03, P_cool=-1.926e-02, WENO=0.947, rho_mean=1.000000, p_mean=0.733541, div_rms=1.604e+00, vort_rms=1.513e+00, K_dil=0.267, mass_err=-1.393e-11
+warning: WENO is active over a large domain fraction (0.900)
+step=  7000, t=4.941502, dt=7.392e-04, KE=9.101198e-02, Mt=0.4444, A_K=0.036, Cuv=-0.045, P_in=1.219e-02, P_tgt=1.212e-02, A_F=0.042, K_low=0.129, P_drag=-2.083e-03, P_cool=-1.923e-02, WENO=0.900, rho_mean=1.000000, p_mean=0.733515, div_rms=1.651e+00, vort_rms=1.456e+00, K_dil=0.277, mass_err=-1.624e-11
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0007500.npz
+warning: WENO is active over a large domain fraction (0.940)
+step=  8000, t=5.650901, dt=7.584e-04, KE=7.998175e-02, Mt=0.4130, A_K=0.115, Cuv=-0.024, P_in=1.948e-02, P_tgt=1.219e-02, A_F=0.090, K_low=0.123, P_drag=-1.780e-03, P_cool=-2.120e-02, WENO=0.940, rho_mean=1.000000, p_mean=0.735490, div_rms=1.604e+00, vort_rms=1.355e+00, K_dil=0.260, mass_err=-1.856e-11
+warning: WENO is active over a large domain fraction (0.932)
+step=  9000, t=6.412955, dt=7.555e-04, KE=7.504988e-02, Mt=0.3984, A_K=0.034, Cuv=0.011, P_in=1.373e-02, P_tgt=1.230e-02, A_F=0.137, K_low=0.134, P_drag=-1.909e-03, P_cool=-2.079e-02, WENO=0.932, rho_mean=1.000000, p_mean=0.735072, div_rms=1.487e+00, vort_rms=1.281e+00, K_dil=0.264, mass_err=-2.087e-11
+warning: WENO is active over a large domain fraction (0.908)
+step= 10000, t=7.163187, dt=7.635e-04, KE=6.973210e-02, Mt=0.3828, A_K=0.023, Cuv=0.081, P_in=5.078e-03, P_tgt=1.244e-02, A_F=0.093, K_low=0.136, P_drag=-1.826e-03, P_cool=-2.059e-02, WENO=0.908, rho_mean=1.000000, p_mean=0.734872, div_rms=1.367e+00, vort_rms=1.189e+00, K_dil=0.264, mass_err=-2.321e-11
+warning: WENO is active over a large domain fraction (0.914)
+step= 11000, t=7.918374, dt=7.521e-04, KE=6.863497e-02, Mt=0.3759, A_K=0.097, Cuv=0.032, P_in=1.628e-02, P_tgt=1.261e-02, A_F=0.068, K_low=0.132, P_drag=-1.747e-03, P_cool=-1.935e-02, WENO=0.914, rho_mean=1.000000, p_mean=0.733631, div_rms=1.408e+00, vort_rms=1.137e+00, K_dil=0.302, mass_err=-2.552e-11
+warning: flow component anisotropy has increased over the last three diagnostic samples
+warning: WENO is active over a large domain fraction (0.931)
+step= 12000, t=8.649563, dt=7.622e-04, KE=6.391144e-02, Mt=0.3657, A_K=0.286, Cuv=0.084, P_in=1.132e-02, P_tgt=1.281e-02, A_F=0.173, K_low=0.128, P_drag=-1.536e-03, P_cool=-1.957e-02, WENO=0.931, rho_mean=1.000000, p_mean=0.733855, div_rms=1.441e+00, vort_rms=1.061e+00, K_dil=0.325, mass_err=-2.785e-11
+warning: WENO is active over a large domain fraction (0.885)
+step= 13000, t=9.397908, dt=7.576e-04, KE=7.865516e-02, Mt=0.4039, A_K=0.133, Cuv=0.154, P_in=6.267e-02, P_tgt=1.304e-02, A_F=0.078, K_low=0.106, P_drag=-1.597e-03, P_cool=-1.753e-02, WENO=0.885, rho_mean=1.000000, p_mean=0.731816, div_rms=1.692e+00, vort_rms=1.019e+00, K_dil=0.470, mass_err=-3.016e-11
+warning: WENO is active over a large domain fraction (0.885)
+step= 14000, t=10.100910, dt=7.547e-04, KE=7.113611e-02, Mt=0.3858, A_K=0.087, Cuv=0.066, P_in=1.272e-02, P_tgt=1.327e-02, A_F=0.050, K_low=0.113, P_drag=-1.479e-03, P_cool=-2.229e-02, WENO=0.885, rho_mean=1.000000, p_mean=0.736577, div_rms=1.810e+00, vort_rms=9.617e-01, K_dil=0.487, mass_err=-3.249e-11
+warning: WENO is active over a large domain fraction (0.948)
+step= 15000, t=10.844887, dt=6.869e-04, KE=6.266885e-02, Mt=0.3591, A_K=0.214, Cuv=0.064, P_in=5.205e-02, P_tgt=1.353e-02, A_F=0.130, K_low=0.106, P_drag=-1.207e-03, P_cool=-2.368e-02, WENO=0.948, rho_mean=1.000000, p_mean=0.737963, div_rms=1.713e+00, vort_rms=9.353e-01, K_dil=0.426, mass_err=-3.479e-11
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0015000.npz
+warning: WENO is active over a large domain fraction (0.906)
+step= 16000, t=11.541519, dt=7.333e-04, KE=7.449885e-02, Mt=0.3862, A_K=0.119, Cuv=0.134, P_in=4.089e-02, P_tgt=1.380e-02, A_F=0.016, K_low=0.073, P_drag=-1.094e-03, P_cool=-2.223e-02, WENO=0.906, rho_mean=1.000000, p_mean=0.736511, div_rms=1.875e+00, vort_rms=8.632e-01, K_dil=0.563, mass_err=-3.711e-11
+warning: WENO is active over a large domain fraction (0.913)
+step= 17000, t=12.239998, dt=6.640e-04, KE=6.188623e-02, Mt=0.3575, A_K=0.141, Cuv=0.078, P_in=1.268e-02, P_tgt=1.408e-02, A_F=0.174, K_low=0.087, P_drag=-1.062e-03, P_cool=-2.404e-02, WENO=0.913, rho_mean=1.000000, p_mean=0.738323, div_rms=1.873e+00, vort_rms=8.346e-01, K_dil=0.520, mass_err=-3.943e-11
+warning: flow component anisotropy has increased over the last three diagnostic samples
+warning: WENO is active over a large domain fraction (0.940)
+step= 18000, t=12.949908, dt=7.329e-04, KE=5.320848e-02, Mt=0.3313, A_K=0.346, Cuv=0.149, P_in=1.123e-02, P_tgt=1.440e-02, A_F=0.050, K_low=0.088, P_drag=-8.819e-04, P_cool=-2.771e-02, WENO=0.940, rho_mean=1.000000, p_mean=0.741997, div_rms=1.708e+00, vort_rms=7.983e-01, K_dil=0.493, mass_err=-4.175e-11
+warning: WENO is active over a large domain fraction (0.906)
+step= 19000, t=13.695959, dt=7.945e-04, KE=4.873495e-02, Mt=0.3138, A_K=0.200, Cuv=0.130, P_in=1.285e-02, P_tgt=1.477e-02, A_F=0.055, K_low=0.080, P_drag=-7.743e-04, P_cool=-2.603e-02, WENO=0.906, rho_mean=1.000000, p_mean=0.740318, div_rms=1.582e+00, vort_rms=7.279e-01, K_dil=0.507, mass_err=-4.407e-11
+warning: WENO is active over a large domain fraction (0.887)
+step= 20000, t=14.464429, dt=7.678e-04, KE=4.944909e-02, Mt=0.3144, A_K=0.029, Cuv=0.004, P_in=9.005e-03, P_tgt=1.520e-02, A_F=0.047, K_low=0.084, P_drag=-7.650e-04, P_cool=-2.352e-02, WENO=0.887, rho_mean=1.000000, p_mean=0.737805, div_rms=1.560e+00, vort_rms=7.120e-01, K_dil=0.520, mass_err=-4.638e-11
+warning: WENO is active over a large domain fraction (0.881)
+step= 21000, t=15.202440, dt=7.421e-04, KE=4.661987e-02, Mt=0.3049, A_K=0.026, Cuv=0.254, P_in=1.507e-02, P_tgt=1.566e-02, A_F=0.055, K_low=0.072, P_drag=-6.716e-04, P_cool=-2.260e-02, WENO=0.881, rho_mean=1.000000, p_mean=0.736890, div_rms=1.483e+00, vort_rms=6.746e-01, K_dil=0.537, mass_err=-4.869e-11
+warning: WENO is active over a large domain fraction (0.918)
+step= 22000, t=15.969915, dt=7.839e-04, KE=4.519102e-02, Mt=0.3019, A_K=0.159, Cuv=0.108, P_in=1.959e-02, P_tgt=1.619e-02, A_F=0.004, K_low=0.078, P_drag=-7.230e-04, P_cool=-2.168e-02, WENO=0.918, rho_mean=1.000000, p_mean=0.735963, div_rms=1.525e+00, vort_rms=6.376e-01, K_dil=0.554, mass_err=-5.101e-11
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0022500.npz
+warning: WENO is active over a large domain fraction (0.901)
+step= 23000, t=16.737861, dt=7.986e-04, KE=4.685926e-02, Mt=0.3047, A_K=0.121, Cuv=0.116, P_in=2.287e-02, P_tgt=1.676e-02, A_F=0.015, K_low=0.085, P_drag=-7.933e-04, P_cool=-1.958e-02, WENO=0.901, rho_mean=1.000000, p_mean=0.733863, div_rms=1.553e+00, vort_rms=6.131e-01, K_dil=0.611, mass_err=-5.333e-11
+warning: WENO is active over a large domain fraction (0.909)
+step= 24000, t=17.517260, dt=8.036e-04, KE=4.151869e-02, Mt=0.2924, A_K=0.004, Cuv=0.267, P_in=5.237e-02, P_tgt=1.739e-02, A_F=0.084, K_low=0.081, P_drag=-6.433e-04, P_cool=-2.060e-02, WENO=0.909, rho_mean=1.000000, p_mean=0.734885, div_rms=1.563e+00, vort_rms=6.006e-01, K_dil=0.576, mass_err=-5.563e-11
+warning: WENO is active over a large domain fraction (0.910)
+step= 25000, t=18.292196, dt=7.715e-04, KE=5.117095e-02, Mt=0.3213, A_K=0.012, Cuv=0.095, P_in=3.580e-02, P_tgt=1.806e-02, A_F=0.031, K_low=0.071, P_drag=-7.454e-04, P_cool=-2.100e-02, WENO=0.910, rho_mean=1.000000, p_mean=0.735282, div_rms=1.706e+00, vort_rms=5.884e-01, K_dil=0.683, mass_err=-5.793e-11
+warning: WENO is active over a large domain fraction (0.892)
+step= 26000, t=19.062041, dt=7.876e-04, KE=4.656672e-02, Mt=0.3125, A_K=0.124, Cuv=0.086, P_in=2.050e-02, P_tgt=1.875e-02, A_F=0.027, K_low=0.091, P_drag=-7.138e-04, P_cool=-2.390e-02, WENO=0.892, rho_mean=1.000000, p_mean=0.738189, div_rms=1.764e+00, vort_rms=5.590e-01, K_dil=0.698, mass_err=-6.025e-11
+warning: WENO is active over a large domain fraction (0.960)
+step= 27000, t=19.815060, dt=7.424e-04, KE=3.957145e-02, Mt=0.2832, A_K=0.030, Cuv=0.110, P_in=7.309e-03, P_tgt=1.945e-02, A_F=0.076, K_low=0.104, P_drag=-8.348e-04, P_cool=-2.557e-02, WENO=0.960, rho_mean=1.000000, p_mean=0.739853, div_rms=1.644e+00, vort_rms=5.592e-01, K_dil=0.655, mass_err=-6.256e-11
+warning: WENO is active over a large domain fraction (0.939)
+step= 28000, t=20.562687, dt=7.442e-04, KE=3.945826e-02, Mt=0.2853, A_K=0.167, Cuv=0.123, P_in=2.919e-02, P_tgt=2.021e-02, A_F=0.127, K_low=0.078, P_drag=-5.864e-04, P_cool=-2.464e-02, WENO=0.939, rho_mean=1.000000, p_mean=0.738926, div_rms=1.703e+00, vort_rms=5.332e-01, K_dil=0.703, mass_err=-6.484e-11
+warning: WENO is active over a large domain fraction (0.937)
+step= 29000, t=21.344732, dt=7.343e-04, KE=4.567149e-02, Mt=0.3090, A_K=0.116, Cuv=0.026, P_in=5.434e-02, P_tgt=2.105e-02, A_F=0.216, K_low=0.084, P_drag=-7.014e-04, P_cool=-2.370e-02, WENO=0.937, rho_mean=1.000000, p_mean=0.737991, div_rms=1.821e+00, vort_rms=5.320e-01, K_dil=0.757, mass_err=-6.716e-11
+warning: WENO is active over a large domain fraction (0.917)
+step= 30000, t=22.069510, dt=7.381e-04, KE=4.506078e-02, Mt=0.3035, A_K=0.030, Cuv=0.040, P_in=1.399e-02, P_tgt=2.185e-02, A_F=0.065, K_low=0.071, P_drag=-6.135e-04, P_cool=-2.512e-02, WENO=0.917, rho_mean=1.000000, p_mean=0.739403, div_rms=1.847e+00, vort_rms=5.411e-01, K_dil=0.766, mass_err=-6.946e-11
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0030000.npz
+warning: WENO is active over a large domain fraction (0.921)
+step= 31000, t=22.817361, dt=7.655e-04, KE=5.210403e-02, Mt=0.3265, A_K=0.050, Cuv=0.181, P_in=1.468e-02, P_tgt=2.269e-02, A_F=0.129, K_low=0.046, P_drag=-4.194e-04, P_cool=-2.732e-02, WENO=0.921, rho_mean=1.000000, p_mean=0.741601, div_rms=2.051e+00, vort_rms=5.279e-01, K_dil=0.819, mass_err=-7.177e-11
+warning: WENO is active over a large domain fraction (0.937)
+step= 32000, t=23.550631, dt=7.694e-04, KE=4.272321e-02, Mt=0.3017, A_K=0.048, Cuv=0.065, P_in=2.267e-02, P_tgt=2.354e-02, A_F=0.339, K_low=0.068, P_drag=-5.011e-04, P_cool=-2.954e-02, WENO=0.937, rho_mean=1.000000, p_mean=0.743830, div_rms=2.066e+00, vort_rms=5.144e-01, K_dil=0.811, mass_err=-7.408e-11
+warning: WENO is active over a large domain fraction (0.941)
+step= 33000, t=24.279526, dt=7.382e-04, KE=3.785785e-02, Mt=0.2799, A_K=0.091, Cuv=-0.017, P_in=3.226e-02, P_tgt=2.442e-02, A_F=0.211, K_low=0.061, P_drag=-4.135e-04, P_cool=-2.975e-02, WENO=0.941, rho_mean=1.000000, p_mean=0.744033, div_rms=1.796e+00, vort_rms=4.988e-01, K_dil=0.810, mass_err=-7.638e-11
+warning: WENO is active over a large domain fraction (0.920)
+step= 34000, t=25.045167, dt=7.791e-04, KE=3.959903e-02, Mt=0.2835, A_K=0.023, Cuv=0.071, P_in=8.239e-03, P_tgt=2.545e-02, A_F=0.284, K_low=0.059, P_drag=-4.976e-04, P_cool=-2.760e-02, WENO=0.920, rho_mean=1.000000, p_mean=0.741884, div_rms=1.733e+00, vort_rms=4.852e-01, K_dil=0.827, mass_err=-7.869e-11
+warning: WENO is active over a large domain fraction (0.917)
+step= 35000, t=25.818993, dt=7.469e-04, KE=4.926130e-02, Mt=0.3182, A_K=0.050, Cuv=0.060, P_in=2.031e-02, P_tgt=2.656e-02, A_F=0.001, K_low=0.050, P_drag=-4.911e-04, P_cool=-2.627e-02, WENO=0.917, rho_mean=1.000000, p_mean=0.740556, div_rms=1.870e+00, vort_rms=4.698e-01, K_dil=0.875, mass_err=-8.099e-11
+warning: WENO is active over a large domain fraction (0.942)
+step= 36000, t=26.552761, dt=7.255e-04, KE=3.993712e-02, Mt=0.2837, A_K=0.006, Cuv=-0.068, P_in=6.221e-02, P_tgt=2.766e-02, A_F=0.065, K_low=0.053, P_drag=-4.355e-04, P_cool=-2.988e-02, WENO=0.942, rho_mean=1.000000, p_mean=0.744164, div_rms=1.874e+00, vort_rms=4.667e-01, K_dil=0.851, mass_err=-8.331e-11
+warning: WENO is active over a large domain fraction (0.932)
+step= 37000, t=27.261697, dt=6.789e-04, KE=4.530501e-02, Mt=0.3008, A_K=0.043, Cuv=0.002, P_in=4.416e-02, P_tgt=2.872e-02, A_F=0.129, K_low=0.036, P_drag=-3.068e-04, P_cool=-3.667e-02, WENO=0.932, rho_mean=1.000000, p_mean=0.750955, div_rms=2.098e+00, vort_rms=4.919e-01, K_dil=0.863, mass_err=-8.561e-11
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0037500.npz
+warning: WENO is active over a large domain fraction (0.929)
+step= 38000, t=27.977555, dt=7.465e-04, KE=5.051258e-02, Mt=0.3290, A_K=0.045, Cuv=0.150, P_in=6.746e-02, P_tgt=2.980e-02, A_F=0.101, K_low=0.033, P_drag=-3.738e-04, P_cool=-3.602e-02, WENO=0.929, rho_mean=1.000000, p_mean=0.750303, div_rms=2.084e+00, vort_rms=4.943e-01, K_dil=0.896, mass_err=-8.792e-11
+warning: WENO is active over a large domain fraction (0.962)
+step= 39000, t=28.738303, dt=7.127e-04, KE=4.261497e-02, Mt=0.2911, A_K=0.032, Cuv=-0.017, P_in=4.496e-02, P_tgt=3.097e-02, A_F=0.212, K_low=0.050, P_drag=-4.140e-04, P_cool=-3.850e-02, WENO=0.962, rho_mean=1.000000, p_mean=0.752785, div_rms=1.950e+00, vort_rms=5.305e-01, K_dil=0.873, mass_err=-9.022e-11
+warning: WENO is active over a large domain fraction (0.947)
+step= 40000, t=29.442534, dt=7.064e-04, KE=4.109009e-02, Mt=0.2891, A_K=0.039, Cuv=0.022, P_in=4.270e-02, P_tgt=3.208e-02, A_F=0.090, K_low=0.029, P_drag=-2.257e-04, P_cool=-3.939e-02, WENO=0.947, rho_mean=1.000000, p_mean=0.753675, div_rms=2.015e+00, vort_rms=5.304e-01, K_dil=0.877, mass_err=-9.254e-11
+warning: WENO is active over a large domain fraction (0.949)
+step= 41000, t=30.161693, dt=7.460e-04, KE=4.799770e-02, Mt=0.3106, A_K=0.088, Cuv=0.221, P_in=2.389e-02, P_tgt=3.325e-02, A_F=0.024, K_low=0.034, P_drag=-3.153e-04, P_cool=-3.930e-02, WENO=0.949, rho_mean=1.000000, p_mean=0.753585, div_rms=2.069e+00, vort_rms=5.111e-01, K_dil=0.899, mass_err=-9.486e-11
+warning: WENO is active over a large domain fraction (0.934)
+step= 42000, t=30.871234, dt=7.133e-04, KE=4.852460e-02, Mt=0.3169, A_K=0.092, Cuv=0.031, P_in=6.249e-02, P_tgt=3.442e-02, A_F=0.035, K_low=0.028, P_drag=-2.013e-04, P_cool=-3.883e-02, WENO=0.934, rho_mean=1.000000, p_mean=0.753117, div_rms=2.082e+00, vort_rms=5.234e-01, K_dil=0.905, mass_err=-9.717e-11
+warning: WENO is active over a large domain fraction (0.937)
+step= 43000, t=31.608553, dt=6.829e-04, KE=5.424371e-02, Mt=0.3265, A_K=0.014, Cuv=-0.003, P_in=4.160e-02, P_tgt=3.567e-02, A_F=0.058, K_low=0.026, P_drag=-2.321e-04, P_cool=-3.720e-02, WENO=0.937, rho_mean=1.000000, p_mean=0.751485, div_rms=2.094e+00, vort_rms=5.128e-01, K_dil=0.924, mass_err=-9.949e-11
+warning: WENO is active over a large domain fraction (0.902)
+step= 44000, t=32.329278, dt=6.938e-04, KE=4.637372e-02, Mt=0.3051, A_K=0.068, Cuv=0.047, P_in=2.411e-02, P_tgt=3.692e-02, A_F=0.194, K_low=0.037, P_drag=-3.411e-04, P_cool=-3.839e-02, WENO=0.902, rho_mean=1.000000, p_mean=0.752675, div_rms=2.054e+00, vort_rms=5.205e-01, K_dil=0.913, mass_err=-1.018e-10
+warning: WENO is active over a large domain fraction (0.934)
+step= 45000, t=33.046178, dt=7.079e-04, KE=4.665733e-02, Mt=0.3076, A_K=0.112, Cuv=0.058, P_in=2.833e-02, P_tgt=3.824e-02, A_F=0.066, K_low=0.020, P_drag=-2.041e-04, P_cool=-3.955e-02, WENO=0.934, rho_mean=1.000000, p_mean=0.753834, div_rms=2.061e+00, vort_rms=4.972e-01, K_dil=0.923, mass_err=-1.041e-10
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0045000.npz
+warning: WENO is active over a large domain fraction (0.961)
+step= 46000, t=33.769097, dt=6.622e-04, KE=4.454311e-02, Mt=0.3030, A_K=0.026, Cuv=-0.006, P_in=2.035e-02, P_tgt=3.962e-02, A_F=0.277, K_low=0.032, P_drag=-3.072e-04, P_cool=-4.321e-02, WENO=0.961, rho_mean=1.000000, p_mean=0.757492, div_rms=2.114e+00, vort_rms=5.241e-01, K_dil=0.911, mass_err=-1.064e-10
+warning: WENO is active over a large domain fraction (0.975)
+step= 47000, t=34.438999, dt=6.283e-04, KE=5.368088e-02, Mt=0.3357, A_K=0.182, Cuv=-0.052, P_in=4.938e-02, P_tgt=4.093e-02, A_F=0.131, K_low=0.027, P_drag=-2.906e-04, P_cool=-4.826e-02, WENO=0.975, rho_mean=1.000000, p_mean=0.762543, div_rms=2.322e+00, vort_rms=6.050e-01, K_dil=0.912, mass_err=-1.087e-10
+warning: WENO is active over a large domain fraction (0.969)
+step= 48000, t=35.082405, dt=6.696e-04, KE=5.268175e-02, Mt=0.3258, A_K=0.111, Cuv=-0.298, P_in=3.540e-02, P_tgt=4.215e-02, A_F=0.085, K_low=0.048, P_drag=-4.894e-04, P_cool=-4.808e-02, WENO=0.969, rho_mean=1.000000, p_mean=0.762367, div_rms=2.286e+00, vort_rms=6.308e-01, K_dil=0.888, mass_err=-1.110e-10
+warning: WENO is active over a large domain fraction (0.969)
+step= 49000, t=35.786372, dt=6.718e-04, KE=4.635466e-02, Mt=0.3014, A_K=0.116, Cuv=-0.192, P_in=5.092e-02, P_tgt=4.348e-02, A_F=0.125, K_low=0.038, P_drag=-3.158e-04, P_cool=-5.054e-02, WENO=0.969, rho_mean=1.000000, p_mean=0.764826, div_rms=2.163e+00, vort_rms=6.115e-01, K_dil=0.884, mass_err=-1.134e-10
+warning: WENO is active over a large domain fraction (0.958)
+step= 50000, t=36.494525, dt=7.139e-04, KE=4.767555e-02, Mt=0.3084, A_K=0.009, Cuv=-0.148, P_in=5.102e-02, P_tgt=4.485e-02, A_F=0.026, K_low=0.035, P_drag=-3.361e-04, P_cool=-4.894e-02, WENO=0.958, rho_mean=1.000000, p_mean=0.763227, div_rms=2.136e+00, vort_rms=5.818e-01, K_dil=0.885, mass_err=-1.157e-10
+warning: WENO is active over a large domain fraction (0.936)
+step= 51000, t=37.181799, dt=7.569e-04, KE=4.695976e-02, Mt=0.3101, A_K=0.163, Cuv=-0.201, P_in=4.286e-02, P_tgt=4.623e-02, A_F=0.115, K_low=0.031, P_drag=-2.575e-04, P_cool=-4.929e-02, WENO=0.936, rho_mean=1.000000, p_mean=0.763580, div_rms=2.112e+00, vort_rms=5.794e-01, K_dil=0.893, mass_err=-1.180e-10
+warning: WENO is active over a large domain fraction (0.928)
+step= 52000, t=37.908223, dt=7.222e-04, KE=5.358912e-02, Mt=0.3231, A_K=0.126, Cuv=-0.034, P_in=4.021e-02, P_tgt=4.774e-02, A_F=0.013, K_low=0.039, P_drag=-4.708e-04, P_cool=-4.864e-02, WENO=0.928, rho_mean=1.000000, p_mean=0.762930, div_rms=2.172e+00, vort_rms=5.688e-01, K_dil=0.905, mass_err=-1.203e-10
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0052500.npz
+warning: WENO is active over a large domain fraction (0.939)
+step= 53000, t=38.585883, dt=7.154e-04, KE=4.853777e-02, Mt=0.3099, A_K=0.116, Cuv=-0.172, P_in=3.680e-02, P_tgt=4.800e-02, A_F=0.151, K_low=0.033, P_drag=-3.155e-04, P_cool=-5.061e-02, WENO=0.939, rho_mean=1.000000, p_mean=0.764892, div_rms=2.154e+00, vort_rms=5.875e-01, K_dil=0.875, mass_err=-1.226e-10
+warning: WENO is active over a large domain fraction (0.982)
+step= 54000, t=39.318914, dt=6.951e-04, KE=4.970065e-02, Mt=0.3214, A_K=0.162, Cuv=0.010, P_in=4.045e-02, P_tgt=4.800e-02, A_F=0.113, K_low=0.032, P_drag=-2.733e-04, P_cool=-5.084e-02, WENO=0.982, rho_mean=1.000000, p_mean=0.765125, div_rms=2.185e+00, vort_rms=5.733e-01, K_dil=0.886, mass_err=-1.249e-10
+warning: WENO is active over a large domain fraction (0.961)
+step= 55000, t=40.032329, dt=7.212e-04, KE=5.937714e-02, Mt=0.3458, A_K=0.052, Cuv=0.174, P_in=8.897e-02, P_tgt=4.800e-02, A_F=0.022, K_low=0.021, P_drag=-2.570e-04, P_cool=-4.862e-02, WENO=0.961, rho_mean=1.000000, p_mean=0.762908, div_rms=2.311e+00, vort_rms=6.023e-01, K_dil=0.900, mass_err=-1.272e-10
+warning: WENO is active over a large domain fraction (0.960)
+step= 56000, t=40.744512, dt=6.783e-04, KE=5.781005e-02, Mt=0.3459, A_K=0.046, Cuv=0.111, P_in=5.239e-02, P_tgt=4.800e-02, A_F=0.134, K_low=0.032, P_drag=-3.689e-04, P_cool=-4.926e-02, WENO=0.960, rho_mean=1.000000, p_mean=0.763543, div_rms=2.327e+00, vort_rms=6.468e-01, K_dil=0.902, mass_err=-1.295e-10
+warning: WENO is active over a large domain fraction (0.952)
+step= 57000, t=41.438542, dt=7.035e-04, KE=5.981136e-02, Mt=0.3537, A_K=0.089, Cuv=0.092, P_in=5.349e-02, P_tgt=4.800e-02, A_F=0.124, K_low=0.033, P_drag=-3.537e-04, P_cool=-4.962e-02, WENO=0.952, rho_mean=1.000000, p_mean=0.763903, div_rms=2.369e+00, vort_rms=6.352e-01, K_dil=0.914, mass_err=-1.318e-10
+warning: WENO is active over a large domain fraction (0.944)
+step= 58000, t=42.110082, dt=6.602e-04, KE=5.510866e-02, Mt=0.3348, A_K=0.041, Cuv=0.172, P_in=6.024e-02, P_tgt=4.800e-02, A_F=0.211, K_low=0.034, P_drag=-3.368e-04, P_cool=-4.983e-02, WENO=0.944, rho_mean=1.000000, p_mean=0.764111, div_rms=2.314e+00, vort_rms=6.594e-01, K_dil=0.901, mass_err=-1.341e-10
+warning: WENO is active over a large domain fraction (0.962)
+step= 59000, t=42.770479, dt=6.753e-04, KE=4.801455e-02, Mt=0.3143, A_K=0.038, Cuv=0.243, P_in=8.314e-02, P_tgt=4.800e-02, A_F=0.016, K_low=0.040, P_drag=-2.873e-04, P_cool=-5.279e-02, WENO=0.962, rho_mean=1.000000, p_mean=0.767072, div_rms=2.182e+00, vort_rms=6.488e-01, K_dil=0.873, mass_err=-1.365e-10
+warning: WENO is active over a large domain fraction (0.972)
+step= 60000, t=43.454532, dt=7.186e-04, KE=4.925593e-02, Mt=0.3212, A_K=0.118, Cuv=0.128, P_in=5.224e-02, P_tgt=4.800e-02, A_F=0.097, K_low=0.027, P_drag=-2.550e-04, P_cool=-5.333e-02, WENO=0.972, rho_mean=1.000000, p_mean=0.767612, div_rms=2.256e+00, vort_rms=6.428e-01, K_dil=0.894, mass_err=-1.388e-10
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0060000.npz
+warning: WENO is active over a large domain fraction (0.946)
+step= 61000, t=44.159413, dt=7.074e-04, KE=5.829156e-02, Mt=0.3397, A_K=0.058, Cuv=-0.094, P_in=4.792e-02, P_tgt=4.800e-02, A_F=0.083, K_low=0.018, P_drag=-2.204e-04, P_cool=-5.000e-02, WENO=0.946, rho_mean=1.000000, p_mean=0.764282, div_rms=2.236e+00, vort_rms=6.062e-01, K_dil=0.910, mass_err=-1.411e-10
+warning: WENO is active over a large domain fraction (0.950)
+step= 62000, t=44.848112, dt=6.258e-04, KE=5.717730e-02, Mt=0.3343, A_K=0.025, Cuv=-0.136, P_in=6.360e-02, P_tgt=4.800e-02, A_F=0.271, K_low=0.016, P_drag=-1.951e-04, P_cool=-5.001e-02, WENO=0.950, rho_mean=1.000000, p_mean=0.764299, div_rms=2.201e+00, vort_rms=6.193e-01, K_dil=0.907, mass_err=-1.434e-10
+warning: WENO is active over a large domain fraction (0.934)
+step= 63000, t=45.528604, dt=6.577e-04, KE=5.729642e-02, Mt=0.3402, A_K=0.129, Cuv=0.068, P_in=6.335e-02, P_tgt=4.800e-02, A_F=0.180, K_low=0.022, P_drag=-2.761e-04, P_cool=-5.042e-02, WENO=0.934, rho_mean=1.000000, p_mean=0.764709, div_rms=2.237e+00, vort_rms=6.081e-01, K_dil=0.908, mass_err=-1.457e-10
+warning: WENO is active over a large domain fraction (0.961)
+step= 64000, t=46.213598, dt=7.138e-04, KE=4.507952e-02, Mt=0.3067, A_K=0.096, Cuv=-0.155, P_in=6.082e-02, P_tgt=4.800e-02, A_F=0.017, K_low=0.029, P_drag=-2.473e-04, P_cool=-5.346e-02, WENO=0.961, rho_mean=1.000000, p_mean=0.767742, div_rms=2.125e+00, vort_rms=5.945e-01, K_dil=0.883, mass_err=-1.480e-10
+warning: WENO is active over a large domain fraction (0.955)
+step= 65000, t=46.874665, dt=5.549e-04, KE=6.208765e-02, Mt=0.3548, A_K=0.032, Cuv=-0.093, P_in=6.576e-02, P_tgt=4.800e-02, A_F=0.049, K_low=0.020, P_drag=-2.486e-04, P_cool=-4.990e-02, WENO=0.955, rho_mean=1.000000, p_mean=0.764190, div_rms=2.252e+00, vort_rms=6.285e-01, K_dil=0.909, mass_err=-1.503e-10
+warning: WENO is active over a large domain fraction (0.923)
+step= 66000, t=47.518376, dt=7.276e-04, KE=5.586703e-02, Mt=0.3375, A_K=0.160, Cuv=0.072, P_in=6.183e-02, P_tgt=4.800e-02, A_F=0.223, K_low=0.033, P_drag=-3.299e-04, P_cool=-5.141e-02, WENO=0.923, rho_mean=1.000000, p_mean=0.765698, div_rms=2.280e+00, vort_rms=6.051e-01, K_dil=0.907, mass_err=-1.526e-10
+warning: WENO is active over a large domain fraction (0.954)
+step= 67000, t=48.211059, dt=6.901e-04, KE=5.726077e-02, Mt=0.3380, A_K=0.056, Cuv=-0.091, P_in=7.169e-02, P_tgt=4.800e-02, A_F=0.133, K_low=0.040, P_drag=-4.210e-04, P_cool=-5.050e-02, WENO=0.954, rho_mean=1.000000, p_mean=0.764791, div_rms=2.142e+00, vort_rms=6.531e-01, K_dil=0.905, mass_err=-1.549e-10
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0067500.npz
+warning: WENO is active over a large domain fraction (0.969)
+step= 68000, t=48.902631, dt=7.535e-04, KE=4.957188e-02, Mt=0.3190, A_K=0.138, Cuv=-0.076, P_in=3.428e-02, P_tgt=4.800e-02, A_F=0.159, K_low=0.044, P_drag=-4.257e-04, P_cool=-5.300e-02, WENO=0.969, rho_mean=1.000000, p_mean=0.767286, div_rms=2.308e+00, vort_rms=6.402e-01, K_dil=0.894, mass_err=-1.572e-10
+warning: flow component anisotropy has increased over the last three diagnostic samples
+warning: WENO is active over a large domain fraction (0.973)
+step= 69000, t=49.581042, dt=6.760e-04, KE=5.565892e-02, Mt=0.3382, A_K=0.203, Cuv=0.049, P_in=5.275e-02, P_tgt=4.800e-02, A_F=0.290, K_low=0.047, P_drag=-5.417e-04, P_cool=-5.366e-02, WENO=0.973, rho_mean=1.000000, p_mean=0.767944, div_rms=2.243e+00, vort_rms=6.067e-01, K_dil=0.904, mass_err=-1.596e-10
+warning: WENO is active over a large domain fraction (0.949)
+step= 70000, t=50.286106, dt=6.635e-04, KE=6.206055e-02, Mt=0.3558, A_K=0.127, Cuv=-0.039, P_in=6.100e-02, P_tgt=4.800e-02, A_F=0.156, K_low=0.036, P_drag=-5.297e-04, P_cool=-5.700e-02, WENO=0.949, rho_mean=1.000000, p_mean=0.771288, div_rms=2.334e+00, vort_rms=6.117e-01, K_dil=0.909, mass_err=-1.619e-10
+warning: WENO is active over a large domain fraction (0.962)
+step= 71000, t=50.953954, dt=6.342e-04, KE=5.642755e-02, Mt=0.3451, A_K=0.038, Cuv=0.027, P_in=3.242e-02, P_tgt=4.800e-02, A_F=0.045, K_low=0.035, P_drag=-3.798e-04, P_cool=-5.807e-02, WENO=0.962, rho_mean=1.000000, p_mean=0.772357, div_rms=2.396e+00, vort_rms=6.585e-01, K_dil=0.904, mass_err=-1.642e-10
+warning: WENO is active over a large domain fraction (0.961)
+step= 72000, t=51.582803, dt=6.437e-04, KE=5.025258e-02, Mt=0.3233, A_K=0.047, Cuv=0.031, P_in=2.623e-02, P_tgt=4.800e-02, A_F=0.204, K_low=0.060, P_drag=-5.247e-04, P_cool=-5.855e-02, WENO=0.961, rho_mean=1.000000, p_mean=0.772840, div_rms=2.356e+00, vort_rms=6.651e-01, K_dil=0.886, mass_err=-1.665e-10
+warning: WENO is active over a large domain fraction (0.948)
+step= 73000, t=52.245291, dt=6.855e-04, KE=6.628885e-02, Mt=0.3662, A_K=0.078, Cuv=0.066, P_in=3.137e-02, P_tgt=4.800e-02, A_F=0.027, K_low=0.039, P_drag=-4.636e-04, P_cool=-5.506e-02, WENO=0.948, rho_mean=1.000000, p_mean=0.769343, div_rms=2.393e+00, vort_rms=6.799e-01, K_dil=0.912, mass_err=-1.688e-10
+warning: WENO is active over a large domain fraction (0.962)
+step= 74000, t=52.905156, dt=6.069e-04, KE=5.483741e-02, Mt=0.3321, A_K=0.093, Cuv=0.092, P_in=3.351e-02, P_tgt=4.800e-02, A_F=0.006, K_low=0.036, P_drag=-4.274e-04, P_cool=-6.010e-02, WENO=0.962, rho_mean=1.000000, p_mean=0.774385, div_rms=2.333e+00, vort_rms=7.006e-01, K_dil=0.890, mass_err=-1.711e-10
+warning: WENO is active over a large domain fraction (0.975)
+step= 75000, t=53.539080, dt=6.343e-04, KE=5.490871e-02, Mt=0.3289, A_K=0.018, Cuv=0.044, P_in=8.493e-02, P_tgt=4.800e-02, A_F=0.320, K_low=0.029, P_drag=-3.708e-04, P_cool=-5.976e-02, WENO=0.975, rho_mean=1.000000, p_mean=0.774048, div_rms=2.300e+00, vort_rms=7.610e-01, K_dil=0.869, mass_err=-1.735e-10
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0075000.npz
+warning: WENO is active over a large domain fraction (0.955)
+step= 76000, t=54.191748, dt=6.408e-04, KE=6.104028e-02, Mt=0.3469, A_K=0.024, Cuv=0.081, P_in=8.180e-02, P_tgt=4.800e-02, A_F=0.021, K_low=0.026, P_drag=-3.564e-04, P_cool=-5.785e-02, WENO=0.955, rho_mean=1.000000, p_mean=0.772134, div_rms=2.358e+00, vort_rms=7.401e-01, K_dil=0.861, mass_err=-1.758e-10
+warning: WENO is active over a large domain fraction (0.956)
+step= 77000, t=54.856681, dt=7.031e-04, KE=5.768289e-02, Mt=0.3458, A_K=0.037, Cuv=0.081, P_in=5.461e-02, P_tgt=4.800e-02, A_F=0.172, K_low=0.028, P_drag=-3.036e-04, P_cool=-5.909e-02, WENO=0.956, rho_mean=1.000000, p_mean=0.773376, div_rms=2.320e+00, vort_rms=7.470e-01, K_dil=0.849, mass_err=-1.781e-10
+warning: WENO is active over a large domain fraction (0.967)
+step= 77213, t=55.000000, dt=5.295e-04, KE=5.846510e-02, Mt=0.3488, A_K=0.072, Cuv=0.107, P_in=5.827e-02, P_tgt=4.800e-02, A_F=0.084, K_low=0.031, P_drag=-3.677e-04, P_cool=-5.865e-02, WENO=0.967, rho_mean=1.000000, p_mean=0.772936, div_rms=2.300e+00, vort_rms=7.334e-01, K_dil=0.857, mass_err=-1.786e-10
+saved snapshot: results/hit2d/dilatational_stable_Mt050_N128_CFL_0p05/hit2d_step0077213.npz
+completed 2D HIT run at t=55.000000 in 77213 steps
