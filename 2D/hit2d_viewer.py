@@ -874,6 +874,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cfl", type=float, default=0.05)
     parser.add_argument("--gamma", type=float, default=1.4)
     parser.add_argument("--mach", type=float, default=0.1)
+    parser.add_argument(
+        "--forcing-mode",
+        choices=("solenoidal", "dilatational", "compressive"),
+        default="solenoidal",
+        help="Stochastic forcing projection used when --run is enabled.",
+    )
     parser.add_argument("--initial-kmin", type=int, default=1)
     parser.add_argument("--initial-kmax", type=int, default=3)
     parser.add_argument("--viscosity", type=float, default=1.0e-3)
@@ -985,6 +991,9 @@ def main() -> None:
             cfl=args.cfl,
             gamma=args.gamma,
             target_mach=args.mach,
+            forcing_mode=(
+                "dilatational" if args.forcing_mode == "compressive" else args.forcing_mode
+            ),
             initial_kmin=args.initial_kmin,
             initial_kmax=args.initial_kmax,
             viscosity=args.viscosity,

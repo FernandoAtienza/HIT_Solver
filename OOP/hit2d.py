@@ -41,6 +41,7 @@ class HIT2DConfig:
     cfl: float = 0.05
     tfinal: float = 1.0
     target_mach: float = 0.1
+    forcing_mode: str = "solenoidal"
     initial_kmin: int = 1
     initial_kmax: int = 3
     forcing_kmin: float | None = None
@@ -92,6 +93,7 @@ class HIT2DConfig:
             ny=128,
             tfinal=15.0,
             target_mach=0.25,
+            forcing_mode="solenoidal",
             initial_kmin=3,
             initial_kmax=5,
             forcing_kmin=3.0,
@@ -468,6 +470,52 @@ def divergence_and_vorticity(
     return divergence, vorticity
 
 
+def velocity_helmholtz_energy_fractions(
+    u: np.ndarray,
+    v: np.ndarray,
+    domain: Domain2D,
+) -> tuple[float, float, float]:
+    """Return solenoidal/dilatational velocity-energy fractions and their ratio.
+
+    The mean velocity is removed and the remaining Fourier coefficients are
+    split with the orthogonal Helmholtz projectors. The reported energies are
+    unweighted spectral velocity energies, so the two fractions sum to one up
+    to roundoff even when density is spatially variable.
+    """
+
+    xp = array_module(u)
+    u_hat = xp.fft.fft2(u - xp.mean(u))
+    v_hat = xp.fft.fft2(v - xp.mean(v))
+    kx, ky, k2 = _spectral_wavenumbers(domain, xp=xp)
+    nonzero = k2 > 0.0
+    k2_safe = xp.where(nonzero, k2, 1.0)
+    k_dot_u = kx * u_hat + ky * v_hat
+
+    u_dil_hat = xp.where(nonzero, kx * k_dot_u / k2_safe, 0.0)
+    v_dil_hat = xp.where(nonzero, ky * k_dot_u / k2_safe, 0.0)
+    u_sol_hat = u_hat - u_dil_hat
+    v_sol_hat = v_hat - v_dil_hat
+
+    solenoidal_energy = float(
+        xp.real(xp.sum(xp.abs(u_sol_hat) ** 2 + xp.abs(v_sol_hat) ** 2))
+    )
+    dilatational_energy = float(
+        xp.real(xp.sum(xp.abs(u_dil_hat) ** 2 + xp.abs(v_dil_hat) ** 2))
+    )
+    total_energy = solenoidal_energy + dilatational_energy
+    if total_energy <= np.finfo(float).eps:
+        return 0.0, 0.0, 0.0
+
+    solenoidal_fraction = solenoidal_energy / total_energy
+    dilatational_fraction = dilatational_energy / total_energy
+    ratio = (
+        dilatational_energy / solenoidal_energy
+        if solenoidal_energy > np.finfo(float).eps
+        else float("inf")
+    )
+    return solenoidal_fraction, dilatational_fraction, ratio
+
+
 def compute_diagnostics(
     q: np.ndarray,
     equation: EulerEquation2D,
@@ -485,6 +533,9 @@ def compute_diagnostics(
     divergence, vorticity = divergence_and_vorticity(u, v, domain)
     xp = array_module(q)
     sound_speed = xp.sqrt(equation.gamma * pressure / rho)
+    solenoidal_fraction, dilatational_fraction, dilatational_ratio = (
+        velocity_helmholtz_energy_fractions(u, v, domain)
+    )
     mass = float(xp.mean(rho) * (domain.x_max - domain.x_min) * (domain.y_max - domain.y_min))
     u_fluct = u - xp.mean(u)
     v_fluct = v - xp.mean(v)
@@ -505,6 +556,9 @@ def compute_diagnostics(
         "mean_pressure": float(xp.mean(pressure)),
         "divergence_rms": float(xp.sqrt(xp.mean(divergence**2))),
         "vorticity_rms": float(xp.sqrt(xp.mean(vorticity**2))),
+        "solenoidal_velocity_energy_fraction": solenoidal_fraction,
+        "dilatational_velocity_energy_fraction": dilatational_fraction,
+        "dilatational_to_solenoidal_energy_ratio": dilatational_ratio,
         "mass": mass,
         "mass_error": 0.0 if initial_mass is None else mass - initial_mass,
         "large_scale_kinetic_fraction": large_scale_fraction,
@@ -521,6 +575,8 @@ def compute_diagnostics(
             "A_F": 0.0,
             "forcing_alpha": 0.0,
             "forcing_target_power": 0.0,
+            "forcing_solenoidal_fraction": 0.0,
+            "forcing_dilatational_fraction": 0.0,
             "mach_control_mach": diagnostics["turbulent_mach"],
             "mach_control_target": 0.0,
             "mach_control_power_desired": 0.0,
@@ -536,6 +592,12 @@ def compute_diagnostics(
                 "A_F": forcing_info["A_F"],
                 "forcing_alpha": forcing_info["alpha"],
                 "forcing_target_power": forcing_info.get("target_power", 0.0),
+                "forcing_solenoidal_fraction": forcing_info.get(
+                    "forcing_solenoidal_fraction", 0.0
+                ),
+                "forcing_dilatational_fraction": forcing_info.get(
+                    "forcing_dilatational_fraction", 0.0
+                ),
                 "mach_control_mach": forcing_info.get(
                     "mach_control_mach", diagnostics["turbulent_mach"]
                 ),
@@ -613,6 +675,7 @@ def _print_diagnostics(step: int, time: float, dt: float, diagnostics: dict[str,
         f"p_mean={diagnostics['mean_pressure']:.6f}, "
         f"div_rms={diagnostics['divergence_rms']:.3e}, "
         f"vort_rms={diagnostics['vorticity_rms']:.3e}, "
+        f"K_dil={diagnostics['dilatational_velocity_energy_fraction']:.3f}, "
         f"mass_err={diagnostics['mass_error']:.3e}"
     )
 
@@ -630,6 +693,7 @@ def save_diagnostic_history(
     data = {key: np.asarray([record[key] for record in history]) for key in keys}
     data.update(
         {
+            "forcing_mode": np.asarray(config.forcing_mode),
             "forcing_kmin": np.asarray(
                 0.0 if config.forcing_kmin is None else config.forcing_kmin
             ),
@@ -744,6 +808,7 @@ def _warn_diagnostic_state(
 def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
     xp = select_array_module(config.backend)
     print(f"Using array backend: {xp.__name__}")
+    print(f"Forcing mode: {config.forcing_mode}")
     domain, _x_grid, _y_grid = create_grid(config)
     equation = _make_equation(config, xp=xp)
     sensor_class = ParallelPeriodicEulerShockSensor2D if xp is not np else PeriodicEulerShockSensor2D
@@ -766,6 +831,7 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         domain=domain,
         k_min=0.0 if config.forcing_kmin is None else config.forcing_kmin,
         k_max=config.forcing_kmax,
+        mode=config.forcing_mode,
         correlation_time=config.forcing_correlation_time,
         force_rms=config.forcing_rms,
         target_power=config.target_energy_injection,
@@ -895,6 +961,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tfinal", type=float, default=1.0)
     parser.add_argument("--cfl", type=float, default=0.05)
     parser.add_argument("--mach", type=float, default=0.1, help="Initial turbulent Mach number.")
+    parser.add_argument(
+        "--forcing-mode",
+        choices=("solenoidal", "dilatational", "compressive"),
+        default="solenoidal",
+        help=(
+            "Helmholtz component used for stochastic forcing. "
+            "'dilatational' is curl-free; 'compressive' is an alias."
+        ),
+    )
     parser.add_argument("--initial-kmin", type=int, default=1)
     parser.add_argument("--initial-kmax", type=int, default=3)
     parser.add_argument("--gamma", type=float, default=1.4)
@@ -1017,6 +1092,9 @@ def main() -> None:
         tfinal=args.tfinal,
         cfl=args.cfl,
         target_mach=args.mach,
+        forcing_mode=(
+            "dilatational" if args.forcing_mode == "compressive" else args.forcing_mode
+        ),
         initial_kmin=args.initial_kmin,
         initial_kmax=args.initial_kmax,
         gamma=args.gamma,

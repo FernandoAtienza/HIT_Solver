@@ -42,3 +42,33 @@ The `isotropic_128()` preset uses:
 - homogeneous pressure-relaxation cooling for long compressible forced runs.
 
 For normal use, prefer the scripts in `../2D/`.
+
+## Solenoidal and dilatational forcing
+
+The stochastic shell forcing now supports two pure Helmholtz components through
+`HIT2DConfig.forcing_mode` and the CLI option `--forcing-mode`:
+
+- `solenoidal`: divergence-free acceleration, perpendicular to each Fourier
+  wavevector;
+- `dilatational`: curl-free acceleration, parallel to each Fourier wavevector.
+
+`compressive` is accepted as a command-line alias for `dilatational`.
+The default remains `solenoidal`, so existing commands and campaigns preserve
+previous behavior.
+
+Example:
+
+```bash
+python3 -B scripts/run_hit2d.py \
+    --backend cupy \
+    --nx 128 --ny 128 \
+    --tfinal 5.0 --cfl 0.05 \
+    --mach 0.25 \
+    --forcing-mode dilatational \
+    --kf-min 3 --kf-max 5 \
+    --output-dir results/hit2d/dilatational_test
+```
+
+The diagnostic history stores `forcing_mode` and also reports the instantaneous
+solenoidal and dilatational fractions of the velocity-field spectral energy.
+The production launcher is `../scripts/run_dilatational_hit_campaign.sh`.

@@ -299,3 +299,24 @@ python3 -B scripts/run_hit2d.py --backend cupy  --nx 64 --ny 64 --tfinal 0.05 --
 ```
 
 If the short CPU/GPU histories diverge strongly at identical parameters, investigate backend-specific logic before launching long runs.
+
+## Dilatational HIT forcing
+
+The HIT driver supports purely solenoidal and purely dilatational stochastic
+forcing. Select the forcing with:
+
+```bash
+--forcing-mode solenoidal
+--forcing-mode dilatational
+```
+
+The existing default is solenoidal. A sequential GPU campaign for the
+curl-free case is provided in:
+
+```text
+scripts/run_dilatational_hit_campaign.sh
+```
+
+The implementation retains the same Fourier shell, Ornstein-Uhlenbeck temporal
+correlation, power control, Mach feedback, drag, cooling, and numerical solver;
+only the Helmholtz projection used to construct the acceleration field changes.

@@ -9,18 +9,25 @@ from OOP.domain import Domain2D
 
 @dataclass
 class IsotropicShellOUForcing2D:
-    """Finite-correlation-time solenoidal forcing on a complete Fourier shell.
+    """Finite-correlation-time forcing on a complete Fourier shell.
 
-    A real random scalar potential is transformed to Fourier space, restricted
-    to k_min <= |k| <= k_max, and converted to acceleration through
-    f_hat = (i*ky*phi_hat, -i*kx*phi_hat). This is perpendicular to every
-    wavevector, includes all rotated/reflected shell modes, and retains
-    Hermitian symmetry.
+    The Ornstein-Uhlenbeck state is a real scalar potential transformed to
+    Fourier space and restricted to ``k_min <= |k| <= k_max``. The requested
+    Helmholtz component is then formed as
+
+    - solenoidal:    ``f_hat = (i*ky*phi_hat, -i*kx*phi_hat)``;
+    - dilatational:  ``f_hat = (i*kx*phi_hat,  i*ky*phi_hat)``.
+
+    The first field is perpendicular to every nonzero wavevector and therefore
+    divergence-free. The second is parallel to every nonzero wavevector and
+    therefore curl-free. Both constructions preserve Hermitian symmetry and
+    produce real physical-space acceleration fields after the inverse FFT.
     """
 
     domain: Domain2D
     k_min: float
     k_max: float
+    mode: str = "solenoidal"
     correlation_time: float = 1.0
     force_rms: float = 1.0
     target_power: float | None = 1.0e-3
@@ -37,6 +44,16 @@ class IsotropicShellOUForcing2D:
     _mask: object = field(default=None, init=False, repr=False)
 
     def __post_init__(self) -> None:
+        normalized_mode = self.mode.strip().lower()
+        if normalized_mode == "compressive":
+            normalized_mode = "dilatational"
+        if normalized_mode not in {"solenoidal", "dilatational"}:
+            raise ValueError(
+                "forcing mode must be 'solenoidal' or 'dilatational' "
+                "('compressive' is accepted as an alias)"
+            )
+        self.mode = normalized_mode
+
         if self.k_min < 0.0 or self.k_max <= 0.0 or self.k_min > self.k_max:
             raise ValueError("forcing shell must satisfy 0 <= k_min <= k_max")
         if self.correlation_time <= 0.0:
@@ -67,8 +84,21 @@ class IsotropicShellOUForcing2D:
         else:
             self._rng = self.xp.random.RandomState(self.seed)
 
+    def _project_potential(self) -> tuple[object, object]:
+        """Return the selected pure Helmholtz component in Fourier space."""
+
+        if self.mode == "solenoidal":
+            return (
+                1j * self._ky * self._potential_hat,
+                -1j * self._kx * self._potential_hat,
+            )
+        return (
+            1j * self._kx * self._potential_hat,
+            1j * self._ky * self._potential_hat,
+        )
+
     def update(self, dt: float, rho, u, v) -> tuple[object, object, dict[str, float]]:
-        """Advance the OU state once and return one forcing field for this step."""
+        """Advance the OU state once and return one acceleration field."""
 
         if dt <= 0.0:
             raise ValueError("forcing update requires dt > 0")
@@ -79,8 +109,7 @@ class IsotropicShellOUForcing2D:
         random_hat = self.xp.where(self._mask, random_hat, 0.0)
         self._potential_hat = decay * self._potential_hat + increment_scale * random_hat
 
-        fx_hat = 1j * self._ky * self._potential_hat
-        fy_hat = -1j * self._kx * self._potential_hat
+        fx_hat, fy_hat = self._project_potential()
         fx = self.xp.fft.ifft2(fx_hat).real
         fy = self.xp.fft.ifft2(fy_hat).real
 
@@ -116,15 +145,20 @@ class IsotropicShellOUForcing2D:
         denominator = fxx + fyy
         forcing_anisotropy = abs(fxx - fyy) / denominator if denominator > 0.0 else 0.0
         injected_power = float(self.xp.mean(rho * (fx * u + fy * v)))
+        is_dilatational = float(self.mode == "dilatational")
         return fx, fy, {
             "alpha": float(self._alpha),
             "alpha_target": float(alpha_target),
-            "target_power": float("nan") if self.target_power is None else float(self.target_power),
+            "target_power": (
+                float("nan") if self.target_power is None else float(self.target_power)
+            ),
             "power_before_rescale": power_before,
             "injected_power": injected_power,
             "Fxx": fxx,
             "Fyy": fyy,
             "Fxy": fxy,
             "A_F": forcing_anisotropy,
+            "forcing_solenoidal_fraction": 1.0 - is_dilatational,
+            "forcing_dilatational_fraction": is_dilatational,
             "ou_decay": decay,
         }
