@@ -34,6 +34,7 @@ class IsotropicShellOUForcing2D:
     min_power: float = 1.0e-6
     max_rescale: float | None = 20.0
     alpha_memory: float = 0.2
+    alpha_response_time: float = 0.25
     seed: int = 1234
     xp: object = np
     _potential_hat: object = field(default=None, init=False, repr=False)
@@ -60,6 +61,8 @@ class IsotropicShellOUForcing2D:
             raise ValueError("forcing correlation time must be positive")
         if not 0.0 <= self.alpha_memory < 1.0:
             raise ValueError("alpha_memory must be in [0, 1)")
+        if self.alpha_response_time <= 0.0:
+            raise ValueError("alpha_response_time must be positive")
 
         kx_values = 2.0 * np.pi * np.fft.fftfreq(self.domain.nx, d=self.domain.dx)
         ky_values = 2.0 * np.pi * np.fft.fftfreq(self.domain.ny, d=self.domain.dy)
@@ -130,10 +133,28 @@ class IsotropicShellOUForcing2D:
                 alpha_target = float(
                     np.clip(alpha_target, -self.max_rescale, self.max_rescale)
                 )
-            self._alpha = (
-                self.alpha_memory * self._alpha
-                + (1.0 - self.alpha_memory) * alpha_target
-            )
+
+            if self.mode == "dilatational":
+                # Curl-free forcing can have a rapidly changing velocity-force
+                # correlation because of acoustic oscillations. Smoothing a signed
+                # coefficient across a zero crossing can temporarily extract energy
+                # and drives the large power oscillations seen in long runs. Follow
+                # the required sign immediately, while smoothing only its magnitude
+                # in physical time.
+                sign = 1.0 if alpha_target >= 0.0 else -1.0
+                target_magnitude = abs(alpha_target)
+                current_magnitude = abs(self._alpha)
+                relaxation = 1.0 - float(np.exp(-dt / self.alpha_response_time))
+                smoothed_magnitude = (
+                    current_magnitude
+                    + relaxation * (target_magnitude - current_magnitude)
+                )
+                self._alpha = sign * smoothed_magnitude
+            else:
+                self._alpha = (
+                    self.alpha_memory * self._alpha
+                    + (1.0 - self.alpha_memory) * alpha_target
+                )
         elif self.target_power is None:
             self._alpha = 1.0
 

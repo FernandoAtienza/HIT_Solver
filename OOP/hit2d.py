@@ -49,6 +49,7 @@ class HIT2DConfig:
     forcing_rms: float = 1.0
     forcing_correlation_time: float = 1.0
     forcing_alpha_memory: float = 0.2
+    forcing_alpha_response_time: float = 0.25
     target_energy_injection: float | None = 1.0e-3
     min_forcing_power: float = 1.0e-6
     max_forcing_rescale: float = 20.0
@@ -58,6 +59,10 @@ class HIT2DConfig:
     mach_control_exponent: float = 2.0
     mach_control_min_power: float | None = None
     mach_control_max_power: float | None = None
+    mach_control_filter_time: float = 2.0
+    mach_control_response_time: float = 10.0
+    mach_control_deadband: float = 0.03
+    mach_control_max_log_rate: float = 0.25
     forcing_seed: int = 1234
     viscosity: float = 1.0e-3
     prandtl: float = 0.72
@@ -292,63 +297,130 @@ def turbulent_mach_from_primitive(
     return float(xp.sqrt(xp.mean(u**2 + v**2)) / xp.mean(sound_speed))
 
 
-def update_mach_controlled_power(
-    config: HIT2DConfig,
-    current_power: float | None,
-    rho: np.ndarray,
-    u: np.ndarray,
-    v: np.ndarray,
-    pressure: np.ndarray,
-) -> tuple[float | None, dict[str, float]]:
-    """Adapt the forcing power so the run can target a prescribed Mt.
+@dataclass
+class TurbulencePowerController:
+    """Slow, bounded controller for statistically stationary forced HIT.
 
-    The solver still applies constant-power forcing during each time step. This
-    slow outer feedback loop only changes that target power between steps:
-    if the measured turbulent Mach number is too low, the target power is
-    increased; if it is too high, the target power is reduced. The memory factor
-    prevents abrupt changes that would make the stochastic forcing impulsive.
+    The controller filters turbulent Mach number and kinetic energy in physical
+    time and changes the requested forcing power in logarithmic space. This
+    avoids the per-step multiplicative windup of the previous controller,
+    especially for dilatational forcing where acoustic oscillations make the
+    instantaneous Mach number and velocity-force correlation strongly oscillatory.
     """
 
-    target_power = current_power
-    target_mach = (
-        config.target_mach
-        if config.mach_control_target is None
-        else config.mach_control_target
-    )
-    current_mach = turbulent_mach_from_primitive(rho, u, v, pressure, config.gamma)
-    desired_power = np.nan if target_power is None else float(target_power)
+    config: HIT2DConfig
+    power: float | None
+    filtered_mach: float
+    filtered_kinetic_energy: float
 
-    if not config.mach_control or target_power is None:
-        return target_power, {
-            "mach_control_mach": current_mach,
-            "mach_control_target": float(target_mach),
+    @classmethod
+    def initialize(
+        cls,
+        config: HIT2DConfig,
+        power: float | None,
+        kinetic_energy: float,
+        turbulent_mach: float,
+    ) -> "TurbulencePowerController":
+        return cls(
+            config=config,
+            power=power,
+            filtered_mach=float(turbulent_mach),
+            filtered_kinetic_energy=float(kinetic_energy),
+        )
+
+    @property
+    def target_mach(self) -> float:
+        return (
+            self.config.target_mach
+            if self.config.mach_control_target is None
+            else self.config.mach_control_target
+        )
+
+    @property
+    def target_kinetic_energy(self) -> float:
+        # The nondimensional initialization uses rho=1 and p=1/gamma, hence
+        # the reference sound speed is one and K=0.5*Mt^2.
+        return 0.5 * self.target_mach**2
+
+    def update(
+        self,
+        dt: float,
+        kinetic_energy: float,
+        turbulent_mach: float,
+    ) -> tuple[float | None, dict[str, float]]:
+        if dt <= 0.0:
+            raise ValueError("Mach controller requires dt > 0")
+
+        cfg = self.config
+        filter_time = max(cfg.mach_control_filter_time, dt)
+        beta = float(np.exp(-dt / filter_time))
+        self.filtered_mach = (
+            beta * self.filtered_mach + (1.0 - beta) * float(turbulent_mach)
+        )
+        self.filtered_kinetic_energy = (
+            beta * self.filtered_kinetic_energy
+            + (1.0 - beta) * float(kinetic_energy)
+        )
+
+        desired_power = np.nan if self.power is None else float(self.power)
+        control_error = 0.0
+        if cfg.mach_control and self.power is not None:
+            if self.target_mach <= 0.0:
+                raise ValueError("Mach control requires a positive target Mach number")
+            if cfg.mach_control_filter_time <= 0.0:
+                raise ValueError("mach_control_filter_time must be positive")
+            if cfg.mach_control_response_time <= 0.0:
+                raise ValueError("mach_control_response_time must be positive")
+            if cfg.mach_control_deadband < 0.0:
+                raise ValueError("mach_control_deadband must be non-negative")
+            if cfg.mach_control_max_log_rate <= 0.0:
+                raise ValueError("mach_control_max_log_rate must be positive")
+
+            eps = 1.0e-14
+            # K and Mt are related but not identical when the mean sound speed
+            # drifts. Equal weighting controls both while cooling restores the
+            # reference pressure.
+            mach_error = np.log(
+                self.target_mach / max(self.filtered_mach, eps)
+            )
+            kinetic_error = 0.5 * np.log(
+                self.target_kinetic_energy
+                / max(self.filtered_kinetic_energy, eps)
+            )
+            control_error = 0.5 * (mach_error + kinetic_error)
+
+            if abs(control_error) < cfg.mach_control_deadband:
+                control_error = 0.0
+
+            requested_log_rate = control_error / cfg.mach_control_response_time
+            log_rate = float(
+                np.clip(
+                    requested_log_rate,
+                    -cfg.mach_control_max_log_rate,
+                    cfg.mach_control_max_log_rate,
+                )
+            )
+            desired_power = float(self.power * np.exp(log_rate * dt))
+
+            if cfg.mach_control_min_power is not None:
+                desired_power = max(desired_power, cfg.mach_control_min_power)
+            if cfg.mach_control_max_power is not None:
+                desired_power = min(desired_power, cfg.mach_control_max_power)
+            self.power = desired_power
+
+        return self.power, {
+            "mach_control_mach": float(turbulent_mach),
+            "mach_control_target": float(self.target_mach),
             "mach_control_power_desired": desired_power,
+            "mach_control_filtered_mach": float(self.filtered_mach),
+            "mach_control_filtered_kinetic_energy": float(
+                self.filtered_kinetic_energy
+            ),
+            "mach_control_target_kinetic_energy": float(
+                self.target_kinetic_energy
+            ),
+            "mach_control_error": float(control_error),
         }
-
-    if target_mach <= 0.0:
-        raise ValueError("Mach control requires a positive target Mach number")
-    if not 0.0 <= config.mach_control_memory < 1.0:
-        raise ValueError("mach_control_memory must be in [0, 1)")
-    if config.mach_control_exponent <= 0.0:
-        raise ValueError("mach_control_exponent must be positive")
-
-    mach_floor = 1.0e-8
-    ratio = (target_mach / max(current_mach, mach_floor)) ** config.mach_control_exponent
-    desired_power = float(target_power * ratio)
-    if config.mach_control_min_power is not None:
-        desired_power = max(desired_power, config.mach_control_min_power)
-    if config.mach_control_max_power is not None:
-        desired_power = min(desired_power, config.mach_control_max_power)
-
-    next_power = (
-        config.mach_control_memory * target_power
-        + (1.0 - config.mach_control_memory) * desired_power
-    )
-    return next_power, {
-        "mach_control_mach": current_mach,
-        "mach_control_target": float(target_mach),
-        "mach_control_power_desired": desired_power,
-    }
 
 
 def _spectral_band_filter(
@@ -580,6 +652,10 @@ def compute_diagnostics(
             "mach_control_mach": diagnostics["turbulent_mach"],
             "mach_control_target": 0.0,
             "mach_control_power_desired": 0.0,
+            "mach_control_filtered_mach": diagnostics["turbulent_mach"],
+            "mach_control_filtered_kinetic_energy": diagnostics["kinetic_energy"],
+            "mach_control_target_kinetic_energy": 0.0,
+            "mach_control_error": 0.0,
         }
     )
     if forcing_info is not None:
@@ -604,6 +680,19 @@ def compute_diagnostics(
                 "mach_control_target": forcing_info.get("mach_control_target", 0.0),
                 "mach_control_power_desired": forcing_info.get(
                     "mach_control_power_desired", 0.0
+                ),
+                "mach_control_filtered_mach": forcing_info.get(
+                    "mach_control_filtered_mach", diagnostics["turbulent_mach"]
+                ),
+                "mach_control_filtered_kinetic_energy": forcing_info.get(
+                    "mach_control_filtered_kinetic_energy",
+                    diagnostics["kinetic_energy"],
+                ),
+                "mach_control_target_kinetic_energy": forcing_info.get(
+                    "mach_control_target_kinetic_energy", 0.0
+                ),
+                "mach_control_error": forcing_info.get(
+                    "mach_control_error", 0.0
                 ),
             }
         )
@@ -732,6 +821,19 @@ def save_diagnostic_history(
                 if config.mach_control_max_power is None
                 else config.mach_control_max_power
             ),
+            "mach_control_filter_time": np.asarray(
+                config.mach_control_filter_time
+            ),
+            "mach_control_response_time": np.asarray(
+                config.mach_control_response_time
+            ),
+            "mach_control_deadband": np.asarray(config.mach_control_deadband),
+            "mach_control_max_log_rate": np.asarray(
+                config.mach_control_max_log_rate
+            ),
+            "forcing_alpha_response_time": np.asarray(
+                config.forcing_alpha_response_time
+            ),
         }
     )
     np.savez_compressed(path, **data)
@@ -838,6 +940,7 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         min_power=config.min_forcing_power,
         max_rescale=config.max_forcing_rescale,
         alpha_memory=config.forcing_alpha_memory,
+        alpha_response_time=config.forcing_alpha_response_time,
         seed=config.forcing_seed + 1,
         xp=xp,
     )
@@ -862,6 +965,12 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
     time = 0.0
     step = 0
     forcing_info: dict[str, float] | None = None
+    power_controller = TurbulencePowerController.initialize(
+        config,
+        config.target_energy_injection,
+        initial_diagnostics["kinetic_energy"],
+        initial_diagnostics["turbulent_mach"],
+    )
     adaptive_target_power = config.target_energy_injection
     drag = xp.zeros_like(q)
     cooling = xp.zeros_like(q)
@@ -872,13 +981,22 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
             dt = min(dt, 0.25 * h**2 / config.viscosity, config.tfinal - time)
 
         rho, u, v, pressure = conservative_to_primitive(q, equation)
-        adaptive_target_power, mach_control_info = update_mach_controlled_power(
-            config,
-            adaptive_target_power,
-            rho,
-            u,
-            v,
-            pressure,
+        instantaneous_kinetic_energy = 0.5 * float(
+            xp.mean(
+                rho
+                * (
+                    (u - xp.mean(u)) ** 2
+                    + (v - xp.mean(v)) ** 2
+                )
+            )
+        )
+        instantaneous_mach = turbulent_mach_from_primitive(
+            rho, u, v, pressure, config.gamma
+        )
+        adaptive_target_power, mach_control_info = power_controller.update(
+            dt,
+            instantaneous_kinetic_energy,
+            instantaneous_mach,
         )
         forcing.target_power = adaptive_target_power
         fx, fy, forcing_info = forcing.update(dt, rho, u, v)
@@ -999,6 +1117,15 @@ def parse_args() -> argparse.Namespace:
         help="Memory used to smooth the scalar power-rescaling coefficient.",
     )
     parser.add_argument(
+        "--forcing-alpha-response-time",
+        type=float,
+        default=0.25,
+        help=(
+            "Physical-time relaxation scale for the magnitude of the "
+            "dilatational forcing rescaling coefficient."
+        ),
+    )
+    parser.add_argument(
         "--min-forcing-power",
         type=float,
         default=1.0e-6,
@@ -1044,6 +1171,30 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=0.0,
         help="Upper bound for adaptive target power. Use 0 for no explicit upper bound.",
+    )
+    parser.add_argument(
+        "--mach-control-filter-time",
+        type=float,
+        default=2.0,
+        help="Physical-time low-pass filter for Mt and turbulent kinetic energy.",
+    )
+    parser.add_argument(
+        "--mach-control-response-time",
+        type=float,
+        default=10.0,
+        help="Physical-time response scale of the bounded power controller.",
+    )
+    parser.add_argument(
+        "--mach-control-deadband",
+        type=float,
+        default=0.03,
+        help="Logarithmic control-error dead band used to avoid power chatter.",
+    )
+    parser.add_argument(
+        "--mach-control-max-log-rate",
+        type=float,
+        default=0.25,
+        help="Maximum absolute rate of change of log(forcing power) per unit time.",
     )
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--mn", type=float, default=0.002, help="Periodic hyperviscosity strength.")
@@ -1104,6 +1255,7 @@ def main() -> None:
         forcing_rms=0.0 if args.no_forcing else args.force_rms,
         forcing_correlation_time=args.forcing_correlation_time,
         forcing_alpha_memory=args.forcing_alpha_memory,
+        forcing_alpha_response_time=args.forcing_alpha_response_time,
         target_energy_injection=None if args.no_forcing else args.p_target,
         min_forcing_power=args.min_forcing_power,
         max_forcing_rescale=None if args.max_forcing_rescale == 0.0 else args.max_forcing_rescale,
@@ -1117,6 +1269,10 @@ def main() -> None:
         mach_control_max_power=(
             None if args.mach_control_max_power == 0.0 else args.mach_control_max_power
         ),
+        mach_control_filter_time=args.mach_control_filter_time,
+        mach_control_response_time=args.mach_control_response_time,
+        mach_control_deadband=args.mach_control_deadband,
+        mach_control_max_log_rate=args.mach_control_max_log_rate,
         forcing_seed=args.seed,
         hyperviscosity_mn=args.mn,
         large_scale_drag=args.large_scale_drag,
