@@ -16,6 +16,7 @@ from OOP.equations import CompressibleNavierStokes2D, EulerEquation2D
 from OOP.forcing import IsotropicShellOUForcing2D
 from OOP.parallel.backend import array_module, select_array_module, to_numpy
 from OOP.parallel.equations import ParallelCompressibleNavierStokes2D, ParallelEulerEquation2D
+from OOP.run_utils import dataclass_to_json_dict, write_json
 from OOP.parallel.spatial_operator import (
     ParallelPeriodicEulerShockSensor2D,
     ParallelPeriodicHybridEuler2DOperator,
@@ -66,7 +67,6 @@ class HIT2DConfig:
     shear_threshold: float | None = None
     hyperviscosity_mn: float = 0.002
     hyperviscosity_interval: int = 5
-    hyperviscosity_on_shocks_only: bool = False
     large_scale_drag: float = 0.0
     large_scale_drag_kmax: float = 2.0
     cooling_time: float | None = None
@@ -548,6 +548,26 @@ def compute_diagnostics(
     return diagnostics
 
 
+def save_run_config(output_dir: Path, config: HIT2DConfig) -> Path:
+    """Write the fully resolved HIT configuration to ``config.json``.
+
+    The file is created before time integration starts so every output
+    directory remains self-describing and reproducible.
+    """
+
+    payload = dataclass_to_json_dict(config)
+    forcing_type = "disabled" if config.forcing_rms <= 0.0 else "solenoidal_shell_ou"
+    payload.update(
+        {
+            "problem": "hit2d",
+            "forcing_type": forcing_type,
+            "spatial_discretization": "hybrid_compact_weno7",
+            "hyperviscosity_policy": "compact_nodes_only",
+        }
+    )
+    return write_json(output_dir / "config.json", payload)
+
+
 def save_snapshot(
     output_dir: Path,
     step: int,
@@ -744,6 +764,12 @@ def _warn_diagnostic_state(
 def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
     xp = select_array_module(config.backend)
     print(f"Using array backend: {xp.__name__}")
+    if config.hyperviscosity_interval <= 0 and config.hyperviscosity_mn > 0.0:
+        raise ValueError("hyperviscosity_interval must be positive when mn > 0")
+
+    config_path = save_run_config(config.output_dir, config)
+    print(f"saved run configuration: {config_path}")
+
     domain, _x_grid, _y_grid = create_grid(config)
     equation = _make_equation(config, xp=xp)
     sensor_class = ParallelPeriodicEulerShockSensor2D if xp is not np else PeriodicEulerShockSensor2D
@@ -845,8 +871,12 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         time += dt
 
         if config.hyperviscosity_mn > 0.0 and step % config.hyperviscosity_interval == 0:
-            active_mask = sensor.detect(q) if config.hyperviscosity_on_shocks_only else None
-            q = hyperviscosity.apply(q, equation, active_mask=active_mask)
+            # The sensor mask identifies WENO nodes. Hyperviscosity is
+            # restricted to the complementary compact-FD nodes so the
+            # two dissipative mechanisms never overlap.
+            weno_mask = sensor.detect(q)
+            compact_mask = ~weno_mask
+            q = hyperviscosity.apply(q, equation, active_mask=compact_mask)
 
         if step % config.diagnostics_every == 0 or time >= config.tfinal:
             weno_fraction = float(xp.mean(sensor.detect(q)))

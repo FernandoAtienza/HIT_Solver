@@ -380,9 +380,9 @@ class NonPeriodicHybridEuler2DOperator:
 
 @dataclass(frozen=True)
 class LocalHyperviscosity2D:
+    """Biharmonic filter applied only where the compact scheme is active."""
     domain: Domain2D
     mn: float = 0.001
-    dilation: int = 2
     density_weight: float = 1.0
     momentum_weight: float = 1.0
     energy_weight: float = 1.0
@@ -395,13 +395,24 @@ class LocalHyperviscosity2D:
         lap_y = (padded[:, 2:, 1:-1] - 2.0 * center + padded[:, :-2, 1:-1]) / self.domain.dy**2
         return lap_x + lap_y
 
-    def apply(self, q, shock_mask, equation):
+    def apply(self, q, compact_mask, equation):
         xp = array_module(q)
-        active = dilate_mask_2d(shock_mask, self.dilation)
+        if compact_mask.shape != q.shape[-2:]:
+            raise ValueError(
+                f"compact_mask shape {compact_mask.shape} does not match grid {q.shape[-2:]}"
+            )
         h = min(self.domain.dx, self.domain.dy)
         biharmonic = self._laplacian(self._laplacian(q))
-        weights = xp.array([self.density_weight, self.momentum_weight, self.momentum_weight, self.energy_weight], dtype=q.dtype)[:, None, None]
-        filtered = q - self.mn * weights * h**4 * active[None, :, :] * biharmonic
+        weights = xp.array(
+            [
+                self.density_weight,
+                self.momentum_weight,
+                self.momentum_weight,
+                self.energy_weight,
+            ],
+            dtype=q.dtype,
+        )[:, None, None]
+        filtered = q - self.mn * weights * h**4 * compact_mask[None, :, :] * biharmonic
         return equation.enforce_physical_state(filtered)
 
 
@@ -623,7 +634,7 @@ def _diagnostics(q, config: RiemannConfig3, time: float, steps: int, hyperviscos
     return RiemannDiagnostics(
         backend=config.backend,
         scheme=config.scheme,
-        hyperviscosity_enabled=config.mn > 0.0 and config.hyperviscosity_interval > 0,
+        hyperviscosity_enabled=hyperviscosity_enabled_for_config(config),
         hyperviscosity_applications=hyperviscosity_applications,
         final_sensor_fraction=float(xp.mean(sensor.detect(q))),
         density_min=float(xp.min(rho)),
@@ -653,6 +664,20 @@ def print_diagnostic_summary(diagnostics: RiemannDiagnostics) -> None:
     print(f"  hyperviscosity       : {diagnostics.hyperviscosity_enabled} ({diagnostics.hyperviscosity_applications} applications)")
 
 
+def hyperviscosity_enabled_for_config(config: RiemannConfig3) -> bool:
+    """Return whether compact-node hyperviscosity is active for a run.
+
+    WENO-only simulations disable numerical hyperviscosity because they
+    contain no compact-FD nodes on which it may be applied.
+    """
+
+    return (
+        config.scheme == "hybrid"
+        and config.mn > 0.0
+        and config.hyperviscosity_interval > 0
+    )
+
+
 def run_riemann(config: RiemannConfig3):
     xp = select_array_module(config.backend)
     print(f"Using array backend: {xp.__name__}")
@@ -672,7 +697,7 @@ def run_riemann(config: RiemannConfig3):
     )
     operator = NonPeriodicHybridEuler2DOperator(config.domain, config.equation, sensor, scheme=config.scheme)
     dt, n_steps = operator.fixed_time_step(q, config.cfl, config.tfinal)
-    hyperviscosity_enabled = config.mn > 0.0 and config.hyperviscosity_interval > 0
+    hyperviscosity_enabled = hyperviscosity_enabled_for_config(config)
     hyperviscosity = LocalHyperviscosity2D(
         config.domain,
         mn=config.mn,
@@ -687,7 +712,17 @@ def run_riemann(config: RiemannConfig3):
         f"Riemann {label}: nx={config.nx}, ny={config.ny}, "
         f"dt={dt:.5e}, steps={n_steps}, tfinal={config.tfinal}"
     )
-    print(f"scheme={config.scheme}; local hyperviscosity {'enabled' if hyperviscosity_enabled else 'disabled'} (mn={config.mn})")
+    hyperviscosity_note = (
+        "enabled on compact-FD nodes only"
+        if hyperviscosity_enabled
+        else "disabled"
+    )
+    if config.scheme == "weno" and config.mn > 0.0:
+        hyperviscosity_note += " (WENO-only scheme)"
+    print(
+        f"scheme={config.scheme}; local hyperviscosity {hyperviscosity_note} "
+        f"(mn={config.mn})"
+    )
     time = 0.0
     hyperviscosity_applications = 0
     for step in range(n_steps):
@@ -698,7 +733,9 @@ def run_riemann(config: RiemannConfig3):
             clean=lambda state: apply_outflow_guard(config.equation.enforce_physical_state(state), config.guard_cells),
         )
         if hyperviscosity_enabled and (step + 1) % config.hyperviscosity_interval == 0:
-            q = hyperviscosity.apply(q, sensor.detect(q), config.equation)
+            weno_mask = sensor.detect(q)
+            compact_mask = ~weno_mask
+            q = hyperviscosity.apply(q, compact_mask, config.equation)
             q = apply_outflow_guard(q, config.guard_cells)
             hyperviscosity_applications += 1
         time = (step + 1) * dt

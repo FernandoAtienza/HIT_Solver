@@ -233,6 +233,7 @@ class ParallelPeriodicHybridEuler2DOperator:
 
 @dataclass(frozen=True)
 class ParallelPeriodicHyperviscosity2D:
+    """Backend-aware biharmonic filter for compact-FD nodes only."""
     domain: Domain2D
     mn: float = 0.002
     density_weight: float = 0.25
@@ -255,7 +256,16 @@ class ParallelPeriodicHyperviscosity2D:
 
     def apply(self, q, equation, active_mask=None):
         xp = array_module(q)
-        active = 1.0 if active_mask is None else active_mask[None, :, :]
+        if active_mask is None:
+            raise ValueError(
+                "active_mask is required: hyperviscosity may only be "
+                "applied on compact-FD nodes"
+            )
+        if active_mask.shape != q.shape[-2:]:
+            raise ValueError(
+                f"active_mask shape {active_mask.shape} does not match grid {q.shape[-2:]}"
+            )
+        active = active_mask[None, :, :]
         h = min(self.domain.dx, self.domain.dy)
         biharmonic = self._laplacian(self._laplacian(q))
         weights = xp.array(

@@ -379,7 +379,11 @@ class PeriodicHybridEuler2DOperator:
 
 @dataclass(frozen=True)
 class PeriodicHyperviscosity2D:
-    """Simple periodic biharmonic numerical filter for preliminary 2D DNS runs."""
+    """Periodic biharmonic filter restricted to explicitly selected nodes.
+
+    ``active_mask`` must identify compact-FD nodes. Requiring the mask
+    prevents accidental hyperviscosity application at WENO nodes.
+    """
 
     domain: Domain2D
     mn: float = 0.002
@@ -406,7 +410,16 @@ class PeriodicHyperviscosity2D:
         equation: EulerEquation2D,
         active_mask: np.ndarray | None = None,
     ) -> np.ndarray:
-        active = 1.0 if active_mask is None else active_mask[None, :, :]
+        if active_mask is None:
+            raise ValueError(
+                "active_mask is required: hyperviscosity may only be "
+                "applied on compact-FD nodes"
+            )
+        if active_mask.shape != q.shape[-2:]:
+            raise ValueError(
+                f"active_mask shape {active_mask.shape} does not match grid {q.shape[-2:]}"
+            )
+        active = active_mask[None, :, :]
         h = min(self.domain.dx, self.domain.dy)
         biharmonic = self._laplacian(self._laplacian(q))
         weights = np.array(

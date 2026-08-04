@@ -1,37 +1,72 @@
-# HIT2D / 2D Riemann Solver
+# Compressible HIT and 2D Riemann Solver
 
-This repository contains the object-oriented code used for the thesis simulations:
+This repository contains the object-oriented numerical solver used in the master’s thesis. The current study focuses on **two-dimensional, compressible, homogeneous isotropic turbulence driven exclusively by solenoidal forcing**. The repository also retains the validated two-dimensional Euler Riemann problems used to verify the shock-capturing method.
 
-- 2D forced compressible homogeneous isotropic turbulence (HIT).
-- 2D Euler Riemann problems, Lax--Liu Configurations 3 and 6.
+## Current scope
 
-The numerical strategy is the same family of methods used throughout the thesis: high-order compact finite differences in smooth regions, WENO near discontinuities, a shock/smoothness sensor, SSP-RK3 time integration, and optional numerical hyperviscosity.
+The implemented cases are:
+
+- Forced compressible HIT in a periodic square domain.
+- Lax–Liu Riemann Configuration 3.
+- Configuration 3 with the initial intersection at `x0 = y0 = 0.8`.
+- Lax–Liu Riemann Configuration 6.
+
+Dilatational and mixed forcing are not part of the current baseline.
+
+## Numerical method
+
+The inviscid terms use a hybrid compact/WENO discretization:
+
+- high-order compact finite differences in smooth regions;
+- seventh-order componentwise WENO reconstruction at sensor-detected discontinuities;
+- SSP-RK3 time integration;
+- optional physical viscosity and thermal conduction for HIT;
+- optional biharmonic numerical hyperviscosity.
+
+The shock sensor determines which nodes use WENO. Numerical hyperviscosity follows a non-overlap policy:
+
+- it is applied only at nodes where the compact finite-difference scheme is active;
+- it is never applied at WENO nodes;
+- it is disabled automatically for WENO-only simulations, even when `mn > 0` is supplied.
+
+This avoids stacking the additional biharmonic dissipation on top of WENO dissipation.
 
 ## Repository layout
 
 ```text
-HIT_Solver-main/
-├── 2D/                         # legacy HIT execution/post-processing scripts
+HIT_Solver/
+├── 2D/
+│   ├── hit2d_viewer.py
+│   ├── hit2d_isotropy_diagnostics.py
+│   └── hit2d_two_point_correlation.py
 ├── OOP/
-│   ├── domain.py                # 1D/2D domain helpers
-│   ├── equations.py             # NumPy equation helpers
-│   ├── forcing.py               # HIT forcing
-│   ├── hit2d.py                 # OOP HIT driver and CLI
-│   ├── parallel/                # NumPy/CuPy backend-aware helpers
-│   ├── postprocess/             # spectra, isotropy and correlation diagnostics
-│   ├── problems/
-│   │   └── riemann_config3.py   # OOP Riemann Configuration 3 implementation
-│   └── run_utils.py             # timestamped IDs, JSON helpers, array conversion
-└── scripts/
-    ├── run_case.py              # unified launcher with --problem hit2d/riemann3
-    ├── run_hit2d.py             # clean HIT wrapper
-    ├── run_riemann_config3.py   # Riemann Configuration 3 runner
-    └── plot_riemann_config3.py  # regenerate Riemann figures from .npz files
+│   ├── domain.py
+│   ├── equations.py
+│   ├── forcing.py
+│   ├── hit2d.py
+│   ├── run_utils.py
+│   ├── spatial_operator.py
+│   ├── time_operator.py
+│   ├── parallel/
+│   ├── postprocess/
+│   └── problems/
+│       ├── riemann_config3.py
+│       ├── riemann_config3_08.py
+│       └── riemann_config6.py
+├── scripts/
+│   ├── run_hit2d.py
+│   ├── run_solenoidal_hit_campaign.sh
+│   ├── run_riemann_config3.py
+│   ├── run_riemann_config3_08.py
+│   ├── run_riemann_config6.py
+│   ├── plot_riemann_config3.py
+│   └── plot_riemann_config6.py
+└── tests/
 ```
 
 ## Backend support
 
-The HIT solver already supports:
+The HIT and Riemann solvers support:
 
 ```bash
 --backend numpy
@@ -39,48 +74,133 @@ The HIT solver already supports:
 --backend auto
 ```
 
-The Riemann implementations are written with the shared NumPy/CuPy backend helper. They avoid SciPy sparse solves for the non-periodic compact line derivative and use a batched Thomas algorithm, so the evolving state and numerical operators can remain on the GPU.
+`numpy` runs on the CPU. `cupy` keeps the evolving state and grid-wide operators on one CUDA GPU. The implementation is not MPI or multi-GPU parallelism.
 
-CuPy mode is GPU array acceleration, not MPI or multi-GPU parallelism. Before trusting long GPU runs, compare short CPU/GPU smoke tests on a small grid.
+Before a long GPU campaign, compare short NumPy and CuPy runs using identical settings.
 
-## Run HIT2D
+## Run HIT
 
-You can use the legacy script:
-
-```bash
-python3 -B 2D/hit2d_viewer.py --run --backend cupy --nx 128 --ny 128 --tfinal 1.0
-```
-
-or the clean wrapper:
+A small CPU run is:
 
 ```bash
-python3 -B scripts/run_hit2d.py --backend cupy --nx 128 --ny 128 --tfinal 1.0
+python3 -B scripts/run_hit2d.py \
+  --backend numpy \
+  --nx 64 --ny 64 \
+  --tfinal 0.05 \
+  --cfl 0.05 \
+  --mach 0.25 \
+  --initial-kmin 3 --initial-kmax 5 \
+  --kf-min 3 --kf-max 5 \
+  --snapshot-every 10 \
+  --diagnostics-every 5 \
+  --output-dir results/hit2d/smoke_test
 ```
 
-or the unified launcher:
+A production-style solenoidal case is:
 
 ```bash
-python3 -B scripts/run_case.py --problem hit2d --backend cupy --nx 128 --ny 128 --tfinal 1.0
+python3 -B scripts/run_hit2d.py \
+  --backend cupy \
+  --nx 512 --ny 512 \
+  --tfinal 110.0 \
+  --cfl 0.05 \
+  --gamma 1.4 \
+  --mach 0.25 \
+  --initial-kmin 3 --initial-kmax 5 \
+  --kf-min 3 --kf-max 5 \
+  --p-target 1.0e-3 \
+  --forcing-correlation-time 0.5 \
+  --forcing-alpha-memory 0.2 \
+  --min-forcing-power 1.0e-6 \
+  --max-forcing-rescale 20.0 \
+  --mach-control \
+  --mach-control-target 0.25 \
+  --mach-control-memory 0.995 \
+  --mach-control-exponent 2.0 \
+  --viscosity 7.5e-4 \
+  --mn 0.002 \
+  --large-scale-drag 0.10 \
+  --drag-kmax 2.0 \
+  --cooling-time 5.0 \
+  --seed 1234 \
+  --diagnostics-every 1000 \
+  --snapshot-every 10000 \
+  --output-dir results/hit2d/solenoidal_Mt025_N512_CFL_0p05
 ```
 
-Mach control is implemented in the HIT solver through:
+The complete two-case campaign can be launched with:
 
 ```bash
---mach-control --mach-control-target 0.5
+./scripts/run_solenoidal_hit_campaign.sh
 ```
 
-Useful related options are:
+## HIT output files
+
+Every HIT output directory contains:
+
+```text
+config.json
+diagnostic_history.npz
+hit2d_step0000000.npz
+hit2d_stepXXXXXXX.npz
+...
+```
+
+`config.json` is written before time integration begins. It contains the fully resolved `HIT2DConfig` values plus the fixed implementation descriptors:
+
+```text
+problem
+forcing_type
+spatial_discretization
+hyperviscosity_policy
+```
+
+This makes each run directory self-describing and provides the exact parameters needed for reproduction.
+
+`diagnostic_history.npz` stores the time histories of kinetic energy, turbulent Mach number, forcing power, anisotropy measures, low-wavenumber energy, mean thermodynamic variables, sensor fraction, and conservation diagnostics.
+
+Each snapshot stores the primitive fields, vorticity, divergence, physical time, and time-step index.
+
+## HIT forcing
+
+The initial velocity is generated from a random streamfunction in the shell
+
+```text
+initial_kmin <= |k| <= initial_kmax
+```
+
+and is divergence-free to roundoff. The forcing is a finite-correlation-time Ornstein–Uhlenbeck process projected onto the solenoidal Fourier subspace and restricted to
+
+```text
+kf_min <= |k| <= kf_max.
+```
+
+The production campaign uses `3 <= |k| <= 5` for both initialization and forcing. Optional Mach feedback adjusts the requested mean forcing power to keep the turbulent Mach number near its target.
+
+## HIT post-processing
+
+Generate final physical fields and the time history with:
 
 ```bash
---mach-control-memory 0.995
---mach-control-exponent 2.0
---mach-control-min-power 2.0e-4
---mach-control-max-power 1.0e-2
+python3 -B 2D/hit2d_viewer.py \
+  --snapshot-dir results/hit2d/<case_name> \
+  --physics-plots \
+  --history-x-axis turnover
 ```
 
-## Run 2D Riemann Configuration 3
+Generate isotropy, two-point-correlation, and spectral diagnostics with:
 
-Standard validation-type run at `t=0.3`:
+```bash
+python3 -B 2D/hit2d_isotropy_diagnostics.py \
+  --snapshot-dir results/hit2d/<case_name> \
+  --start-turnover 4 \
+  --end-turnover 16 \
+  --fluctuation-type reynolds
+```
+
+## Run Riemann Configuration 3
+
+Hybrid compact/WENO run:
 
 ```bash
 python3 -B scripts/run_riemann_config3.py \
@@ -99,45 +219,26 @@ python3 -B scripts/run_riemann_config3.py \
   --vorticity-limit 100
 ```
 
-Unified launcher equivalent:
-
-```bash
-python3 -B scripts/run_case.py --problem riemann3 \
-  --backend numpy --scheme hybrid \
-  --nx 512 --ny 512 --tfinal 0.3 --cfl 0.4 \
-  --sensor-width 4 --jump-threshold 0.025 --shear-threshold 0 \
-  --mn 0.001 --density-contours --schlieren --vorticity-limit 100
-```
-
 WENO-only comparison:
 
 ```bash
 python3 -B scripts/run_riemann_config3.py \
-  --backend numpy --scheme weno \
-  --nx 512 --ny 512 --tfinal 0.3 --cfl 0.4 \
-  --mn 0.001 --density-contours --schlieren
+  --backend numpy \
+  --scheme weno \
+  --nx 512 --ny 512 \
+  --tfinal 0.3 \
+  --cfl 0.4 \
+  --mn 0.0 \
+  --density-contours \
+  --schlieren
 ```
 
-Late-time qualitative visualization:
+For `--scheme weno`, hyperviscosity is disabled automatically. Setting `--mn 0.0` in the command makes that choice explicit in the saved configuration.
+
+## Run Configuration 3 with `x0 = y0 = 0.8`
 
 ```bash
-python3 -B scripts/run_riemann_config3.py \
-  --backend numpy --scheme hybrid \
-  --nx 512 --ny 512 --tfinal 0.6 --cfl 0.4 \
-  --sensor-width 4 --jump-threshold 0.025 --shear-threshold 0 \
-  --mn 0.001 --density-contours --schlieren --zoom-center
-```
-
-The standard benchmark comparison should remain `t=0.3`. Later times such as `t=0.6` or `t=0.85` are useful for qualitative vortex visualization, but boundary effects and domain placement must be interpreted carefully.
-
-## Run tutor Configuration 3 with x0=y0=0.8
-
-The tutor case uses the same four primitive states as Configuration 3, but moves the initial quadrant intersection from `(0.5, 0.5)` to `(0.8, 0.8)`. It is kept separate from the centered benchmark through `RiemannConfig3Offset08` and `scripts/run_riemann_config3_08.py`.
-
-The dedicated runner defaults to CuPy, the hybrid compact/WENO scheme, `mn=0.001`, and one hyperviscosity application every five time steps:
-
-```bash
-MPLBACKEND=Agg python -B scripts/run_riemann_config3_08.py \
+MPLBACKEND=Agg python3 -B scripts/run_riemann_config3_08.py \
   --backend cupy \
   --scheme hybrid \
   --nx 512 --ny 512 \
@@ -150,34 +251,7 @@ MPLBACKEND=Agg python -B scripts/run_riemann_config3_08.py \
   --run-id config3_08_hybrid_hv5_gpu_512_t03
 ```
 
-Unified launcher equivalent:
-
-```bash
-python -B scripts/run_case.py --problem riemann3_08 --backend cupy --nx 512 --ny 512
-```
-
-All 2D Riemann presets default to `CFL=0.4`, matching the tutor setup. You can still override it with `--cfl`; reduce it if a modified grid, scheme, or dissipation setting fails the positivity diagnostics.
-
-## Run 2D Riemann Configuration 6 on the GPU
-
-Configuration 6 uses the standard Lax--Liu quadrant ordering
-
-```text
-II | I
----+---
-III| IV
-```
-
-with primitive states `(rho, p, u, v)`:
-
-```text
-I   = (1.0, 1.0,  0.75, -0.50)
-II  = (2.0, 1.0,  0.75,  0.50)
-III = (1.0, 1.0, -0.75,  0.50)
-IV  = (3.0, 1.0, -0.75, -0.50)
-```
-
-The benchmark domain is `[0, 1] x [0, 1]`, uses outflow boundaries, and runs to `t=0.25`. The Configuration 6 runner defaults to CuPy:
+## Run Riemann Configuration 6
 
 ```bash
 python3 -B scripts/run_riemann_config6.py \
@@ -190,73 +264,32 @@ python3 -B scripts/run_riemann_config6.py \
   --fixed-density-limits 0 3.2
 ```
 
-Unified launcher equivalent:
-
-```bash
-python3 -B scripts/run_case.py --problem riemann6 \
-  --backend cupy --scheme hybrid \
-  --nx 512 --ny 512 --tfinal 0.25 --cfl 0.4 \
-  --density-contours --fixed-density-limits 0 3.2
-```
-
-Use `--backend numpy` for a CPU reference run. CuPy keeps the evolving conservative state, sensor, flux reconstruction, compact derivative solves, Runge--Kutta stages, and hyperviscosity operations on the GPU; arrays are copied to the CPU only while saving or plotting.
-
-The Configuration 6 entry points are:
-
-- `OOP/problems/riemann_config6.py`
-- `scripts/run_riemann_config6.py`
-- `scripts/plot_riemann_config6.py`
-- `scripts/run_case.py --problem riemann6`
-
 ## Riemann output files
 
-Every Riemann run creates a timestamped run folder under the matching configuration directory:
-
-```text
-results/riemann_config3/<run_id>/
-results/riemann_config6/<run_id>/
-```
-
-Each folder contains:
+Each Riemann run creates a run directory under the corresponding result folder and writes:
 
 ```text
 config.json
- diagnostics.json
- <run_id>_final.npz
- <run_id>_fields.png
+diagnostics.json
+<run_id>_final.npz
+<run_id>_fields.png
 ```
 
-The `.npz` file stores the final numerical state so plots can be regenerated without rerunning the simulation. It includes:
+The final `.npz` file stores the state and serialized configuration so figures can be regenerated without rerunning the simulation.
 
-```text
-x, y, q, rho, u, v, pressure, omega_z, time, steps, configuration_number, config_json, diagnostics_json
-```
+## Replot a Riemann result
 
-## Replot a Riemann result from `.npz`
-
-Full-domain replot:
+Configuration 3:
 
 ```bash
 python3 -B scripts/plot_riemann_config3.py \
   results/riemann_config3/<run_id>/<run_id>_final.npz \
-  --output results/riemann_config3/<run_id>/full_domain.png \
+  --output results/riemann_config3/<run_id>/replot.png \
   --density-contours \
   --schlieren
 ```
 
-Zoomed replot:
-
-```bash
-python3 -B scripts/plot_riemann_config3.py \
-  results/riemann_config3/<run_id>/<run_id>_final.npz \
-  --output results/riemann_config3/<run_id>/zoom.png \
-  --density-contours \
-  --schlieren \
-  --zoom-center \
-  --zoom-window 0.35
-```
-
-Configuration 6 uses the corresponding replot wrapper:
+Configuration 6:
 
 ```bash
 python3 -B scripts/plot_riemann_config6.py \
@@ -265,37 +298,16 @@ python3 -B scripts/plot_riemann_config6.py \
   --fixed-density-limits 0 3.2
 ```
 
-Use `--vorticity-limit 0` for automatic vorticity scaling. Use a fixed value such as `--vorticity-limit 100` when comparing different runs.
+## Tests
 
-## Diagnostics
-
-Riemann runs print and save:
-
-- backend and scheme,
-- min/max density,
-- min/max pressure,
-- maximum absolute vorticity,
-- NaN/Inf status,
-- positivity status,
-- final sensor fraction,
-- whether local hyperviscosity was active.
-
-The solver validates raw density and pressure before positivity floors can hide a failed physical state. If a non-positive state appears, the run raises a clear `FloatingPointError`.
-
-## CPU/GPU equivalence check
-
-Before running production GPU cases, run quick CPU/GPU smoke tests:
+Run the complete test suite from the repository root:
 
 ```bash
-python3 -B scripts/run_riemann_config3.py --backend numpy --nx 64 --ny 64 --tfinal 0.01 --no-plot --progress-every 10
-python3 -B scripts/run_riemann_config3.py --backend cupy  --nx 64 --ny 64 --tfinal 0.01 --no-plot --progress-every 10
+python3 -m pytest -q
 ```
 
-For HIT:
+A syntax-only check is:
 
 ```bash
-python3 -B scripts/run_hit2d.py --backend numpy --nx 64 --ny 64 --tfinal 0.05 --snapshot-every 10 --diagnostics-every 5
-python3 -B scripts/run_hit2d.py --backend cupy  --nx 64 --ny 64 --tfinal 0.05 --snapshot-every 10 --diagnostics-every 5
+python3 -m compileall -q OOP scripts tests
 ```
-
-If the short CPU/GPU histories diverge strongly at identical parameters, investigate backend-specific logic before launching long runs.

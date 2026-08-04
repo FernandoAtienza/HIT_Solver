@@ -1,31 +1,32 @@
-# OOP HIT2D Modules
+# OOP solver modules
 
-This folder contains the solver-side code needed by the 2D forced compressible HIT case.
+This folder contains the solver-side implementation for the compressible HIT and 2D Riemann cases.
 
-## Core Files
+## Main modules
 
-- `hit2d.py`: HIT2D configuration, initialization, conservative-variable setup, time loop, diagnostics, and snapshot writing.
-- `forcing.py`: stochastic finite-correlation-time solenoidal forcing in a Fourier shell.
-- `domain.py`: periodic uniform 2D grid object.
-- `equations.py`: compressible Euler/Navier-Stokes primitive and conservative variable utilities.
-- `spatial_operator.py`: compact/WENO hybrid inviscid operator, shock sensor, and hyperviscosity utilities.
-- `time_operator.py`: SSP-RK3 time integration.
-- `parallel/`: backend-aware NumPy/CuPy variants for the 2D HIT operators.
-- `postprocess/`: two-point correlations, isotropy diagnostics, and spectra.
+- `hit2d.py`: HIT configuration, initialization, time loop, diagnostics, `config.json`, and snapshots.
+- `forcing.py`: finite-correlation-time solenoidal forcing in a Fourier shell.
+- `domain.py`: one- and two-dimensional grid helpers.
+- `equations.py`: NumPy Euler and Navier–Stokes equations.
+- `spatial_operator.py`: compact/WENO operators, shock sensors, and compact-node hyperviscosity.
+- `parallel/`: NumPy/CuPy backend-aware equations and periodic HIT operators.
+- `postprocess/`: spectra, turnover-time, isotropy, and correlation utilities.
+- `problems/`: the validated non-periodic 2D Riemann configurations.
+- `run_utils.py`: JSON, run-directory, and NumPy conversion helpers.
 
-The folder still includes a small amount of general 1D infrastructure because some shared operators import those definitions, but the intended use of this copied repository is HIT2D.
+## HIT configuration
 
-## Output Location
+The current HIT baseline is solenoidal-only. The initial velocity and stochastic forcing use a configurable Fourier shell. The production setup uses `3 <= |k| <= 5`, low-wavenumber drag at `|k| <= 2`, and homogeneous mean-pressure cooling.
 
-In this isolated repo, the default HIT2D output path is:
+Each call to `run_simulation()` writes a complete `config.json` into `config.output_dir` before the first snapshot.
 
-```text
-2D/hit2d_snapshots/
-```
+## Hyperviscosity policy
 
-Each simulation creates a timestamped child folder unless `--no-timestamp-dir` is used.
+The shock sensor marks the nodes handled by WENO. The periodic HIT filter receives the complementary mask and therefore updates only compact finite-difference nodes. The hyperviscosity classes require an explicit active mask to prevent accidental global filtering.
 
-## Minimal Python Use
+The non-periodic Riemann solver follows the same policy. WENO-only Riemann runs disable numerical hyperviscosity automatically.
+
+## Minimal Python use
 
 ```python
 from OOP.hit2d import HIT2DConfig, run_simulation
@@ -33,12 +34,3 @@ from OOP.hit2d import HIT2DConfig, run_simulation
 config = HIT2DConfig.isotropic_128(backend="numpy")
 run_simulation(config)
 ```
-
-The `isotropic_128()` preset uses:
-
-- initial velocity modes in `3 <= |k| <= 5`, avoiding direct initialization of box-scale `k = 1, 2` modes;
-- stochastic solenoidal forcing in the same annular shell;
-- low-wavenumber drag for `|k| <= 2` to remove inverse-cascade condensate energy;
-- homogeneous pressure-relaxation cooling for long compressible forced runs.
-
-For normal use, prefer the scripts in `../2D/`.
