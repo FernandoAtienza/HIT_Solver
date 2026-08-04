@@ -10,6 +10,7 @@ The implemented cases are:
 - Lax–Liu Riemann Configuration 3.
 - Configuration 3 with the initial intersection at `x0 = y0 = 0.8`.
 - Lax–Liu Riemann Configuration 6.
+- Two-dimensional viscous shock–shear-layer interaction from Kang and Lee (2026).
 
 Dilatational and mixed forcing are not part of the current baseline.
 
@@ -52,7 +53,8 @@ HIT_Solver/
 │   └── problems/
 │       ├── riemann_config3.py
 │       ├── riemann_config3_08.py
-│       └── riemann_config6.py
+│       ├── riemann_config6.py
+│       └── shock_shear_layer.py
 ├── scripts/
 │   ├── run_hit2d.py
 │   ├── run_solenoidal_hit_campaign.sh
@@ -60,7 +62,9 @@ HIT_Solver/
 │   ├── run_riemann_config3_08.py
 │   ├── run_riemann_config6.py
 │   ├── plot_riemann_config3.py
-│   └── plot_riemann_config6.py
+│   ├── plot_riemann_config6.py
+│   ├── run_shock_shear_layer.py
+│   └── plot_shock_shear_layer.py
 └── tests/
 ```
 
@@ -237,19 +241,30 @@ For `--scheme weno`, hyperviscosity is disabled automatically. Setting `--mn 0.0
 
 ## Run Configuration 3 with `x0 = y0 = 0.8`
 
+This scenario defaults to `tfinal = 0.85`, an initial `CFL = 0.4`, and four
+protected outflow-boundary cells. A single fixed time step is computed from the
+initial state and adjusted slightly so an integer number of equal steps reaches
+the requested final time exactly.
+
 ```bash
 MPLBACKEND=Agg python3 -B scripts/run_riemann_config3_08.py \
   --backend cupy \
   --scheme hybrid \
   --nx 512 --ny 512 \
-  --tfinal 0.3 \
+  --tfinal 0.85 \
   --cfl 0.4 \
+  --guard-cells 4 \
+  --boundary-guard 4 \
   --mn 0.001 \
   --hyperviscosity-interval 5 \
   --fixed-density-limits 0.13 1.75 \
   --progress-every 500 \
-  --run-id config3_08_hybrid_hv5_gpu_512_t03
+  --run-id config3_08_hybrid_hv5_gpu_512_t085_cfl04
 ```
+
+The diagnostics distinguish the shock-sensor node fraction from the actual
+fraction of directional interfaces using WENO.  WENO-only runs report a WENO
+fraction of exactly one and skip shock-sensor evaluation during the RHS.
 
 ## Run Riemann Configuration 6
 
@@ -310,4 +325,59 @@ A syntax-only check is:
 
 ```bash
 python3 -m compileall -q OOP scripts tests
+```
+
+## Run the two-dimensional shock–shear-layer interaction
+
+The case in Section 3.2 of Kang and Lee (2026) uses the domain
+`[0, 200] x [-20, 20]`, a `500 x 100` grid, `Re = 500`, `Pr = 0.72`, and a
+final time of `t = 120`. The inlet mixing layer and time-dependent transverse
+perturbation, upper post-shock boundary, lower slip wall, and zero-gradient
+outlet are implemented in `OOP/problems/shock_shear_layer.py`.
+
+A reference-grid GPU run is:
+
+```bash
+MPLBACKEND=Agg python3 -B scripts/run_shock_shear_layer.py \
+  --backend cupy \
+  --scheme hybrid \
+  --nx 500 --ny 100 \
+  --tfinal 120 \
+  --cfl 0.4 \
+  --reynolds 500 \
+  --prandtl 0.72 \
+  --viscosity-model sutherland \
+  --sensor-width 2 \
+  --jump-threshold 0.04 \
+  --compression-threshold 2.5 \
+  --shear-threshold 0 \
+  --guard-cells 4 \
+  --boundary-guard 4 \
+  --mn 0.0005 \
+  --hyperviscosity-interval 5 \
+  --progress-every 100 \
+  --output-dir results/shock_shear_layer \
+  --run-id shock_shear_hybrid_N500x100_t120
+```
+
+The run directory contains `config.json`, `diagnostics.json`, the final NPZ
+state, a density-contour figure comparable with Figure 2(c), a centerline
+density profile comparable with Figure 2(d), and a four-field diagnostic
+figure.
+
+The paper states that viscosity follows Sutherland's law but does not report
+the exact nondimensional reference-temperature convention for this case. The
+implementation uses the upper-stream temperature as the nondimensional
+reference and maps it to 300 K. The alternative classical constant-viscosity
+interpretation can be selected with:
+
+```bash
+--viscosity-model constant
+```
+
+Regenerate figures without rerunning the simulation with:
+
+```bash
+python3 -B scripts/plot_shock_shear_layer.py \
+  results/shock_shear_layer/<run_id>/<run_id>_final.npz
 ```

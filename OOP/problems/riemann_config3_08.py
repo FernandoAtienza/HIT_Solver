@@ -15,8 +15,12 @@ class RiemannConfig3Offset08(RiemannConfig3):
 
     x_split: float = 0.8
     y_split: float = 0.8
+    tfinal: float = 0.85
+    cfl: float = 0.4
     backend: str = "cupy"
     hyperviscosity_interval: int = 5
+    boundary_guard: int = 4
+    guard_cells: int = 4
 
 
 def run_riemann_config3_08(config: RiemannConfig3Offset08):

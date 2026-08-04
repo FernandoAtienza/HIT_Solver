@@ -14,12 +14,14 @@ class RiemannConfig3Offset08Tests(unittest.TestCase):
 
         self.assertEqual(config.x_split, 0.8)
         self.assertEqual(config.y_split, 0.8)
-        self.assertEqual(config.tfinal, 0.3)
+        self.assertEqual(config.tfinal, 0.85)
         self.assertEqual(config.cfl, 0.4)
         self.assertEqual(config.backend, "cupy")
         self.assertEqual(config.scheme, "hybrid")
         self.assertEqual(config.mn, 0.001)
         self.assertEqual(config.hyperviscosity_interval, 5)
+        self.assertEqual(config.boundary_guard, 4)
+        self.assertEqual(config.guard_cells, 4)
 
     def test_quadrants_are_split_at_point_eight(self) -> None:
         config = RiemannConfig3Offset08(nx=10, ny=10, backend="numpy")

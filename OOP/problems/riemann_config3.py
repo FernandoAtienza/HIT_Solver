@@ -106,6 +106,7 @@ class RiemannDiagnostics:
     hyperviscosity_enabled: bool
     hyperviscosity_applications: int
     final_sensor_fraction: float
+    final_weno_fraction: float
     density_min: float
     density_max: float
     pressure_min: float
@@ -352,6 +353,8 @@ class NonPeriodicHybridEuler2DOperator:
         if self.scheme == "weno":
             hybrid_flux = shock_flux
         else:
+            if shock_axis is None:
+                raise ValueError("shock_axis is required in hybrid mode")
             shock_interfaces = interface_mask_from_nodes(shock_axis)
             hybrid_flux = xp.where(shock_interfaces[None, ...], shock_flux, smooth_flux)
         return compact.from_interface_flux(hybrid_flux)
@@ -359,24 +362,69 @@ class NonPeriodicHybridEuler2DOperator:
     def rhs(self, q):
         xp = array_module(q)
         q_safe = self.equation.enforce_physical_state(q)
-        shock_mask = self.sensor.detect(q_safe)
-        derivative_x = self._axis_derivative(q_safe, self.equation.flux_x(q_safe), shock_mask, self.compact_x, 1)
-        q_y = xp.moveaxis(q_safe, -2, -1)
-        flux_y = xp.moveaxis(self.equation.flux_y(q_safe), -2, -1)
-        shock_y = xp.moveaxis(shock_mask, -2, -1)
-        derivative_y = self._axis_derivative(q_y, flux_y, shock_y, self.compact_y, 2)
+
+        # The shock sensor is irrelevant in WENO-only mode: WENO is used at
+        # every interface.  Skipping it avoids unnecessary work and makes the
+        # numerical path independent of the sensor parameters.
+        if self.scheme == "weno":
+            derivative_x = self._axis_derivative(
+                q_safe,
+                self.equation.flux_x(q_safe),
+                None,
+                self.compact_x,
+                1,
+            )
+            q_y = xp.moveaxis(q_safe, -2, -1)
+            flux_y = xp.moveaxis(self.equation.flux_y(q_safe), -2, -1)
+            derivative_y = self._axis_derivative(
+                q_y,
+                flux_y,
+                None,
+                self.compact_y,
+                2,
+            )
+        else:
+            shock_mask = self.sensor.detect(q_safe)
+            derivative_x = self._axis_derivative(
+                q_safe,
+                self.equation.flux_x(q_safe),
+                shock_mask,
+                self.compact_x,
+                1,
+            )
+            q_y = xp.moveaxis(q_safe, -2, -1)
+            flux_y = xp.moveaxis(self.equation.flux_y(q_safe), -2, -1)
+            shock_y = xp.moveaxis(shock_mask, -2, -1)
+            derivative_y = self._axis_derivative(
+                q_y,
+                flux_y,
+                shock_y,
+                self.compact_y,
+                2,
+            )
+
         derivative_y = xp.moveaxis(derivative_y, -1, -2)
         return -derivative_x - derivative_y
 
     def fixed_time_step(self, q, cfl: float, t_end: float) -> tuple[float, int]:
+        """Compute one constant time step from the initial solution state."""
+        if cfl <= 0.0:
+            raise ValueError("cfl must be positive")
         xp = array_module(q)
         rho, u, v, pressure = self.equation.primitive_from_conservative(q)
         c = xp.sqrt(self.equation.gamma * pressure / rho)
-        spectral_radius = (xp.abs(u) + c) / self.domain.dx + (xp.abs(v) + c) / self.domain.dy
-        dt = cfl / float(xp.max(spectral_radius))
-        n_steps = int(np.ceil(t_end / dt))
+        spectral_radius = (
+            (xp.abs(u) + c) / self.domain.dx
+            + (xp.abs(v) + c) / self.domain.dy
+        )
+        maximum_radius = float(xp.max(spectral_radius))
+        if not np.isfinite(maximum_radius) or maximum_radius <= 0.0:
+            raise FloatingPointError(
+                f"Invalid maximum spectral radius: {maximum_radius}"
+            )
+        initial_dt = cfl / maximum_radius
+        n_steps = int(np.ceil(t_end / initial_dt))
         return t_end / n_steps, n_steps
-
 
 @dataclass(frozen=True)
 class LocalHyperviscosity2D:
@@ -631,12 +679,27 @@ def _diagnostics(q, config: RiemannConfig3, time: float, steps: int, hyperviscos
     rho, pressure = raw_density_pressure(q, config.equation)
     omega = vorticity_z(q, config.domain, config.equation)
     has_nonfinite = bool(xp.any(~xp.isfinite(q)) | xp.any(~xp.isfinite(rho)) | xp.any(~xp.isfinite(pressure)))
+    sensor_mask = sensor.detect(q)
+    sensor_fraction = float(xp.mean(sensor_mask))
+    if config.scheme == "weno":
+        # WENO is selected at every x- and y-interface.
+        weno_fraction = 1.0
+    else:
+        # Report the actual fraction of directional interfaces reconstructed
+        # with WENO, rather than merely repeating the node-sensor fraction.
+        weno_x = interface_mask_from_nodes(sensor_mask)
+        sensor_y = xp.moveaxis(sensor_mask, -2, -1)
+        weno_y = interface_mask_from_nodes(sensor_y)
+        weno_count = float(xp.sum(weno_x)) + float(xp.sum(weno_y))
+        interface_count = weno_x.size + weno_y.size
+        weno_fraction = weno_count / interface_count
     return RiemannDiagnostics(
         backend=config.backend,
         scheme=config.scheme,
         hyperviscosity_enabled=hyperviscosity_enabled_for_config(config),
         hyperviscosity_applications=hyperviscosity_applications,
-        final_sensor_fraction=float(xp.mean(sensor.detect(q))),
+        final_sensor_fraction=sensor_fraction,
+        final_weno_fraction=weno_fraction,
         density_min=float(xp.min(rho)),
         density_max=float(xp.max(rho)),
         pressure_min=float(xp.min(pressure)),
@@ -661,6 +724,7 @@ def print_diagnostic_summary(diagnostics: RiemannDiagnostics) -> None:
     print(f"  density positive     : {diagnostics.density_positive}")
     print(f"  pressure positive    : {diagnostics.pressure_positive}")
     print(f"  final sensor fraction: {diagnostics.final_sensor_fraction:.6f}")
+    print(f"  final WENO fraction  : {diagnostics.final_weno_fraction:.6f}")
     print(f"  hyperviscosity       : {diagnostics.hyperviscosity_enabled} ({diagnostics.hyperviscosity_applications} applications)")
 
 
@@ -695,7 +759,12 @@ def run_riemann(config: RiemannConfig3):
         shear_threshold=config.shear_threshold,
         boundary_guard=config.boundary_guard,
     )
-    operator = NonPeriodicHybridEuler2DOperator(config.domain, config.equation, sensor, scheme=config.scheme)
+    operator = NonPeriodicHybridEuler2DOperator(
+        config.domain,
+        config.equation,
+        sensor,
+        scheme=config.scheme,
+    )
     dt, n_steps = operator.fixed_time_step(q, config.cfl, config.tfinal)
     hyperviscosity_enabled = hyperviscosity_enabled_for_config(config)
     hyperviscosity = LocalHyperviscosity2D(
@@ -706,18 +775,18 @@ def run_riemann(config: RiemannConfig3):
         energy_weight=config.hyperviscosity_energy_weight,
     ) if hyperviscosity_enabled else None
     integrator = SSPRK3()
-
     label = getattr(config, "configuration_label", f"Config {config.configuration_number}")
     print(
         f"Riemann {label}: nx={config.nx}, ny={config.ny}, "
-        f"dt={dt:.5e}, steps={n_steps}, tfinal={config.tfinal}"
+        f"fixed dt={dt:.5e}, steps={n_steps}, tfinal={config.tfinal}, "
+        f"initial CFL={config.cfl}"
     )
     hyperviscosity_note = (
         "enabled on compact-FD nodes only"
         if hyperviscosity_enabled
         else "disabled"
     )
-    if config.scheme == "weno" and config.mn > 0.0:
+    if config.scheme == "weno":
         hyperviscosity_note += " (WENO-only scheme)"
     print(
         f"scheme={config.scheme}; local hyperviscosity {hyperviscosity_note} "
@@ -725,25 +794,33 @@ def run_riemann(config: RiemannConfig3):
     )
     time = 0.0
     hyperviscosity_applications = 0
-    for step in range(n_steps):
+    for step_index in range(n_steps):
         q = integrator.step(
             q,
             operator.rhs,
             dt,
-            clean=lambda state: apply_outflow_guard(config.equation.enforce_physical_state(state), config.guard_cells),
+            clean=lambda state: apply_outflow_guard(
+                config.equation.enforce_physical_state(state),
+                config.guard_cells,
+            ),
         )
-        if hyperviscosity_enabled and (step + 1) % config.hyperviscosity_interval == 0:
+        step = step_index + 1
+
+        if hyperviscosity_enabled and step % config.hyperviscosity_interval == 0:
             weno_mask = sensor.detect(q)
             compact_mask = ~weno_mask
             q = hyperviscosity.apply(q, compact_mask, config.equation)
             q = apply_outflow_guard(q, config.guard_cells)
             hyperviscosity_applications += 1
-        time = (step + 1) * dt
-        if (step + 1) % config.progress_every == 0 or step + 1 == n_steps:
-            validate_raw_physical_state(q, config.equation, f"state at step {step + 1}")
-            print(f"step={step + 1:6d}, time={time:.6f}")
 
-    diagnostics = _diagnostics(q, config, time, n_steps, hyperviscosity_applications, sensor)
+        time = step * dt
+        if config.progress_every > 0 and (
+            step % config.progress_every == 0 or step == n_steps
+        ):
+            validate_raw_physical_state(q, config.equation, f"state at step {step}")
+            print(f"step={step:6d}, time={time:.6f}, dt={dt:.5e}")
+
+    diagnostics = _diagnostics(q, config, time, step, hyperviscosity_applications, sensor)
     validate_raw_physical_state(q, config.equation, "final state")
     print_diagnostic_summary(diagnostics)
     return q, diagnostics
