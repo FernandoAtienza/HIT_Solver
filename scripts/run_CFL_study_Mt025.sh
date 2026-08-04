@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+export PYTHONUNBUFFERED=1
+export MPLBACKEND=Agg
+
+cd ~/github/HIT_Solver
+
+BACKEND="cupy"
+NX=128
+NY=128
+SNAPSHOT_EVERY=5000
+DIAGNOSTICS_EVERY=1000
+SEED=1234
+
+CFLS=(
+0.05
+0.08
+0.10
+0.12
+0.15
+0.20
+)
+
+run_and_postprocess() {
+
+    local mt="$1"
+    local tfinal="$2"
+    local case_name="$3"
+    local cfl="$4"
+
+    local output_dir="results/hit2d/${case_name}"
+    local post_dir="${output_dir}/postprocess"
+
+    mkdir -p "${output_dir}" "${post_dir}"
+
+    echo
+    echo "============================================================"
+    echo "RUNNING: ${case_name}"
+    echo "Mt target : ${mt}"
+    echo "Grid      : ${NX}x${NY}"
+    echo "CFL       : ${cfl}"
+    echo "Output    : ${output_dir}"
+    echo "============================================================"
+
+    python3 -B scripts/run_hit2d.py \
+        --backend "${BACKEND}" \
+        --nx "${NX}" \
+        --ny "${NY}" \
+        --tfinal "${tfinal}" \
+        --cfl "${cfl}" \
+        --gamma 1.4 \
+        --mach "${mt}" \
+        --initial-kmin 3 \
+        --initial-kmax 5 \
+        --kf-min 3 \
+        --kf-max 5 \
+        --p-target 1.0e-3 \
+        --forcing-correlation-time 0.5 \
+        --forcing-alpha-memory 0.2 \
+        --min-forcing-power 1.0e-6 \
+        --max-forcing-rescale 20.0 \
+        --mach-control \
+        --mach-control-target "${mt}" \
+        --mach-control-memory 0.995 \
+        --mach-control-exponent 2.0 \
+        --viscosity 7.5e-4 \
+        --mn 0.002 \
+        --large-scale-drag 0.10 \
+        --drag-kmax 2.0 \
+        --cooling-time 5.0 \
+        --seed "${SEED}" \
+        --diagnostics-every "${DIAGNOSTICS_EVERY}" \
+        --snapshot-every "${SNAPSHOT_EVERY}" \
+        --output-dir "${output_dir}" \
+        2>&1 | tee "${output_dir}/run.log"
+
+    python3 -B 2D/hit2d_viewer.py \
+        --snapshot-dir "${output_dir}" \
+        --physics-plots \
+        --history-x-axis turnover \
+        --physics-output "${post_dir}/physics_fields_final.png" \
+        --history-output "${post_dir}/time_history.png" \
+        2>&1 | tee "${output_dir}/viewer_postprocess.log"
+
+    python3 -B 2D/hit2d_isotropy_diagnostics.py \
+        --snapshot-dir "${output_dir}" \
+        --start-turnover 4 \
+        --end-turnover 16 \
+        --fluctuation-type reynolds \
+        2>&1 | tee "${output_dir}/isotropy_postprocess.log"
+
+    echo
+    echo "Finished ${case_name}"
+    echo
+}
+
+for CFL in "${CFLS[@]}"; do
+
+    CFL_TAG=$(printf "%.2f" "${CFL}" | tr '.' 'p')
+
+    run_and_postprocess \
+        0.25 \
+        110.0 \
+        "CFL_study_${CFL_TAG}_Mt025_N128" \
+        "${CFL}"
+
+done
+
+echo
+echo "============================================================"
+echo "CFL STUDY FINISHED"
+echo "============================================================"

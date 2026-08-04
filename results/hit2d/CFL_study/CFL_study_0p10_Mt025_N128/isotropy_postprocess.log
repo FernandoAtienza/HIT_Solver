@@ -1,0 +1,13 @@
+saved isotropy diagnostics: results/hit2d/CFL_study_0p10_Mt025_N128/isotropy_diagnostics.npz
+selected interval: t=[26.6334, 95.5481], Neddy=[4.23382, 15.2069], snapshots=9
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=1.362394e-01 (normalized=3.347876e-01), E_NN=1.344624e-01 (normalized=3.568191e-01)
+selected means: K=3.086123e-02, Mt=2.502305e-01, A_K=9.877944e-02, C_uv=-1.293911e-01
+saved isotropy plot: results/hit2d/CFL_study_0p10_Mt025_N128/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/CFL_study_0p10_Mt025_N128/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/CFL_study_0p10_Mt025_N128/postprocess/component_energy_anisotropy.png
+/home/fatienza/github/HIT_Solver/OOP/postprocess/spectra.py:133: RuntimeWarning: Kinetic-energy spectrum may be piling up near k_max
+  warnings.warn("Kinetic-energy spectrum may be piling up near k_max", RuntimeWarning)
+saved spectra diagnostics: results/hit2d/CFL_study_0p10_Mt025_N128/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/CFL_study_0p10_Mt025_N128/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=2.001e+00, enstrophy=1.806e+00

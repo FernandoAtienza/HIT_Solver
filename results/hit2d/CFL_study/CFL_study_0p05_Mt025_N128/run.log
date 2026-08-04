@@ -1,0 +1,281 @@
+Using array backend: cupy
+step=     0, t=0.000000, dt=0.000e+00, KE=3.125000e-02, Mt=0.2500, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.035, rho_mean=1.000000, p_mean=0.714286, div_rms=2.307e-15, vort_rms=9.749e-01, mass_err=0.000e+00
+step=  1000, t=0.892167, dt=9.035e-04, KE=3.001882e-02, Mt=0.2479, A_K=0.007, Cuv=-0.049, P_in=1.101e-03, P_tgt=1.080e-03, A_F=0.152, K_low=0.008, P_drag=-4.361e-05, P_cool=-3.871e-04, WENO=0.073, rho_mean=1.000000, p_mean=0.715060, div_rms=1.331e-01, vort_rms=9.644e-01, mass_err=-2.423e-12
+step=  2000, t=1.794645, dt=9.016e-04, KE=3.055341e-02, Mt=0.2490, A_K=0.045, Cuv=-0.023, P_in=1.141e-03, P_tgt=1.144e-03, A_F=0.275, K_low=0.009, P_drag=-5.318e-05, P_cool=-4.043e-04, WENO=0.107, rho_mean=1.000000, p_mean=0.715094, div_rms=1.232e-01, vort_rms=9.679e-01, mass_err=-4.846e-12
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.220)
+step=  3000, t=2.695302, dt=8.893e-04, KE=3.135520e-02, Mt=0.2518, A_K=0.038, Cuv=-0.048, P_in=1.622e-03, P_tgt=1.124e-03, A_F=0.063, K_low=0.011, P_drag=-7.214e-05, P_cool=-4.382e-04, WENO=0.112, rho_mean=1.000000, p_mean=0.715162, div_rms=1.303e-01, vort_rms=9.839e-01, mass_err=-7.269e-12
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.214)
+step=  4000, t=3.589695, dt=8.978e-04, KE=3.152996e-02, Mt=0.2528, A_K=0.077, Cuv=-0.048, P_in=1.002e-03, P_tgt=1.033e-03, A_F=0.001, K_low=0.019, P_drag=-1.172e-04, P_cool=-5.038e-04, WENO=0.130, rho_mean=1.000000, p_mean=0.715293, div_rms=1.336e-01, vort_rms=9.755e-01, mass_err=-9.678e-12
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.214)
+step=  5000, t=4.493156, dt=8.963e-04, KE=3.131355e-02, Mt=0.2527, A_K=0.179, Cuv=-0.086, P_in=9.274e-04, P_tgt=9.215e-04, A_F=0.014, K_low=0.027, P_drag=-1.661e-04, P_cool=-5.991e-04, WENO=0.120, rho_mean=1.000000, p_mean=0.715484, div_rms=1.272e-01, vort_rms=9.710e-01, mass_err=-1.209e-11
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0005000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.214)
+step=  6000, t=5.386126, dt=8.671e-04, KE=3.158328e-02, Mt=0.2533, A_K=0.198, Cuv=-0.085, P_in=8.224e-04, P_tgt=8.299e-04, A_F=0.015, K_low=0.041, P_drag=-2.628e-04, P_cool=-5.636e-04, WENO=0.119, rho_mean=1.000000, p_mean=0.715413, div_rms=1.338e-01, vort_rms=9.608e-01, mass_err=-1.451e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.213)
+step=  7000, t=6.259575, dt=8.647e-04, KE=3.152230e-02, Mt=0.2525, A_K=0.196, Cuv=-0.085, P_in=7.455e-04, P_tgt=7.411e-04, A_F=0.024, K_low=0.058, P_drag=-3.650e-04, P_cool=-6.008e-04, WENO=0.134, rho_mean=1.000000, p_mean=0.715487, div_rms=1.460e-01, vort_rms=9.531e-01, mass_err=-1.693e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.203)
+step=  8000, t=7.133577, dt=8.676e-04, KE=3.123438e-02, Mt=0.2523, A_K=0.110, Cuv=-0.073, P_in=7.764e-04, P_tgt=6.768e-04, A_F=0.073, K_low=0.088, P_drag=-5.383e-04, P_cool=-6.316e-04, WENO=0.131, rho_mean=1.000000, p_mean=0.715549, div_rms=1.413e-01, vort_rms=9.449e-01, mass_err=-1.936e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.202)
+step=  9000, t=8.010807, dt=8.835e-04, KE=3.074739e-02, Mt=0.2495, A_K=0.065, Cuv=-0.048, P_in=6.685e-04, P_tgt=6.585e-04, A_F=0.130, K_low=0.115, P_drag=-6.986e-04, P_cool=-6.266e-04, WENO=0.133, rho_mean=1.000000, p_mean=0.715539, div_rms=1.338e-01, vort_rms=9.400e-01, mass_err=-2.178e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.202)
+step= 10000, t=8.890967, dt=8.732e-04, KE=3.016937e-02, Mt=0.2465, A_K=0.017, Cuv=-0.020, P_in=7.111e-04, P_tgt=7.087e-04, A_F=0.095, K_low=0.138, P_drag=-8.315e-04, P_cool=-6.171e-04, WENO=0.118, rho_mean=1.000000, p_mean=0.715520, div_rms=1.329e-01, vort_rms=9.287e-01, mass_err=-2.419e-11
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0010000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.202)
+step= 11000, t=9.768593, dt=8.797e-04, KE=2.940348e-02, Mt=0.2442, A_K=0.024, Cuv=-0.029, P_in=8.619e-04, P_tgt=8.640e-04, A_F=0.060, K_low=0.161, P_drag=-9.309e-04, P_cool=-6.503e-04, WENO=0.113, rho_mean=1.000000, p_mean=0.715586, div_rms=1.311e-01, vort_rms=9.176e-01, mass_err=-2.662e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.202)
+step= 12000, t=10.644373, dt=8.639e-04, KE=2.887397e-02, Mt=0.2416, A_K=0.035, Cuv=0.024, P_in=1.187e-03, P_tgt=1.189e-03, A_F=0.146, K_low=0.170, P_drag=-9.730e-04, P_cool=-6.495e-04, WENO=0.125, rho_mean=1.000000, p_mean=0.715585, div_rms=1.280e-01, vort_rms=9.013e-01, mass_err=-2.903e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.201)
+step= 13000, t=11.515984, dt=8.676e-04, KE=2.867593e-02, Mt=0.2402, A_K=0.037, Cuv=0.039, P_in=1.740e-03, P_tgt=1.760e-03, A_F=0.078, K_low=0.165, P_drag=-9.478e-04, P_cool=-6.575e-04, WENO=0.136, rho_mean=1.000000, p_mean=0.715601, div_rms=1.289e-01, vort_rms=8.935e-01, mass_err=-3.144e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.200)
+step= 14000, t=12.378840, dt=8.596e-04, KE=2.913275e-02, Mt=0.2430, A_K=0.013, Cuv=0.108, P_in=2.547e-03, P_tgt=2.533e-03, A_F=0.038, K_low=0.155, P_drag=-8.947e-04, P_cool=-6.647e-04, WENO=0.084, rho_mean=1.000000, p_mean=0.715615, div_rms=1.281e-01, vort_rms=9.005e-01, mass_err=-3.385e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.197)
+step= 15000, t=13.237878, dt=8.612e-04, KE=3.012098e-02, Mt=0.2471, A_K=0.002, Cuv=0.125, P_in=3.114e-03, P_tgt=3.175e-03, A_F=0.142, K_low=0.135, P_drag=-8.095e-04, P_cool=-6.970e-04, WENO=0.111, rho_mean=1.000000, p_mean=0.715680, div_rms=1.316e-01, vort_rms=9.141e-01, mass_err=-3.629e-11
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0015000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.196)
+step= 16000, t=14.103391, dt=8.639e-04, KE=3.145505e-02, Mt=0.2528, A_K=0.021, Cuv=0.140, P_in=3.143e-03, P_tgt=3.151e-03, A_F=0.023, K_low=0.119, P_drag=-7.450e-04, P_cool=-7.314e-04, WENO=0.094, rho_mean=1.000000, p_mean=0.715749, div_rms=1.194e-01, vort_rms=9.346e-01, mass_err=-3.871e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.194)
+step= 17000, t=14.959907, dt=8.587e-04, KE=3.247107e-02, Mt=0.2575, A_K=0.041, Cuv=0.092, P_in=2.564e-03, P_tgt=2.561e-03, A_F=0.189, K_low=0.106, P_drag=-6.902e-04, P_cool=-7.732e-04, WENO=0.129, rho_mean=1.000000, p_mean=0.715832, div_rms=1.297e-01, vort_rms=9.560e-01, mass_err=-4.115e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.193)
+step= 18000, t=15.812371, dt=8.393e-04, KE=3.285464e-02, Mt=0.2600, A_K=0.083, Cuv=0.003, P_in=1.793e-03, P_tgt=1.811e-03, A_F=0.048, K_low=0.096, P_drag=-6.276e-04, P_cool=-8.219e-04, WENO=0.131, rho_mean=1.000000, p_mean=0.715930, div_rms=1.301e-01, vort_rms=9.561e-01, mass_err=-4.357e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.184)
+step= 19000, t=16.642706, dt=8.178e-04, KE=3.301707e-02, Mt=0.2609, A_K=0.100, Cuv=-0.015, P_in=1.252e-03, P_tgt=1.228e-03, A_F=0.039, K_low=0.087, P_drag=-5.681e-04, P_cool=-8.044e-04, WENO=0.144, rho_mean=1.000000, p_mean=0.715894, div_rms=1.363e-01, vort_rms=9.579e-01, mass_err=-4.601e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.184)
+step= 20000, t=17.445641, dt=8.058e-04, KE=3.286926e-02, Mt=0.2596, A_K=0.132, Cuv=-0.023, P_in=8.340e-04, P_tgt=8.391e-04, A_F=0.051, K_low=0.082, P_drag=-5.302e-04, P_cool=-7.925e-04, WENO=0.117, rho_mean=1.000000, p_mean=0.715871, div_rms=1.317e-01, vort_rms=9.581e-01, mass_err=-4.844e-11
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0020000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.184)
+step= 21000, t=18.258530, dt=8.302e-04, KE=3.236417e-02, Mt=0.2575, A_K=0.126, Cuv=-0.033, P_in=5.831e-04, P_tgt=5.986e-04, A_F=0.063, K_low=0.078, P_drag=-5.046e-04, P_cool=-7.969e-04, WENO=0.098, rho_mean=1.000000, p_mean=0.715880, div_rms=1.286e-01, vort_rms=9.434e-01, mass_err=-5.087e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.183)
+step= 22000, t=19.115644, dt=8.561e-04, KE=3.188065e-02, Mt=0.2558, A_K=0.097, Cuv=-0.080, P_in=4.546e-04, P_tgt=4.628e-04, A_F=0.004, K_low=0.080, P_drag=-5.040e-04, P_cool=-7.744e-04, WENO=0.118, rho_mean=1.000000, p_mean=0.715835, div_rms=1.259e-01, vort_rms=9.311e-01, mass_err=-5.330e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.183)
+step= 23000, t=19.969021, dt=8.575e-04, KE=3.189860e-02, Mt=0.2553, A_K=0.102, Cuv=-0.073, P_in=3.684e-04, P_tgt=3.700e-04, A_F=0.023, K_low=0.087, P_drag=-5.452e-04, P_cool=-7.255e-04, WENO=0.111, rho_mean=1.000000, p_mean=0.715737, div_rms=1.255e-01, vort_rms=9.249e-01, mass_err=-5.573e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.183)
+step= 24000, t=20.821741, dt=8.414e-04, KE=3.131149e-02, Mt=0.2525, A_K=0.072, Cuv=-0.059, P_in=3.160e-04, P_tgt=3.199e-04, A_F=0.091, K_low=0.096, P_drag=-5.948e-04, P_cool=-6.896e-04, WENO=0.142, rho_mean=1.000000, p_mean=0.715665, div_rms=1.152e-01, vort_rms=9.048e-01, mass_err=-5.816e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.183)
+step= 25000, t=21.664437, dt=8.473e-04, KE=3.032905e-02, Mt=0.2491, A_K=0.076, Cuv=-0.056, P_in=3.091e-04, P_tgt=3.085e-04, A_F=0.026, K_low=0.110, P_drag=-6.593e-04, P_cool=-7.148e-04, WENO=0.126, rho_mean=1.000000, p_mean=0.715715, div_rms=1.205e-01, vort_rms=8.801e-01, mass_err=-6.058e-11
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0025000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.183)
+step= 26000, t=22.512100, dt=8.555e-04, KE=2.955936e-02, Mt=0.2457, A_K=0.015, Cuv=-0.099, P_in=3.439e-04, P_tgt=3.473e-04, A_F=0.021, K_low=0.120, P_drag=-6.900e-04, P_cool=-7.050e-04, WENO=0.121, rho_mean=1.000000, p_mean=0.715696, div_rms=1.095e-01, vort_rms=8.662e-01, mass_err=-6.301e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.183)
+step= 27000, t=23.365240, dt=8.778e-04, KE=2.899558e-02, Mt=0.2426, A_K=0.006, Cuv=-0.132, P_in=4.438e-04, P_tgt=4.429e-04, A_F=0.078, K_low=0.126, P_drag=-7.274e-04, P_cool=-6.490e-04, WENO=0.113, rho_mean=1.000000, p_mean=0.715584, div_rms=1.071e-01, vort_rms=8.479e-01, mass_err=-6.544e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.182)
+step= 28000, t=24.240690, dt=8.640e-04, KE=2.814750e-02, Mt=0.2395, A_K=0.019, Cuv=-0.087, P_in=6.496e-04, P_tgt=6.467e-04, A_F=0.107, K_low=0.135, P_drag=-7.621e-04, P_cool=-6.667e-04, WENO=0.103, rho_mean=1.000000, p_mean=0.715619, div_rms=1.028e-01, vort_rms=8.248e-01, mass_err=-6.788e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.182)
+step= 29000, t=25.113674, dt=8.837e-04, KE=2.789710e-02, Mt=0.2377, A_K=0.057, Cuv=-0.060, P_in=1.044e-03, P_tgt=1.054e-03, A_F=0.192, K_low=0.142, P_drag=-7.840e-04, P_cool=-6.165e-04, WENO=0.099, rho_mean=1.000000, p_mean=0.715519, div_rms=1.078e-01, vort_rms=8.195e-01, mass_err=-7.029e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.182)
+step= 30000, t=26.002496, dt=8.781e-04, KE=2.793170e-02, Mt=0.2377, A_K=0.102, Cuv=-0.079, P_in=1.822e-03, P_tgt=1.824e-03, A_F=0.073, K_low=0.145, P_drag=-8.078e-04, P_cool=-6.108e-04, WENO=0.121, rho_mean=1.000000, p_mean=0.715507, div_rms=1.113e-01, vort_rms=8.280e-01, mass_err=-7.271e-11
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0030000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.181)
+step= 31000, t=26.877621, dt=8.750e-04, KE=2.892661e-02, Mt=0.2420, A_K=0.077, Cuv=-0.013, P_in=2.859e-03, P_tgt=2.860e-03, A_F=0.122, K_low=0.149, P_drag=-8.513e-04, P_cool=-5.723e-04, WENO=0.097, rho_mean=1.000000, p_mean=0.715430, div_rms=1.161e-01, vort_rms=8.448e-01, mass_err=-7.513e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.176)
+step= 32000, t=27.743026, dt=8.579e-04, KE=3.017645e-02, Mt=0.2475, A_K=0.098, Cuv=0.051, P_in=3.668e-03, P_tgt=3.614e-03, A_F=0.348, K_low=0.143, P_drag=-8.575e-04, P_cool=-6.398e-04, WENO=0.094, rho_mean=1.000000, p_mean=0.715565, div_rms=1.106e-01, vort_rms=8.764e-01, mass_err=-7.756e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.173)
+step= 33000, t=28.596249, dt=8.480e-04, KE=3.173168e-02, Mt=0.2545, A_K=0.076, Cuv=0.070, P_in=3.490e-03, P_tgt=3.479e-03, A_F=0.210, K_low=0.128, P_drag=-8.012e-04, P_cool=-6.896e-04, WENO=0.116, rho_mean=1.000000, p_mean=0.715665, div_rms=1.188e-01, vort_rms=9.225e-01, mass_err=-7.999e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.171)
+step= 34000, t=29.436588, dt=8.361e-04, KE=3.298037e-02, Mt=0.2591, A_K=0.033, Cuv=0.159, P_in=2.673e-03, P_tgt=2.652e-03, A_F=0.286, K_low=0.110, P_drag=-7.230e-04, P_cool=-7.155e-04, WENO=0.077, rho_mean=1.000000, p_mean=0.715717, div_rms=1.212e-01, vort_rms=9.482e-01, mass_err=-8.242e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.171)
+step= 35000, t=30.280225, dt=8.413e-04, KE=3.340221e-02, Mt=0.2619, A_K=0.021, Cuv=0.180, P_in=1.773e-03, P_tgt=1.760e-03, A_F=0.007, K_low=0.105, P_drag=-6.906e-04, P_cool=-7.582e-04, WENO=0.075, rho_mean=1.000000, p_mean=0.715802, div_rms=1.264e-01, vort_rms=9.531e-01, mass_err=-8.483e-11
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0035000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.171)
+step= 36000, t=31.138504, dt=8.715e-04, KE=3.389326e-02, Mt=0.2622, A_K=0.072, Cuv=0.120, P_in=1.102e-03, P_tgt=1.112e-03, A_F=0.072, K_low=0.102, P_drag=-6.840e-04, P_cool=-6.675e-04, WENO=0.140, rho_mean=1.000000, p_mean=0.715621, div_rms=1.202e-01, vort_rms=9.555e-01, mass_err=-8.726e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.171)
+step= 37000, t=32.000883, dt=8.500e-04, KE=3.305712e-02, Mt=0.2596, A_K=0.116, Cuv=0.001, P_in=7.310e-04, P_tgt=7.318e-04, A_F=0.088, K_low=0.109, P_drag=-7.145e-04, P_cool=-7.506e-04, WENO=0.113, rho_mean=1.000000, p_mean=0.715787, div_rms=1.228e-01, vort_rms=9.427e-01, mass_err=-8.968e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.171)
+step= 38000, t=32.861564, dt=8.725e-04, KE=3.260090e-02, Mt=0.2574, A_K=0.113, Cuv=-0.073, P_in=5.325e-04, P_tgt=5.346e-04, A_F=0.120, K_low=0.116, P_drag=-7.521e-04, P_cool=-6.956e-04, WENO=0.113, rho_mean=1.000000, p_mean=0.715677, div_rms=1.209e-01, vort_rms=9.258e-01, mass_err=-9.209e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.171)
+step= 39000, t=33.736682, dt=8.676e-04, KE=3.186849e-02, Mt=0.2544, A_K=0.109, Cuv=-0.152, P_in=4.291e-04, P_tgt=4.276e-04, A_F=0.196, K_low=0.117, P_drag=-7.442e-04, P_cool=-6.771e-04, WENO=0.150, rho_mean=1.000000, p_mean=0.715640, div_rms=1.190e-01, vort_rms=9.032e-01, mass_err=-9.452e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.170)
+step= 40000, t=34.603747, dt=8.818e-04, KE=3.093380e-02, Mt=0.2506, A_K=0.098, Cuv=-0.221, P_in=3.812e-04, P_tgt=3.896e-04, A_F=0.119, K_low=0.120, P_drag=-7.347e-04, P_cool=-6.867e-04, WENO=0.151, rho_mean=1.000000, p_mean=0.715659, div_rms=1.222e-01, vort_rms=8.768e-01, mass_err=-9.694e-11
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0040000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.170)
+step= 41000, t=35.482773, dt=8.921e-04, KE=3.019781e-02, Mt=0.2470, A_K=0.002, Cuv=-0.274, P_in=4.097e-04, P_tgt=4.067e-04, A_F=0.045, K_low=0.125, P_drag=-7.498e-04, P_cool=-6.565e-04, WENO=0.113, rho_mean=1.000000, p_mean=0.715599, div_rms=1.172e-01, vort_rms=8.505e-01, mass_err=-9.938e-11
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.170)
+step= 42000, t=36.371034, dt=8.792e-04, KE=2.919893e-02, Mt=0.2437, A_K=0.083, Cuv=-0.252, P_in=4.919e-04, P_tgt=4.935e-04, A_F=0.039, K_low=0.140, P_drag=-8.035e-04, P_cool=-6.794e-04, WENO=0.122, rho_mean=1.000000, p_mean=0.715644, div_rms=1.160e-01, vort_rms=8.248e-01, mass_err=-1.018e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.170)
+step= 43000, t=37.265869, dt=9.046e-04, KE=2.879981e-02, Mt=0.2414, A_K=0.160, Cuv=-0.185, P_in=6.902e-04, P_tgt=6.805e-04, A_F=0.083, K_low=0.157, P_drag=-9.016e-04, P_cool=-5.978e-04, WENO=0.138, rho_mean=1.000000, p_mean=0.715481, div_rms=1.190e-01, vort_rms=8.072e-01, mass_err=-1.042e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.169)
+step= 44000, t=38.167844, dt=9.047e-04, KE=2.784410e-02, Mt=0.2381, A_K=0.180, Cuv=-0.182, P_in=1.052e-03, P_tgt=1.044e-03, A_F=0.198, K_low=0.175, P_drag=-9.710e-04, P_cool=-6.602e-04, WENO=0.163, rho_mean=1.000000, p_mean=0.715606, div_rms=1.150e-01, vort_rms=7.928e-01, mass_err=-1.066e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.169)
+step= 45000, t=39.076033, dt=9.180e-04, KE=2.802846e-02, Mt=0.2380, A_K=0.139, Cuv=-0.137, P_in=1.797e-03, P_tgt=1.787e-03, A_F=0.069, K_low=0.191, P_drag=-1.066e-03, P_cool=-5.818e-04, WENO=0.100, rho_mean=1.000000, p_mean=0.715449, div_rms=1.195e-01, vort_rms=8.054e-01, mass_err=-1.091e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0045000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.168)
+step= 46000, t=40.000478, dt=9.233e-04, KE=2.856372e-02, Mt=0.2397, A_K=0.172, Cuv=-0.081, P_in=2.915e-03, P_tgt=2.884e-03, A_F=0.285, K_low=0.199, P_drag=-1.126e-03, P_cool=-5.897e-04, WENO=0.127, rho_mean=1.000000, p_mean=0.715465, div_rms=1.145e-01, vort_rms=8.180e-01, mass_err=-1.115e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.165)
+step= 47000, t=40.915552, dt=9.112e-04, KE=3.007390e-02, Mt=0.2464, A_K=0.133, Cuv=0.011, P_in=3.878e-03, P_tgt=3.858e-03, A_F=0.113, K_low=0.196, P_drag=-1.164e-03, P_cool=-6.013e-04, WENO=0.136, rho_mean=1.000000, p_mean=0.715488, div_rms=1.204e-01, vort_rms=8.593e-01, mass_err=-1.139e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.162)
+step= 48000, t=41.830621, dt=9.017e-04, KE=3.194283e-02, Mt=0.2544, A_K=0.125, Cuv=0.072, P_in=3.912e-03, P_tgt=3.866e-03, A_F=0.112, K_low=0.192, P_drag=-1.213e-03, P_cool=-6.238e-04, WENO=0.106, rho_mean=1.000000, p_mean=0.715533, div_rms=1.335e-01, vort_rms=8.939e-01, mass_err=-1.163e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.159)
+step= 49000, t=42.734748, dt=9.171e-04, KE=3.308628e-02, Mt=0.2587, A_K=0.086, Cuv=-0.004, P_in=2.976e-03, P_tgt=2.949e-03, A_F=0.141, K_low=0.181, P_drag=-1.193e-03, P_cool=-6.797e-04, WENO=0.112, rho_mean=1.000000, p_mean=0.715645, div_rms=1.361e-01, vort_rms=9.367e-01, mass_err=-1.187e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.158)
+step= 50000, t=43.643022, dt=8.999e-04, KE=3.368605e-02, Mt=0.2610, A_K=0.004, Cuv=0.037, P_in=1.997e-03, P_tgt=2.020e-03, A_F=0.039, K_low=0.171, P_drag=-1.149e-03, P_cool=-6.712e-04, WENO=0.140, rho_mean=1.000000, p_mean=0.715628, div_rms=1.423e-01, vort_rms=9.620e-01, mass_err=-1.211e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0050000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.157)
+step= 51000, t=44.530682, dt=8.620e-04, KE=3.340055e-02, Mt=0.2590, A_K=0.047, Cuv=0.046, P_in=1.393e-03, P_tgt=1.390e-03, A_F=0.087, K_low=0.164, P_drag=-1.097e-03, P_cool=-7.237e-04, WENO=0.059, rho_mean=1.000000, p_mean=0.715733, div_rms=1.509e-01, vort_rms=9.535e-01, mass_err=-1.235e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.157)
+step= 52000, t=45.399000, dt=8.719e-04, KE=3.263632e-02, Mt=0.2579, A_K=0.057, Cuv=0.067, P_in=9.862e-04, P_tgt=9.973e-04, A_F=0.018, K_low=0.168, P_drag=-1.078e-03, P_cool=-7.611e-04, WENO=0.094, rho_mean=1.000000, p_mean=0.715808, div_rms=1.498e-01, vort_rms=9.436e-01, mass_err=-1.260e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.157)
+step= 53000, t=46.258570, dt=8.470e-04, KE=3.213128e-02, Mt=0.2549, A_K=0.061, Cuv=0.093, P_in=7.833e-04, P_tgt=7.728e-04, A_F=0.183, K_low=0.157, P_drag=-9.981e-04, P_cool=-7.130e-04, WENO=0.128, rho_mean=1.000000, p_mean=0.715712, div_rms=1.493e-01, vort_rms=9.296e-01, mass_err=-1.284e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.157)
+step= 54000, t=47.117833, dt=8.526e-04, KE=3.130626e-02, Mt=0.2524, A_K=0.062, Cuv=0.041, P_in=6.503e-04, P_tgt=6.679e-04, A_F=0.118, K_low=0.146, P_drag=-8.959e-04, P_cool=-7.381e-04, WENO=0.134, rho_mean=1.000000, p_mean=0.715762, div_rms=1.542e-01, vort_rms=9.173e-01, mass_err=-1.308e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.157)
+step= 55000, t=47.959674, dt=8.276e-04, KE=3.069156e-02, Mt=0.2484, A_K=0.064, Cuv=0.070, P_in=6.609e-04, P_tgt=6.610e-04, A_F=0.031, K_low=0.124, P_drag=-7.563e-04, P_cool=-7.103e-04, WENO=0.136, rho_mean=1.000000, p_mean=0.715706, div_rms=1.500e-01, vort_rms=9.012e-01, mass_err=-1.332e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0055000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.157)
+step= 56000, t=48.797167, dt=8.432e-04, KE=3.020359e-02, Mt=0.2478, A_K=0.107, Cuv=0.077, P_in=7.036e-04, P_tgt=7.043e-04, A_F=0.120, K_low=0.114, P_drag=-6.644e-04, P_cool=-6.918e-04, WENO=0.130, rho_mean=1.000000, p_mean=0.715669, div_rms=1.459e-01, vort_rms=8.902e-01, mass_err=-1.356e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.156)
+step= 57000, t=49.659670, dt=8.741e-04, KE=2.950930e-02, Mt=0.2450, A_K=0.054, Cuv=0.138, P_in=8.234e-04, P_tgt=8.268e-04, A_F=0.136, K_low=0.089, P_drag=-5.227e-04, P_cool=-7.332e-04, WENO=0.131, rho_mean=1.000000, p_mean=0.715752, div_rms=1.422e-01, vort_rms=8.743e-01, mass_err=-1.380e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.153)
+step= 58000, t=50.542625, dt=8.983e-04, KE=2.965477e-02, Mt=0.2452, A_K=0.101, Cuv=0.160, P_in=1.107e-03, P_tgt=1.021e-03, A_F=0.231, K_low=0.067, P_drag=-3.881e-04, P_cool=-6.647e-04, WENO=0.134, rho_mean=1.000000, p_mean=0.715615, div_rms=1.485e-01, vort_rms=8.705e-01, mass_err=-1.405e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.153)
+step= 59000, t=51.440676, dt=9.064e-04, KE=2.950608e-02, Mt=0.2444, A_K=0.089, Cuv=0.315, P_in=1.299e-03, P_tgt=1.289e-03, A_F=0.005, K_low=0.051, P_drag=-2.990e-04, P_cool=-7.122e-04, WENO=0.149, rho_mean=1.000000, p_mean=0.715710, div_rms=1.425e-01, vort_rms=8.769e-01, mass_err=-1.429e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.153)
+step= 60000, t=52.338152, dt=8.974e-04, KE=3.038819e-02, Mt=0.2473, A_K=0.083, Cuv=0.282, P_in=1.519e-03, P_tgt=1.512e-03, A_F=0.131, K_low=0.045, P_drag=-2.640e-04, P_cool=-6.247e-04, WENO=0.101, rho_mean=1.000000, p_mean=0.715535, div_rms=1.354e-01, vort_rms=8.871e-01, mass_err=-1.453e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0060000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.152)
+step= 61000, t=53.215615, dt=8.646e-04, KE=3.050820e-02, Mt=0.2487, A_K=0.054, Cuv=0.234, P_in=1.606e-03, P_tgt=1.616e-03, A_F=0.074, K_low=0.041, P_drag=-2.475e-04, P_cool=-7.163e-04, WENO=0.096, rho_mean=1.000000, p_mean=0.715718, div_rms=1.439e-01, vort_rms=8.874e-01, mass_err=-1.477e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.152)
+step= 62000, t=54.084097, dt=8.718e-04, KE=3.127858e-02, Mt=0.2511, A_K=0.001, Cuv=0.184, P_in=1.614e-03, P_tgt=1.630e-03, A_F=0.274, K_low=0.042, P_drag=-2.640e-04, P_cool=-6.798e-04, WENO=0.131, rho_mean=1.000000, p_mean=0.715645, div_rms=1.396e-01, vort_rms=8.931e-01, mass_err=-1.501e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.151)
+step= 63000, t=54.952955, dt=8.609e-04, KE=3.187739e-02, Mt=0.2532, A_K=0.056, Cuv=0.111, P_in=1.494e-03, P_tgt=1.490e-03, A_F=0.166, K_low=0.048, P_drag=-3.092e-04, P_cool=-6.674e-04, WENO=0.140, rho_mean=1.000000, p_mean=0.715621, div_rms=1.450e-01, vort_rms=8.915e-01, mass_err=-1.525e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.151)
+step= 64000, t=55.824880, dt=8.811e-04, KE=3.225439e-02, Mt=0.2556, A_K=0.049, Cuv=0.035, P_in=1.259e-03, P_tgt=1.266e-03, A_F=0.008, K_low=0.062, P_drag=-3.923e-04, P_cool=-6.540e-04, WENO=0.155, rho_mean=1.000000, p_mean=0.715594, div_rms=1.434e-01, vort_rms=8.868e-01, mass_err=-1.550e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.151)
+step= 65000, t=56.718535, dt=8.866e-04, KE=3.200271e-02, Mt=0.2545, A_K=0.031, Cuv=-0.013, P_in=1.045e-03, P_tgt=1.045e-03, A_F=0.018, K_low=0.069, P_drag=-4.377e-04, P_cool=-7.142e-04, WENO=0.138, rho_mean=1.000000, p_mean=0.715714, div_rms=1.317e-01, vort_rms=8.814e-01, mass_err=-1.574e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0065000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.151)
+step= 66000, t=57.608732, dt=8.904e-04, KE=3.187462e-02, Mt=0.2543, A_K=0.039, Cuv=-0.071, P_in=8.872e-04, P_tgt=8.746e-04, A_F=0.194, K_low=0.074, P_drag=-4.621e-04, P_cool=-7.017e-04, WENO=0.130, rho_mean=1.000000, p_mean=0.715689, div_rms=1.357e-01, vort_rms=8.715e-01, mass_err=-1.598e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.151)
+step= 67000, t=58.497009, dt=8.987e-04, KE=3.193128e-02, Mt=0.2538, A_K=0.003, Cuv=-0.162, P_in=7.391e-04, P_tgt=7.472e-04, A_F=0.068, K_low=0.076, P_drag=-4.715e-04, P_cool=-6.401e-04, WENO=0.129, rho_mean=1.000000, p_mean=0.715566, div_rms=1.390e-01, vort_rms=8.643e-01, mass_err=-1.622e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.150)
+step= 68000, t=59.387670, dt=8.997e-04, KE=3.128909e-02, Mt=0.2520, A_K=0.031, Cuv=-0.216, P_in=6.892e-04, P_tgt=6.717e-04, A_F=0.164, K_low=0.081, P_drag=-4.943e-04, P_cool=-6.877e-04, WENO=0.123, rho_mean=1.000000, p_mean=0.715661, div_rms=1.352e-01, vort_rms=8.437e-01, mass_err=-1.646e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.150)
+step= 69000, t=60.286744, dt=8.924e-04, KE=3.122441e-02, Mt=0.2510, A_K=0.019, Cuv=-0.260, P_in=6.305e-04, P_tgt=6.340e-04, A_F=0.260, K_low=0.078, P_drag=-4.845e-04, P_cool=-6.113e-04, WENO=0.136, rho_mean=1.000000, p_mean=0.715508, div_rms=1.330e-01, vort_rms=8.278e-01, mass_err=-1.671e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.150)
+step= 70000, t=61.166399, dt=8.741e-04, KE=3.077672e-02, Mt=0.2494, A_K=0.029, Cuv=-0.315, P_in=6.357e-04, P_tgt=6.387e-04, A_F=0.173, K_low=0.080, P_drag=-4.894e-04, P_cool=-6.179e-04, WENO=0.118, rho_mean=1.000000, p_mean=0.715522, div_rms=1.254e-01, vort_rms=8.109e-01, mass_err=-1.695e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0070000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.150)
+step= 71000, t=62.054437, dt=8.935e-04, KE=3.029859e-02, Mt=0.2474, A_K=0.070, Cuv=-0.337, P_in=6.693e-04, P_tgt=6.658e-04, A_F=0.047, K_low=0.087, P_drag=-5.282e-04, P_cool=-6.312e-04, WENO=0.123, rho_mean=1.000000, p_mean=0.715548, div_rms=1.222e-01, vort_rms=7.905e-01, mass_err=-1.719e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.150)
+step= 72000, t=62.948750, dt=8.896e-04, KE=3.001839e-02, Mt=0.2466, A_K=0.005, Cuv=-0.307, P_in=7.555e-04, P_tgt=7.531e-04, A_F=0.175, K_low=0.099, P_drag=-5.852e-04, P_cool=-6.026e-04, WENO=0.151, rho_mean=1.000000, p_mean=0.715491, div_rms=1.314e-01, vort_rms=7.768e-01, mass_err=-1.743e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.149)
+step= 73000, t=63.826806, dt=8.711e-04, KE=2.993387e-02, Mt=0.2455, A_K=0.062, Cuv=-0.380, P_in=9.099e-04, P_tgt=8.942e-04, A_F=0.018, K_low=0.104, P_drag=-6.182e-04, P_cool=-5.574e-04, WENO=0.127, rho_mean=1.000000, p_mean=0.715400, div_rms=1.311e-01, vort_rms=7.691e-01, mass_err=-1.768e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.148)
+step= 74000, t=64.713877, dt=8.955e-04, KE=2.984905e-02, Mt=0.2456, A_K=0.070, Cuv=-0.362, P_in=1.054e-03, P_tgt=1.069e-03, A_F=0.053, K_low=0.117, P_drag=-6.964e-04, P_cool=-5.657e-04, WENO=0.147, rho_mean=1.000000, p_mean=0.715417, div_rms=1.319e-01, vort_rms=7.654e-01, mass_err=-1.792e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.148)
+step= 75000, t=65.601201, dt=8.948e-04, KE=2.971009e-02, Mt=0.2462, A_K=0.021, Cuv=-0.369, P_in=1.272e-03, P_tgt=1.271e-03, A_F=0.309, K_low=0.132, P_drag=-7.657e-04, P_cool=-5.699e-04, WENO=0.118, rho_mean=1.000000, p_mean=0.715426, div_rms=1.302e-01, vort_rms=7.647e-01, mass_err=-1.816e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0075000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.148)
+step= 76000, t=66.491744, dt=8.708e-04, KE=2.948310e-02, Mt=0.2448, A_K=0.007, Cuv=-0.271, P_in=1.560e-03, P_tgt=1.557e-03, A_F=0.066, K_low=0.141, P_drag=-8.188e-04, P_cool=-6.180e-04, WENO=0.123, rho_mean=1.000000, p_mean=0.715522, div_rms=1.222e-01, vort_rms=7.763e-01, mass_err=-1.840e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.147)
+step= 77000, t=67.362385, dt=8.686e-04, KE=3.021801e-02, Mt=0.2472, A_K=0.015, Cuv=-0.237, P_in=1.824e-03, P_tgt=1.807e-03, A_F=0.170, K_low=0.157, P_drag=-9.310e-04, P_cool=-5.172e-04, WENO=0.145, rho_mean=1.000000, p_mean=0.715320, div_rms=1.271e-01, vort_rms=7.971e-01, mass_err=-1.864e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.145)
+step= 78000, t=68.235580, dt=8.847e-04, KE=3.044775e-02, Mt=0.2479, A_K=0.037, Cuv=-0.124, P_in=2.036e-03, P_tgt=2.004e-03, A_F=0.166, K_low=0.156, P_drag=-9.432e-04, P_cool=-5.476e-04, WENO=0.099, rho_mean=1.000000, p_mean=0.715381, div_rms=1.241e-01, vort_rms=8.138e-01, mass_err=-1.888e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.145)
+step= 79000, t=69.116626, dt=8.690e-04, KE=3.083292e-02, Mt=0.2496, A_K=0.021, Cuv=-0.046, P_in=2.086e-03, P_tgt=2.090e-03, A_F=0.165, K_low=0.150, P_drag=-9.151e-04, P_cool=-5.721e-04, WENO=0.109, rho_mean=1.000000, p_mean=0.715430, div_rms=1.245e-01, vort_rms=8.263e-01, mass_err=-1.913e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.145)
+step= 80000, t=69.976493, dt=8.587e-04, KE=3.137179e-02, Mt=0.2522, A_K=0.012, Cuv=-0.038, P_in=2.007e-03, P_tgt=2.017e-03, A_F=0.239, K_low=0.140, P_drag=-8.705e-04, P_cool=-5.697e-04, WENO=0.103, rho_mean=1.000000, p_mean=0.715425, div_rms=1.320e-01, vort_rms=8.571e-01, mass_err=-1.937e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0080000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.145)
+step= 81000, t=70.841160, dt=8.557e-04, KE=3.154653e-02, Mt=0.2530, A_K=0.034, Cuv=0.012, P_in=1.786e-03, P_tgt=1.789e-03, A_F=0.063, K_low=0.123, P_drag=-7.766e-04, P_cool=-6.204e-04, WENO=0.116, rho_mean=1.000000, p_mean=0.715527, div_rms=1.217e-01, vort_rms=8.701e-01, mass_err=-1.961e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.141)
+step= 82000, t=71.718031, dt=8.958e-04, KE=3.184781e-02, Mt=0.2538, A_K=0.117, Cuv=0.047, P_in=1.568e-03, P_tgt=1.553e-03, A_F=0.301, K_low=0.119, P_drag=-7.464e-04, P_cool=-6.194e-04, WENO=0.104, rho_mean=1.000000, p_mean=0.715525, div_rms=1.258e-01, vort_rms=9.077e-01, mass_err=-1.985e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.139)
+step= 83000, t=72.613493, dt=8.801e-04, KE=3.179202e-02, Mt=0.2542, A_K=0.069, Cuv=0.027, P_in=1.289e-03, P_tgt=1.318e-03, A_F=0.036, K_low=0.116, P_drag=-7.284e-04, P_cool=-6.422e-04, WENO=0.109, rho_mean=1.000000, p_mean=0.715570, div_rms=1.425e-01, vort_rms=9.084e-01, mass_err=-2.009e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.139)
+step= 84000, t=73.477381, dt=8.652e-04, KE=3.189361e-02, Mt=0.2539, A_K=0.082, Cuv=0.057, P_in=1.131e-03, P_tgt=1.131e-03, A_F=0.104, K_low=0.125, P_drag=-7.931e-04, P_cool=-5.952e-04, WENO=0.139, rho_mean=1.000000, p_mean=0.715476, div_rms=1.366e-01, vort_rms=9.025e-01, mass_err=-2.033e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.139)
+step= 85000, t=74.335759, dt=8.740e-04, KE=3.150347e-02, Mt=0.2525, A_K=0.051, Cuv=0.086, P_in=1.020e-03, P_tgt=9.960e-04, A_F=0.027, K_low=0.143, P_drag=-8.936e-04, P_cool=-6.079e-04, WENO=0.115, rho_mean=1.000000, p_mean=0.715502, div_rms=1.369e-01, vort_rms=8.936e-01, mass_err=-2.058e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0085000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.138)
+step= 86000, t=75.213439, dt=8.863e-04, KE=3.079917e-02, Mt=0.2501, A_K=0.035, Cuv=0.013, P_in=9.763e-04, P_tgt=9.700e-04, A_F=0.195, K_low=0.162, P_drag=-9.874e-04, P_cool=-6.450e-04, WENO=0.131, rho_mean=1.000000, p_mean=0.715576, div_rms=1.455e-01, vort_rms=8.987e-01, mass_err=-2.082e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.138)
+step= 87000, t=76.110972, dt=8.993e-04, KE=3.005467e-02, Mt=0.2470, A_K=0.031, Cuv=-0.037, P_in=1.047e-03, P_tgt=1.049e-03, A_F=0.068, K_low=0.179, P_drag=-1.063e-03, P_cool=-6.665e-04, WENO=0.100, rho_mean=1.000000, p_mean=0.715619, div_rms=1.384e-01, vort_rms=8.837e-01, mass_err=-2.106e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.138)
+step= 88000, t=77.021996, dt=9.089e-04, KE=2.963128e-02, Mt=0.2447, A_K=0.005, Cuv=-0.013, P_in=1.256e-03, P_tgt=1.242e-03, A_F=0.048, K_low=0.177, P_drag=-1.044e-03, P_cool=-6.483e-04, WENO=0.105, rho_mean=1.000000, p_mean=0.715582, div_rms=1.256e-01, vort_rms=8.680e-01, mass_err=-2.130e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.137)
+step= 89000, t=77.897071, dt=8.704e-04, KE=2.957066e-02, Mt=0.2441, A_K=0.004, Cuv=-0.069, P_in=1.559e-03, P_tgt=1.562e-03, A_F=0.022, K_low=0.164, P_drag=-9.728e-04, P_cool=-6.156e-04, WENO=0.134, rho_mean=1.000000, p_mean=0.715517, div_rms=1.288e-01, vort_rms=8.657e-01, mass_err=-2.154e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.136)
+step= 90000, t=78.771735, dt=8.799e-04, KE=2.940849e-02, Mt=0.2444, A_K=0.000, Cuv=-0.102, P_in=1.957e-03, P_tgt=1.945e-03, A_F=0.099, K_low=0.147, P_drag=-8.553e-04, P_cool=-6.849e-04, WENO=0.146, rho_mean=1.000000, p_mean=0.715656, div_rms=1.315e-01, vort_rms=8.709e-01, mass_err=-2.179e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0090000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.136)
+step= 91000, t=79.648579, dt=8.881e-04, KE=3.012680e-02, Mt=0.2468, A_K=0.089, Cuv=-0.066, P_in=2.384e-03, P_tgt=2.375e-03, A_F=0.123, K_low=0.117, P_drag=-6.995e-04, P_cool=-6.669e-04, WENO=0.137, rho_mean=1.000000, p_mean=0.715620, div_rms=1.339e-01, vort_rms=8.841e-01, mass_err=-2.203e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.131)
+step= 92000, t=80.522072, dt=8.647e-04, KE=3.125598e-02, Mt=0.2512, A_K=0.040, Cuv=-0.129, P_in=2.460e-03, P_tgt=2.458e-03, A_F=0.100, K_low=0.094, P_drag=-5.849e-04, P_cool=-6.456e-04, WENO=0.126, rho_mean=1.000000, p_mean=0.715577, div_rms=1.362e-01, vort_rms=8.951e-01, mass_err=-2.227e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.131)
+step= 93000, t=81.409606, dt=8.873e-04, KE=3.223407e-02, Mt=0.2552, A_K=0.008, Cuv=-0.173, P_in=2.157e-03, P_tgt=2.148e-03, A_F=0.009, K_low=0.081, P_drag=-5.219e-04, P_cool=-6.532e-04, WENO=0.128, rho_mean=1.000000, p_mean=0.715592, div_rms=1.379e-01, vort_rms=9.000e-01, mass_err=-2.251e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.131)
+step= 94000, t=82.285401, dt=8.717e-04, KE=3.286159e-02, Mt=0.2571, A_K=0.024, Cuv=-0.180, P_in=1.706e-03, P_tgt=1.700e-03, A_F=0.219, K_low=0.079, P_drag=-5.201e-04, P_cool=-6.608e-04, WENO=0.116, rho_mean=1.000000, p_mean=0.715607, div_rms=1.411e-01, vort_rms=9.054e-01, mass_err=-2.275e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.130)
+step= 95000, t=83.157214, dt=8.702e-04, KE=3.269959e-02, Mt=0.2579, A_K=0.051, Cuv=-0.195, P_in=1.253e-03, P_tgt=1.268e-03, A_F=0.044, K_low=0.093, P_drag=-6.065e-04, P_cool=-7.303e-04, WENO=0.151, rho_mean=1.000000, p_mean=0.715746, div_rms=1.365e-01, vort_rms=8.992e-01, mass_err=-2.299e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0095000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.130)
+step= 96000, t=84.042312, dt=8.874e-04, KE=3.287179e-02, Mt=0.2574, A_K=0.071, Cuv=-0.207, P_in=9.381e-04, P_tgt=9.349e-04, A_F=0.016, K_low=0.118, P_drag=-7.713e-04, P_cool=-6.490e-04, WENO=0.120, rho_mean=1.000000, p_mean=0.715584, div_rms=1.366e-01, vort_rms=8.905e-01, mass_err=-2.323e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.129)
+step= 97000, t=84.898538, dt=8.520e-04, KE=3.207720e-02, Mt=0.2536, A_K=0.008, Cuv=-0.138, P_in=7.949e-04, P_tgt=7.504e-04, A_F=0.370, K_low=0.149, P_drag=-9.548e-04, P_cool=-6.882e-04, WENO=0.116, rho_mean=1.000000, p_mean=0.715662, div_rms=1.287e-01, vort_rms=8.789e-01, mass_err=-2.347e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.129)
+step= 98000, t=85.775669, dt=8.970e-04, KE=3.119749e-02, Mt=0.2515, A_K=0.036, Cuv=-0.068, P_in=6.667e-04, P_tgt=6.709e-04, A_F=0.050, K_low=0.181, P_drag=-1.119e-03, P_cool=-6.878e-04, WENO=0.123, rho_mean=1.000000, p_mean=0.715661, div_rms=1.341e-01, vort_rms=8.532e-01, mass_err=-2.372e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.129)
+step= 99000, t=86.677239, dt=8.924e-04, KE=3.039734e-02, Mt=0.2474, A_K=0.089, Cuv=-0.035, P_in=7.023e-04, P_tgt=6.954e-04, A_F=0.276, K_low=0.207, P_drag=-1.251e-03, P_cool=-6.343e-04, WENO=0.103, rho_mean=1.000000, p_mean=0.715554, div_rms=1.378e-01, vort_rms=8.382e-01, mass_err=-2.396e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.129)
+step=100000, t=87.565819, dt=8.861e-04, KE=2.938047e-02, Mt=0.2433, A_K=0.001, Cuv=0.037, P_in=8.434e-04, P_tgt=8.405e-04, A_F=0.085, K_low=0.221, P_drag=-1.291e-03, P_cool=-6.342e-04, WENO=0.128, rho_mean=1.000000, p_mean=0.715554, div_rms=1.301e-01, vort_rms=8.285e-01, mass_err=-2.420e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0100000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.129)
+step=101000, t=88.480643, dt=9.424e-04, KE=2.842843e-02, Mt=0.2397, A_K=0.000, Cuv=0.099, P_in=1.195e-03, P_tgt=1.196e-03, A_F=0.088, K_low=0.216, P_drag=-1.216e-03, P_cool=-6.593e-04, WENO=0.141, rho_mean=1.000000, p_mean=0.715604, div_rms=1.292e-01, vort_rms=8.151e-01, mass_err=-2.444e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.128)
+step=102000, t=89.393717, dt=8.821e-04, KE=2.850141e-02, Mt=0.2396, A_K=0.049, Cuv=0.171, P_in=1.877e-03, P_tgt=1.888e-03, A_F=0.042, K_low=0.185, P_drag=-1.059e-03, P_cool=-5.990e-04, WENO=0.133, rho_mean=1.000000, p_mean=0.715484, div_rms=1.311e-01, vort_rms=8.144e-01, mass_err=-2.468e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.127)
+step=103000, t=90.272424, dt=8.795e-04, KE=2.875750e-02, Mt=0.2419, A_K=0.130, Cuv=0.217, P_in=2.852e-03, P_tgt=2.813e-03, A_F=0.163, K_low=0.157, P_drag=-8.983e-04, P_cool=-6.768e-04, WENO=0.127, rho_mean=1.000000, p_mean=0.715639, div_rms=1.266e-01, vort_rms=8.466e-01, mass_err=-2.492e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.127)
+step=104000, t=91.126100, dt=8.405e-04, KE=3.032270e-02, Mt=0.2481, A_K=0.092, Cuv=0.233, P_in=3.419e-03, P_tgt=3.398e-03, A_F=0.071, K_low=0.132, P_drag=-8.019e-04, P_cool=-6.493e-04, WENO=0.116, rho_mean=1.000000, p_mean=0.715584, div_rms=1.344e-01, vort_rms=8.846e-01, mass_err=-2.516e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.124)
+step=105000, t=91.969077, dt=8.312e-04, KE=3.174937e-02, Mt=0.2548, A_K=0.039, Cuv=0.235, P_in=3.265e-03, P_tgt=3.246e-03, A_F=0.056, K_low=0.120, P_drag=-7.563e-04, P_cool=-6.927e-04, WENO=0.126, rho_mean=1.000000, p_mean=0.715671, div_rms=1.414e-01, vort_rms=9.227e-01, mass_err=-2.541e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0105000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.124)
+step=106000, t=92.806825, dt=8.484e-04, KE=3.247598e-02, Mt=0.2583, A_K=0.043, Cuv=0.185, P_in=2.470e-03, P_tgt=2.486e-03, A_F=0.034, K_low=0.118, P_drag=-7.597e-04, P_cool=-7.805e-04, WENO=0.083, rho_mean=1.000000, p_mean=0.715847, div_rms=1.360e-01, vort_rms=9.444e-01, mass_err=-2.565e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.124)
+step=107000, t=93.672321, dt=8.687e-04, KE=3.339668e-02, Mt=0.2612, A_K=0.014, Cuv=0.116, P_in=1.729e-03, P_tgt=1.732e-03, A_F=0.052, K_low=0.122, P_drag=-8.163e-04, P_cool=-6.939e-04, WENO=0.117, rho_mean=1.000000, p_mean=0.715673, div_rms=1.378e-01, vort_rms=9.517e-01, mass_err=-2.589e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.123)
+step=108000, t=94.527999, dt=8.637e-04, KE=3.324085e-02, Mt=0.2601, A_K=0.043, Cuv=0.102, P_in=1.167e-03, P_tgt=1.144e-03, A_F=0.061, K_low=0.125, P_drag=-8.280e-04, P_cool=-7.074e-04, WENO=0.093, rho_mean=1.000000, p_mean=0.715700, div_rms=1.292e-01, vort_rms=9.443e-01, mass_err=-2.613e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.123)
+step=109000, t=95.384867, dt=8.539e-04, KE=3.238400e-02, Mt=0.2570, A_K=0.100, Cuv=0.071, P_in=8.031e-04, P_tgt=8.120e-04, A_F=0.065, K_low=0.137, P_drag=-8.808e-04, P_cool=-7.747e-04, WENO=0.090, rho_mean=1.000000, p_mean=0.715835, div_rms=1.363e-01, vort_rms=9.306e-01, mass_err=-2.638e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.123)
+step=110000, t=96.241741, dt=8.644e-04, KE=3.199789e-02, Mt=0.2553, A_K=0.107, Cuv=0.053, P_in=6.481e-04, P_tgt=6.465e-04, A_F=0.209, K_low=0.147, P_drag=-9.293e-04, P_cool=-6.924e-04, WENO=0.105, rho_mean=1.000000, p_mean=0.715670, div_rms=1.294e-01, vort_rms=9.173e-01, mass_err=-2.662e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0110000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.123)
+step=111000, t=97.106393, dt=8.677e-04, KE=3.129579e-02, Mt=0.2512, A_K=0.116, Cuv=0.038, P_in=5.590e-04, P_tgt=5.624e-04, A_F=0.064, K_low=0.154, P_drag=-9.591e-04, P_cool=-6.581e-04, WENO=0.101, rho_mean=1.000000, p_mean=0.715602, div_rms=1.274e-01, vort_rms=8.977e-01, mass_err=-2.686e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.123)
+step=112000, t=97.987241, dt=8.987e-04, KE=3.016942e-02, Mt=0.2477, A_K=0.112, Cuv=0.101, P_in=5.793e-04, P_tgt=5.727e-04, A_F=0.005, K_low=0.163, P_drag=-9.703e-04, P_cool=-6.964e-04, WENO=0.117, rho_mean=1.000000, p_mean=0.715679, div_rms=1.320e-01, vort_rms=8.707e-01, mass_err=-2.710e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.122)
+step=113000, t=98.872666, dt=8.694e-04, KE=2.917498e-02, Mt=0.2436, A_K=0.093, Cuv=0.115, P_in=7.048e-04, P_tgt=6.962e-04, A_F=0.065, K_low=0.164, P_drag=-9.415e-04, P_cool=-7.065e-04, WENO=0.104, rho_mean=1.000000, p_mean=0.715699, div_rms=1.183e-01, vort_rms=8.492e-01, mass_err=-2.734e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.122)
+step=114000, t=99.722079, dt=8.254e-04, KE=2.887413e-02, Mt=0.2417, A_K=0.102, Cuv=0.122, P_in=9.570e-04, P_tgt=9.497e-04, A_F=0.106, K_low=0.161, P_drag=-9.238e-04, P_cool=-6.337e-04, WENO=0.082, rho_mean=1.000000, p_mean=0.715553, div_rms=1.155e-01, vort_rms=8.343e-01, mass_err=-2.758e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.122)
+step=115000, t=100.557049, dt=8.395e-04, KE=2.863480e-02, Mt=0.2414, A_K=0.114, Cuv=0.199, P_in=1.331e-03, P_tgt=1.337e-03, A_F=0.112, K_low=0.156, P_drag=-8.726e-04, P_cool=-6.477e-04, WENO=0.114, rho_mean=1.000000, p_mean=0.715581, div_rms=1.187e-01, vort_rms=8.236e-01, mass_err=-2.783e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0115000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.121)
+step=116000, t=101.389175, dt=8.427e-04, KE=2.817127e-02, Mt=0.2408, A_K=0.056, Cuv=0.186, P_in=1.962e-03, P_tgt=1.981e-03, A_F=0.148, K_low=0.147, P_drag=-8.076e-04, P_cool=-7.541e-04, WENO=0.137, rho_mean=1.000000, p_mean=0.715794, div_rms=1.139e-01, vort_rms=8.160e-01, mass_err=-2.807e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.121)
+step=117000, t=102.236008, dt=8.529e-04, KE=2.945328e-02, Mt=0.2454, A_K=0.081, Cuv=0.258, P_in=2.623e-03, P_tgt=2.641e-03, A_F=0.065, K_low=0.125, P_drag=-7.259e-04, P_cool=-6.473e-04, WENO=0.116, rho_mean=1.000000, p_mean=0.715580, div_rms=1.249e-01, vort_rms=8.304e-01, mass_err=-2.831e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.120)
+step=118000, t=103.095095, dt=8.466e-04, KE=3.067140e-02, Mt=0.2507, A_K=0.088, Cuv=0.254, P_in=2.854e-03, P_tgt=2.909e-03, A_F=0.033, K_low=0.108, P_drag=-6.551e-04, P_cool=-6.591e-04, WENO=0.108, rho_mean=1.000000, p_mean=0.715604, div_rms=1.229e-01, vort_rms=8.444e-01, mass_err=-2.855e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.120)
+step=119000, t=103.948433, dt=8.543e-04, KE=3.168603e-02, Mt=0.2553, A_K=0.000, Cuv=0.290, P_in=2.571e-03, P_tgt=2.572e-03, A_F=0.187, K_low=0.105, P_drag=-6.521e-04, P_cool=-7.025e-04, WENO=0.092, rho_mean=1.000000, p_mean=0.715691, div_rms=1.286e-01, vort_rms=8.642e-01, mass_err=-2.880e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.119)
+step=120000, t=104.807455, dt=8.502e-04, KE=3.292410e-02, Mt=0.2590, A_K=0.066, Cuv=0.291, P_in=1.993e-03, P_tgt=1.944e-03, A_F=0.026, K_low=0.100, P_drag=-6.557e-04, P_cool=-6.183e-04, WENO=0.120, rho_mean=1.000000, p_mean=0.715522, div_rms=1.258e-01, vort_rms=8.875e-01, mass_err=-2.904e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0120000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.117)
+step=121000, t=105.657034, dt=8.624e-04, KE=3.317791e-02, Mt=0.2594, A_K=0.012, Cuv=0.219, P_in=1.424e-03, P_tgt=1.381e-03, A_F=0.065, K_low=0.101, P_drag=-6.659e-04, P_cool=-6.321e-04, WENO=0.124, rho_mean=1.000000, p_mean=0.715550, div_rms=1.182e-01, vort_rms=8.896e-01, mass_err=-2.928e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.116)
+step=122000, t=106.517808, dt=8.649e-04, KE=3.305412e-02, Mt=0.2593, A_K=0.051, Cuv=0.172, P_in=9.306e-04, P_tgt=9.547e-04, A_F=0.146, K_low=0.113, P_drag=-7.312e-04, P_cool=-6.292e-04, WENO=0.132, rho_mean=1.000000, p_mean=0.715544, div_rms=1.209e-01, vort_rms=8.861e-01, mass_err=-2.952e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.116)
+step=123000, t=107.395292, dt=8.720e-04, KE=3.256830e-02, Mt=0.2571, A_K=0.110, Cuv=0.090, P_in=6.726e-04, P_tgt=6.931e-04, A_F=0.182, K_low=0.123, P_drag=-7.948e-04, P_cool=-6.240e-04, WENO=0.136, rho_mean=1.000000, p_mean=0.715534, div_rms=1.263e-01, vort_rms=8.795e-01, mass_err=-2.977e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.116)
+step=124000, t=108.261090, dt=8.690e-04, KE=3.199797e-02, Mt=0.2545, A_K=0.089, Cuv=0.024, P_in=5.644e-04, P_tgt=5.575e-04, A_F=0.143, K_low=0.134, P_drag=-8.529e-04, P_cool=-5.984e-04, WENO=0.121, rho_mean=1.000000, p_mean=0.715483, div_rms=1.275e-01, vort_rms=8.715e-01, mass_err=-3.001e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.116)
+step=125000, t=109.126193, dt=8.622e-04, KE=3.085414e-02, Mt=0.2508, A_K=0.138, Cuv=-0.035, P_in=5.005e-04, P_tgt=4.968e-04, A_F=0.100, K_low=0.142, P_drag=-8.623e-04, P_cool=-6.600e-04, WENO=0.096, rho_mean=1.000000, p_mean=0.715606, div_rms=1.230e-01, vort_rms=8.634e-01, mass_err=-3.025e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0125000.npz
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.116)
+step=126000, t=109.987114, dt=8.686e-04, KE=3.001145e-02, Mt=0.2474, A_K=0.110, Cuv=-0.127, P_in=5.220e-04, P_tgt=5.231e-04, A_F=0.004, K_low=0.150, P_drag=-8.790e-04, P_cool=-6.488e-04, WENO=0.115, rho_mean=1.000000, p_mean=0.715583, div_rms=1.248e-01, vort_rms=8.510e-01, mass_err=-3.049e-10
+warning: cumulative forcing cross-correlation is high (|Fxy|/(Fxx+Fyy)=0.116)
+step=126015, t=110.000000, dt=7.237e-04, KE=3.000328e-02, Mt=0.2474, A_K=0.111, Cuv=-0.127, P_in=5.244e-04, P_tgt=5.239e-04, A_F=0.009, K_low=0.150, P_drag=-8.792e-04, P_cool=-6.478e-04, WENO=0.115, rho_mean=1.000000, p_mean=0.715581, div_rms=1.243e-01, vort_rms=8.507e-01, mass_err=-3.050e-10
+saved snapshot: results/hit2d/CFL_study_0p05_Mt025_N128/hit2d_step0126015.npz
+completed 2D HIT run at t=110.000000 in 126015 steps
