@@ -10,7 +10,7 @@ import numpy as np
 if __package__ is None or __package__ == "":
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from OOP.postprocess import HIT2DSpectra, IsotropyDiagnostics2D
+from OOP.postprocess import HIT2DPDFDiagnostics, HIT2DSpectra, IsotropyDiagnostics2D
 
 
 DEFAULT_SNAPSHOT_DIR = Path(__file__).resolve().parent / "hit2d_snapshots"
@@ -98,6 +98,19 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--no-plots", action="store_true")
     parser.add_argument("--no-spectra", action="store_true")
+    parser.add_argument("--no-pdfs", action="store_true")
+    parser.add_argument(
+        "--pdf-bins",
+        type=int,
+        default=161,
+        help="Number of bins used for each one-point PDF.",
+    )
+    parser.add_argument(
+        "--pdf-joint-bins",
+        type=int,
+        default=121,
+        help="Number of bins per axis in the joint dilatation-vorticity PDF.",
+    )
     parser.add_argument(
         "--history-x-axis",
         choices=("turnover", "time"),
@@ -182,6 +195,35 @@ def main() -> None:
             "cutoff ratios: "
             f"energy={spectrum_results.high_k_energy_ratio:.3e}, "
             f"enstrophy={spectrum_results.high_k_enstrophy_ratio:.3e}"
+        )
+        print(
+            "spectral checks: "
+            f"Parseval={spectrum_results.parseval_energy_error:.3e}, "
+            f"Helmholtz closure={spectrum_results.helmholtz_closure_error:.3e}, "
+            f"<chi_d>={spectrum_results.mean_dilatational_energy_fraction:.3e}"
+        )
+
+    if not args.no_pdfs:
+        pdfs = HIT2DPDFDiagnostics(
+            run_dir=run_dir,
+            start_time=results.selected_time_interval[0],
+            end_time=results.selected_time_interval[1],
+            stride=args.stride,
+            bins=args.pdf_bins,
+            joint_bins=args.pdf_joint_bins,
+            output_dir=args.plot_dir or run_dir / "postprocess",
+        )
+        pdf_results = pdfs.compute()
+        pdf_output = pdfs.save()
+        pdf_plot = pdfs.plot()
+        print(f"saved PDF diagnostics: {pdf_output}")
+        print(f"saved PDF plot: {pdf_plot}")
+        print(
+            "PDF moments: "
+            f"S_theta={pdf_results.moments['dilatation']['skewness']:.3e}, "
+            f"F_theta={pdf_results.moments['dilatation']['flatness']:.3e}, "
+            f"S_omega={pdf_results.moments['vorticity']['skewness']:.3e}, "
+            f"F_omega={pdf_results.moments['vorticity']['flatness']:.3e}"
         )
 
 

@@ -114,12 +114,19 @@ python3 -B scripts/run_hit2d.py \
   --kf-min 3 --kf-max 5 \
   --p-target 1.0e-3 \
   --forcing-correlation-time 0.5 \
-  --forcing-alpha-memory 0.2 \
+  --forcing-control-mode filtered_power \
+  --forcing-power-filter-time 0.5 \
+  --forcing-alpha-response-time 0.5 \
+  --forcing-alpha-max-fractional-rate 2.0 \
   --min-forcing-power 1.0e-6 \
   --max-forcing-rescale 20.0 \
   --mach-control \
+  --mach-control-mode smooth \
   --mach-control-target 0.25 \
-  --mach-control-memory 0.995 \
+  --mach-control-filter-time 1.5 \
+  --mach-control-response-time 6.0 \
+  --mach-control-deadband 0.01 \
+  --mach-control-max-log-rate 0.25 \
   --mach-control-exponent 2.0 \
   --viscosity 7.5e-4 \
   --mn 0.002 \
@@ -128,8 +135,8 @@ python3 -B scripts/run_hit2d.py \
   --cooling-time 5.0 \
   --seed 1234 \
   --diagnostics-every 1000 \
-  --snapshot-every 10000 \
-  --output-dir results/hit2d/solenoidal_Mt025_N512_CFL_0p05
+  --snapshot-every 5000 \
+  --output-dir results/hit2d/solenoidal_Mt025_N512_CFL_0p05_smooth
 ```
 
 The complete two-case campaign can be launched with:
@@ -179,7 +186,17 @@ and is divergence-free to roundoff. The forcing is a finite-correlation-time Orn
 kf_min <= |k| <= kf_max.
 ```
 
-The production campaign uses `3 <= |k| <= 5` for both initialization and forcing. Optional Mach feedback adjusts the requested mean forcing power to keep the turbulent Mach number near its target.
+The production campaign uses `3 <= |k| <= 5` for both initialization and forcing. The scalar potential follows an Ornstein--Uhlenbeck process, so the spatial pattern has a finite correlation time rather than being replaced by independent white noise every step.
+
+The original implementation divided the requested power by the instantaneous velocity--force correlation and also modified the requested power with a per-step Mach controller. Both operations could react strongly to short-lived correlation changes and produced visible high-frequency oscillations in the turbulent-Mach history. The default `filtered_power` mode now:
+
+- low-pass filters the velocity--force correlation in physical time;
+- relaxes the forcing coefficient over a separate physical response time;
+- limits the fractional coefficient change per unit physical time;
+- filters the measured turbulent Mach number;
+- changes requested power smoothly in logarithmic space, with a dead band and a bounded rate.
+
+The legacy `instantaneous_power` forcing mode and `--mach-control-mode legacy` are retained only for reproducing previous runs. `fixed_rms` applies the OU field with fixed RMS and no power rescaling.
 
 ## HIT post-processing
 
@@ -192,7 +209,7 @@ python3 -B 2D/hit2d_viewer.py \
   --history-x-axis turnover
 ```
 
-Generate isotropy, two-point-correlation, and spectral diagnostics with:
+Generate isotropy, two-point-correlation, spectral, Helmholtz-decomposition, and PDF diagnostics with:
 
 ```bash
 python3 -B 2D/hit2d_isotropy_diagnostics.py \
@@ -201,6 +218,28 @@ python3 -B 2D/hit2d_isotropy_diagnostics.py \
   --end-turnover 16 \
   --fluctuation-type reynolds
 ```
+
+The spectral output contains the total velocity spectrum, the density-weighted spectrum, and solenoidal/dilatational spectra obtained by Fourier-space Helmholtz projection. The discrete normalization is based on Parseval's identity,
+
+```text
+sum_k E(k) = 0.5 * mean(rho) * mean(u_prime^2 + v_prime^2).
+```
+
+This is an energy normalization, not a volume integral of the energy-cascade flux. The plots show both `k^-5/3` and `k^-3` guides because the solver is two-dimensional: the former is associated with the inverse energy cascade and the latter with the forward enstrophy cascade. The guides are not fitted exponents and should not be interpreted as proof of an inertial range.
+
+The PDF output includes standardized dilatation, vorticity, pressure-fluctuation, and density-fluctuation PDFs, plus a joint dilatation--vorticity PDF and skewness/flatness values.
+
+## Reynolds-number and DNS-resolution diagnostics
+
+A target initial Taylor-microscale Reynolds number can be requested with:
+
+```bash
+--initial-re-lambda 60
+```
+
+The solver then computes the constant dynamic viscosity required by the initialized two-dimensional field and records the resolved value in `config.json`. The reported `Re_lambda_2d` is a two-dimensional analogue; it is not numerically interchangeable with the three-dimensional Taylor Reynolds numbers in standard HIT databases.
+
+Every diagnostic sample includes the physical viscous dissipation, the conventional Kolmogorov-length analogue `eta_K`, the two-dimensional Kraichnan/enstrophy microscale `eta_Omega`, their ratios to the grid spacing, the WENO fraction, and the measured kinetic-energy drain from numerical hyperviscosity. A run should only be described as DNS-quality when the physical dissipative scales are resolved and the numerical sinks remain small and localized. A value of `k_max*eta_K` or `eta_K/dx` alone is not sufficient when WENO or hyperviscosity contributes appreciable dissipation.
 
 ## Run Riemann Configuration 3
 

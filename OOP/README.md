@@ -5,18 +5,22 @@ This folder contains the solver-side implementation for the compressible HIT and
 ## Main modules
 
 - `hit2d.py`: HIT configuration, initialization, time loop, diagnostics, `config.json`, and snapshots.
-- `forcing.py`: finite-correlation-time solenoidal forcing in a Fourier shell.
+- `forcing.py`: finite-correlation-time solenoidal forcing and smooth physical-time power/Mach controllers.
 - `domain.py`: one- and two-dimensional grid helpers.
 - `equations.py`: NumPy Euler and Navier–Stokes equations.
 - `spatial_operator.py`: compact/WENO operators, shock sensors, and compact-node hyperviscosity.
 - `parallel/`: NumPy/CuPy backend-aware equations and periodic HIT operators.
-- `postprocess/`: spectra, turnover-time, isotropy, and correlation utilities.
+- `postprocess/`: spectra, Helmholtz decomposition, PDFs, turnover-time, isotropy, and correlation utilities.
 - `problems/`: the non-periodic 2D Riemann configurations and the viscous shock–shear-layer benchmark.
 - `run_utils.py`: JSON, run-directory, and NumPy conversion helpers.
 
 ## HIT configuration
 
 The current HIT baseline is solenoidal-only. The initial velocity and stochastic forcing use a configurable Fourier shell. The production setup uses `3 <= |k| <= 5`, low-wavenumber drag at `|k| <= 2`, and homogeneous mean-pressure cooling.
+
+The default forcing controller filters the velocity--force correlation in physical time and rate-limits the forcing coefficient. The outer Mach controller filters the measured Mach number and changes target power in logarithmic space with a dead band. This avoids the sharp per-step corrections produced by instantaneous power division while preserving the same OU forcing shell and correlation time.
+
+`initial_re_lambda` can be used to infer a constant dynamic viscosity from the initialized velocity field. The resulting `re_lambda_2d` is explicitly a two-dimensional analogue.
 
 Each call to `run_simulation()` writes a complete `config.json` into `config.output_dir` before the first snapshot.
 
@@ -34,6 +38,14 @@ from OOP.hit2d import HIT2DConfig, run_simulation
 config = HIT2DConfig.isotropic_128(backend="numpy")
 run_simulation(config)
 ```
+
+## HIT spectra, PDFs, and DNS checks
+
+`postprocess/spectra.py` uses a full-shell FFT accounting and Parseval normalization. It saves total, density-weighted, solenoidal, and dilatational spectra, verifies `E = E_s + E_d`, and includes both `k^-5/3` and `k^-3` reference slopes appropriate to the interpretation of two-dimensional cascades.
+
+`postprocess/pdfs.py` computes pooled one-point PDFs of normalized dilatation, vorticity, pressure fluctuations, and density fluctuations, together with a joint dilatation--vorticity PDF.
+
+The online diagnostics record the conventional Kolmogorov analogue, a two-dimensional Kraichnan/enstrophy microscale, WENO fraction, physical dissipation, and the measured hyperviscosity energy drain. These diagnostics are indicators; the presence of non-negligible numerical dissipation must be considered before describing a calculation as DNS.
 
 ## Offset Configuration 3 time stepping
 

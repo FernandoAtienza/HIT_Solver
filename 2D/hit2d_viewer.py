@@ -270,13 +270,47 @@ def compute_hit2d_history(
     gamma: float = 1.4,
     turnover_length: float | None = None,
 ) -> dict[str, np.ndarray]:
-    """Compute scalar time histories from all snapshots in one HIT run folder."""
+    """Compute scalar histories, preferring the dense diagnostic-history file."""
+
+    diagnostic_path = snapshot_dir / "diagnostic_history.npz"
+    if diagnostic_path.exists():
+        with np.load(diagnostic_path) as data:
+            history = {
+                key: np.asarray(data[key], dtype=float)
+                for key in data.files
+                if np.asarray(data[key]).ndim == 1
+                and np.asarray(data[key]).size == np.asarray(data["time"]).size
+            }
+        required = {
+            "time",
+            "kinetic_energy",
+            "turbulent_mach",
+            "divergence_rms",
+            "vorticity_rms",
+            "mean_pressure",
+            "mass_error",
+            "rms_velocity",
+        }
+        if required.issubset(history):
+            history["u_rms"] = history["rms_velocity"]
+            length_ref = (
+                infer_turnover_length(snapshot_dir)
+                if turnover_length is None
+                else turnover_length
+            )
+            history["turnover"] = cumulative_turnover(
+                history["time"], history["u_rms"], length_ref
+            )
+            history["turnover_length"] = np.asarray(length_ref)
+            return history
 
     snapshots = find_snapshots(snapshot_dir)
-    history: dict[str, list[float]] = {
+    history_lists: dict[str, list[float]] = {
         "time": [],
         "kinetic_energy": [],
         "turbulent_mach": [],
+        "mach_control_filtered_mach": [],
+        "mach_control_target": [],
         "divergence_rms": [],
         "vorticity_rms": [],
         "mean_pressure": [],
@@ -304,21 +338,24 @@ def compute_hit2d_history(
         if initial_mass is None:
             initial_mass = mass
 
-        history["time"].append(time)
-        history["kinetic_energy"].append(float(0.5 * np.mean(rho * speed_sq)))
         u_rms = float(np.sqrt(np.mean(speed_sq)))
-        history["u_rms"].append(u_rms)
-        history["turbulent_mach"].append(float(u_rms / np.mean(sound_speed)))
-        history["divergence_rms"].append(float(np.sqrt(np.mean(divergence**2))))
-        history["vorticity_rms"].append(float(np.sqrt(np.mean(vorticity**2))))
-        history["mean_pressure"].append(float(np.mean(pressure)))
-        history["mass_error"].append(float(mass - initial_mass))
+        mt = float(u_rms / np.mean(sound_speed))
+        history_lists["time"].append(time)
+        history_lists["kinetic_energy"].append(float(0.5 * np.mean(rho * speed_sq)))
+        history_lists["u_rms"].append(u_rms)
+        history_lists["turbulent_mach"].append(mt)
+        history_lists["mach_control_filtered_mach"].append(mt)
+        history_lists["mach_control_target"].append(0.0)
+        history_lists["divergence_rms"].append(float(np.sqrt(np.mean(divergence**2))))
+        history_lists["vorticity_rms"].append(float(np.sqrt(np.mean(vorticity**2))))
+        history_lists["mean_pressure"].append(float(np.mean(pressure)))
+        history_lists["mass_error"].append(float(mass - initial_mass))
 
-    arrays = {name: np.asarray(values) for name, values in history.items()}
+    history = {name: np.asarray(values) for name, values in history_lists.items()}
     length_ref = infer_turnover_length(snapshot_dir) if turnover_length is None else turnover_length
-    arrays["turnover"] = cumulative_turnover(arrays["time"], arrays["u_rms"], length_ref)
-    arrays["turnover_length"] = np.asarray(length_ref)
-    return arrays
+    history["turnover"] = cumulative_turnover(history["time"], history["u_rms"], length_ref)
+    history["turnover_length"] = np.asarray(length_ref)
+    return history
 
 
 def plot_hit2d_history(
@@ -357,7 +394,15 @@ def plot_hit2d_history(
     fig.suptitle("2D Forced Compressible HIT time histories", fontsize=13)
 
     for ax, (name, title, ylabel) in zip(axes.ravel(), panels):
-        ax.plot(x_values, history[name], linewidth=1.8)
+        ax.plot(x_values, history[name], linewidth=1.5)
+        if name == "turbulent_mach":
+            filtered = history.get("mach_control_filtered_mach")
+            target = history.get("mach_control_target")
+            if filtered is not None and filtered.size == x_values.size:
+                ax.plot(x_values, filtered, linewidth=2.0, label="controller-filtered")
+            if target is not None and target.size == x_values.size and np.any(target > 0.0):
+                ax.plot(x_values, target, linestyle="--", linewidth=1.4, label="target")
+            ax.legend()
         ax.set_title(title)
         ax.set_xlabel(x_label)
         ax.set_ylabel(ylabel)
@@ -376,6 +421,172 @@ def plot_hit2d_history(
         plt.show(block=True)
     else:
         plt.close(fig)
+    return output_path
+
+
+
+def plot_hit2d_forcing_history(
+    snapshot_dir: Path,
+    output_path: Path,
+    x_axis: str = "turnover",
+    turnover_length: float | None = None,
+    show: bool = False,
+) -> Path | None:
+    """Plot the smooth forcing and turbulent-Mach controller diagnostics."""
+
+    history = compute_hit2d_history(snapshot_dir, turnover_length=turnover_length)
+    required = {
+        "turbulent_mach",
+        "mach_control_filtered_mach",
+        "mach_control_target",
+        "P_in",
+        "forcing_target_power",
+        "forcing_alpha",
+        "forcing_power_before_filtered",
+        "mach_control_log_power_rate",
+    }
+    if not required.issubset(history):
+        return None
+    x_values = history["turnover"] if x_axis == "turnover" else history["time"]
+    x_label = r"$N_{eddy}$" if x_axis == "turnover" else "t"
+
+    fig, axes = plt.subplots(2, 2, figsize=(11.0, 8.0), constrained_layout=True)
+    axes[0, 0].plot(x_values, history["turbulent_mach"])
+    axes[0, 0].plot(
+        x_values,
+        history["mach_control_filtered_mach"],
+        linewidth=2.0,
+        label="controller-filtered",
+    )
+    if np.any(history["mach_control_target"] > 0.0):
+        axes[0, 0].plot(
+            x_values,
+            history["mach_control_target"],
+            linestyle="--",
+            label="target",
+        )
+    axes[0, 0].set_title("Turbulent Mach control")
+    axes[0, 0].set_ylabel(r"$M_t$")
+    axes[0, 0].legend(fontsize=8)
+
+    axes[0, 1].plot(x_values, history["P_in"], label="instantaneous injected power")
+    axes[0, 1].plot(
+        x_values,
+        history["forcing_target_power"],
+        linestyle="--",
+        label="requested mean power",
+    )
+    axes[0, 1].set_title("Energy injection")
+    axes[0, 1].set_ylabel("power per unit volume")
+    axes[0, 1].legend(fontsize=8)
+
+    axes[1, 0].plot(x_values, history["forcing_alpha"], label=r"$\alpha$")
+    if "forcing_alpha_target" in history:
+        axes[1, 0].plot(
+            x_values,
+            history["forcing_alpha_target"],
+            linestyle="--",
+            label=r"$\alpha_{target}$",
+        )
+    axes[1, 0].set_title("Forcing amplitude controller")
+    axes[1, 0].set_ylabel("rescaling coefficient")
+    axes[1, 0].legend(fontsize=8)
+
+    axes[1, 1].plot(
+        x_values,
+        history["forcing_power_before_filtered"],
+        label="filtered raw correlation",
+    )
+    axes[1, 1].plot(
+        x_values,
+        history["mach_control_log_power_rate"],
+        label=r"$d(\log P_{target})/dt$",
+    )
+    axes[1, 1].set_title("Controller response signals")
+    axes[1, 1].legend(fontsize=8)
+
+    for ax in axes.ravel():
+        ax.set_xlabel(x_label)
+        ax.grid(True, alpha=0.3)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, bbox_inches="tight", dpi=200)
+    if show:
+        plt.show(block=True)
+    else:
+        plt.close(fig)
+    print(f"saved HIT forcing-controller history: {output_path}")
+    return output_path
+
+def plot_hit2d_dns_history(
+    snapshot_dir: Path,
+    output_path: Path,
+    x_axis: str = "turnover",
+    turnover_length: float | None = None,
+    show: bool = False,
+) -> Path | None:
+    """Plot resolution and dissipation diagnostics used to assess DNS quality."""
+
+    history = compute_hit2d_history(snapshot_dir, turnover_length=turnover_length)
+    required = {
+        "re_lambda_2d",
+        "eta_over_dx",
+        "kmax_eta",
+        "epsilon_physical",
+        "dilatational_energy_fraction",
+        "weno_fraction",
+        "hyperviscosity_power",
+    }
+    if not required.issubset(history):
+        return None
+    x_values = history["turnover"] if x_axis == "turnover" else history["time"]
+    x_label = r"$N_{eddy}$" if x_axis == "turnover" else "t"
+
+    fig, axes = plt.subplots(2, 2, figsize=(11.0, 8.0), constrained_layout=True)
+    axes[0, 0].plot(x_values, history["re_lambda_2d"])
+    axes[0, 0].set_ylabel(r"$Re_{\lambda,2D}$")
+    axes[0, 0].set_title("Taylor-microscale Reynolds number")
+
+    axes[0, 1].plot(x_values, history["eta_over_dx"], label=r"$\eta_K/\Delta$")
+    if "kraichnan_over_dx" in history:
+        axes[0, 1].plot(
+            x_values,
+            history["kraichnan_over_dx"],
+            label=r"$\eta_\Omega/\Delta$ (2-D)",
+        )
+    axes[0, 1].axhline(0.5, linestyle="--", linewidth=1.0, label=r"reference $0.5$")
+    axes[0, 1].set_title("Nominal small-scale resolution")
+    axes[0, 1].set_ylabel("microscale / grid spacing")
+    axes[0, 1].legend(fontsize=8)
+
+    axes[1, 0].plot(x_values, history["epsilon_physical"], label="physical viscous")
+    axes[1, 0].plot(
+        x_values,
+        -history["hyperviscosity_power"],
+        label="numerical hyperviscosity drain",
+    )
+    axes[1, 0].set_title("Dissipation-rate indicators")
+    axes[1, 0].set_ylabel("power per unit volume")
+    axes[1, 0].legend(fontsize=8)
+
+    axes[1, 1].plot(
+        x_values,
+        history["dilatational_energy_fraction"],
+        label=r"$\chi_d=K_d/(K_s+K_d)$",
+    )
+    axes[1, 1].plot(x_values, history["weno_fraction"], label="WENO fraction")
+    axes[1, 1].set_title("Compressibility and shock-capturing activity")
+    axes[1, 1].legend(fontsize=8)
+
+    for ax in axes.ravel():
+        ax.set_xlabel(x_label)
+        ax.grid(True, alpha=0.3)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, bbox_inches="tight", dpi=200)
+    if show:
+        plt.show(block=True)
+    else:
+        plt.close(fig)
+    print(f"saved HIT DNS-resolution history: {output_path}")
     return output_path
 
 
@@ -877,6 +1088,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--initial-kmin", type=int, default=1)
     parser.add_argument("--initial-kmax", type=int, default=3)
     parser.add_argument("--viscosity", type=float, default=1.0e-3)
+    parser.add_argument("--initial-re-lambda", type=float, default=None)
     parser.add_argument(
         "--kf",
         type=float,
@@ -894,6 +1106,14 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--forcing-correlation-time", type=float, default=1.0)
     parser.add_argument("--forcing-alpha-memory", type=float, default=0.2)
+    parser.add_argument(
+        "--forcing-control-mode",
+        choices=("filtered_power", "instantaneous_power", "fixed_rms"),
+        default="filtered_power",
+    )
+    parser.add_argument("--forcing-power-filter-time", type=float, default=0.5)
+    parser.add_argument("--forcing-alpha-response-time", type=float, default=0.5)
+    parser.add_argument("--forcing-alpha-max-fractional-rate", type=float, default=2.0)
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--min-forcing-power", type=float, default=1.0e-6)
     parser.add_argument("--max-forcing-rescale", type=float, default=20.0)
@@ -901,6 +1121,11 @@ def parse_args() -> argparse.Namespace:
         "--mach-control",
         action="store_true",
         help="Slowly adapt --p-target so the turbulent Mach number stays near the requested target.",
+    )
+    parser.add_argument(
+        "--mach-control-mode",
+        choices=("smooth", "legacy"),
+        default="smooth",
     )
     parser.add_argument(
         "--mach-control-target",
@@ -920,6 +1145,10 @@ def parse_args() -> argparse.Namespace:
         default=2.0,
         help="Exponent in the power correction (Mt_target/Mt)^exponent.",
     )
+    parser.add_argument("--mach-control-filter-time", type=float, default=1.5)
+    parser.add_argument("--mach-control-response-time", type=float, default=6.0)
+    parser.add_argument("--mach-control-deadband", type=float, default=0.01)
+    parser.add_argument("--mach-control-max-log-rate", type=float, default=0.25)
     parser.add_argument(
         "--mach-control-min-power",
         type=float,
@@ -933,6 +1162,7 @@ def parse_args() -> argparse.Namespace:
         help="Upper bound for adaptive target power. Use 0 for no explicit upper bound.",
     )
     parser.add_argument("--mn", type=float, default=0.002)
+    parser.add_argument("--hyperviscosity-interval", type=int, default=5)
     parser.add_argument(
         "--large-scale-drag",
         type=float,
@@ -988,17 +1218,27 @@ def main() -> None:
             initial_kmin=args.initial_kmin,
             initial_kmax=args.initial_kmax,
             viscosity=args.viscosity,
+            initial_re_lambda=args.initial_re_lambda,
             forcing_kmin=args.kf_min,
             forcing_kmax=args.kf if args.kf_max is None else args.kf_max,
             forcing_correlation_time=args.forcing_correlation_time,
             forcing_alpha_memory=args.forcing_alpha_memory,
+            forcing_control_mode=args.forcing_control_mode,
+            forcing_power_filter_time=args.forcing_power_filter_time,
+            forcing_alpha_response_time=args.forcing_alpha_response_time,
+            forcing_alpha_max_fractional_rate=args.forcing_alpha_max_fractional_rate,
             target_energy_injection=args.p_target,
             min_forcing_power=args.min_forcing_power,
             max_forcing_rescale=None if args.max_forcing_rescale == 0.0 else args.max_forcing_rescale,
             mach_control=args.mach_control,
+            mach_control_mode=args.mach_control_mode,
             mach_control_target=args.mach_control_target,
             mach_control_memory=args.mach_control_memory,
             mach_control_exponent=args.mach_control_exponent,
+            mach_control_filter_time=args.mach_control_filter_time,
+            mach_control_response_time=args.mach_control_response_time,
+            mach_control_deadband=args.mach_control_deadband,
+            mach_control_max_log_rate=args.mach_control_max_log_rate,
             mach_control_min_power=(
                 None if args.mach_control_min_power == 0.0 else args.mach_control_min_power
             ),
@@ -1007,6 +1247,7 @@ def main() -> None:
             ),
             forcing_seed=args.seed,
             hyperviscosity_mn=args.mn,
+            hyperviscosity_interval=args.hyperviscosity_interval,
             large_scale_drag=args.large_scale_drag,
             large_scale_drag_kmax=args.drag_kmax,
             cooling_time=None if args.cooling_time <= 0.0 else args.cooling_time,
@@ -1104,6 +1345,30 @@ def main() -> None:
             diagnostic_dir,
             history_output,
             gamma=args.gamma,
+            x_axis=args.history_x_axis,
+            turnover_length=args.turnover_length,
+            show=args.show and not args.animate,
+        )
+        dns_name = (
+            f"hit2d_dns_resolution_{diagnostic_run_id}.png"
+            if diagnostic_run_id
+            else "hit2d_dns_resolution.png"
+        )
+        plot_hit2d_dns_history(
+            diagnostic_dir,
+            postprocess_dir / dns_name,
+            x_axis=args.history_x_axis,
+            turnover_length=args.turnover_length,
+            show=args.show and not args.animate,
+        )
+        forcing_name = (
+            f"hit2d_forcing_control_{diagnostic_run_id}.png"
+            if diagnostic_run_id
+            else "hit2d_forcing_control.png"
+        )
+        plot_hit2d_forcing_history(
+            diagnostic_dir,
+            postprocess_dir / forcing_name,
             x_axis=args.history_x_axis,
             turnover_length=args.turnover_length,
             show=args.show and not args.animate,
