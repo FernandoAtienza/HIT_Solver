@@ -1,0 +1,21 @@
+saved HIT diagnostic field plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/postprocess/physics_fields_final.png
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT history plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/postprocess/time_history.png
+saved isotropy diagnostics: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/isotropy_diagnostics.npz
+selected interval: t=[26.2055, 61.2066], Neddy=[4.16692, 9.75856], snapshots=17
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=1.861196e-01 (normalized=4.397505e-01), E_NN=1.788630e-01 (normalized=4.788927e-01)
+selected means: K=3.100273e-02, Mt=2.507664e-01, A_K=1.865677e-01, C_uv=-3.833926e-02
+saved isotropy plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/postprocess/component_energy_anisotropy.png
+/home/fatienza/github/HIT_Solver/OOP/postprocess/spectra.py:152: RuntimeWarning: Enstrophy spectrum may be piling up near the complete-shell cutoff
+  warnings.warn("Enstrophy spectrum may be piling up near the complete-shell cutoff", RuntimeWarning)
+saved spectra diagnostics: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=0.000e+00, enstrophy=2.680e+00
+spectral checks: Parseval=2.205e-16, Helmholtz closure=9.587e-17, <chi_d>=1.161e-02
+saved PDF diagnostics: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-6.097e-01, F_theta=6.269e+00, S_omega=-1.791e-02, F_omega=3.161e+00

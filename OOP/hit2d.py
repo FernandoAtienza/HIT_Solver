@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 import argparse
 import sys
@@ -28,6 +28,10 @@ from OOP.spatial_operator import (
     PeriodicHyperviscosity2D,
 )
 from OOP.time_operator import SSPRK3
+from OOP.turbulence_statistics import (
+    turbulence_scales_2d,
+    viscosity_for_target_initial_re_lambda_2d,
+)
 
 
 DEFAULT_SNAPSHOT_DIR = Path(__file__).resolve().parents[1] / "2D" / "hit2d_snapshots"
@@ -59,6 +63,7 @@ class HIT2DConfig:
     mach_control_min_power: float | None = None
     mach_control_max_power: float | None = None
     forcing_seed: int = 1234
+    initial_re_lambda: float | None = None
     viscosity: float = 1.0e-3
     prandtl: float = 0.72
     sensor_width: int = 4
@@ -202,6 +207,82 @@ def initialize_hit_2d(
     u *= velocity_scale
     v *= velocity_scale
     return primitive_to_conservative(rho, u, v, pressure, equation)
+
+
+def _initialization_equation(config: HIT2DConfig, xp=np):
+    """Return an inviscid equation object used to build the initial state.
+
+    The initialized conservative variables only depend on ``gamma``.  Using an
+    Euler object here lets the code determine the dynamic viscosity from a
+    requested initial Taylor-scale Reynolds number before constructing the
+    final Navier--Stokes equation.
+    """
+
+    if xp is np:
+        return EulerEquation2D(gamma=config.gamma)
+    return ParallelEulerEquation2D(gamma=config.gamma)
+
+
+def initialize_hit_and_resolve_viscosity(
+    config: HIT2DConfig,
+    domain: Domain2D,
+    rng: np.random.Generator,
+    xp=np,
+) -> tuple[np.ndarray, HIT2DConfig, dict[str, float | None]]:
+    """Initialize HIT and resolve a requested initial ``Re_lambda_2d``.
+
+    If ``config.initial_re_lambda`` is ``None``, the supplied viscosity is
+    retained.  Otherwise, the initialized velocity field is used to infer the
+    constant dynamic viscosity that gives the requested two-dimensional Taylor
+    Reynolds number.  The returned configuration contains the resolved
+    viscosity and can therefore be saved directly to ``config.json``.
+    """
+
+    initialization_equation = _initialization_equation(config, xp=xp)
+    q = initialization_equation.enforce_physical_state(
+        initialize_hit_2d(config, domain, initialization_equation, rng, xp=xp)
+    )
+    rho, u, v, _pressure = initialization_equation.primitive_from_conservative(q)
+
+    if config.initial_re_lambda is None:
+        resolved_config = config
+        resolved_scales = turbulence_scales_2d(
+            rho,
+            u,
+            v,
+            config.viscosity,
+            domain.dx,
+            domain.dy,
+        )
+    else:
+        viscosity, resolved_scales = viscosity_for_target_initial_re_lambda_2d(
+            rho,
+            u,
+            v,
+            config.initial_re_lambda,
+            domain.dx,
+            domain.dy,
+        )
+        resolved_config = replace(config, viscosity=viscosity)
+
+    def finite_or_none(value: float) -> float | None:
+        return float(value) if np.isfinite(value) else None
+
+    metadata: dict[str, float | None] = {
+        "requested_initial_re_lambda_2d": (
+            None
+            if config.initial_re_lambda is None
+            else float(config.initial_re_lambda)
+        ),
+        "resolved_initial_re_lambda_2d": finite_or_none(
+            resolved_scales["re_lambda_2d"]
+        ),
+        "resolved_dynamic_viscosity": float(resolved_config.viscosity),
+        "initial_taylor_microscale_2d": finite_or_none(
+            resolved_scales["taylor_microscale_2d"]
+        ),
+    }
+    return q, resolved_config, metadata
 
 
 def make_solenoidal_forcing_2d(
@@ -456,6 +537,15 @@ def source_power(source: np.ndarray) -> float:
     return float(xp.mean(source[3]))
 
 
+def conservative_kinetic_energy(q: np.ndarray) -> float:
+    """Return the domain-mean kinetic energy from conservative variables."""
+
+    xp = array_module(q)
+    rho = xp.maximum(q[0], np.finfo(float).tiny)
+    kinetic = 0.5 * (q[1] ** 2 + q[2] ** 2) / rho
+    return float(xp.mean(kinetic))
+
+
 def divergence_and_vorticity(
     u: np.ndarray,
     v: np.ndarray,
@@ -478,6 +568,9 @@ def compute_diagnostics(
     cooling_power: float = 0.0,
     large_scale_fraction: float = 0.0,
     weno_fraction: float = 0.0,
+    hyperviscosity_drain_power: float = 0.0,
+    hyperviscosity_energy_removed_cumulative: float = 0.0,
+    hyperviscosity_nominal_rate: float = 0.0,
 ) -> dict[str, float]:
     """Compute compact scalar diagnostics for the periodic turbulence state."""
 
@@ -493,6 +586,15 @@ def compute_diagnostics(
     uv = float(xp.mean(rho * u_fluct * v_fluct))
     component_sum = uu + vv
     covariance_scale = np.sqrt(max(uu * vv, 0.0))
+    dynamic_viscosity = float(getattr(equation, "viscosity", 0.0))
+    scales = turbulence_scales_2d(
+        rho,
+        u,
+        v,
+        dynamic_viscosity,
+        domain.dx,
+        domain.dy,
+    )
     diagnostics = {
         "kinetic_energy": 0.5 * component_sum,
         "Kx": 0.5 * uu,
@@ -511,6 +613,25 @@ def compute_diagnostics(
         "drag_power": drag_power,
         "cooling_power": cooling_power,
         "weno_fraction": weno_fraction,
+        "dynamic_viscosity": dynamic_viscosity,
+        "re_lambda_2d": scales["re_lambda_2d"],
+        "taylor_microscale_2d": scales["taylor_microscale_2d"],
+        "physical_viscous_dissipation": scales["dissipation_per_volume_physical"],
+        "epsilon_physical": scales["epsilon_physical"],
+        "kolmogorov_length": scales["kolmogorov_length"],
+        "eta_over_dx": scales["eta_over_dx"],
+        "kmax_eta": scales["kmax_eta"],
+        "kraichnan_length_2d": scales["kraichnan_length_2d"],
+        "kraichnan_over_dx": scales["kraichnan_over_dx"],
+        "kmax_kraichnan": scales["kmax_kraichnan"],
+        "solenoidal_kinetic_energy": scales["solenoidal_kinetic_energy"],
+        "dilatational_kinetic_energy": scales["dilatational_kinetic_energy"],
+        "dilatational_energy_fraction": scales["dilatational_energy_fraction"],
+        "hyperviscosity_drain_power": hyperviscosity_drain_power,
+        "hyperviscosity_energy_removed_cumulative": (
+            hyperviscosity_energy_removed_cumulative
+        ),
+        "hyperviscosity_nominal_rate": hyperviscosity_nominal_rate,
     }
     diagnostics.update(
         {
@@ -548,7 +669,11 @@ def compute_diagnostics(
     return diagnostics
 
 
-def save_run_config(output_dir: Path, config: HIT2DConfig) -> Path:
+def save_run_config(
+    output_dir: Path,
+    config: HIT2DConfig,
+    resolved_metadata: dict[str, float | None] | None = None,
+) -> Path:
     """Write the fully resolved HIT configuration to ``config.json``.
 
     The file is created before time integration starts so every output
@@ -565,6 +690,8 @@ def save_run_config(output_dir: Path, config: HIT2DConfig) -> Path:
             "hyperviscosity_policy": "compact_nodes_only",
         }
     )
+    if resolved_metadata is not None:
+        payload.update(resolved_metadata)
     return write_json(output_dir / "config.json", payload)
 
 
@@ -629,6 +756,9 @@ def _print_diagnostics(step: int, time: float, dt: float, diagnostics: dict[str,
         f"P_drag={diagnostics['drag_power']:.3e}, "
         f"P_cool={diagnostics['cooling_power']:.3e}, "
         f"WENO={diagnostics['weno_fraction']:.3f}, "
+        f"ReL2D={diagnostics['re_lambda_2d']:.2f}, "
+        f"eps_nu={diagnostics['physical_viscous_dissipation']:.3e}, "
+        f"P_hv={diagnostics['hyperviscosity_drain_power']:.3e}, "
         f"rho_mean={diagnostics['mean_density']:.6f}, "
         f"p_mean={diagnostics['mean_pressure']:.6f}, "
         f"div_rms={diagnostics['divergence_rms']:.3e}, "
@@ -688,6 +818,15 @@ def save_diagnostic_history(
                 if config.mach_control_max_power is None
                 else config.mach_control_max_power
             ),
+            "initial_re_lambda": np.asarray(
+                np.nan
+                if config.initial_re_lambda is None
+                else config.initial_re_lambda
+            ),
+            "dynamic_viscosity": np.asarray(config.viscosity),
+            "prandtl": np.asarray(config.prandtl),
+            "hyperviscosity_mn": np.asarray(config.hyperviscosity_mn),
+            "hyperviscosity_interval": np.asarray(config.hyperviscosity_interval),
         }
     )
     np.savez_compressed(path, **data)
@@ -713,8 +852,26 @@ def _warn_diagnostic_state(
     history: list[dict[str, float]],
     config: HIT2DConfig,
 ) -> None:
-    if not all(np.isfinite(value) for value in diagnostics.values()):
-        raise FloatingPointError("NaN or infinite value detected in HIT2D diagnostics")
+    optional_nonfinite = {
+        "re_lambda_2d",
+        "taylor_microscale_2d",
+        "kolmogorov_length",
+        "eta_over_dx",
+        "kmax_eta",
+        "kraichnan_length_2d",
+        "kraichnan_over_dx",
+        "kmax_kraichnan",
+    }
+    invalid = [
+        key
+        for key, value in diagnostics.items()
+        if key not in optional_nonfinite and not np.isfinite(value)
+    ]
+    if invalid:
+        raise FloatingPointError(
+            "NaN or infinite value detected in HIT2D diagnostics: "
+            + ", ".join(invalid)
+        )
 
     if history:
         mean_fxx = float(np.mean([item["Fxx"] for item in history]))
@@ -766,12 +923,30 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
     print(f"Using array backend: {xp.__name__}")
     if config.hyperviscosity_interval <= 0 and config.hyperviscosity_mn > 0.0:
         raise ValueError("hyperviscosity_interval must be positive when mn > 0")
-
-    config_path = save_run_config(config.output_dir, config)
-    print(f"saved run configuration: {config_path}")
-
     domain, _x_grid, _y_grid = create_grid(config)
+    rng = np.random.default_rng(config.forcing_seed)
+    q, config, initial_resolution = initialize_hit_and_resolve_viscosity(
+        config,
+        domain,
+        rng,
+        xp=xp,
+    )
     equation = _make_equation(config, xp=xp)
+    q = equation.enforce_physical_state(q)
+
+    config_path = save_run_config(
+        config.output_dir,
+        config,
+        resolved_metadata=initial_resolution,
+    )
+    print(f"saved run configuration: {config_path}")
+    if config.initial_re_lambda is not None:
+        print(
+            "resolved initial Re_lambda_2d="
+            f"{initial_resolution['resolved_initial_re_lambda_2d']:.6f} "
+            f"with dynamic viscosity={config.viscosity:.6e}"
+        )
+
     sensor_class = ParallelPeriodicEulerShockSensor2D if xp is not np else PeriodicEulerShockSensor2D
     operator_class = ParallelPeriodicHybridEuler2DOperator if xp is not np else PeriodicHybridEuler2DOperator
     hyperviscosity_class = ParallelPeriodicHyperviscosity2D if xp is not np else PeriodicHyperviscosity2D
@@ -787,7 +962,6 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
     operator = operator_class(domain, equation, sensor)
     hyperviscosity = hyperviscosity_class(domain, mn=config.hyperviscosity_mn)
     integrator = SSPRK3()
-    rng = np.random.default_rng(config.forcing_seed)
     forcing = IsotropicShellOUForcing2D(
         domain=domain,
         k_min=0.0 if config.forcing_kmin is None else config.forcing_kmin,
@@ -801,8 +975,6 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         seed=config.forcing_seed + 1,
         xp=xp,
     )
-
-    q = equation.enforce_physical_state(initialize_hit_2d(config, domain, equation, rng, xp=xp))
     initial_weno_fraction = float(xp.mean(sensor.detect(q)))
     initial_diagnostics = compute_diagnostics(
         q,
@@ -825,6 +997,9 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
     adaptive_target_power = config.target_energy_injection
     drag = xp.zeros_like(q)
     cooling = xp.zeros_like(q)
+    hyperviscosity_energy_removed_cumulative = 0.0
+    hyperviscosity_energy_removed_since_diagnostic = 0.0
+    last_diagnostic_time = 0.0
     while time < config.tfinal:
         dt = operator.stable_time_step(q, config.cfl, config.tfinal - time)
         if config.viscosity > 0.0:
@@ -876,9 +1051,28 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
             # two dissipative mechanisms never overlap.
             weno_mask = sensor.detect(q)
             compact_mask = ~weno_mask
+            kinetic_before = conservative_kinetic_energy(q)
             q = hyperviscosity.apply(q, equation, active_mask=compact_mask)
+            kinetic_after = conservative_kinetic_energy(q)
+            energy_removed = kinetic_before - kinetic_after
+            hyperviscosity_energy_removed_cumulative += energy_removed
+            hyperviscosity_energy_removed_since_diagnostic += energy_removed
 
         if step % config.diagnostics_every == 0 or time >= config.tfinal:
+            diagnostic_elapsed_time = max(
+                time - last_diagnostic_time,
+                np.finfo(float).tiny,
+            )
+            hyperviscosity_drain_power = (
+                hyperviscosity_energy_removed_since_diagnostic
+                / diagnostic_elapsed_time
+            )
+            hyperviscosity_nominal_rate = (
+                config.hyperviscosity_mn
+                / max(config.hyperviscosity_interval * dt, np.finfo(float).tiny)
+                if config.hyperviscosity_mn > 0.0
+                else 0.0
+            )
             weno_fraction = float(xp.mean(sensor.detect(q)))
             drag = large_scale_drag_source(
                 q,
@@ -905,11 +1099,18 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
                     q, equation, domain, config.large_scale_drag_kmax
                 ),
                 weno_fraction=weno_fraction,
+                hyperviscosity_drain_power=hyperviscosity_drain_power,
+                hyperviscosity_energy_removed_cumulative=(
+                    hyperviscosity_energy_removed_cumulative
+                ),
+                hyperviscosity_nominal_rate=hyperviscosity_nominal_rate,
             )
             diagnostic_history.append(_diagnostic_record(step, time, dt, diagnostics))
             _warn_diagnostic_state(diagnostics, diagnostic_history[1:], config)
             save_diagnostic_history(config.output_dir, diagnostic_history, config)
             _print_diagnostics(step, time, dt, diagnostics)
+            hyperviscosity_energy_removed_since_diagnostic = 0.0
+            last_diagnostic_time = time
 
         if step % config.snapshot_every == 0 or time >= config.tfinal:
             path = save_snapshot(config.output_dir, step, time, q, equation, domain)
@@ -928,7 +1129,23 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--initial-kmin", type=int, default=1)
     parser.add_argument("--initial-kmax", type=int, default=3)
     parser.add_argument("--gamma", type=float, default=1.4)
-    parser.add_argument("--viscosity", type=float, default=1.0e-3)
+    parser.add_argument(
+        "--initial-re-lambda",
+        type=float,
+        default=None,
+        help=(
+            "Requested initial two-dimensional Taylor Reynolds number. "
+            "When supplied, the solver infers the constant dynamic viscosity "
+            "from the initialized field and overrides --viscosity."
+        ),
+    )
+    parser.add_argument(
+        "--viscosity",
+        type=float,
+        default=1.0e-3,
+        help="Constant dynamic viscosity when --initial-re-lambda is omitted.",
+    )
+    parser.add_argument("--prandtl", type=float, default=0.72)
     parser.add_argument(
         "--kf",
         type=float,
@@ -1001,7 +1218,22 @@ def parse_args() -> argparse.Namespace:
         help="Upper bound for adaptive target power. Use 0 for no explicit upper bound.",
     )
     parser.add_argument("--seed", type=int, default=1234)
+    parser.add_argument("--sensor-width", type=int, default=4)
+    parser.add_argument("--jump-threshold", type=float, default=0.04)
+    parser.add_argument("--compression-threshold", type=float, default=2.5)
+    parser.add_argument(
+        "--shear-threshold",
+        type=float,
+        default=None,
+        help="Optional vorticity-RMS sensor threshold. Omit or use <= 0 to disable.",
+    )
     parser.add_argument("--mn", type=float, default=0.002, help="Periodic hyperviscosity strength.")
+    parser.add_argument(
+        "--hyperviscosity-interval",
+        type=int,
+        default=5,
+        help="Apply compact-node hyperviscosity every N complete RK steps.",
+    )
     parser.add_argument(
         "--large-scale-drag",
         type=float,
@@ -1050,7 +1282,9 @@ def main() -> None:
         initial_kmin=args.initial_kmin,
         initial_kmax=args.initial_kmax,
         gamma=args.gamma,
+        initial_re_lambda=args.initial_re_lambda,
         viscosity=args.viscosity,
+        prandtl=args.prandtl,
         forcing_kmin=args.kf_min,
         forcing_kmax=args.kf if args.kf_max is None else args.kf_max,
         forcing_rms=0.0 if args.no_forcing else args.force_rms,
@@ -1070,7 +1304,16 @@ def main() -> None:
             None if args.mach_control_max_power == 0.0 else args.mach_control_max_power
         ),
         forcing_seed=args.seed,
+        sensor_width=args.sensor_width,
+        jump_threshold=args.jump_threshold,
+        compression_threshold=args.compression_threshold,
+        shear_threshold=(
+            None
+            if args.shear_threshold is None or args.shear_threshold <= 0.0
+            else args.shear_threshold
+        ),
         hyperviscosity_mn=args.mn,
+        hyperviscosity_interval=args.hyperviscosity_interval,
         large_scale_drag=args.large_scale_drag,
         large_scale_drag_kmax=args.drag_kmax,
         cooling_time=None if args.cooling_time <= 0.0 else args.cooling_time,

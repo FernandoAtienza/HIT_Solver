@@ -114,22 +114,16 @@ python3 -B scripts/run_hit2d.py \
   --kf-min 3 --kf-max 5 \
   --p-target 1.0e-3 \
   --forcing-correlation-time 0.5 \
-  --forcing-control-mode filtered_power \
-  --forcing-power-filter-time 0.5 \
-  --forcing-alpha-response-time 0.5 \
-  --forcing-alpha-max-fractional-rate 2.0 \
+  --forcing-alpha-memory 0.2 \
   --min-forcing-power 1.0e-6 \
   --max-forcing-rescale 20.0 \
   --mach-control \
-  --mach-control-mode smooth \
   --mach-control-target 0.25 \
-  --mach-control-filter-time 1.5 \
-  --mach-control-response-time 6.0 \
-  --mach-control-deadband 0.01 \
-  --mach-control-max-log-rate 0.25 \
+  --mach-control-memory 0.995 \
   --mach-control-exponent 2.0 \
   --viscosity 7.5e-4 \
   --mn 0.002 \
+  --hyperviscosity-interval 5 \
   --large-scale-drag 0.10 \
   --drag-kmax 2.0 \
   --cooling-time 5.0 \
@@ -188,15 +182,13 @@ kf_min <= |k| <= kf_max.
 
 The production campaign uses `3 <= |k| <= 5` for both initialization and forcing. The scalar potential follows an Ornstein--Uhlenbeck process, so the spatial pattern has a finite correlation time rather than being replaced by independent white noise every step.
 
-The original implementation divided the requested power by the instantaneous velocity--force correlation and also modified the requested power with a per-step Mach controller. Both operations could react strongly to short-lived correlation changes and produced visible high-frequency oscillations in the turbulent-Mach history. The default `filtered_power` mode now:
-
-- low-pass filters the velocity--force correlation in physical time;
-- relaxes the forcing coefficient over a separate physical response time;
-- limits the fractional coefficient change per unit physical time;
-- filters the measured turbulent Mach number;
-- changes requested power smoothly in logarithmic space, with a dead band and a bounded rate.
-
-The legacy `instantaneous_power` forcing mode and `--mach-control-mode legacy` are retained only for reproducing previous runs. `fixed_rms` applies the OU field with fixed RMS and no power rescaling.
+The current baseline uses the original finite-correlation Ornstein--Uhlenbeck
+forcing with a smoothed scalar power-rescaling coefficient. The optional Mach
+controller slowly adapts the requested mean injection power using
+`--mach-control-memory`. The forcing and controller are intentionally left
+unchanged during the first dissipation audit so that the effects of WENO,
+physical viscosity, and hyperviscosity can be isolated before another forcing
+redesign is attempted.
 
 ## HIT post-processing
 
@@ -240,6 +232,37 @@ A target initial Taylor-microscale Reynolds number can be requested with:
 The solver then computes the constant dynamic viscosity required by the initialized two-dimensional field and records the resolved value in `config.json`. The reported `Re_lambda_2d` is a two-dimensional analogue; it is not numerically interchangeable with the three-dimensional Taylor Reynolds numbers in standard HIT databases.
 
 Every diagnostic sample includes the physical viscous dissipation, the conventional Kolmogorov-length analogue `eta_K`, the two-dimensional Kraichnan/enstrophy microscale `eta_Omega`, their ratios to the grid spacing, the WENO fraction, and the measured kinetic-energy drain from numerical hyperviscosity. A run should only be described as DNS-quality when the physical dissipative scales are resolved and the numerical sinks remain small and localized. A value of `k_max*eta_K` or `eta_K/dx` alone is not sufficient when WENO or hyperviscosity contributes appreciable dissipation.
+
+## First-stage HIT dissipation audit
+
+The first roadmap campaign keeps the initial two-dimensional Taylor Reynolds
+number fixed and varies only the compact-node hyperviscosity strength:
+
+```bash
+./scripts/run_hit_dissipation_audit.sh
+```
+
+The default sequence uses `N=256`, `Mt=0.25`, `Re_lambda_2d=120`, and
+
+```text
+mn = 0, 0.0005, 0.001, 0.002.
+```
+
+Each case is run and post-processed before the next one starts. The campaign
+also creates:
+
+```text
+dissipation_audit_summary.csv
+dissipation_audit_summary.md
+dissipation_audit_spectra.png
+```
+
+Defaults can be overridden without editing the script, for example:
+
+```bash
+NX=128 NY=128 TFINAL=20 CFL=0.10 \
+  ./scripts/run_hit_dissipation_audit.sh
+```
 
 ## Run Riemann Configuration 3
 

@@ -1,0 +1,23 @@
+saved HIT diagnostic field plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/postprocess/physics_fields_final.png
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT history plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/postprocess/time_history.png
+saved isotropy diagnostics: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/isotropy_diagnostics.npz
+selected interval: t=[26.2031, 60.9666], Neddy=[4.16657, 9.71391], snapshots=17
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=1.772256e-01 (normalized=4.293676e-01), E_NN=1.851851e-01 (normalized=4.978541e-01)
+selected means: K=3.099776e-02, Mt=2.504278e-01, A_K=1.680656e-01, C_uv=4.515446e-02
+saved isotropy plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/postprocess/component_energy_anisotropy.png
+/home/fatienza/github/HIT_Solver/OOP/postprocess/spectra.py:150: RuntimeWarning: Kinetic-energy spectrum may be piling up near the complete-shell cutoff
+  warnings.warn("Kinetic-energy spectrum may be piling up near the complete-shell cutoff", RuntimeWarning)
+/home/fatienza/github/HIT_Solver/OOP/postprocess/spectra.py:152: RuntimeWarning: Enstrophy spectrum may be piling up near the complete-shell cutoff
+  warnings.warn("Enstrophy spectrum may be piling up near the complete-shell cutoff", RuntimeWarning)
+saved spectra diagnostics: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=3.109e+00, enstrophy=3.071e+00
+spectral checks: Parseval=2.210e-16, Helmholtz closure=4.114e-16, <chi_d>=1.246e-02
+saved PDF diagnostics: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-5.212e-01, F_theta=5.360e+00, S_omega=4.462e-02, F_omega=2.843e+00

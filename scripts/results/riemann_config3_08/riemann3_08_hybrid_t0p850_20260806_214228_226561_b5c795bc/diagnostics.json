@@ -1,0 +1,18 @@
+{
+  "backend": "cupy",
+  "density_max": 1.7616895025439627,
+  "density_min": 0.13610596082214435,
+  "density_positive": true,
+  "final_sensor_fraction": 0.22394180297851562,
+  "final_weno_fraction": 0.2324865984405458,
+  "has_nonfinite": false,
+  "hyperviscosity_applications": 761,
+  "hyperviscosity_enabled": true,
+  "max_abs_vorticity": 278.0899676623289,
+  "pressure_max": 1.6883454801601605,
+  "pressure_min": 0.02778186665677789,
+  "pressure_positive": true,
+  "scheme": "hybrid",
+  "steps": 3805,
+  "time": 0.85
+}

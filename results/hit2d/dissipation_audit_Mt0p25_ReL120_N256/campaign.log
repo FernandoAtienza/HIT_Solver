@@ -1,0 +1,34 @@
+[2026-08-06 22:27:08] ============================================================
+[2026-08-06 22:27:08] Starting sequential HIT dissipation audit
+[2026-08-06 22:27:08] Campaign directory: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256
+[2026-08-06 22:27:08] Hyperviscosity values: 0.0 0.0005 0.001 0.002
+[2026-08-06 22:27:08] ============================================================
+[2026-08-06 22:27:08] Starting Mt0p25_ReL120_N256_mn0p0000
+[2026-08-06 22:27:08] Parameters: Mt=0.25, Re_lambda_2D(initial)=120, N=256x256, CFL=0.10, tfinal=70.0, mn=0.0
+[2026-08-06 23:06:23] Simulation completed: Mt0p25_ReL120_N256_mn0p0000
+[2026-08-06 23:06:23] Post-processing results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0000
+[2026-08-06 23:06:27] Completed and post-processed: Mt0p25_ReL120_N256_mn0p0000
+[2026-08-06 23:06:27] Starting Mt0p25_ReL120_N256_mn0p0005
+[2026-08-06 23:06:27] Parameters: Mt=0.25, Re_lambda_2D(initial)=120, N=256x256, CFL=0.10, tfinal=70.0, mn=0.0005
+[2026-08-06 23:47:19] Simulation completed: Mt0p25_ReL120_N256_mn0p0005
+[2026-08-06 23:47:19] Post-processing results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0005
+[2026-08-06 23:47:23] Completed and post-processed: Mt0p25_ReL120_N256_mn0p0005
+[2026-08-06 23:47:23] Starting Mt0p25_ReL120_N256_mn0p0010
+[2026-08-06 23:47:23] Parameters: Mt=0.25, Re_lambda_2D(initial)=120, N=256x256, CFL=0.10, tfinal=70.0, mn=0.001
+[2026-08-07 00:28:14] Simulation completed: Mt0p25_ReL120_N256_mn0p0010
+[2026-08-07 00:28:14] Post-processing results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0010
+[2026-08-07 00:28:19] Completed and post-processed: Mt0p25_ReL120_N256_mn0p0010
+[2026-08-07 00:28:19] Starting Mt0p25_ReL120_N256_mn0p0020
+[2026-08-07 00:28:19] Parameters: Mt=0.25, Re_lambda_2D(initial)=120, N=256x256, CFL=0.10, tfinal=70.0, mn=0.002
+[2026-08-07 01:08:00] Simulation completed: Mt0p25_ReL120_N256_mn0p0020
+[2026-08-07 01:08:00] Post-processing results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/Mt0p25_ReL120_N256_mn0p0020
+[2026-08-07 01:08:05] Completed and post-processed: Mt0p25_ReL120_N256_mn0p0020
+[2026-08-07 01:08:05] Building cross-case summary
+saved: /home/fatienza/github/HIT_Solver/results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/dissipation_audit_summary.csv
+saved: /home/fatienza/github/HIT_Solver/results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/dissipation_audit_summary.md
+saved: /home/fatienza/github/HIT_Solver/results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/dissipation_audit_spectra.png
+[2026-08-07 01:08:05] ============================================================
+[2026-08-07 01:08:05] All dissipation-audit simulations finished
+[2026-08-07 01:08:05] Summary: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/dissipation_audit_summary.md
+[2026-08-07 01:08:05] Spectra: results/hit2d/dissipation_audit_Mt0p25_ReL120_N256/dissipation_audit_spectra.png
+[2026-08-07 01:08:05] ============================================================

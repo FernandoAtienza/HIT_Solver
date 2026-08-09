@@ -1106,14 +1106,6 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--forcing-correlation-time", type=float, default=1.0)
     parser.add_argument("--forcing-alpha-memory", type=float, default=0.2)
-    parser.add_argument(
-        "--forcing-control-mode",
-        choices=("filtered_power", "instantaneous_power", "fixed_rms"),
-        default="filtered_power",
-    )
-    parser.add_argument("--forcing-power-filter-time", type=float, default=0.5)
-    parser.add_argument("--forcing-alpha-response-time", type=float, default=0.5)
-    parser.add_argument("--forcing-alpha-max-fractional-rate", type=float, default=2.0)
     parser.add_argument("--seed", type=int, default=1234)
     parser.add_argument("--min-forcing-power", type=float, default=1.0e-6)
     parser.add_argument("--max-forcing-rescale", type=float, default=20.0)
@@ -1121,11 +1113,6 @@ def parse_args() -> argparse.Namespace:
         "--mach-control",
         action="store_true",
         help="Slowly adapt --p-target so the turbulent Mach number stays near the requested target.",
-    )
-    parser.add_argument(
-        "--mach-control-mode",
-        choices=("smooth", "legacy"),
-        default="smooth",
     )
     parser.add_argument(
         "--mach-control-target",
@@ -1145,10 +1132,6 @@ def parse_args() -> argparse.Namespace:
         default=2.0,
         help="Exponent in the power correction (Mt_target/Mt)^exponent.",
     )
-    parser.add_argument("--mach-control-filter-time", type=float, default=1.5)
-    parser.add_argument("--mach-control-response-time", type=float, default=6.0)
-    parser.add_argument("--mach-control-deadband", type=float, default=0.01)
-    parser.add_argument("--mach-control-max-log-rate", type=float, default=0.25)
     parser.add_argument(
         "--mach-control-min-power",
         type=float,
@@ -1223,22 +1206,13 @@ def main() -> None:
             forcing_kmax=args.kf if args.kf_max is None else args.kf_max,
             forcing_correlation_time=args.forcing_correlation_time,
             forcing_alpha_memory=args.forcing_alpha_memory,
-            forcing_control_mode=args.forcing_control_mode,
-            forcing_power_filter_time=args.forcing_power_filter_time,
-            forcing_alpha_response_time=args.forcing_alpha_response_time,
-            forcing_alpha_max_fractional_rate=args.forcing_alpha_max_fractional_rate,
             target_energy_injection=args.p_target,
             min_forcing_power=args.min_forcing_power,
             max_forcing_rescale=None if args.max_forcing_rescale == 0.0 else args.max_forcing_rescale,
             mach_control=args.mach_control,
-            mach_control_mode=args.mach_control_mode,
             mach_control_target=args.mach_control_target,
             mach_control_memory=args.mach_control_memory,
             mach_control_exponent=args.mach_control_exponent,
-            mach_control_filter_time=args.mach_control_filter_time,
-            mach_control_response_time=args.mach_control_response_time,
-            mach_control_deadband=args.mach_control_deadband,
-            mach_control_max_log_rate=args.mach_control_max_log_rate,
             mach_control_min_power=(
                 None if args.mach_control_min_power == 0.0 else args.mach_control_min_power
             ),

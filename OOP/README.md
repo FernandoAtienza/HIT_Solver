@@ -5,7 +5,7 @@ This folder contains the solver-side implementation for the compressible HIT and
 ## Main modules
 
 - `hit2d.py`: HIT configuration, initialization, time loop, diagnostics, `config.json`, and snapshots.
-- `forcing.py`: finite-correlation-time solenoidal forcing and smooth physical-time power/Mach controllers.
+- `forcing.py`: finite-correlation-time solenoidal forcing and the baseline smoothed scalar power controller.
 - `domain.py`: one- and two-dimensional grid helpers.
 - `equations.py`: NumPy Euler and Navier–Stokes equations.
 - `spatial_operator.py`: compact/WENO operators, shock sensors, and compact-node hyperviscosity.
@@ -18,7 +18,10 @@ This folder contains the solver-side implementation for the compressible HIT and
 
 The current HIT baseline is solenoidal-only. The initial velocity and stochastic forcing use a configurable Fourier shell. The production setup uses `3 <= |k| <= 5`, low-wavenumber drag at `|k| <= 2`, and homogeneous mean-pressure cooling.
 
-The default forcing controller filters the velocity--force correlation in physical time and rate-limits the forcing coefficient. The outer Mach controller filters the measured Mach number and changes target power in logarithmic space with a dead band. This avoids the sharp per-step corrections produced by instantaneous power division while preserving the same OU forcing shell and correlation time.
+The baseline forcing controller smooths the scalar power-rescaling coefficient
+with `forcing_alpha_memory`. The optional Mach controller adapts the requested
+mean power with `mach_control_memory`. These controls are intentionally kept
+unchanged during the first numerical-dissipation audit.
 
 `initial_re_lambda` can be used to infer a constant dynamic viscosity from the initialized velocity field. The resulting `re_lambda_2d` is explicitly a two-dimensional analogue.
 
@@ -41,7 +44,7 @@ run_simulation(config)
 
 ## HIT spectra, PDFs, and DNS checks
 
-`postprocess/spectra.py` uses a full-shell FFT accounting and Parseval normalization. It saves total, density-weighted, solenoidal, and dilatational spectra, verifies `E = E_s + E_d`, and includes both `k^-5/3` and `k^-3` reference slopes appropriate to the interpretation of two-dimensional cascades.
+`postprocess/spectra.py` uses a full-shell FFT accounting and Parseval normalization. It saves total, density-weighted, solenoidal, and dilatational spectra, verifies `E = E_s + E_d`, and includes the post-forcing `k^-3` energy-spectrum guide together with the equivalent `k^-1` enstrophy-spectrum guide.
 
 `postprocess/pdfs.py` computes pooled one-point PDFs of normalized dilatation, vorticity, pressure fluctuations, and density fluctuations, together with a joint dilatation--vorticity PDF.
 
