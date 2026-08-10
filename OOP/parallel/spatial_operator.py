@@ -233,12 +233,20 @@ class ParallelPeriodicHybridEuler2DOperator:
 
 @dataclass(frozen=True)
 class ParallelPeriodicHyperviscosity2D:
-    """Backend-aware biharmonic filter for compact-FD nodes only."""
+    """Backend-aware compact-region hyperviscosity.
+
+    ``conservative_flux`` uses a periodic face-flux divergence and therefore
+    conserves each filtered conservative variable to roundoff when no physical
+    clipping is required. ``legacy_node`` reproduces the previous pointwise
+    masked biharmonic filter. The operation remains a per-application filter
+    and is not multiplied by ``dt``.
+    """
     domain: Domain2D
     mn: float = 0.002
     density_weight: float = 0.25
     momentum_weight: float = 1.0
     energy_weight: float = 0.25
+    mode: str = "conservative_flux"
 
     def _laplacian(self, values):
         xp = array_module(values)
@@ -254,6 +262,19 @@ class ParallelPeriodicHyperviscosity2D:
         ) / self.domain.dy**2
         return lap_x + lap_y
 
+    def _conservative_biharmonic(self, values, active_mask):
+        xp = array_module(values)
+        lap = self._laplacian(values)
+        face_x = active_mask & xp.roll(active_mask, -1, axis=-1)
+        face_y = active_mask & xp.roll(active_mask, -1, axis=-2)
+        grad_lap_x = (xp.roll(lap, -1, axis=-1) - lap) / self.domain.dx
+        grad_lap_y = (xp.roll(lap, -1, axis=-2) - lap) / self.domain.dy
+        flux_x = face_x[None, :, :] * grad_lap_x
+        flux_y = face_y[None, :, :] * grad_lap_y
+        div_x = (flux_x - xp.roll(flux_x, 1, axis=-1)) / self.domain.dx
+        div_y = (flux_y - xp.roll(flux_y, 1, axis=-2)) / self.domain.dy
+        return div_x + div_y
+
     def apply(self, q, equation, active_mask=None):
         xp = array_module(q)
         if active_mask is None:
@@ -265,9 +286,16 @@ class ParallelPeriodicHyperviscosity2D:
             raise ValueError(
                 f"active_mask shape {active_mask.shape} does not match grid {q.shape[-2:]}"
             )
-        active = active_mask[None, :, :]
+        if self.mode not in {"conservative_flux", "legacy_node"}:
+            raise ValueError(
+                "hyperviscosity mode must be 'conservative_flux' or 'legacy_node'"
+            )
         h = min(self.domain.dx, self.domain.dy)
-        biharmonic = self._laplacian(self._laplacian(q))
+        if self.mode == "conservative_flux":
+            biharmonic = self._conservative_biharmonic(q, active_mask)
+        else:
+            active = active_mask[None, :, :]
+            biharmonic = active * self._laplacian(self._laplacian(q))
         weights = xp.array(
             [
                 self.density_weight,
@@ -277,5 +305,5 @@ class ParallelPeriodicHyperviscosity2D:
             ],
             dtype=q.dtype,
         )[:, None, None]
-        filtered = q - self.mn * weights * h**4 * active * biharmonic
+        filtered = q - self.mn * weights * h**4 * biharmonic
         return equation.enforce_physical_state(filtered)

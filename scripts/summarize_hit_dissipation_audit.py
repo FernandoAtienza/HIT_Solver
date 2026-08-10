@@ -114,6 +114,8 @@ def summarize_case(
         row: dict[str, object] = {
             "case": case_dir.name,
             "mn": float(config.get("hyperviscosity_mn", _scalar(history, "hyperviscosity_mn"))),
+            "cfl": float(config.get("cfl", float("nan"))),
+            "hyperviscosity_mode": str(config.get("hyperviscosity_mode", "unknown")),
             "hyperviscosity_interval": int(
                 config.get(
                     "hyperviscosity_interval",
@@ -133,6 +135,14 @@ def summarize_case(
             "mean_physical_viscous_dissipation": physical,
             "mean_hyperviscosity_drain_power": numerical,
             "hyperviscosity_to_physical_ratio": ratio,
+            "hyperviscosity_mass_change_cumulative_final": (
+                float(np.asarray(history["hyperviscosity_mass_change_cumulative"])[-1])
+                if "hyperviscosity_mass_change_cumulative" in history.files
+                else float("nan")
+            ),
+            "mean_hyperviscosity_nominal_rate": _time_mean(
+                history, "hyperviscosity_nominal_rate", mask, time
+            ),
             "mean_dilatational_energy_fraction": _time_mean(
                 history,
                 "dilatational_energy_fraction",
@@ -179,6 +189,8 @@ def write_markdown(rows: list[dict[str, object]], path: Path) -> None:
     columns = [
         "case",
         "mn",
+        "cfl",
+        "hyperviscosity_mode",
         "mean_re_lambda_2d",
         "mean_kinetic_energy",
         "mean_turbulent_mach",
@@ -186,11 +198,15 @@ def write_markdown(rows: list[dict[str, object]], path: Path) -> None:
         "mean_physical_viscous_dissipation",
         "mean_hyperviscosity_drain_power",
         "hyperviscosity_to_physical_ratio",
+        "hyperviscosity_mass_change_cumulative_final",
+        "mean_hyperviscosity_nominal_rate",
         "mean_dilatational_energy_fraction",
     ]
     labels = {
         "case": "Case",
         "mn": "mn",
+        "cfl": "CFL",
+        "hyperviscosity_mode": "HV mode",
         "mean_re_lambda_2d": "Mean Re_lambda,2D",
         "mean_kinetic_energy": "Mean K",
         "mean_turbulent_mach": "Mean Mt",
@@ -198,6 +214,8 @@ def write_markdown(rows: list[dict[str, object]], path: Path) -> None:
         "mean_physical_viscous_dissipation": "Physical dissipation",
         "mean_hyperviscosity_drain_power": "HV drain",
         "hyperviscosity_to_physical_ratio": "HV / physical",
+        "hyperviscosity_mass_change_cumulative_final": "HV mass change",
+        "mean_hyperviscosity_nominal_rate": "Mean mn/(N dt)",
         "mean_dilatational_energy_fraction": "Mean chi_d",
     }
     lines = [
@@ -227,7 +245,10 @@ def plot_spectra(case_dirs: list[Path], output_path: Path) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(13.0, 5.2), constrained_layout=True)
     for case_dir in available:
         config = _read_config(case_dir)
-        label = f"mn={float(config.get('hyperviscosity_mn', float('nan'))):g}"
+        label = (
+            f"mn={float(config.get('hyperviscosity_mn', float('nan'))):g}, "
+            f"CFL={float(config.get('cfl', float('nan'))):g}"
+        )
         with np.load(case_dir / "spectra_diagnostics.npz") as data:
             k = np.asarray(data["k"], dtype=float)
             energy = np.asarray(data["energy_mean"], dtype=float)

@@ -443,3 +443,26 @@ Regenerate figures without rerunning the simulation with:
 python3 -B scripts/plot_shock_shear_layer.py \
   results/shock_shear_layer/<run_id>/<run_id>_final.npz
 ```
+
+## Conservative compact-region hyperviscosity audit
+
+The HIT solver now provides `--hyperviscosity-mode conservative_flux`, which
+writes the compact-region biharmonic correction as a periodic face-flux
+divergence. Hyperviscous faces are active only when both adjacent nodes are
+compact-FD nodes. This preserves the discrete sum of each conservative variable
+to roundoff in periodic runs when no positivity clipping is required.
+
+The filter deliberately retains the historical application policy: it is
+applied every `--hyperviscosity-interval` complete RK steps and is **not** scaled
+by `dt`. Its effective dissipation rate therefore depends on CFL. The diagnostic
+`hyperviscosity_nominal_rate = mn/(interval*dt)` is saved explicitly so this
+dependence can be quantified rather than hidden.
+
+Run the next audit with:
+
+```bash
+./scripts/run_hit_conservative_hv_audit.sh
+```
+
+The campaign tests `mn = 0.001, 0.002, 0.005, 0.01` at CFL 0.10 and then tests
+CFL 0.05 and 0.20 at `mn = 0.002`.

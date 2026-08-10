@@ -72,6 +72,7 @@ class HIT2DConfig:
     shear_threshold: float | None = None
     hyperviscosity_mn: float = 0.002
     hyperviscosity_interval: int = 5
+    hyperviscosity_mode: str = "conservative_flux"
     large_scale_drag: float = 0.0
     large_scale_drag_kmax: float = 2.0
     cooling_time: float | None = None
@@ -570,6 +571,8 @@ def compute_diagnostics(
     weno_fraction: float = 0.0,
     hyperviscosity_drain_power: float = 0.0,
     hyperviscosity_energy_removed_cumulative: float = 0.0,
+    hyperviscosity_mass_change_cumulative: float = 0.0,
+    hyperviscosity_mass_change_rate: float = 0.0,
     hyperviscosity_nominal_rate: float = 0.0,
 ) -> dict[str, float]:
     """Compute compact scalar diagnostics for the periodic turbulence state."""
@@ -631,6 +634,8 @@ def compute_diagnostics(
         "hyperviscosity_energy_removed_cumulative": (
             hyperviscosity_energy_removed_cumulative
         ),
+        "hyperviscosity_mass_change_cumulative": hyperviscosity_mass_change_cumulative,
+        "hyperviscosity_mass_change_rate": hyperviscosity_mass_change_rate,
         "hyperviscosity_nominal_rate": hyperviscosity_nominal_rate,
     }
     diagnostics.update(
@@ -687,7 +692,8 @@ def save_run_config(
             "problem": "hit2d",
             "forcing_type": forcing_type,
             "spatial_discretization": "hybrid_compact_weno7",
-            "hyperviscosity_policy": "compact_nodes_only",
+            "hyperviscosity_policy": "compact_region_faces_only",
+            "hyperviscosity_time_policy": "every_N_steps_no_dt_scaling",
         }
     )
     if resolved_metadata is not None:
@@ -827,6 +833,7 @@ def save_diagnostic_history(
             "prandtl": np.asarray(config.prandtl),
             "hyperviscosity_mn": np.asarray(config.hyperviscosity_mn),
             "hyperviscosity_interval": np.asarray(config.hyperviscosity_interval),
+            "hyperviscosity_mode": np.asarray(config.hyperviscosity_mode),
         }
     )
     np.savez_compressed(path, **data)
@@ -960,7 +967,11 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         shear_threshold=config.shear_threshold,
     )
     operator = operator_class(domain, equation, sensor)
-    hyperviscosity = hyperviscosity_class(domain, mn=config.hyperviscosity_mn)
+    hyperviscosity = hyperviscosity_class(
+        domain,
+        mn=config.hyperviscosity_mn,
+        mode=config.hyperviscosity_mode,
+    )
     integrator = SSPRK3()
     forcing = IsotropicShellOUForcing2D(
         domain=domain,
@@ -999,6 +1010,9 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
     cooling = xp.zeros_like(q)
     hyperviscosity_energy_removed_cumulative = 0.0
     hyperviscosity_energy_removed_since_diagnostic = 0.0
+    hyperviscosity_mass_change_cumulative = 0.0
+    hyperviscosity_mass_change_since_diagnostic = 0.0
+    hyperviscosity_application_count = 0
     last_diagnostic_time = 0.0
     while time < config.tfinal:
         dt = operator.stable_time_step(q, config.cfl, config.tfinal - time)
@@ -1052,11 +1066,17 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
             weno_mask = sensor.detect(q)
             compact_mask = ~weno_mask
             kinetic_before = conservative_kinetic_energy(q)
+            mass_before_filter = float(xp.sum(q[0]))
             q = hyperviscosity.apply(q, equation, active_mask=compact_mask)
+            mass_after_filter = float(xp.sum(q[0]))
             kinetic_after = conservative_kinetic_energy(q)
             energy_removed = kinetic_before - kinetic_after
+            mass_change = mass_after_filter - mass_before_filter
             hyperviscosity_energy_removed_cumulative += energy_removed
             hyperviscosity_energy_removed_since_diagnostic += energy_removed
+            hyperviscosity_mass_change_cumulative += mass_change
+            hyperviscosity_mass_change_since_diagnostic += mass_change
+            hyperviscosity_application_count += 1
 
         if step % config.diagnostics_every == 0 or time >= config.tfinal:
             diagnostic_elapsed_time = max(
@@ -1065,6 +1085,10 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
             )
             hyperviscosity_drain_power = (
                 hyperviscosity_energy_removed_since_diagnostic
+                / diagnostic_elapsed_time
+            )
+            hyperviscosity_mass_change_rate = (
+                hyperviscosity_mass_change_since_diagnostic
                 / diagnostic_elapsed_time
             )
             hyperviscosity_nominal_rate = (
@@ -1103,6 +1127,10 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
                 hyperviscosity_energy_removed_cumulative=(
                     hyperviscosity_energy_removed_cumulative
                 ),
+                hyperviscosity_mass_change_cumulative=(
+                    hyperviscosity_mass_change_cumulative
+                ),
+                hyperviscosity_mass_change_rate=hyperviscosity_mass_change_rate,
                 hyperviscosity_nominal_rate=hyperviscosity_nominal_rate,
             )
             diagnostic_history.append(_diagnostic_record(step, time, dt, diagnostics))
@@ -1110,6 +1138,7 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
             save_diagnostic_history(config.output_dir, diagnostic_history, config)
             _print_diagnostics(step, time, dt, diagnostics)
             hyperviscosity_energy_removed_since_diagnostic = 0.0
+            hyperviscosity_mass_change_since_diagnostic = 0.0
             last_diagnostic_time = time
 
         if step % config.snapshot_every == 0 or time >= config.tfinal:
@@ -1235,6 +1264,15 @@ def parse_args() -> argparse.Namespace:
         help="Apply compact-node hyperviscosity every N complete RK steps.",
     )
     parser.add_argument(
+        "--hyperviscosity-mode",
+        choices=("conservative_flux", "legacy_node"),
+        default="conservative_flux",
+        help=(
+            "Hyperviscosity masking formulation. conservative_flux is periodic "
+            "and conservative; legacy_node reproduces previous pointwise masking."
+        ),
+    )
+    parser.add_argument(
         "--large-scale-drag",
         type=float,
         default=0.0,
@@ -1314,6 +1352,7 @@ def main() -> None:
         ),
         hyperviscosity_mn=args.mn,
         hyperviscosity_interval=args.hyperviscosity_interval,
+        hyperviscosity_mode=args.hyperviscosity_mode,
         large_scale_drag=args.large_scale_drag,
         large_scale_drag_kmax=args.drag_kmax,
         cooling_time=None if args.cooling_time <= 0.0 else args.cooling_time,

@@ -379,10 +379,25 @@ class PeriodicHybridEuler2DOperator:
 
 @dataclass(frozen=True)
 class PeriodicHyperviscosity2D:
-    """Periodic biharmonic filter restricted to explicitly selected nodes.
+    """Periodic compact-region hyperviscosity.
 
-    ``active_mask`` must identify compact-FD nodes. Requiring the mask
-    prevents accidental hyperviscosity application at WENO nodes.
+    Two formulations are available:
+
+    ``conservative_flux`` (default)
+        Applies the biharmonic correction as the divergence of face fluxes.
+        A face is active only when the two nodes adjacent to that face are
+        compact-FD nodes. The periodic discrete flux divergence therefore
+        telescopes exactly, so each conservative variable is preserved to
+        roundoff provided the physical-state limiter does not activate.
+
+    ``legacy_node``
+        Retains the previous pointwise masked biharmonic correction for
+        reproducibility of earlier runs. It is not globally conservative
+        when the compact/WENO mask varies in space.
+
+    The correction remains a discrete filter applied every configured number
+    of complete RK steps; it is intentionally *not* multiplied by ``dt``.
+    Consequently its effective strength per unit physical time depends on CFL.
     """
 
     domain: Domain2D
@@ -390,6 +405,7 @@ class PeriodicHyperviscosity2D:
     density_weight: float = 0.25
     momentum_weight: float = 1.0
     energy_weight: float = 0.25
+    mode: str = "conservative_flux"
 
     def _laplacian(self, values: np.ndarray) -> np.ndarray:
         lap_x = (
@@ -403,6 +419,28 @@ class PeriodicHyperviscosity2D:
             + np.roll(values, 1, axis=-2)
         ) / self.domain.dy**2
         return lap_x + lap_y
+
+    def _conservative_biharmonic(
+        self,
+        values: np.ndarray,
+        active_mask: np.ndarray,
+    ) -> np.ndarray:
+        """Return a masked biharmonic written as a periodic flux divergence."""
+
+        lap = self._laplacian(values)
+
+        # Face i+1/2 is eligible only when both adjacent nodes are compact.
+        face_x = active_mask & np.roll(active_mask, -1, axis=-1)
+        face_y = active_mask & np.roll(active_mask, -1, axis=-2)
+
+        grad_lap_x = (np.roll(lap, -1, axis=-1) - lap) / self.domain.dx
+        grad_lap_y = (np.roll(lap, -1, axis=-2) - lap) / self.domain.dy
+        flux_x = face_x[None, :, :] * grad_lap_x
+        flux_y = face_y[None, :, :] * grad_lap_y
+
+        div_x = (flux_x - np.roll(flux_x, 1, axis=-1)) / self.domain.dx
+        div_y = (flux_y - np.roll(flux_y, 1, axis=-2)) / self.domain.dy
+        return div_x + div_y
 
     def apply(
         self,
@@ -419,9 +457,18 @@ class PeriodicHyperviscosity2D:
             raise ValueError(
                 f"active_mask shape {active_mask.shape} does not match grid {q.shape[-2:]}"
             )
-        active = active_mask[None, :, :]
+        if self.mode not in {"conservative_flux", "legacy_node"}:
+            raise ValueError(
+                "hyperviscosity mode must be 'conservative_flux' or 'legacy_node'"
+            )
+
         h = min(self.domain.dx, self.domain.dy)
-        biharmonic = self._laplacian(self._laplacian(q))
+        if self.mode == "conservative_flux":
+            biharmonic = self._conservative_biharmonic(q, active_mask)
+        else:
+            active = active_mask[None, :, :]
+            biharmonic = active * self._laplacian(self._laplacian(q))
+
         weights = np.array(
             [
                 self.density_weight,
@@ -431,7 +478,7 @@ class PeriodicHyperviscosity2D:
             ],
             dtype=q.dtype,
         )[:, None, None]
-        filtered = q - self.mn * weights * h**4 * active * biharmonic
+        filtered = q - self.mn * weights * h**4 * biharmonic
         return equation.enforce_physical_state(filtered)
 
 
