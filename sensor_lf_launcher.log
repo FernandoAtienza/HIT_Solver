@@ -1,0 +1,403 @@
+============================================================
+HIT shock-sensor / WENO LF audit
+Started: Mon Aug 10 06:44:56 PM CEST 2026
+Grid=256x256; Mt=0.25; Re_lambda,0=120; CFL=0.10
+Conservative HV: mn=0.005, every 5 RK steps
+Sensor controls: jump=0.04, compression=2.5, Ducros=0.50
+This is a full 3(sensor) x 2(LF) factorial comparison.
+============================================================
+
+------------------------------------------------------------
+Starting legacy_global at Mon Aug 10 06:44:56 PM CEST 2026
+sensor=legacy; WENO LF=global
+------------------------------------------------------------
+Using array backend: cupy
+saved run configuration: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/config.json
+resolved initial Re_lambda_2d=120.000000 with dynamic viscosity=7.560701e-04
+step=     0, t=0.000000, dt=0.000e+00, KE=3.125000e-02, Mt=0.2500, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.018 (x=0.018, y=0.018), ReL2D=120.00, eps_nu=7.186e-04, P_hv=0.000e+00, rho_mean=1.000000, p_mean=0.714286, div_rms=6.115e-15, vort_rms=9.749e-01, mass_err=0.000e+00
+warning: cumulative forcing anisotropy is high (A_F=0.206)
+step=  5000, t=4.476491, dt=8.992e-04, KE=3.130336e-02, Mt=0.2523, A_K=0.205, Cuv=0.056, P_in=9.311e-04, P_tgt=9.409e-04, A_F=0.206, K_low=0.021, P_drag=-1.263e-04, P_cool=-5.606e-04, WENO=0.064 (x=0.064, y=0.064), ReL2D=128.53, eps_nu=7.320e-04, P_hv=8.281e-06, rho_mean=1.000000, p_mean=0.715407, div_rms=1.227e-01, vort_rms=9.737e-01, mass_err=-1.211e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0005000.npz
+step= 10000, t=8.969580, dt=8.734e-04, KE=3.085065e-02, Mt=0.2495, A_K=0.006, Cuv=0.054, P_in=7.182e-04, P_tgt=7.128e-04, A_F=0.006, K_low=0.072, P_drag=-4.404e-04, P_cool=-5.795e-04, WENO=0.084 (x=0.084, y=0.084), ReL2D=121.03, eps_nu=6.528e-04, P_hv=1.190e-05, rho_mean=1.000000, p_mean=0.715445, div_rms=1.269e-01, vort_rms=9.176e-01, mass_err=-2.422e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0010000.npz
+step= 15000, t=13.258058, dt=8.480e-04, KE=2.956434e-02, Mt=0.2459, A_K=0.104, Cuv=0.201, P_in=1.420e-03, P_tgt=1.431e-03, A_F=0.238, K_low=0.089, P_drag=-5.107e-04, P_cool=-6.866e-04, WENO=0.049 (x=0.049, y=0.049), ReL2D=120.22, eps_nu=6.016e-04, P_hv=1.250e-05, rho_mean=1.000000, p_mean=0.715659, div_rms=1.189e-01, vort_rms=8.814e-01, mass_err=-3.634e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0015000.npz
+step= 20000, t=17.516340, dt=8.652e-04, KE=3.206397e-02, Mt=0.2546, A_K=0.168, Cuv=0.230, P_in=1.317e-03, P_tgt=1.312e-03, A_F=0.151, K_low=0.088, P_drag=-5.638e-04, P_cool=-5.991e-04, WENO=0.061 (x=0.061, y=0.061), ReL2D=130.21, eps_nu=6.188e-04, P_hv=1.144e-05, rho_mean=1.000000, p_mean=0.715484, div_rms=1.220e-01, vort_rms=8.937e-01, mass_err=-4.848e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0020000.npz
+step= 25000, t=21.857464, dt=8.454e-04, KE=3.007610e-02, Mt=0.2471, A_K=0.018, Cuv=0.017, P_in=9.433e-04, P_tgt=9.454e-04, A_F=0.046, K_low=0.148, P_drag=-8.751e-04, P_cool=-6.574e-04, WENO=0.072 (x=0.072, y=0.072), ReL2D=126.52, eps_nu=5.968e-04, P_hv=1.114e-05, rho_mean=1.000000, p_mean=0.715601, div_rms=1.175e-01, vort_rms=8.780e-01, mass_err=-6.058e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0025000.npz
+step= 30000, t=26.193038, dt=8.910e-04, KE=3.064169e-02, Mt=0.2490, A_K=0.017, Cuv=-0.088, P_in=2.125e-03, P_tgt=2.125e-03, A_F=0.141, K_low=0.113, P_drag=-6.854e-04, P_cool=-6.007e-04, WENO=0.048 (x=0.048, y=0.048), ReL2D=127.07, eps_nu=6.174e-04, P_hv=1.141e-05, rho_mean=1.000000, p_mean=0.715487, div_rms=1.195e-01, vort_rms=8.931e-01, mass_err=-7.270e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0030000.npz
+step= 35000, t=30.493573, dt=8.642e-04, KE=3.256530e-02, Mt=0.2568, A_K=0.361, Cuv=-0.305, P_in=8.789e-04, P_tgt=8.807e-04, A_F=0.048, K_low=0.066, P_drag=-4.185e-04, P_cool=-6.513e-04, WENO=0.072 (x=0.072, y=0.072), ReL2D=127.23, eps_nu=6.430e-04, P_hv=1.377e-05, rho_mean=1.000000, p_mean=0.715588, div_rms=1.252e-01, vort_rms=9.108e-01, mass_err=-8.480e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0035000.npz
+step= 40000, t=34.921261, dt=9.007e-04, KE=3.055980e-02, Mt=0.2488, A_K=0.312, Cuv=-0.112, P_in=4.776e-04, P_tgt=4.768e-04, A_F=0.185, K_low=0.080, P_drag=-4.829e-04, P_cool=-6.063e-04, WENO=0.055 (x=0.055, y=0.055), ReL2D=132.57, eps_nu=5.230e-04, P_hv=1.322e-05, rho_mean=1.000000, p_mean=0.715498, div_rms=1.213e-01, vort_rms=8.198e-01, mass_err=-9.688e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0040000.npz
+step= 45000, t=39.334648, dt=9.020e-04, KE=2.956117e-02, Mt=0.2442, A_K=0.231, Cuv=-0.183, P_in=1.302e-03, P_tgt=1.303e-03, A_F=0.138, K_low=0.102, P_drag=-6.022e-04, P_cool=-5.190e-04, WENO=0.073 (x=0.073, y=0.073), ReL2D=135.75, eps_nu=4.637e-04, P_hv=1.013e-05, rho_mean=1.000000, p_mean=0.715324, div_rms=1.141e-01, vort_rms=7.720e-01, mass_err=-1.089e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0045000.npz
+step= 50000, t=43.824636, dt=9.040e-04, KE=3.175410e-02, Mt=0.2536, A_K=0.025, Cuv=0.064, P_in=1.728e-03, P_tgt=1.729e-03, A_F=0.112, K_low=0.143, P_drag=-9.055e-04, P_cool=-5.473e-04, WENO=0.059 (x=0.059, y=0.059), ReL2D=137.22, eps_nu=5.462e-04, P_hv=8.973e-06, rho_mean=1.000000, p_mean=0.715380, div_rms=1.155e-01, vort_rms=8.394e-01, mass_err=-1.210e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0050000.npz
+step= 55000, t=48.203046, dt=9.058e-04, KE=3.108047e-02, Mt=0.2508, A_K=0.031, Cuv=-0.127, P_in=9.634e-04, P_tgt=9.873e-04, A_F=0.025, K_low=0.119, P_drag=-7.419e-04, P_cool=-5.619e-04, WENO=0.057 (x=0.057, y=0.057), ReL2D=132.98, eps_nu=5.503e-04, P_hv=9.976e-06, rho_mean=1.000000, p_mean=0.715410, div_rms=1.203e-01, vort_rms=8.417e-01, mass_err=-1.331e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0055000.npz
+step= 60000, t=52.585855, dt=8.701e-04, KE=3.010946e-02, Mt=0.2472, A_K=0.034, Cuv=-0.308, P_in=1.342e-03, P_tgt=1.335e-03, A_F=0.238, K_low=0.118, P_drag=-7.122e-04, P_cool=-5.735e-04, WENO=0.071 (x=0.071, y=0.071), ReL2D=128.12, eps_nu=5.709e-04, P_hv=1.097e-05, rho_mean=1.000000, p_mean=0.715433, div_rms=1.202e-01, vort_rms=8.578e-01, mass_err=-1.453e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0060000.npz
+step= 65000, t=56.952306, dt=8.061e-04, KE=3.147171e-02, Mt=0.2531, A_K=0.043, Cuv=-0.075, P_in=1.463e-03, P_tgt=1.479e-03, A_F=0.077, K_low=0.082, P_drag=-5.171e-04, P_cool=-6.130e-04, WENO=0.049 (x=0.049, y=0.049), ReL2D=126.88, eps_nu=6.115e-04, P_hv=1.095e-05, rho_mean=1.000000, p_mean=0.715512, div_rms=1.411e-01, vort_rms=8.845e-01, mass_err=-1.574e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0065000.npz
+step= 70000, t=61.156526, dt=8.437e-04, KE=3.042970e-02, Mt=0.2495, A_K=0.036, Cuv=0.159, P_in=8.881e-04, P_tgt=8.925e-04, A_F=0.166, K_low=0.160, P_drag=-9.539e-04, P_cool=-6.082e-04, WENO=0.054 (x=0.054, y=0.054), ReL2D=119.10, eps_nu=6.059e-04, P_hv=1.149e-05, rho_mean=1.000000, p_mean=0.715502, div_rms=1.202e-01, vort_rms=8.844e-01, mass_err=-1.695e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0070000.npz
+step= 75000, t=65.432942, dt=8.718e-04, KE=2.929219e-02, Mt=0.2449, A_K=0.200, Cuv=0.029, P_in=2.623e-03, P_tgt=2.609e-03, A_F=0.271, K_low=0.187, P_drag=-1.076e-03, P_cool=-6.062e-04, WENO=0.043 (x=0.043, y=0.043), ReL2D=123.80, eps_nu=6.074e-04, P_hv=1.128e-05, rho_mean=1.000000, p_mean=0.715498, div_rms=1.161e-01, vort_rms=8.862e-01, mass_err=-1.817e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0075000.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 80000, t=69.750778, dt=8.417e-04, KE=3.344492e-02, Mt=0.2600, A_K=0.272, Cuv=-0.003, P_in=1.152e-03, P_tgt=1.151e-03, A_F=0.025, K_low=0.090, P_drag=-5.993e-04, P_cool=-6.175e-04, WENO=0.056 (x=0.056, y=0.056), ReL2D=132.85, eps_nu=6.940e-04, P_hv=1.276e-05, rho_mean=1.000000, p_mean=0.715521, div_rms=1.264e-01, vort_rms=9.469e-01, mass_err=-1.938e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0080000.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 80299, t=70.000000, dt=2.133e-04, KE=3.344996e-02, Mt=0.2602, A_K=0.276, Cuv=-0.018, P_in=1.015e-03, P_tgt=1.026e-03, A_F=0.084, K_low=0.092, P_drag=-6.075e-04, P_cool=-6.101e-04, WENO=0.051 (x=0.051, y=0.051), ReL2D=133.83, eps_nu=6.884e-04, P_hv=1.327e-05, rho_mean=1.000000, p_mean=0.715506, div_rms=1.242e-01, vort_rms=9.434e-01, mass_err=-1.945e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/hit2d_step0080299.npz
+completed 2D HIT run at t=70.000000 in 80299 steps
+Post-processing legacy_global
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT diagnostic field plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/postprocess/hit2d_physics_fields.png
+saved HIT history plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/postprocess/hit2d_history.png
+saved isotropy diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/isotropy_diagnostics.npz
+selected interval: t=[26.193, 61.1565], Neddy=[4.16751, 9.74462], snapshots=9
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=1.113859e-01 (normalized=2.700159e-01), E_NN=1.389917e-01 (normalized=3.603747e-01)
+selected means: K=3.090816e-02, Mt=2.503312e-01, A_K=1.210636e-01, C_uv=-1.083897e-01
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=0.000e+00, enstrophy=1.056e+00
+spectral checks: Parseval=0.000e+00, Helmholtz closure=7.013e-17, <chi_d>=1.245e-02
+saved PDF diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_global/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-8.073e-01, F_theta=1.161e+01, S_omega=-4.488e-02, F_omega=3.115e+00
+
+------------------------------------------------------------
+Starting legacy_local at Mon Aug 10 07:25:31 PM CEST 2026
+sensor=legacy; WENO LF=local
+------------------------------------------------------------
+Using array backend: cupy
+saved run configuration: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/config.json
+resolved initial Re_lambda_2d=120.000000 with dynamic viscosity=7.560701e-04
+step=     0, t=0.000000, dt=0.000e+00, KE=3.125000e-02, Mt=0.2500, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.018 (x=0.018, y=0.018), ReL2D=120.00, eps_nu=7.186e-04, P_hv=0.000e+00, rho_mean=1.000000, p_mean=0.714286, div_rms=6.115e-15, vort_rms=9.749e-01, mass_err=0.000e+00
+warning: cumulative forcing anisotropy is high (A_F=0.206)
+step=  5000, t=4.476494, dt=8.992e-04, KE=3.130336e-02, Mt=0.2523, A_K=0.205, Cuv=0.056, P_in=9.311e-04, P_tgt=9.409e-04, A_F=0.206, K_low=0.021, P_drag=-1.263e-04, P_cool=-5.606e-04, WENO=0.064 (x=0.064, y=0.064), ReL2D=128.53, eps_nu=7.320e-04, P_hv=8.280e-06, rho_mean=1.000000, p_mean=0.715407, div_rms=1.227e-01, vort_rms=9.737e-01, mass_err=-1.210e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0005000.npz
+step= 10000, t=8.969589, dt=8.734e-04, KE=3.085064e-02, Mt=0.2495, A_K=0.006, Cuv=0.054, P_in=7.182e-04, P_tgt=7.129e-04, A_F=0.006, K_low=0.072, P_drag=-4.404e-04, P_cool=-5.795e-04, WENO=0.084 (x=0.084, y=0.084), ReL2D=121.03, eps_nu=6.528e-04, P_hv=1.189e-05, rho_mean=1.000000, p_mean=0.715445, div_rms=1.269e-01, vort_rms=9.176e-01, mass_err=-2.422e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0010000.npz
+step= 15000, t=13.258063, dt=8.480e-04, KE=2.956440e-02, Mt=0.2459, A_K=0.104, Cuv=0.201, P_in=1.420e-03, P_tgt=1.431e-03, A_F=0.238, K_low=0.089, P_drag=-5.107e-04, P_cool=-6.866e-04, WENO=0.049 (x=0.049, y=0.049), ReL2D=120.22, eps_nu=6.016e-04, P_hv=1.249e-05, rho_mean=1.000000, p_mean=0.715659, div_rms=1.189e-01, vort_rms=8.814e-01, mass_err=-3.634e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0015000.npz
+step= 20000, t=17.516320, dt=8.652e-04, KE=3.206395e-02, Mt=0.2546, A_K=0.168, Cuv=0.230, P_in=1.316e-03, P_tgt=1.312e-03, A_F=0.151, K_low=0.088, P_drag=-5.638e-04, P_cool=-5.991e-04, WENO=0.061 (x=0.061, y=0.061), ReL2D=130.21, eps_nu=6.188e-04, P_hv=1.144e-05, rho_mean=1.000000, p_mean=0.715484, div_rms=1.220e-01, vort_rms=8.937e-01, mass_err=-4.847e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0020000.npz
+step= 25000, t=21.857448, dt=8.454e-04, KE=3.007616e-02, Mt=0.2471, A_K=0.018, Cuv=0.017, P_in=9.433e-04, P_tgt=9.454e-04, A_F=0.046, K_low=0.148, P_drag=-8.750e-04, P_cool=-6.574e-04, WENO=0.072 (x=0.072, y=0.072), ReL2D=126.52, eps_nu=5.968e-04, P_hv=1.114e-05, rho_mean=1.000000, p_mean=0.715600, div_rms=1.175e-01, vort_rms=8.780e-01, mass_err=-6.057e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0025000.npz
+step= 30000, t=26.192968, dt=8.910e-04, KE=3.064318e-02, Mt=0.2490, A_K=0.017, Cuv=-0.088, P_in=2.126e-03, P_tgt=2.126e-03, A_F=0.141, K_low=0.113, P_drag=-6.854e-04, P_cool=-6.008e-04, WENO=0.048 (x=0.048, y=0.048), ReL2D=127.07, eps_nu=6.174e-04, P_hv=1.141e-05, rho_mean=1.000000, p_mean=0.715487, div_rms=1.195e-01, vort_rms=8.931e-01, mass_err=-7.270e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0030000.npz
+step= 35000, t=30.493391, dt=8.642e-04, KE=3.256530e-02, Mt=0.2568, A_K=0.361, Cuv=-0.305, P_in=8.783e-04, P_tgt=8.801e-04, A_F=0.048, K_low=0.066, P_drag=-4.186e-04, P_cool=-6.513e-04, WENO=0.072 (x=0.072, y=0.072), ReL2D=127.23, eps_nu=6.430e-04, P_hv=1.376e-05, rho_mean=1.000000, p_mean=0.715588, div_rms=1.253e-01, vort_rms=9.108e-01, mass_err=-8.479e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0035000.npz
+step= 40000, t=34.921099, dt=9.008e-04, KE=3.055827e-02, Mt=0.2488, A_K=0.312, Cuv=-0.112, P_in=4.776e-04, P_tgt=4.768e-04, A_F=0.185, K_low=0.080, P_drag=-4.827e-04, P_cool=-6.064e-04, WENO=0.055 (x=0.055, y=0.055), ReL2D=132.56, eps_nu=5.230e-04, P_hv=1.322e-05, rho_mean=1.000000, p_mean=0.715498, div_rms=1.214e-01, vort_rms=8.198e-01, mass_err=-9.686e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0040000.npz
+step= 45000, t=39.334017, dt=9.017e-04, KE=2.956172e-02, Mt=0.2443, A_K=0.231, Cuv=-0.182, P_in=1.302e-03, P_tgt=1.302e-03, A_F=0.138, K_low=0.102, P_drag=-6.023e-04, P_cool=-5.190e-04, WENO=0.073 (x=0.073, y=0.073), ReL2D=135.76, eps_nu=4.637e-04, P_hv=1.013e-05, rho_mean=1.000000, p_mean=0.715324, div_rms=1.141e-01, vort_rms=7.719e-01, mass_err=-1.089e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0045000.npz
+step= 50000, t=43.823542, dt=9.038e-04, KE=3.175315e-02, Mt=0.2536, A_K=0.025, Cuv=0.064, P_in=1.727e-03, P_tgt=1.729e-03, A_F=0.112, K_low=0.143, P_drag=-9.044e-04, P_cool=-5.473e-04, WENO=0.059 (x=0.059, y=0.059), ReL2D=137.23, eps_nu=5.461e-04, P_hv=8.970e-06, rho_mean=1.000000, p_mean=0.715380, div_rms=1.155e-01, vort_rms=8.394e-01, mass_err=-1.210e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0050000.npz
+step= 55000, t=48.204134, dt=9.068e-04, KE=3.107884e-02, Mt=0.2508, A_K=0.031, Cuv=-0.127, P_in=9.634e-04, P_tgt=9.874e-04, A_F=0.025, K_low=0.119, P_drag=-7.430e-04, P_cool=-5.618e-04, WENO=0.057 (x=0.057, y=0.057), ReL2D=132.93, eps_nu=5.502e-04, P_hv=9.966e-06, rho_mean=1.000000, p_mean=0.715409, div_rms=1.203e-01, vort_rms=8.417e-01, mass_err=-1.331e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0055000.npz
+step= 60000, t=52.586459, dt=8.699e-04, KE=3.011254e-02, Mt=0.2472, A_K=0.033, Cuv=-0.308, P_in=1.343e-03, P_tgt=1.336e-03, A_F=0.238, K_low=0.118, P_drag=-7.124e-04, P_cool=-5.735e-04, WENO=0.071 (x=0.071, y=0.071), ReL2D=128.07, eps_nu=5.713e-04, P_hv=1.097e-05, rho_mean=1.000000, p_mean=0.715433, div_rms=1.202e-01, vort_rms=8.581e-01, mass_err=-1.453e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0060000.npz
+step= 65000, t=56.955582, dt=8.071e-04, KE=3.147936e-02, Mt=0.2531, A_K=0.041, Cuv=-0.077, P_in=1.461e-03, P_tgt=1.477e-03, A_F=0.077, K_low=0.082, P_drag=-5.137e-04, P_cool=-6.129e-04, WENO=0.050 (x=0.050, y=0.050), ReL2D=126.86, eps_nu=6.120e-04, P_hv=1.096e-05, rho_mean=1.000000, p_mean=0.715512, div_rms=1.417e-01, vort_rms=8.847e-01, mass_err=-1.574e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0065000.npz
+step= 70000, t=61.163354, dt=8.439e-04, KE=3.044258e-02, Mt=0.2495, A_K=0.039, Cuv=0.157, P_in=8.809e-04, P_tgt=8.852e-04, A_F=0.166, K_low=0.158, P_drag=-9.418e-04, P_cool=-6.091e-04, WENO=0.055 (x=0.055, y=0.055), ReL2D=119.24, eps_nu=6.057e-04, P_hv=1.150e-05, rho_mean=1.000000, p_mean=0.715504, div_rms=1.202e-01, vort_rms=8.842e-01, mass_err=-1.695e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0070000.npz
+step= 75000, t=65.441368, dt=8.722e-04, KE=2.925142e-02, Mt=0.2448, A_K=0.203, Cuv=0.025, P_in=2.585e-03, P_tgt=2.571e-03, A_F=0.271, K_low=0.186, P_drag=-1.071e-03, P_cool=-6.058e-04, WENO=0.043 (x=0.043, y=0.043), ReL2D=123.66, eps_nu=6.045e-04, P_hv=1.128e-05, rho_mean=1.000000, p_mean=0.715497, div_rms=1.160e-01, vort_rms=8.840e-01, mass_err=-1.817e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0075000.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 80000, t=69.756937, dt=8.409e-04, KE=3.344283e-02, Mt=0.2600, A_K=0.277, Cuv=-0.014, P_in=1.164e-03, P_tgt=1.163e-03, A_F=0.025, K_low=0.090, P_drag=-5.959e-04, P_cool=-6.157e-04, WENO=0.057 (x=0.057, y=0.057), ReL2D=132.44, eps_nu=6.931e-04, P_hv=1.269e-05, rho_mean=1.000000, p_mean=0.715517, div_rms=1.264e-01, vort_rms=9.462e-01, mass_err=-1.938e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0080000.npz
+warning: flow component anisotropy has increased over the last three diagnostic samples
+step= 80292, t=70.000000, dt=2.177e-04, KE=3.345261e-02, Mt=0.2603, A_K=0.282, Cuv=-0.029, P_in=1.044e-03, P_tgt=1.040e-03, A_F=0.054, K_low=0.092, P_drag=-6.048e-04, P_cool=-6.084e-04, WENO=0.048 (x=0.048, y=0.048), ReL2D=133.48, eps_nu=6.875e-04, P_hv=1.328e-05, rho_mean=1.000000, p_mean=0.715502, div_rms=1.239e-01, vort_rms=9.428e-01, mass_err=-1.945e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/hit2d_step0080292.npz
+completed 2D HIT run at t=70.000000 in 80292 steps
+Post-processing legacy_local
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT diagnostic field plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/postprocess/hit2d_physics_fields.png
+saved HIT history plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/postprocess/hit2d_history.png
+saved isotropy diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/isotropy_diagnostics.npz
+selected interval: t=[26.193, 61.1634], Neddy=[4.16751, 9.74585], snapshots=9
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=1.111569e-01 (normalized=2.694287e-01), E_NN=1.384147e-01 (normalized=3.587229e-01)
+selected means: K=3.091055e-02, Mt=2.503404e-01, A_K=1.211266e-01, C_uv=-1.086255e-01
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=0.000e+00, enstrophy=1.133e+00
+spectral checks: Parseval=0.000e+00, Helmholtz closure=4.477e-17, <chi_d>=1.244e-02
+saved PDF diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/legacy_local/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-8.208e-01, F_theta=1.178e+01, S_omega=-4.543e-02, F_omega=3.110e+00
+
+------------------------------------------------------------
+Starting gated_global at Mon Aug 10 08:10:23 PM CEST 2026
+sensor=compression_gated; WENO LF=global
+------------------------------------------------------------
+Using array backend: cupy
+saved run configuration: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/config.json
+resolved initial Re_lambda_2d=120.000000 with dynamic viscosity=7.560701e-04
+step=     0, t=0.000000, dt=0.000e+00, KE=3.125000e-02, Mt=0.2500, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.000 (x=0.000, y=0.000), ReL2D=120.00, eps_nu=7.186e-04, P_hv=0.000e+00, rho_mean=1.000000, p_mean=0.714286, div_rms=6.115e-15, vort_rms=9.749e-01, mass_err=0.000e+00
+warning: cumulative forcing anisotropy is high (A_F=0.206)
+step=  5000, t=4.476645, dt=8.993e-04, KE=3.130220e-02, Mt=0.2523, A_K=0.205, Cuv=0.056, P_in=9.316e-04, P_tgt=9.414e-04, A_F=0.206, K_low=0.021, P_drag=-1.263e-04, P_cool=-5.609e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=128.55, eps_nu=7.318e-04, P_hv=8.845e-06, rho_mean=1.000000, p_mean=0.715408, div_rms=1.226e-01, vort_rms=9.736e-01, mass_err=-1.210e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0005000.npz
+step= 10000, t=8.969723, dt=8.734e-04, KE=3.085007e-02, Mt=0.2495, A_K=0.006, Cuv=0.054, P_in=7.192e-04, P_tgt=7.138e-04, A_F=0.006, K_low=0.072, P_drag=-4.404e-04, P_cool=-5.800e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=121.07, eps_nu=6.525e-04, P_hv=1.276e-05, rho_mean=1.000000, p_mean=0.715446, div_rms=1.266e-01, vort_rms=9.174e-01, mass_err=-2.422e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0010000.npz
+step= 15000, t=13.258333, dt=8.480e-04, KE=2.956591e-02, Mt=0.2460, A_K=0.104, Cuv=0.201, P_in=1.421e-03, P_tgt=1.432e-03, A_F=0.238, K_low=0.089, P_drag=-5.109e-04, P_cool=-6.872e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=120.26, eps_nu=6.013e-04, P_hv=1.343e-05, rho_mean=1.000000, p_mean=0.715660, div_rms=1.187e-01, vort_rms=8.812e-01, mass_err=-3.632e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0015000.npz
+step= 20000, t=17.516487, dt=8.650e-04, KE=3.206249e-02, Mt=0.2546, A_K=0.167, Cuv=0.230, P_in=1.317e-03, P_tgt=1.313e-03, A_F=0.151, K_low=0.088, P_drag=-5.643e-04, P_cool=-5.997e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=130.28, eps_nu=6.185e-04, P_hv=1.240e-05, rho_mean=1.000000, p_mean=0.715485, div_rms=1.216e-01, vort_rms=8.935e-01, mass_err=-4.844e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0020000.npz
+step= 25000, t=21.857711, dt=8.454e-04, KE=3.007522e-02, Mt=0.2471, A_K=0.017, Cuv=0.016, P_in=9.447e-04, P_tgt=9.468e-04, A_F=0.046, K_low=0.148, P_drag=-8.747e-04, P_cool=-6.578e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=126.55, eps_nu=5.964e-04, P_hv=1.193e-05, rho_mean=1.000000, p_mean=0.715601, div_rms=1.172e-01, vort_rms=8.778e-01, mass_err=-6.054e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0025000.npz
+step= 30000, t=26.192137, dt=8.903e-04, KE=3.066195e-02, Mt=0.2491, A_K=0.016, Cuv=-0.090, P_in=2.136e-03, P_tgt=2.135e-03, A_F=0.141, K_low=0.113, P_drag=-6.835e-04, P_cool=-6.022e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=127.14, eps_nu=6.175e-04, P_hv=1.241e-05, rho_mean=1.000000, p_mean=0.715490, div_rms=1.191e-01, vort_rms=8.932e-01, mass_err=-7.265e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0030000.npz
+step= 35000, t=30.491513, dt=8.648e-04, KE=3.256304e-02, Mt=0.2568, A_K=0.361, Cuv=-0.305, P_in=8.706e-04, P_tgt=8.724e-04, A_F=0.048, K_low=0.066, P_drag=-4.178e-04, P_cool=-6.526e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=127.38, eps_nu=6.422e-04, P_hv=1.486e-05, rho_mean=1.000000, p_mean=0.715591, div_rms=1.248e-01, vort_rms=9.103e-01, mass_err=-8.475e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0035000.npz
+step= 40000, t=34.919796, dt=9.028e-04, KE=3.053995e-02, Mt=0.2488, A_K=0.309, Cuv=-0.106, P_in=4.768e-04, P_tgt=4.760e-04, A_F=0.185, K_low=0.080, P_drag=-4.804e-04, P_cool=-6.077e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.65, eps_nu=5.213e-04, P_hv=1.430e-05, rho_mean=1.000000, p_mean=0.715501, div_rms=1.208e-01, vort_rms=8.185e-01, mass_err=-9.681e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0040000.npz
+step= 45000, t=39.386796, dt=8.936e-04, KE=2.940389e-02, Mt=0.2442, A_K=0.274, Cuv=-0.074, P_in=1.314e-03, P_tgt=1.325e-03, A_F=0.138, K_low=0.105, P_drag=-6.091e-04, P_cool=-5.384e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=130.10, eps_nu=4.808e-04, P_hv=1.132e-05, rho_mean=1.000000, p_mean=0.715363, div_rms=1.104e-01, vort_rms=7.872e-01, mass_err=-1.089e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0045000.npz
+step= 50000, t=43.806114, dt=8.693e-04, KE=3.194713e-02, Mt=0.2556, A_K=0.111, Cuv=0.176, P_in=1.554e-03, P_tgt=1.558e-03, A_F=0.112, K_low=0.089, P_drag=-5.577e-04, P_cool=-5.862e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=134.56, eps_nu=5.781e-04, P_hv=1.060e-05, rho_mean=1.000000, p_mean=0.715458, div_rms=1.075e-01, vort_rms=8.655e-01, mass_err=-1.210e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0050000.npz
+step= 55000, t=48.284637, dt=9.261e-04, KE=3.117725e-02, Mt=0.2517, A_K=0.231, Cuv=0.012, P_in=5.896e-04, P_tgt=5.881e-04, A_F=0.020, K_low=0.099, P_drag=-6.071e-04, P_cool=-5.851e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=145.45, eps_nu=5.289e-04, P_hv=1.280e-05, rho_mean=1.000000, p_mean=0.715456, div_rms=9.774e-02, vort_rms=8.287e-01, mass_err=-1.332e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0055000.npz
+step= 60000, t=52.835763, dt=9.122e-04, KE=2.893922e-02, Mt=0.2427, A_K=0.119, Cuv=-0.047, P_in=1.121e-03, P_tgt=1.129e-03, A_F=0.232, K_low=0.124, P_drag=-7.228e-04, P_cool=-5.382e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=135.31, eps_nu=4.695e-04, P_hv=1.001e-05, rho_mean=1.000000, p_mean=0.715362, div_rms=1.024e-01, vort_rms=7.791e-01, mass_err=-1.454e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0060000.npz
+step= 65000, t=57.286820, dt=8.723e-04, KE=3.195793e-02, Mt=0.2541, A_K=0.014, Cuv=-0.105, P_in=2.049e-03, P_tgt=2.050e-03, A_F=0.076, K_low=0.099, P_drag=-6.259e-04, P_cool=-5.549e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=142.28, eps_nu=6.114e-04, P_hv=9.526e-06, rho_mean=1.000000, p_mean=0.715396, div_rms=1.103e-01, vort_rms=8.902e-01, mass_err=-1.575e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0065000.npz
+step= 70000, t=61.694241, dt=8.860e-04, KE=3.170566e-02, Mt=0.2532, A_K=0.124, Cuv=0.048, P_in=7.036e-04, P_tgt=7.013e-04, A_F=0.169, K_low=0.094, P_drag=-5.966e-04, P_cool=-5.835e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.99, eps_nu=5.944e-04, P_hv=1.248e-05, rho_mean=1.000000, p_mean=0.715453, div_rms=1.209e-01, vort_rms=8.756e-01, mass_err=-1.696e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0070000.npz
+step= 75000, t=65.965331, dt=8.746e-04, KE=2.976176e-02, Mt=0.2458, A_K=0.016, Cuv=0.152, P_in=8.886e-04, P_tgt=8.854e-04, A_F=0.270, K_low=0.104, P_drag=-6.188e-04, P_cool=-5.562e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=126.73, eps_nu=5.120e-04, P_hv=1.259e-05, rho_mean=1.000000, p_mean=0.715398, div_rms=1.229e-01, vort_rms=8.106e-01, mass_err=-1.817e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0075000.npz
+step= 79575, t=70.000000, dt=3.399e-05, KE=3.088127e-02, Mt=0.2502, A_K=0.111, Cuv=-0.016, P_in=1.812e-03, P_tgt=1.813e-03, A_F=0.083, K_low=0.090, P_drag=-5.498e-04, P_cool=-5.607e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.03, eps_nu=5.431e-04, P_hv=1.012e-05, rho_mean=1.000000, p_mean=0.715407, div_rms=1.113e-01, vort_rms=8.377e-01, mass_err=-1.927e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/hit2d_step0079575.npz
+completed 2D HIT run at t=70.000000 in 79575 steps
+Post-processing gated_global
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT diagnostic field plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/postprocess/hit2d_physics_fields.png
+saved HIT history plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/postprocess/hit2d_history.png
+saved isotropy diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/isotropy_diagnostics.npz
+selected interval: t=[26.1921, 61.6942], Neddy=[4.16748, 9.8337], snapshots=9
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=2.265294e-01 (normalized=5.158997e-01), E_NN=2.136189e-01 (normalized=5.390529e-01)
+selected means: K=3.098845e-02, Mt=2.506855e-01, A_K=1.732197e-01, C_uv=-5.470202e-02
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=0.000e+00, enstrophy=0.000e+00
+spectral checks: Parseval=2.206e-16, Helmholtz closure=7.220e-17, <chi_d>=1.154e-02
+saved PDF diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_global/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-7.773e-01, F_theta=6.739e+00, S_omega=3.982e-02, F_omega=3.270e+00
+
+------------------------------------------------------------
+Starting gated_local at Mon Aug 10 08:50:45 PM CEST 2026
+sensor=compression_gated; WENO LF=local
+------------------------------------------------------------
+Using array backend: cupy
+saved run configuration: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/config.json
+resolved initial Re_lambda_2d=120.000000 with dynamic viscosity=7.560701e-04
+step=     0, t=0.000000, dt=0.000e+00, KE=3.125000e-02, Mt=0.2500, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.000 (x=0.000, y=0.000), ReL2D=120.00, eps_nu=7.186e-04, P_hv=0.000e+00, rho_mean=1.000000, p_mean=0.714286, div_rms=6.115e-15, vort_rms=9.749e-01, mass_err=0.000e+00
+warning: cumulative forcing anisotropy is high (A_F=0.206)
+step=  5000, t=4.476645, dt=8.993e-04, KE=3.130220e-02, Mt=0.2523, A_K=0.205, Cuv=0.056, P_in=9.316e-04, P_tgt=9.414e-04, A_F=0.206, K_low=0.021, P_drag=-1.263e-04, P_cool=-5.609e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=128.55, eps_nu=7.318e-04, P_hv=8.845e-06, rho_mean=1.000000, p_mean=0.715408, div_rms=1.226e-01, vort_rms=9.736e-01, mass_err=-1.210e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0005000.npz
+step= 10000, t=8.969723, dt=8.734e-04, KE=3.085007e-02, Mt=0.2495, A_K=0.006, Cuv=0.054, P_in=7.192e-04, P_tgt=7.138e-04, A_F=0.006, K_low=0.072, P_drag=-4.404e-04, P_cool=-5.800e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=121.07, eps_nu=6.525e-04, P_hv=1.276e-05, rho_mean=1.000000, p_mean=0.715446, div_rms=1.266e-01, vort_rms=9.174e-01, mass_err=-2.422e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0010000.npz
+step= 15000, t=13.258333, dt=8.480e-04, KE=2.956591e-02, Mt=0.2460, A_K=0.104, Cuv=0.201, P_in=1.421e-03, P_tgt=1.432e-03, A_F=0.238, K_low=0.089, P_drag=-5.109e-04, P_cool=-6.872e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=120.26, eps_nu=6.013e-04, P_hv=1.343e-05, rho_mean=1.000000, p_mean=0.715660, div_rms=1.187e-01, vort_rms=8.812e-01, mass_err=-3.632e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0015000.npz
+step= 20000, t=17.516487, dt=8.650e-04, KE=3.206249e-02, Mt=0.2546, A_K=0.167, Cuv=0.230, P_in=1.317e-03, P_tgt=1.313e-03, A_F=0.151, K_low=0.088, P_drag=-5.643e-04, P_cool=-5.997e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=130.28, eps_nu=6.185e-04, P_hv=1.240e-05, rho_mean=1.000000, p_mean=0.715485, div_rms=1.216e-01, vort_rms=8.935e-01, mass_err=-4.844e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0020000.npz
+step= 25000, t=21.857711, dt=8.454e-04, KE=3.007522e-02, Mt=0.2471, A_K=0.017, Cuv=0.016, P_in=9.447e-04, P_tgt=9.468e-04, A_F=0.046, K_low=0.148, P_drag=-8.747e-04, P_cool=-6.578e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=126.55, eps_nu=5.964e-04, P_hv=1.193e-05, rho_mean=1.000000, p_mean=0.715601, div_rms=1.172e-01, vort_rms=8.778e-01, mass_err=-6.054e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0025000.npz
+step= 30000, t=26.192137, dt=8.903e-04, KE=3.066195e-02, Mt=0.2491, A_K=0.016, Cuv=-0.090, P_in=2.136e-03, P_tgt=2.135e-03, A_F=0.141, K_low=0.113, P_drag=-6.835e-04, P_cool=-6.022e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=127.14, eps_nu=6.175e-04, P_hv=1.241e-05, rho_mean=1.000000, p_mean=0.715490, div_rms=1.191e-01, vort_rms=8.932e-01, mass_err=-7.265e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0030000.npz
+step= 35000, t=30.491513, dt=8.648e-04, KE=3.256304e-02, Mt=0.2568, A_K=0.361, Cuv=-0.305, P_in=8.706e-04, P_tgt=8.724e-04, A_F=0.048, K_low=0.066, P_drag=-4.178e-04, P_cool=-6.526e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=127.38, eps_nu=6.422e-04, P_hv=1.486e-05, rho_mean=1.000000, p_mean=0.715591, div_rms=1.248e-01, vort_rms=9.103e-01, mass_err=-8.475e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0035000.npz
+step= 40000, t=34.919796, dt=9.028e-04, KE=3.053995e-02, Mt=0.2488, A_K=0.309, Cuv=-0.106, P_in=4.768e-04, P_tgt=4.760e-04, A_F=0.185, K_low=0.080, P_drag=-4.804e-04, P_cool=-6.077e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.65, eps_nu=5.213e-04, P_hv=1.430e-05, rho_mean=1.000000, p_mean=0.715501, div_rms=1.208e-01, vort_rms=8.185e-01, mass_err=-9.681e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0040000.npz
+step= 45000, t=39.386796, dt=8.936e-04, KE=2.940389e-02, Mt=0.2442, A_K=0.274, Cuv=-0.074, P_in=1.314e-03, P_tgt=1.325e-03, A_F=0.138, K_low=0.105, P_drag=-6.091e-04, P_cool=-5.384e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=130.10, eps_nu=4.808e-04, P_hv=1.132e-05, rho_mean=1.000000, p_mean=0.715363, div_rms=1.104e-01, vort_rms=7.872e-01, mass_err=-1.089e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0045000.npz
+step= 50000, t=43.806114, dt=8.693e-04, KE=3.194713e-02, Mt=0.2556, A_K=0.111, Cuv=0.176, P_in=1.554e-03, P_tgt=1.558e-03, A_F=0.112, K_low=0.089, P_drag=-5.577e-04, P_cool=-5.862e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=134.56, eps_nu=5.781e-04, P_hv=1.060e-05, rho_mean=1.000000, p_mean=0.715458, div_rms=1.075e-01, vort_rms=8.655e-01, mass_err=-1.210e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0050000.npz
+step= 55000, t=48.284637, dt=9.261e-04, KE=3.117725e-02, Mt=0.2517, A_K=0.231, Cuv=0.012, P_in=5.896e-04, P_tgt=5.881e-04, A_F=0.020, K_low=0.099, P_drag=-6.071e-04, P_cool=-5.851e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=145.45, eps_nu=5.289e-04, P_hv=1.280e-05, rho_mean=1.000000, p_mean=0.715456, div_rms=9.774e-02, vort_rms=8.287e-01, mass_err=-1.332e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0055000.npz
+step= 60000, t=52.835763, dt=9.122e-04, KE=2.893922e-02, Mt=0.2427, A_K=0.119, Cuv=-0.047, P_in=1.121e-03, P_tgt=1.129e-03, A_F=0.232, K_low=0.124, P_drag=-7.228e-04, P_cool=-5.382e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=135.31, eps_nu=4.695e-04, P_hv=1.001e-05, rho_mean=1.000000, p_mean=0.715362, div_rms=1.024e-01, vort_rms=7.791e-01, mass_err=-1.454e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0060000.npz
+step= 65000, t=57.286820, dt=8.723e-04, KE=3.195793e-02, Mt=0.2541, A_K=0.014, Cuv=-0.105, P_in=2.049e-03, P_tgt=2.050e-03, A_F=0.076, K_low=0.099, P_drag=-6.259e-04, P_cool=-5.549e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=142.28, eps_nu=6.114e-04, P_hv=9.526e-06, rho_mean=1.000000, p_mean=0.715396, div_rms=1.103e-01, vort_rms=8.902e-01, mass_err=-1.575e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0065000.npz
+step= 70000, t=61.694241, dt=8.860e-04, KE=3.170566e-02, Mt=0.2532, A_K=0.124, Cuv=0.048, P_in=7.036e-04, P_tgt=7.013e-04, A_F=0.169, K_low=0.094, P_drag=-5.966e-04, P_cool=-5.835e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.99, eps_nu=5.944e-04, P_hv=1.248e-05, rho_mean=1.000000, p_mean=0.715453, div_rms=1.209e-01, vort_rms=8.756e-01, mass_err=-1.696e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0070000.npz
+step= 75000, t=65.965331, dt=8.746e-04, KE=2.976176e-02, Mt=0.2458, A_K=0.016, Cuv=0.152, P_in=8.886e-04, P_tgt=8.854e-04, A_F=0.270, K_low=0.104, P_drag=-6.188e-04, P_cool=-5.562e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=126.73, eps_nu=5.120e-04, P_hv=1.259e-05, rho_mean=1.000000, p_mean=0.715398, div_rms=1.229e-01, vort_rms=8.106e-01, mass_err=-1.817e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0075000.npz
+step= 79575, t=70.000000, dt=3.399e-05, KE=3.088127e-02, Mt=0.2502, A_K=0.111, Cuv=-0.016, P_in=1.812e-03, P_tgt=1.813e-03, A_F=0.083, K_low=0.090, P_drag=-5.498e-04, P_cool=-5.607e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.03, eps_nu=5.431e-04, P_hv=1.012e-05, rho_mean=1.000000, p_mean=0.715407, div_rms=1.113e-01, vort_rms=8.377e-01, mass_err=-1.927e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/hit2d_step0079575.npz
+completed 2D HIT run at t=70.000000 in 79575 steps
+Post-processing gated_local
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT diagnostic field plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/postprocess/hit2d_physics_fields.png
+saved HIT history plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/postprocess/hit2d_history.png
+saved isotropy diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/isotropy_diagnostics.npz
+selected interval: t=[26.1921, 61.6942], Neddy=[4.16748, 9.8337], snapshots=9
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=2.265294e-01 (normalized=5.158997e-01), E_NN=2.136189e-01 (normalized=5.390529e-01)
+selected means: K=3.098845e-02, Mt=2.506855e-01, A_K=1.732197e-01, C_uv=-5.470202e-02
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=0.000e+00, enstrophy=0.000e+00
+spectral checks: Parseval=2.206e-16, Helmholtz closure=7.220e-17, <chi_d>=1.154e-02
+saved PDF diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/gated_local/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-7.773e-01, F_theta=6.739e+00, S_omega=3.982e-02, F_omega=3.270e+00
+
+------------------------------------------------------------
+Starting directional_global at Mon Aug 10 09:35:20 PM CEST 2026
+sensor=directional; WENO LF=global
+------------------------------------------------------------
+Using array backend: cupy
+saved run configuration: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/config.json
+resolved initial Re_lambda_2d=120.000000 with dynamic viscosity=7.560701e-04
+step=     0, t=0.000000, dt=0.000e+00, KE=3.125000e-02, Mt=0.2500, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.000 (x=0.000, y=0.000), ReL2D=120.00, eps_nu=7.186e-04, P_hv=0.000e+00, rho_mean=1.000000, p_mean=0.714286, div_rms=6.115e-15, vort_rms=9.749e-01, mass_err=0.000e+00
+warning: cumulative forcing anisotropy is high (A_F=0.206)
+step=  5000, t=4.476645, dt=8.993e-04, KE=3.130220e-02, Mt=0.2523, A_K=0.205, Cuv=0.056, P_in=9.316e-04, P_tgt=9.414e-04, A_F=0.206, K_low=0.021, P_drag=-1.263e-04, P_cool=-5.609e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=128.55, eps_nu=7.318e-04, P_hv=8.845e-06, rho_mean=1.000000, p_mean=0.715408, div_rms=1.226e-01, vort_rms=9.736e-01, mass_err=-1.210e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0005000.npz
+step= 10000, t=8.969723, dt=8.734e-04, KE=3.085007e-02, Mt=0.2495, A_K=0.006, Cuv=0.054, P_in=7.192e-04, P_tgt=7.138e-04, A_F=0.006, K_low=0.072, P_drag=-4.404e-04, P_cool=-5.800e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=121.07, eps_nu=6.525e-04, P_hv=1.276e-05, rho_mean=1.000000, p_mean=0.715446, div_rms=1.266e-01, vort_rms=9.174e-01, mass_err=-2.422e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0010000.npz
+step= 15000, t=13.258333, dt=8.480e-04, KE=2.956591e-02, Mt=0.2460, A_K=0.104, Cuv=0.201, P_in=1.421e-03, P_tgt=1.432e-03, A_F=0.238, K_low=0.089, P_drag=-5.109e-04, P_cool=-6.872e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=120.26, eps_nu=6.013e-04, P_hv=1.343e-05, rho_mean=1.000000, p_mean=0.715660, div_rms=1.187e-01, vort_rms=8.812e-01, mass_err=-3.632e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0015000.npz
+step= 20000, t=17.516487, dt=8.650e-04, KE=3.206249e-02, Mt=0.2546, A_K=0.167, Cuv=0.230, P_in=1.317e-03, P_tgt=1.313e-03, A_F=0.151, K_low=0.088, P_drag=-5.643e-04, P_cool=-5.997e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=130.28, eps_nu=6.185e-04, P_hv=1.240e-05, rho_mean=1.000000, p_mean=0.715485, div_rms=1.216e-01, vort_rms=8.935e-01, mass_err=-4.844e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0020000.npz
+step= 25000, t=21.857711, dt=8.454e-04, KE=3.007522e-02, Mt=0.2471, A_K=0.017, Cuv=0.016, P_in=9.447e-04, P_tgt=9.468e-04, A_F=0.046, K_low=0.148, P_drag=-8.747e-04, P_cool=-6.578e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=126.55, eps_nu=5.964e-04, P_hv=1.193e-05, rho_mean=1.000000, p_mean=0.715601, div_rms=1.172e-01, vort_rms=8.778e-01, mass_err=-6.054e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0025000.npz
+step= 30000, t=26.192137, dt=8.903e-04, KE=3.066195e-02, Mt=0.2491, A_K=0.016, Cuv=-0.090, P_in=2.136e-03, P_tgt=2.135e-03, A_F=0.141, K_low=0.113, P_drag=-6.835e-04, P_cool=-6.022e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=127.14, eps_nu=6.175e-04, P_hv=1.241e-05, rho_mean=1.000000, p_mean=0.715490, div_rms=1.191e-01, vort_rms=8.932e-01, mass_err=-7.265e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0030000.npz
+step= 35000, t=30.491513, dt=8.648e-04, KE=3.256304e-02, Mt=0.2568, A_K=0.361, Cuv=-0.305, P_in=8.706e-04, P_tgt=8.724e-04, A_F=0.048, K_low=0.066, P_drag=-4.178e-04, P_cool=-6.526e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=127.38, eps_nu=6.422e-04, P_hv=1.486e-05, rho_mean=1.000000, p_mean=0.715591, div_rms=1.248e-01, vort_rms=9.103e-01, mass_err=-8.475e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0035000.npz
+step= 40000, t=34.919796, dt=9.028e-04, KE=3.053995e-02, Mt=0.2488, A_K=0.309, Cuv=-0.106, P_in=4.768e-04, P_tgt=4.760e-04, A_F=0.185, K_low=0.080, P_drag=-4.804e-04, P_cool=-6.077e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.65, eps_nu=5.213e-04, P_hv=1.430e-05, rho_mean=1.000000, p_mean=0.715501, div_rms=1.208e-01, vort_rms=8.185e-01, mass_err=-9.681e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0040000.npz
+step= 45000, t=39.386796, dt=8.936e-04, KE=2.940389e-02, Mt=0.2442, A_K=0.274, Cuv=-0.074, P_in=1.314e-03, P_tgt=1.325e-03, A_F=0.138, K_low=0.105, P_drag=-6.091e-04, P_cool=-5.384e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=130.10, eps_nu=4.808e-04, P_hv=1.132e-05, rho_mean=1.000000, p_mean=0.715363, div_rms=1.104e-01, vort_rms=7.872e-01, mass_err=-1.089e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0045000.npz
+step= 50000, t=43.806114, dt=8.693e-04, KE=3.194713e-02, Mt=0.2556, A_K=0.111, Cuv=0.176, P_in=1.554e-03, P_tgt=1.558e-03, A_F=0.112, K_low=0.089, P_drag=-5.577e-04, P_cool=-5.862e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=134.56, eps_nu=5.781e-04, P_hv=1.060e-05, rho_mean=1.000000, p_mean=0.715458, div_rms=1.075e-01, vort_rms=8.655e-01, mass_err=-1.210e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0050000.npz
+step= 55000, t=48.284637, dt=9.261e-04, KE=3.117725e-02, Mt=0.2517, A_K=0.231, Cuv=0.012, P_in=5.896e-04, P_tgt=5.881e-04, A_F=0.020, K_low=0.099, P_drag=-6.071e-04, P_cool=-5.851e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=145.45, eps_nu=5.289e-04, P_hv=1.280e-05, rho_mean=1.000000, p_mean=0.715456, div_rms=9.774e-02, vort_rms=8.287e-01, mass_err=-1.332e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0055000.npz
+step= 60000, t=52.835763, dt=9.122e-04, KE=2.893922e-02, Mt=0.2427, A_K=0.119, Cuv=-0.047, P_in=1.121e-03, P_tgt=1.129e-03, A_F=0.232, K_low=0.124, P_drag=-7.228e-04, P_cool=-5.382e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=135.31, eps_nu=4.695e-04, P_hv=1.001e-05, rho_mean=1.000000, p_mean=0.715362, div_rms=1.024e-01, vort_rms=7.791e-01, mass_err=-1.454e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0060000.npz
+step= 65000, t=57.286820, dt=8.723e-04, KE=3.195793e-02, Mt=0.2541, A_K=0.014, Cuv=-0.105, P_in=2.049e-03, P_tgt=2.050e-03, A_F=0.076, K_low=0.099, P_drag=-6.259e-04, P_cool=-5.549e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=142.28, eps_nu=6.114e-04, P_hv=9.526e-06, rho_mean=1.000000, p_mean=0.715396, div_rms=1.103e-01, vort_rms=8.902e-01, mass_err=-1.575e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0065000.npz
+step= 70000, t=61.694241, dt=8.860e-04, KE=3.170566e-02, Mt=0.2532, A_K=0.124, Cuv=0.048, P_in=7.036e-04, P_tgt=7.013e-04, A_F=0.169, K_low=0.094, P_drag=-5.966e-04, P_cool=-5.835e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.99, eps_nu=5.944e-04, P_hv=1.248e-05, rho_mean=1.000000, p_mean=0.715453, div_rms=1.209e-01, vort_rms=8.756e-01, mass_err=-1.696e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0070000.npz
+step= 75000, t=65.965331, dt=8.746e-04, KE=2.976176e-02, Mt=0.2458, A_K=0.016, Cuv=0.152, P_in=8.886e-04, P_tgt=8.854e-04, A_F=0.270, K_low=0.104, P_drag=-6.188e-04, P_cool=-5.562e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=126.73, eps_nu=5.120e-04, P_hv=1.259e-05, rho_mean=1.000000, p_mean=0.715398, div_rms=1.229e-01, vort_rms=8.106e-01, mass_err=-1.817e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0075000.npz
+step= 79575, t=70.000000, dt=3.399e-05, KE=3.088127e-02, Mt=0.2502, A_K=0.111, Cuv=-0.016, P_in=1.812e-03, P_tgt=1.813e-03, A_F=0.083, K_low=0.090, P_drag=-5.498e-04, P_cool=-5.607e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.03, eps_nu=5.431e-04, P_hv=1.012e-05, rho_mean=1.000000, p_mean=0.715407, div_rms=1.113e-01, vort_rms=8.377e-01, mass_err=-1.927e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/hit2d_step0079575.npz
+completed 2D HIT run at t=70.000000 in 79575 steps
+Post-processing directional_global
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT diagnostic field plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/postprocess/hit2d_physics_fields.png
+saved HIT history plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/postprocess/hit2d_history.png
+saved isotropy diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/isotropy_diagnostics.npz
+selected interval: t=[26.1921, 61.6942], Neddy=[4.16748, 9.8337], snapshots=9
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=2.265294e-01 (normalized=5.158997e-01), E_NN=2.136189e-01 (normalized=5.390529e-01)
+selected means: K=3.098845e-02, Mt=2.506855e-01, A_K=1.732197e-01, C_uv=-5.470202e-02
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=0.000e+00, enstrophy=0.000e+00
+spectral checks: Parseval=2.206e-16, Helmholtz closure=7.220e-17, <chi_d>=1.154e-02
+saved PDF diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_global/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-7.773e-01, F_theta=6.739e+00, S_omega=3.982e-02, F_omega=3.270e+00
+
+------------------------------------------------------------
+Starting directional_local at Mon Aug 10 10:07:43 PM CEST 2026
+sensor=directional; WENO LF=local
+------------------------------------------------------------
+Using array backend: cupy
+saved run configuration: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/config.json
+resolved initial Re_lambda_2d=120.000000 with dynamic viscosity=7.560701e-04
+step=     0, t=0.000000, dt=0.000e+00, KE=3.125000e-02, Mt=0.2500, A_K=0.000, Cuv=0.000, P_in=0.000e+00, P_tgt=0.000e+00, A_F=0.000, K_low=0.000, P_drag=0.000e+00, P_cool=0.000e+00, WENO=0.000 (x=0.000, y=0.000), ReL2D=120.00, eps_nu=7.186e-04, P_hv=0.000e+00, rho_mean=1.000000, p_mean=0.714286, div_rms=6.115e-15, vort_rms=9.749e-01, mass_err=0.000e+00
+warning: cumulative forcing anisotropy is high (A_F=0.206)
+step=  5000, t=4.476645, dt=8.993e-04, KE=3.130220e-02, Mt=0.2523, A_K=0.205, Cuv=0.056, P_in=9.316e-04, P_tgt=9.414e-04, A_F=0.206, K_low=0.021, P_drag=-1.263e-04, P_cool=-5.609e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=128.55, eps_nu=7.318e-04, P_hv=8.845e-06, rho_mean=1.000000, p_mean=0.715408, div_rms=1.226e-01, vort_rms=9.736e-01, mass_err=-1.210e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0005000.npz
+step= 10000, t=8.969723, dt=8.734e-04, KE=3.085007e-02, Mt=0.2495, A_K=0.006, Cuv=0.054, P_in=7.192e-04, P_tgt=7.138e-04, A_F=0.006, K_low=0.072, P_drag=-4.404e-04, P_cool=-5.800e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=121.07, eps_nu=6.525e-04, P_hv=1.276e-05, rho_mean=1.000000, p_mean=0.715446, div_rms=1.266e-01, vort_rms=9.174e-01, mass_err=-2.422e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0010000.npz
+step= 15000, t=13.258333, dt=8.480e-04, KE=2.956591e-02, Mt=0.2460, A_K=0.104, Cuv=0.201, P_in=1.421e-03, P_tgt=1.432e-03, A_F=0.238, K_low=0.089, P_drag=-5.109e-04, P_cool=-6.872e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=120.26, eps_nu=6.013e-04, P_hv=1.343e-05, rho_mean=1.000000, p_mean=0.715660, div_rms=1.187e-01, vort_rms=8.812e-01, mass_err=-3.632e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0015000.npz
+step= 20000, t=17.516487, dt=8.650e-04, KE=3.206249e-02, Mt=0.2546, A_K=0.167, Cuv=0.230, P_in=1.317e-03, P_tgt=1.313e-03, A_F=0.151, K_low=0.088, P_drag=-5.643e-04, P_cool=-5.997e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=130.28, eps_nu=6.185e-04, P_hv=1.240e-05, rho_mean=1.000000, p_mean=0.715485, div_rms=1.216e-01, vort_rms=8.935e-01, mass_err=-4.844e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0020000.npz
+step= 25000, t=21.857711, dt=8.454e-04, KE=3.007522e-02, Mt=0.2471, A_K=0.017, Cuv=0.016, P_in=9.447e-04, P_tgt=9.468e-04, A_F=0.046, K_low=0.148, P_drag=-8.747e-04, P_cool=-6.578e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=126.55, eps_nu=5.964e-04, P_hv=1.193e-05, rho_mean=1.000000, p_mean=0.715601, div_rms=1.172e-01, vort_rms=8.778e-01, mass_err=-6.054e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0025000.npz
+step= 30000, t=26.192137, dt=8.903e-04, KE=3.066195e-02, Mt=0.2491, A_K=0.016, Cuv=-0.090, P_in=2.136e-03, P_tgt=2.135e-03, A_F=0.141, K_low=0.113, P_drag=-6.835e-04, P_cool=-6.022e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=127.14, eps_nu=6.175e-04, P_hv=1.241e-05, rho_mean=1.000000, p_mean=0.715490, div_rms=1.191e-01, vort_rms=8.932e-01, mass_err=-7.265e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0030000.npz
+step= 35000, t=30.491513, dt=8.648e-04, KE=3.256304e-02, Mt=0.2568, A_K=0.361, Cuv=-0.305, P_in=8.706e-04, P_tgt=8.724e-04, A_F=0.048, K_low=0.066, P_drag=-4.178e-04, P_cool=-6.526e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=127.38, eps_nu=6.422e-04, P_hv=1.486e-05, rho_mean=1.000000, p_mean=0.715591, div_rms=1.248e-01, vort_rms=9.103e-01, mass_err=-8.475e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0035000.npz
+step= 40000, t=34.919796, dt=9.028e-04, KE=3.053995e-02, Mt=0.2488, A_K=0.309, Cuv=-0.106, P_in=4.768e-04, P_tgt=4.760e-04, A_F=0.185, K_low=0.080, P_drag=-4.804e-04, P_cool=-6.077e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.65, eps_nu=5.213e-04, P_hv=1.430e-05, rho_mean=1.000000, p_mean=0.715501, div_rms=1.208e-01, vort_rms=8.185e-01, mass_err=-9.681e-11
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0040000.npz
+step= 45000, t=39.386796, dt=8.936e-04, KE=2.940389e-02, Mt=0.2442, A_K=0.274, Cuv=-0.074, P_in=1.314e-03, P_tgt=1.325e-03, A_F=0.138, K_low=0.105, P_drag=-6.091e-04, P_cool=-5.384e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=130.10, eps_nu=4.808e-04, P_hv=1.132e-05, rho_mean=1.000000, p_mean=0.715363, div_rms=1.104e-01, vort_rms=7.872e-01, mass_err=-1.089e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0045000.npz
+step= 50000, t=43.806114, dt=8.693e-04, KE=3.194713e-02, Mt=0.2556, A_K=0.111, Cuv=0.176, P_in=1.554e-03, P_tgt=1.558e-03, A_F=0.112, K_low=0.089, P_drag=-5.577e-04, P_cool=-5.862e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=134.56, eps_nu=5.781e-04, P_hv=1.060e-05, rho_mean=1.000000, p_mean=0.715458, div_rms=1.075e-01, vort_rms=8.655e-01, mass_err=-1.210e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0050000.npz
+step= 55000, t=48.284637, dt=9.261e-04, KE=3.117725e-02, Mt=0.2517, A_K=0.231, Cuv=0.012, P_in=5.896e-04, P_tgt=5.881e-04, A_F=0.020, K_low=0.099, P_drag=-6.071e-04, P_cool=-5.851e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=145.45, eps_nu=5.289e-04, P_hv=1.280e-05, rho_mean=1.000000, p_mean=0.715456, div_rms=9.774e-02, vort_rms=8.287e-01, mass_err=-1.332e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0055000.npz
+step= 60000, t=52.835763, dt=9.122e-04, KE=2.893922e-02, Mt=0.2427, A_K=0.119, Cuv=-0.047, P_in=1.121e-03, P_tgt=1.129e-03, A_F=0.232, K_low=0.124, P_drag=-7.228e-04, P_cool=-5.382e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=135.31, eps_nu=4.695e-04, P_hv=1.001e-05, rho_mean=1.000000, p_mean=0.715362, div_rms=1.024e-01, vort_rms=7.791e-01, mass_err=-1.454e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0060000.npz
+step= 65000, t=57.286820, dt=8.723e-04, KE=3.195793e-02, Mt=0.2541, A_K=0.014, Cuv=-0.105, P_in=2.049e-03, P_tgt=2.050e-03, A_F=0.076, K_low=0.099, P_drag=-6.259e-04, P_cool=-5.549e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=142.28, eps_nu=6.114e-04, P_hv=9.526e-06, rho_mean=1.000000, p_mean=0.715396, div_rms=1.103e-01, vort_rms=8.902e-01, mass_err=-1.575e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0065000.npz
+step= 70000, t=61.694241, dt=8.860e-04, KE=3.170566e-02, Mt=0.2532, A_K=0.124, Cuv=0.048, P_in=7.036e-04, P_tgt=7.013e-04, A_F=0.169, K_low=0.094, P_drag=-5.966e-04, P_cool=-5.835e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.99, eps_nu=5.944e-04, P_hv=1.248e-05, rho_mean=1.000000, p_mean=0.715453, div_rms=1.209e-01, vort_rms=8.756e-01, mass_err=-1.696e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0070000.npz
+step= 75000, t=65.965331, dt=8.746e-04, KE=2.976176e-02, Mt=0.2458, A_K=0.016, Cuv=0.152, P_in=8.886e-04, P_tgt=8.854e-04, A_F=0.270, K_low=0.104, P_drag=-6.188e-04, P_cool=-5.562e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=126.73, eps_nu=5.120e-04, P_hv=1.259e-05, rho_mean=1.000000, p_mean=0.715398, div_rms=1.229e-01, vort_rms=8.106e-01, mass_err=-1.817e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0075000.npz
+step= 79575, t=70.000000, dt=3.399e-05, KE=3.088127e-02, Mt=0.2502, A_K=0.111, Cuv=-0.016, P_in=1.812e-03, P_tgt=1.813e-03, A_F=0.083, K_low=0.090, P_drag=-5.498e-04, P_cool=-5.607e-04, WENO=0.000 (x=0.000, y=0.000), ReL2D=132.03, eps_nu=5.431e-04, P_hv=1.012e-05, rho_mean=1.000000, p_mean=0.715407, div_rms=1.113e-01, vort_rms=8.377e-01, mass_err=-1.927e-10
+saved snapshot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/hit2d_step0079575.npz
+completed 2D HIT run at t=70.000000 in 79575 steps
+Post-processing directional_local
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT diagnostic field plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/postprocess/hit2d_physics_fields.png
+saved HIT history plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/postprocess/hit2d_history.png
+saved isotropy diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/isotropy_diagnostics.npz
+selected interval: t=[26.1921, 61.6942], Neddy=[4.16748, 9.8337], snapshots=9
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=2.265294e-01 (normalized=5.158997e-01), E_NN=2.136189e-01 (normalized=5.390529e-01)
+selected means: K=3.098845e-02, Mt=2.506855e-01, A_K=1.732197e-01, C_uv=-5.470202e-02
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=0.000e+00, enstrophy=0.000e+00
+spectral checks: Parseval=2.206e-16, Helmholtz closure=7.220e-17, <chi_d>=1.154e-02
+saved PDF diagnostics: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/directional_local/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-7.773e-01, F_theta=6.739e+00, S_omega=3.982e-02, F_omega=3.270e+00
+
+Creating cross-case sensor/LF summary...
+saved: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/sensor_lf_audit_summary.md
+saved: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/sensor_lf_audit_comparison.png
+============================================================
+Campaign finished: Mon Aug 10 10:44:27 PM CEST 2026
+Summary: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/sensor_lf_audit_summary.md
+Comparison plot: results/hit2d/sensor_lf_audit_Mt0p25_ReL120_N256/sensor_lf_audit_comparison.png
+============================================================

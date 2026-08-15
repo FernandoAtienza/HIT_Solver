@@ -41,7 +41,9 @@ class HITRunConfigTests(unittest.TestCase):
             self.assertEqual(payload["problem"], "hit2d")
             self.assertEqual(payload["forcing_type"], "solenoidal_shell_ou")
             self.assertEqual(payload["spatial_discretization"], "hybrid_compact_weno7")
-            self.assertEqual(payload["hyperviscosity_policy"], "compact_nodes_only")
+            self.assertEqual(payload["hyperviscosity_policy"], "compact_region_faces_only")
+            self.assertEqual(payload["hyperviscosity_time_policy"], "every_N_steps_no_dt_scaling")
+            self.assertEqual(payload["hyperviscosity_mode"], "conservative_flux")
 
 
 class CompactNodeHyperviscosityTests(unittest.TestCase):

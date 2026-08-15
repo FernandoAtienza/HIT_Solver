@@ -70,6 +70,9 @@ class HIT2DConfig:
     jump_threshold: float = 0.04
     compression_threshold: float = 2.5
     shear_threshold: float | None = None
+    sensor_mode: str = "legacy"
+    ducros_threshold: float = 0.5
+    weno_flux_splitting: str = "global"
     hyperviscosity_mn: float = 0.002
     hyperviscosity_interval: int = 5
     hyperviscosity_mode: str = "conservative_flux"
@@ -569,6 +572,8 @@ def compute_diagnostics(
     cooling_power: float = 0.0,
     large_scale_fraction: float = 0.0,
     weno_fraction: float = 0.0,
+    weno_fraction_x: float = 0.0,
+    weno_fraction_y: float = 0.0,
     hyperviscosity_drain_power: float = 0.0,
     hyperviscosity_energy_removed_cumulative: float = 0.0,
     hyperviscosity_mass_change_cumulative: float = 0.0,
@@ -616,6 +621,8 @@ def compute_diagnostics(
         "drag_power": drag_power,
         "cooling_power": cooling_power,
         "weno_fraction": weno_fraction,
+        "weno_fraction_x": weno_fraction_x,
+        "weno_fraction_y": weno_fraction_y,
         "dynamic_viscosity": dynamic_viscosity,
         "re_lambda_2d": scales["re_lambda_2d"],
         "taylor_microscale_2d": scales["taylor_microscale_2d"],
@@ -692,6 +699,8 @@ def save_run_config(
             "problem": "hit2d",
             "forcing_type": forcing_type,
             "spatial_discretization": "hybrid_compact_weno7",
+            "shock_sensor_mode": config.sensor_mode,
+            "weno_flux_splitting": config.weno_flux_splitting,
             "hyperviscosity_policy": "compact_region_faces_only",
             "hyperviscosity_time_policy": "every_N_steps_no_dt_scaling",
         }
@@ -761,7 +770,8 @@ def _print_diagnostics(step: int, time: float, dt: float, diagnostics: dict[str,
         f"K_low={diagnostics['large_scale_kinetic_fraction']:.3f}, "
         f"P_drag={diagnostics['drag_power']:.3e}, "
         f"P_cool={diagnostics['cooling_power']:.3e}, "
-        f"WENO={diagnostics['weno_fraction']:.3f}, "
+        f"WENO={diagnostics['weno_fraction']:.3f} "
+        f"(x={diagnostics['weno_fraction_x']:.3f}, y={diagnostics['weno_fraction_y']:.3f}), "
         f"ReL2D={diagnostics['re_lambda_2d']:.2f}, "
         f"eps_nu={diagnostics['physical_viscous_dissipation']:.3e}, "
         f"P_hv={diagnostics['hyperviscosity_drain_power']:.3e}, "
@@ -834,6 +844,9 @@ def save_diagnostic_history(
             "hyperviscosity_mn": np.asarray(config.hyperviscosity_mn),
             "hyperviscosity_interval": np.asarray(config.hyperviscosity_interval),
             "hyperviscosity_mode": np.asarray(config.hyperviscosity_mode),
+            "sensor_mode": np.asarray(config.sensor_mode),
+            "ducros_threshold": np.asarray(config.ducros_threshold),
+            "weno_flux_splitting": np.asarray(config.weno_flux_splitting),
         }
     )
     np.savez_compressed(path, **data)
@@ -965,8 +978,12 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         compression_threshold=config.compression_threshold,
         jump_threshold=config.jump_threshold,
         shear_threshold=config.shear_threshold,
+        mode=config.sensor_mode,
+        ducros_threshold=config.ducros_threshold,
     )
-    operator = operator_class(domain, equation, sensor)
+    operator = operator_class(
+        domain, equation, sensor, flux_splitting=config.weno_flux_splitting
+    )
     hyperviscosity = hyperviscosity_class(
         domain,
         mn=config.hyperviscosity_mn,
@@ -986,7 +1003,10 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
         seed=config.forcing_seed + 1,
         xp=xp,
     )
-    initial_weno_fraction = float(xp.mean(sensor.detect(q)))
+    initial_weno_x, initial_weno_y = sensor.detect_directional(q)
+    initial_weno_fraction = float(xp.mean(initial_weno_x | initial_weno_y))
+    initial_weno_fraction_x = float(xp.mean(initial_weno_x))
+    initial_weno_fraction_y = float(xp.mean(initial_weno_y))
     initial_diagnostics = compute_diagnostics(
         q,
         equation,
@@ -995,6 +1015,8 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
             q, equation, domain, config.large_scale_drag_kmax
         ),
         weno_fraction=initial_weno_fraction,
+        weno_fraction_x=initial_weno_fraction_x,
+        weno_fraction_y=initial_weno_fraction_y,
     )
     initial_mass = initial_diagnostics["mass"]
     diagnostic_history = [_diagnostic_record(0, 0.0, 0.0, initial_diagnostics)]
@@ -1063,7 +1085,8 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
             # The sensor mask identifies WENO nodes. Hyperviscosity is
             # restricted to the complementary compact-FD nodes so the
             # two dissipative mechanisms never overlap.
-            weno_mask = sensor.detect(q)
+            weno_x, weno_y = sensor.detect_directional(q)
+            weno_mask = weno_x | weno_y
             compact_mask = ~weno_mask
             kinetic_before = conservative_kinetic_energy(q)
             mass_before_filter = float(xp.sum(q[0]))
@@ -1097,7 +1120,10 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
                 if config.hyperviscosity_mn > 0.0
                 else 0.0
             )
-            weno_fraction = float(xp.mean(sensor.detect(q)))
+            weno_x, weno_y = sensor.detect_directional(q)
+            weno_fraction = float(xp.mean(weno_x | weno_y))
+            weno_fraction_x = float(xp.mean(weno_x))
+            weno_fraction_y = float(xp.mean(weno_y))
             drag = large_scale_drag_source(
                 q,
                 equation,
@@ -1123,6 +1149,8 @@ def run_simulation(config: HIT2DConfig) -> tuple[np.ndarray, float, int]:
                     q, equation, domain, config.large_scale_drag_kmax
                 ),
                 weno_fraction=weno_fraction,
+                weno_fraction_x=weno_fraction_x,
+                weno_fraction_y=weno_fraction_y,
                 hyperviscosity_drain_power=hyperviscosity_drain_power,
                 hyperviscosity_energy_removed_cumulative=(
                     hyperviscosity_energy_removed_cumulative
@@ -1256,6 +1284,31 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Optional vorticity-RMS sensor threshold. Omit or use <= 0 to disable.",
     )
+    parser.add_argument(
+        "--sensor-mode",
+        choices=("legacy", "compression_gated", "directional"),
+        default="legacy",
+        help=(
+            "Hybrid shock-sensor formulation. legacy reproduces the previous "
+            "OR sensor; compression_gated requires strong compression, a Ducros "
+            "gate and a thermodynamic jump; directional applies the gate per axis."
+        ),
+    )
+    parser.add_argument(
+        "--ducros-threshold",
+        type=float,
+        default=0.5,
+        help="Minimum divergence^2/(divergence^2+vorticity^2) in gated sensor modes.",
+    )
+    parser.add_argument(
+        "--weno-flux-splitting",
+        choices=("global", "local"),
+        default="global",
+        help=(
+            "Lax--Friedrichs wave-speed choice for WENO7. local uses a maximum "
+            "over each interface's complete WENO7 stencil instead of the whole domain."
+        ),
+    )
     parser.add_argument("--mn", type=float, default=0.002, help="Periodic hyperviscosity strength.")
     parser.add_argument(
         "--hyperviscosity-interval",
@@ -1350,6 +1403,9 @@ def main() -> None:
             if args.shear_threshold is None or args.shear_threshold <= 0.0
             else args.shear_threshold
         ),
+        sensor_mode=args.sensor_mode,
+        ducros_threshold=args.ducros_threshold,
+        weno_flux_splitting=args.weno_flux_splitting,
         hyperviscosity_mn=args.mn,
         hyperviscosity_interval=args.hyperviscosity_interval,
         hyperviscosity_mode=args.hyperviscosity_mode,

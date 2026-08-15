@@ -466,3 +466,37 @@ Run the next audit with:
 
 The campaign tests `mn = 0.001, 0.002, 0.005, 0.01` at CFL 0.10 and then tests
 CFL 0.05 and 0.20 at `mn = 0.002`.
+
+## HIT shock-sensor and WENO flux-splitting audit
+
+The periodic HIT branch now exposes two numerical-method controls intended for the final dissipation audit before production studies.
+
+### Shock sensor
+
+`--sensor-mode` accepts:
+
+- `legacy`: previous union sensor. WENO is selected when strong compression, an optional shear criterion, or any density/pressure/internal-energy jump exceeds its threshold.
+- `compression_gated`: WENO requires all of (i) strong negative dilatation, (ii) a Ducros-type compression dominance
+  \(S_D=\theta^2/(\theta^2+\omega_z^2+\epsilon)\), and (iii) a thermodynamic jump.
+- `directional`: applies the same gate independently to the x- and y-normal reconstructions. The mask is dilated only along the corresponding reconstruction direction.
+
+The Ducros gate is controlled with `--ducros-threshold` (default `0.5`). The diagnostics now save total, x-direction, and y-direction WENO node fractions.
+
+### WENO Lax--Friedrichs splitting
+
+`--weno-flux-splitting` accepts:
+
+- `global`: the original domain-global maximum characteristic speed;
+- `local`: one Lax--Friedrichs speed per interface, computed as the maximum characteristic speed over the complete WENO7 stencil contributing to that interface.
+
+The local option is intended to reduce unnecessary WENO dissipation while retaining a conservative flux difference.
+
+### Final pre-production audit
+
+Run the full sensor/LF factorial campaign with:
+
+```bash
+nohup ./scripts/run_hit_sensor_lf_audit.sh > sensor_lf_launcher.log 2>&1 &
+```
+
+The default campaign holds `Mt=0.25`, `Re_lambda,2D,0=120`, `CFL=0.10`, and conservative compact-region hyperviscosity `mn=0.005` applied every five complete RK steps. It compares all three sensor modes with both global and local LF splitting and post-processes every case automatically.

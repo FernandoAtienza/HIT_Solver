@@ -43,6 +43,15 @@ def dilate_periodic_mask_2d(mask, width: int):
     return expanded
 
 
+def dilate_periodic_mask_axis(mask, width: int, axis: int):
+    xp = array_module(mask)
+    expanded = xp.array(mask, copy=True)
+    for offset in range(1, width + 1):
+        expanded |= xp.roll(mask, offset, axis=axis)
+        expanded |= xp.roll(mask, -offset, axis=axis)
+    return expanded
+
+
 def smooth_compact_flux_axis(point_flux):
     xp = array_module(point_flux)
     a1_c = 25 / 32
@@ -78,6 +87,24 @@ def weno7_flux_axis(q, point_flux, alpha: float):
         xp.roll(f_minus, 1, axis=-1),
         xp.roll(f_minus, 2, axis=-1),
     )
+
+
+def weno7_flux_axis_local_lf(q, point_flux, wave_speed):
+    """Backend-aware WENO7 with one local LF alpha per interface stencil."""
+
+    xp = array_module(q)
+    alpha = xp.array(wave_speed, copy=True)
+    for shift in (3, 2, 1, 0, -1, -2, -3, -4):
+        alpha = xp.maximum(alpha, xp.roll(wave_speed, shift, axis=-1))
+
+    def split(shift: int, sign: float):
+        q_s = xp.roll(q, shift, axis=-1)
+        f_s = xp.roll(point_flux, shift, axis=-1)
+        return 0.5 * (f_s + sign * alpha[None, ...] * q_s)
+
+    plus = [split(shift, +1.0) for shift in (3, 2, 1, 0, -1, -2, -3)]
+    minus = [split(shift, -1.0) for shift in (-4, -3, -2, -1, 0, 1, 2)]
+    return weno7_flux(*plus) + weno7_flux(*minus)
 
 
 @dataclass
@@ -118,50 +145,83 @@ class ParallelPeriodicEulerShockSensor2D:
     compression_threshold: float = 2.5
     jump_threshold: float = 0.04
     shear_threshold: float | None = None
+    mode: str = "legacy"
+    ducros_threshold: float = 0.5
 
-    def detect(self, q):
+    def _raw_fields(self, q):
         xp = array_module(q)
         rho, u, v, pressure = self.equation.primitive_from_conservative(q)
         du_dx = (xp.roll(u, -1, axis=-1) - xp.roll(u, 1, axis=-1)) / (2.0 * self.domain.dx)
         du_dy = (xp.roll(u, -1, axis=-2) - xp.roll(u, 1, axis=-2)) / (2.0 * self.domain.dy)
         dv_dx = (xp.roll(v, -1, axis=-1) - xp.roll(v, 1, axis=-1)) / (2.0 * self.domain.dx)
         dv_dy = (xp.roll(v, -1, axis=-2) - xp.roll(v, 1, axis=-2)) / (2.0 * self.domain.dy)
-
         divergence = du_dx + dv_dy
-        div_rms = float(xp.sqrt(xp.mean(divergence**2)))
-        compression = xp.zeros_like(divergence, dtype=bool)
-        if div_rms > 1e-12:
-            compression = divergence < -self.compression_threshold * div_rms
-
-        shear = xp.zeros_like(divergence, dtype=bool)
-        if self.shear_threshold is not None:
-            vorticity = dv_dx - du_dy
-            vort_rms = float(xp.sqrt(xp.mean(vorticity**2)))
-            if vort_rms > 1e-12:
-                shear = xp.abs(vorticity) > self.shear_threshold * vort_rms
-
+        vorticity = dv_dx - du_dy
         internal_energy = pressure / (rho * (self.equation.gamma - 1.0))
-        density_jump = xp.maximum(
-            relative_jump_axis_periodic(rho, -1),
-            relative_jump_axis_periodic(rho, -2),
-        )
-        pressure_jump = xp.maximum(
-            relative_jump_axis_periodic(pressure, -1),
-            relative_jump_axis_periodic(pressure, -2),
-        )
-        energy_jump = xp.maximum(
+        jumps_x = xp.maximum(
+            xp.maximum(relative_jump_axis_periodic(rho, -1), relative_jump_axis_periodic(pressure, -1)),
             relative_jump_axis_periodic(internal_energy, -1),
+        )
+        jumps_y = xp.maximum(
+            xp.maximum(relative_jump_axis_periodic(rho, -2), relative_jump_axis_periodic(pressure, -2)),
             relative_jump_axis_periodic(internal_energy, -2),
         )
+        scale = float(xp.mean(divergence**2 + vorticity**2))
+        eps = max(1e-30, 1e-12 * scale)
+        ducros = divergence**2 / (divergence**2 + vorticity**2 + eps)
+        return du_dx, dv_dy, divergence, vorticity, jumps_x, jumps_y, ducros
 
-        mask = (
-            compression
-            | shear
-            | (density_jump > self.jump_threshold)
-            | (pressure_jump > self.jump_threshold)
-            | (energy_jump > self.jump_threshold)
-        )
-        return dilate_periodic_mask_2d(mask, self.width)
+    def detect_directional(self, q):
+        xp = array_module(q)
+        if self.mode not in {"legacy", "compression_gated", "directional"}:
+            raise ValueError(
+                "sensor mode must be 'legacy', 'compression_gated', or 'directional'"
+            )
+        du_dx, dv_dy, divergence, vorticity, jumps_x, jumps_y, ducros = self._raw_fields(q)
+
+        if self.mode == "legacy":
+            div_rms = float(xp.sqrt(xp.mean(divergence**2)))
+            compression = xp.zeros_like(divergence, dtype=bool)
+            if div_rms > 1e-12:
+                compression = divergence < -self.compression_threshold * div_rms
+            shear = xp.zeros_like(divergence, dtype=bool)
+            if self.shear_threshold is not None:
+                vort_rms = float(xp.sqrt(xp.mean(vorticity**2)))
+                if vort_rms > 1e-12:
+                    shear = xp.abs(vorticity) > self.shear_threshold * vort_rms
+            raw = compression | shear | (jumps_x > self.jump_threshold) | (jumps_y > self.jump_threshold)
+            mask = dilate_periodic_mask_2d(raw, self.width)
+            return mask, mask
+
+        compression_dominated = ducros >= self.ducros_threshold
+        thermo_x = jumps_x > self.jump_threshold
+        thermo_y = jumps_y > self.jump_threshold
+
+        if self.mode == "compression_gated":
+            div_rms = float(xp.sqrt(xp.mean(divergence**2)))
+            strong_compression = xp.zeros_like(divergence, dtype=bool)
+            if div_rms > 1e-12:
+                strong_compression = divergence < -self.compression_threshold * div_rms
+            raw = strong_compression & compression_dominated & (thermo_x | thermo_y)
+            mask = dilate_periodic_mask_2d(raw, self.width)
+            return mask, mask
+
+        du_rms = float(xp.sqrt(xp.mean(du_dx**2)))
+        dv_rms = float(xp.sqrt(xp.mean(dv_dy**2)))
+        comp_x = xp.zeros_like(divergence, dtype=bool)
+        comp_y = xp.zeros_like(divergence, dtype=bool)
+        if du_rms > 1e-12:
+            comp_x = du_dx < -self.compression_threshold * du_rms
+        if dv_rms > 1e-12:
+            comp_y = dv_dy < -self.compression_threshold * dv_rms
+        common = (divergence < 0.0) & compression_dominated
+        mask_x = dilate_periodic_mask_axis(common & comp_x & thermo_x, self.width, axis=-1)
+        mask_y = dilate_periodic_mask_axis(common & comp_y & thermo_y, self.width, axis=-2)
+        return mask_x, mask_y
+
+    def detect(self, q):
+        mask_x, mask_y = self.detect_directional(q)
+        return mask_x | mask_y
 
 
 @dataclass
@@ -169,10 +229,13 @@ class ParallelPeriodicHybridEuler2DOperator:
     domain: Domain2D
     equation: object
     sensor: ParallelPeriodicEulerShockSensor2D
+    flux_splitting: str = "global"
     compact_x: ParallelPeriodicLineCompactDerivative = field(init=False)
     compact_y: ParallelPeriodicLineCompactDerivative = field(init=False)
 
     def __post_init__(self) -> None:
+        if self.flux_splitting not in {"global", "local"}:
+            raise ValueError("flux_splitting must be 'global' or 'local'")
         self.compact_x = ParallelPeriodicLineCompactDerivative(self.domain.nx, self.domain.dx)
         self.compact_y = ParallelPeriodicLineCompactDerivative(self.domain.ny, self.domain.dy)
 
@@ -181,10 +244,13 @@ class ParallelPeriodicHybridEuler2DOperator:
         normal_velocity = u if normal_velocity_index == 1 else v
         xp = array_module(q_axis)
         sound_speed = xp.sqrt(self.equation.gamma * pressure / rho)
-        alpha = float(xp.max(xp.abs(normal_velocity) + sound_speed))
+        wave_speed = xp.abs(normal_velocity) + sound_speed
 
         smooth_flux = smooth_compact_flux_axis(flux_axis)
-        weno_raw = weno7_flux_axis(q_axis, flux_axis, alpha)
+        if self.flux_splitting == "global":
+            weno_raw = weno7_flux_axis(q_axis, flux_axis, float(xp.max(wave_speed)))
+        else:
+            weno_raw = weno7_flux_axis_local_lf(q_axis, flux_axis, wave_speed)
         weno_flux = compact.alpha * xp.roll(weno_raw, -1, axis=-1)
         weno_flux += weno_raw
         weno_flux += compact.alpha * xp.roll(weno_raw, 1, axis=-1)
@@ -195,26 +261,18 @@ class ParallelPeriodicHybridEuler2DOperator:
 
     def rhs(self, q):
         q_safe = self.equation.enforce_physical_state(q)
-        shock_mask = self.sensor.detect(q_safe)
+        shock_x, shock_y = self.sensor.detect_directional(q_safe)
 
         derivative_x = self._axis_derivative(
-            q_safe,
-            self.equation.flux_x(q_safe),
-            shock_mask,
-            self.compact_x,
-            normal_velocity_index=1,
+            q_safe, self.equation.flux_x(q_safe), shock_x, self.compact_x, normal_velocity_index=1
         )
 
         xp = array_module(q_safe)
         q_y = xp.moveaxis(q_safe, -2, -1)
         flux_y = xp.moveaxis(self.equation.flux_y(q_safe), -2, -1)
-        shock_y = xp.moveaxis(shock_mask, -2, -1)
+        shock_y_axis = xp.moveaxis(shock_y, -2, -1)
         derivative_y = self._axis_derivative(
-            q_y,
-            flux_y,
-            shock_y,
-            self.compact_y,
-            normal_velocity_index=2,
+            q_y, flux_y, shock_y_axis, self.compact_y, normal_velocity_index=2
         )
         derivative_y = xp.moveaxis(derivative_y, -1, -2)
         return -derivative_x - derivative_y
