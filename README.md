@@ -500,3 +500,48 @@ nohup ./scripts/run_hit_sensor_lf_audit.sh > sensor_lf_launcher.log 2>&1 &
 ```
 
 The default campaign holds `Mt=0.25`, `Re_lambda,2D,0=120`, `CFL=0.10`, and conservative compact-region hyperviscosity `mn=0.005` applied every five complete RK steps. It compares all three sensor modes with both global and local LF splitting and post-processes every case automatically.
+
+## Thesis HIT production baseline and campaign
+
+The hyperviscosity and sensor/LF audits define the first frozen numerical baseline for thesis-oriented HIT production runs:
+
+```text
+CFL                         = 0.10
+initial Re_lambda,2D        = 120
+sensor                      = legacy
+WENO LF splitting           = local stencil maximum
+conservative hyperviscosity = mn 0.005 every 5 complete RK steps
+forcing shell               = 3 <= |k| <= 5
+large-scale drag            = 0.10 for |k| <= 2
+cooling time                = 5.0
+```
+
+The sensor/LF audit showed that the compression-gated and directional sensors were too restrictive at `Mt=0.25`: they selected zero WENO nodes for the entire run. The legacy sensor retained approximately six percent WENO activity and produced better directional-isotropy metrics over the audit interval. Global and local LF splitting gave almost identical low-Mach results; the local stencil maximum is retained for the production baseline because it remains conservative while avoiding the domain-global wave-speed bound when WENO is active.
+
+The thesis campaign is launched with:
+
+```bash
+nohup ./scripts/run_hit_thesis_campaign.sh \
+  > thesis_campaign_launcher.log 2>&1 &
+```
+
+The campaign runs sequentially on one GPU and contains:
+
+1. `Mt=0.25` grid convergence at `128^2`, `256^2`, and `512^2`;
+2. a fixed-initial-`Re_lambda,2D` Mach pilot at `256^2` for `Mt=0.10`, `0.25`, `0.50`, and `0.60`;
+3. an independent `Mt=0.25`, `256^2` realization using a second random seed.
+
+Final times are scaled with the target Mach number to cover roughly 18 turnover times. Snapshot and diagnostic strides are also scaled with grid size and target Mach so their spacing is approximately comparable in turnover-time units. All statistical post-processing uses the actual interval `4 <= N_eddy <= 16`.
+
+After the simulations finish, `scripts/summarize_hit_thesis_campaign.py` creates:
+
+```text
+thesis_campaign_summary.csv
+thesis_campaign_summary.md
+thesis_grid_convergence_spectra.png
+thesis_mach_spectra_comparison.png
+thesis_mach_stationary_statistics.png
+thesis_repeatability_spectra.png
+```
+
+The `512^2` Mach-number production campaign should only be launched after the `256^2` pilot confirms that the stationary Reynolds numbers remain sufficiently comparable and that WENO activity remains physically reasonable as `Mt` increases.
