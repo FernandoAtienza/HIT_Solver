@@ -1,0 +1,17 @@
+/home/fatienza/github/HIT_Solver/OOP/postprocess/spectra.py:152: RuntimeWarning: Enstrophy spectrum may be piling up near the complete-shell cutoff
+  warnings.warn("Enstrophy spectrum may be piling up near the complete-shell cutoff", RuntimeWarning)
+saved isotropy diagnostics: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt050_N256_mu0p001316/isotropy_diagnostics.npz
+selected interval: t=[14.0967, 48.6415], Neddy=[4.44764, 15.4812], snapshots=21
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=2.932290e-02 (normalized=7.107201e-02), E_NN=5.908735e-02 (normalized=1.660638e-01)
+selected means: K=1.206199e-01, Mt=5.010325e-01, A_K=1.055773e-01, C_uv=3.132594e-02
+saved isotropy plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt050_N256_mu0p001316/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt050_N256_mu0p001316/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt050_N256_mu0p001316/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt050_N256_mu0p001316/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt050_N256_mu0p001316/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=7.333e-01, enstrophy=2.339e+00
+spectral checks: Parseval=0.000e+00, Helmholtz closure=1.900e-16, <chi_d>=4.663e-02
+saved PDF diagnostics: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt050_N256_mu0p001316/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt050_N256_mu0p001316/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-5.084e+00, F_theta=6.656e+01, S_omega=-6.477e-02, F_omega=2.930e+00

@@ -1,0 +1,4 @@
+/home/fatienza/github/HIT_Solver/2D/hit2d_viewer.py:405: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.legend()
+saved HIT diagnostic field plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/postprocess/hit2d_physics_fields.png
+saved HIT history plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/postprocess/hit2d_history.png

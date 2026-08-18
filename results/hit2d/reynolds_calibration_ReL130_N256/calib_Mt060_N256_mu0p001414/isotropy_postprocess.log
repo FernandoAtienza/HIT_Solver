@@ -1,0 +1,15 @@
+saved isotropy diagnostics: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/isotropy_diagnostics.npz
+selected interval: t=[10.7656, 41.0743], Neddy=[4.07378, 15.7781], snapshots=24
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=4.498467e-02 (normalized=1.113945e-01), E_NN=4.668216e-02 (normalized=1.380267e-01)
+selected means: K=1.724534e-01, Mt=6.010422e-01, A_K=1.271948e-01, C_uv=-3.013272e-02
+saved isotropy plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=6.278e-01, enstrophy=1.824e+00
+spectral checks: Parseval=1.511e-16, Helmholtz closure=4.243e-16, <chi_d>=8.744e-02
+saved PDF diagnostics: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/reynolds_calibration_ReL130_N256/calib_Mt060_N256_mu0p001414/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-4.641e+00, F_theta=4.657e+01, S_omega=-4.966e-02, F_omega=2.919e+00
