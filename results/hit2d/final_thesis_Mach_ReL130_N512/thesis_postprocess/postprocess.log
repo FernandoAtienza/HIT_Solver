@@ -1,0 +1,27 @@
+============================================================
+FINAL THESIS POST-PROCESSING
+Started: Wed Aug 19 09:41:16 PM CEST 2026
+Root: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512
+Statistical window: 4 <= N_eddy <= 16
+============================================================
+Using existing diagnostics for Mt010_N512
+Using existing diagnostics for Mt025_N512
+Using existing diagnostics for Mt040_N512
+Using existing diagnostics for Mt050_N512
+Using existing diagnostics for Mt060_N512
+
+Creating cross-Mach thesis figures and tables...
+Saved summary: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_cross_mach_statistics.csv
+Saved summary: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_cross_mach_statistics.md
+Saved table:   /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_cross_mach_table.tex
+Saved figures:
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_mach_spectra.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_mach_trends.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_mach_pdfs.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_pdf_moments_vs_mach.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_low_high_fields.png
+
+============================================================
+POST-PROCESSING FINISHED: Wed Aug 19 09:41:20 PM CEST 2026
+Outputs: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess
+============================================================
