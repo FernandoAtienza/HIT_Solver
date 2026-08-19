@@ -1,0 +1,141 @@
+============================================================
+FINAL THESIS FIGURE POLISH + TEMPORAL VARIABILITY
+Started: Wed Aug 19 10:35:46 PM CEST 2026
+Stationary interval: 4 <= N_eddy <= 16
+chi_d(k) spectral floor: 1e-4
+============================================================
+Computing temporal variability for Mt010_N512
+Mt010_N512: step=124000, t=65.7859, N_eddy=4.2174, chi_d=0.00171
+Mt010_N512: step=148800, t=78.7553, N_eddy=5.0649, chi_d=0.00228
+Mt010_N512: step=173600, t=91.7762, N_eddy=5.8872, chi_d=0.00253
+Mt010_N512: step=198400, t=104.647, N_eddy=6.7278, chi_d=0.00237
+Mt010_N512: step=223200, t=117.812, N_eddy=7.5369, chi_d=0.00204
+Mt010_N512: step=248000, t=130.799, N_eddy=8.3926, chi_d=0.00263
+Mt010_N512: step=272800, t=143.778, N_eddy=9.1931, chi_d=0.00284
+Mt010_N512: step=297600, t=156.611, N_eddy=10.0432, chi_d=0.00215
+Mt010_N512: step=322400, t=169.533, N_eddy=10.8382, chi_d=0.00238
+Mt010_N512: step=347200, t=182.503, N_eddy=11.6934, chi_d=0.00284
+Mt010_N512: step=372000, t=195.652, N_eddy=12.5009, chi_d=0.00213
+Mt010_N512: step=396800, t=208.542, N_eddy=13.3568, chi_d=0.00183
+Mt010_N512: step=421600, t=221.754, N_eddy=14.1709, chi_d=0.00199
+Mt010_N512: step=446400, t=234.905, N_eddy=15.0340, chi_d=0.00206
+Mt010_N512: step=471200, t=248.13, N_eddy=15.8529, chi_d=0.00156
+Saved: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt010_N512/thesis_uncertainty_diagnostics.npz
+Selected snapshots: 15
+chi_d = 0.002223 ± 0.000370 (temporal 1σ)
+Computing temporal variability for Mt025_N512
+Mt025_N512: step=60000, t=26.4451, N_eddy=4.2071, chi_d=0.01216
+Mt025_N512: step=70000, t=30.794, N_eddy=4.9053, chi_d=0.01208
+Mt025_N512: step=80000, t=35.1937, N_eddy=5.5992, chi_d=0.01406
+Mt025_N512: step=90000, t=39.446, N_eddy=6.2823, chi_d=0.01378
+Mt025_N512: step=100000, t=43.729, N_eddy=6.9641, chi_d=0.01639
+Mt025_N512: step=110000, t=48.0905, N_eddy=7.6580, chi_d=0.01542
+Mt025_N512: step=120000, t=52.4268, N_eddy=8.3456, chi_d=0.01637
+Mt025_N512: step=130000, t=56.6422, N_eddy=9.0175, chi_d=0.01451
+Mt025_N512: step=140000, t=60.9422, N_eddy=9.7002, chi_d=0.01367
+Mt025_N512: step=150000, t=65.272, N_eddy=10.3912, chi_d=0.01325
+Mt025_N512: step=160000, t=69.6266, N_eddy=11.0860, chi_d=0.00949
+Mt025_N512: step=170000, t=74.022, N_eddy=11.7855, chi_d=0.00981
+Mt025_N512: step=180000, t=78.439, N_eddy=12.4919, chi_d=0.01141
+Mt025_N512: step=190000, t=82.844, N_eddy=13.1892, chi_d=0.01084
+Mt025_N512: step=200000, t=87.3426, N_eddy=13.9091, chi_d=0.01086
+Mt025_N512: step=210000, t=91.6827, N_eddy=14.6013, chi_d=0.00985
+Mt025_N512: step=220000, t=96.0953, N_eddy=15.3015, chi_d=0.01178
+Saved: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt025_N512/thesis_uncertainty_diagnostics.npz
+Selected snapshots: 17
+chi_d = 0.012689 ± 0.002153 (temporal 1σ)
+Computing temporal variability for Mt040_N512
+Mt040_N512: step=43400, t=16.0952, N_eddy=4.0890, chi_d=0.02967
+Mt040_N512: step=49600, t=18.3708, N_eddy=4.6691, chi_d=0.03764
+Mt040_N512: step=55800, t=20.6942, N_eddy=5.2683, chi_d=0.03243
+Mt040_N512: step=62000, t=23.0571, N_eddy=5.8634, chi_d=0.03852
+Mt040_N512: step=68200, t=25.3338, N_eddy=6.4402, chi_d=0.03309
+Mt040_N512: step=74400, t=27.6592, N_eddy=7.0435, chi_d=0.02911
+Mt040_N512: step=80600, t=29.971, N_eddy=7.6283, chi_d=0.02290
+Mt040_N512: step=86800, t=32.3027, N_eddy=8.2204, chi_d=0.02587
+Mt040_N512: step=93000, t=34.6304, N_eddy=8.8278, chi_d=0.02054
+Mt040_N512: step=99200, t=36.9084, N_eddy=9.4018, chi_d=0.02455
+Mt040_N512: step=105400, t=39.173, N_eddy=9.9683, chi_d=0.02720
+Mt040_N512: step=111600, t=41.3079, N_eddy=10.5266, chi_d=0.03327
+Mt040_N512: step=117800, t=43.6171, N_eddy=11.1102, chi_d=0.03682
+Mt040_N512: step=124000, t=45.9338, N_eddy=11.6963, chi_d=0.02716
+Mt040_N512: step=130200, t=48.043, N_eddy=12.2438, chi_d=0.02427
+Mt040_N512: step=136400, t=50.3214, N_eddy=12.8218, chi_d=0.02948
+Mt040_N512: step=142600, t=52.5299, N_eddy=13.3778, chi_d=0.04129
+Mt040_N512: step=148800, t=54.7802, N_eddy=13.9651, chi_d=0.02363
+Mt040_N512: step=155000, t=57.074, N_eddy=14.5509, chi_d=0.02145
+Mt040_N512: step=161200, t=59.3673, N_eddy=15.1209, chi_d=0.02221
+Mt040_N512: step=167400, t=61.5685, N_eddy=15.6876, chi_d=0.02934
+Saved: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/thesis_uncertainty_diagnostics.npz
+Selected snapshots: 21
+chi_d = 0.029069 ± 0.005873 (temporal 1σ)
+Computing temporal variability for Mt050_N512
+Mt050_N512: step=40000, t=13.5532, N_eddy=4.3203, chi_d=0.07492
+Mt050_N512: step=45000, t=15.1888, N_eddy=4.8194, chi_d=0.04440
+Mt050_N512: step=50000, t=16.7737, N_eddy=5.3418, chi_d=0.06459
+Mt050_N512: step=55000, t=18.4406, N_eddy=5.8877, chi_d=0.05263
+Mt050_N512: step=60000, t=20.186, N_eddy=6.4371, chi_d=0.06140
+Mt050_N512: step=65000, t=21.9907, N_eddy=6.9980, chi_d=0.04947
+Mt050_N512: step=70000, t=23.5993, N_eddy=7.5179, chi_d=0.05091
+Mt050_N512: step=75000, t=25.3341, N_eddy=8.0709, chi_d=0.06429
+Mt050_N512: step=80000, t=27.0571, N_eddy=8.6140, chi_d=0.05298
+Mt050_N512: step=85000, t=28.82, N_eddy=9.1845, chi_d=0.05543
+Mt050_N512: step=90000, t=30.5806, N_eddy=9.7391, chi_d=0.06500
+Mt050_N512: step=95000, t=32.2913, N_eddy=10.2973, chi_d=0.04099
+Mt050_N512: step=100000, t=33.9584, N_eddy=10.8308, chi_d=0.04045
+Mt050_N512: step=105000, t=35.6579, N_eddy=11.3612, chi_d=0.04189
+Mt050_N512: step=110000, t=37.3687, N_eddy=11.9061, chi_d=0.04563
+Mt050_N512: step=115000, t=38.9628, N_eddy=12.4199, chi_d=0.04575
+Mt050_N512: step=120000, t=40.5762, N_eddy=12.9327, chi_d=0.04664
+Mt050_N512: step=125000, t=42.2703, N_eddy=13.4690, chi_d=0.04471
+Mt050_N512: step=130000, t=43.9547, N_eddy=14.0169, chi_d=0.03251
+Mt050_N512: step=135000, t=45.5757, N_eddy=14.5311, chi_d=0.04819
+Mt050_N512: step=140000, t=47.3171, N_eddy=15.0819, chi_d=0.04491
+Mt050_N512: step=145000, t=49.0149, N_eddy=15.6304, chi_d=0.04759
+Saved: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt050_N512/thesis_uncertainty_diagnostics.npz
+Selected snapshots: 22
+chi_d = 0.050695 ± 0.009806 (temporal 1σ)
+Computing temporal variability for Mt060_N512
+Mt060_N512: step=37800, t=11.7229, N_eddy=4.4925, chi_d=0.06842
+Mt060_N512: step=42000, t=13.1139, N_eddy=5.0008, chi_d=0.07187
+Mt060_N512: step=46200, t=14.4482, N_eddy=5.5261, chi_d=0.08036
+Mt060_N512: step=50400, t=15.7186, N_eddy=6.0346, chi_d=0.09214
+Mt060_N512: step=54600, t=16.9998, N_eddy=6.5143, chi_d=0.07702
+Mt060_N512: step=58800, t=18.376, N_eddy=7.0291, chi_d=0.07437
+Mt060_N512: step=63000, t=19.6587, N_eddy=7.5348, chi_d=0.07435
+Mt060_N512: step=67200, t=20.9756, N_eddy=8.0541, chi_d=0.08477
+Mt060_N512: step=71400, t=22.3387, N_eddy=8.5701, chi_d=0.06617
+Mt060_N512: step=75600, t=23.6297, N_eddy=9.0557, chi_d=0.07862
+Mt060_N512: step=79800, t=24.9081, N_eddy=9.5534, chi_d=0.07984
+Mt060_N512: step=84000, t=26.2179, N_eddy=10.0700, chi_d=0.06451
+Mt060_N512: step=88200, t=27.5553, N_eddy=10.5806, chi_d=0.06528
+Mt060_N512: step=92400, t=28.9072, N_eddy=11.0860, chi_d=0.05963
+Mt060_N512: step=96600, t=30.1393, N_eddy=11.5662, chi_d=0.06607
+Mt060_N512: step=100800, t=31.3199, N_eddy=12.0355, chi_d=0.08312
+Mt060_N512: step=105000, t=32.6023, N_eddy=12.5210, chi_d=0.09319
+Mt060_N512: step=109200, t=33.9275, N_eddy=13.0124, chi_d=0.06310
+Mt060_N512: step=113400, t=35.0893, N_eddy=13.4740, chi_d=0.06741
+Mt060_N512: step=117600, t=36.3058, N_eddy=13.9446, chi_d=0.07514
+Mt060_N512: step=121800, t=37.6288, N_eddy=14.4402, chi_d=0.07017
+Mt060_N512: step=126000, t=38.9393, N_eddy=14.9529, chi_d=0.04628
+Mt060_N512: step=130200, t=40.2525, N_eddy=15.4683, chi_d=0.05293
+Mt060_N512: step=134400, t=41.5612, N_eddy=15.9620, chi_d=0.06205
+Saved: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt060_N512/thesis_uncertainty_diagnostics.npz
+Selected snapshots: 24
+chi_d = 0.071534 ± 0.011033 (temporal 1σ)
+
+Creating polished final figures...
+Final polished outputs:
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_mach_spectra_polished.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_mach_trends_uncertainty.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_pdf_moments_uncertainty.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_low_high_fields_normalized.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_uncertainty_statistics.csv
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_uncertainty_statistics.md
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_field_normalization_summary.csv
+
+============================================================
+FINAL POLISH FINISHED: Wed Aug 19 10:36:03 PM CEST 2026
+Outputs: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess
+No simulation was rerun.
+============================================================
