@@ -1,0 +1,15 @@
+saved isotropy diagnostics: results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/isotropy_diagnostics.npz
+selected interval: t=[16.0952, 61.5685], Neddy=[4.10678, 15.7178], snapshots=21
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=2.481503e-02 (normalized=6.001776e-02), E_NN=5.170170e-02 (normalized=1.450285e-01)
+selected means: K=7.739919e-02, Mt=4.006518e-01, A_K=1.012257e-01, C_uv=5.938400e-02
+saved isotropy plot: results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=0.000e+00, enstrophy=1.639e+00
+spectral checks: Parseval=1.724e-16, Helmholtz closure=2.414e-16, <chi_d>=2.911e-02
+saved PDF diagnostics: results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/final_thesis_Mach_ReL130_N512/production_N512/Mt040_N512/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-6.482e+00, F_theta=2.011e+02, S_omega=-3.264e-02, F_omega=2.991e+00

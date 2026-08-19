@@ -1,0 +1,17 @@
+/home/fatienza/github/HIT_Solver/OOP/postprocess/spectra.py:152: RuntimeWarning: Enstrophy spectrum may be piling up near the complete-shell cutoff
+  warnings.warn("Enstrophy spectrum may be piling up near the complete-shell cutoff", RuntimeWarning)
+saved isotropy diagnostics: results/hit2d/final_thesis_Mach_ReL130_N512/preflight_N256/Mt040_N256_mu0p001098989/isotropy_diagnostics.npz
+selected interval: t=[16.4201, 62.489], Neddy=[4.16844, 15.9228], snapshots=21
+turnover reference length: L_ref=1.570796e+00
+isotropy mismatch: E_LL=3.756750e-02 (normalized=9.141939e-02), E_NN=5.487374e-02 (normalized=1.568752e-01)
+selected means: K=7.733024e-02, Mt=4.006959e-01, A_K=1.067657e-01, C_uv=7.454729e-02
+saved isotropy plot: results/hit2d/final_thesis_Mach_ReL130_N512/preflight_N256/Mt040_N256_mu0p001098989/postprocess/stationarity_K_Mt.png
+saved isotropy plot: results/hit2d/final_thesis_Mach_ReL130_N512/preflight_N256/Mt040_N256_mu0p001098989/postprocess/directional_isotropy_correlations.png
+saved isotropy plot: results/hit2d/final_thesis_Mach_ReL130_N512/preflight_N256/Mt040_N256_mu0p001098989/postprocess/component_energy_anisotropy.png
+saved spectra diagnostics: results/hit2d/final_thesis_Mach_ReL130_N512/preflight_N256/Mt040_N256_mu0p001098989/spectra_diagnostics.npz
+saved spectra plot: results/hit2d/final_thesis_Mach_ReL130_N512/preflight_N256/Mt040_N256_mu0p001098989/postprocess/energy_enstrophy_spectra.png
+cutoff ratios: energy=8.281e-01, enstrophy=2.367e+00
+spectral checks: Parseval=1.724e-16, Helmholtz closure=2.332e-16, <chi_d>=3.279e-02
+saved PDF diagnostics: results/hit2d/final_thesis_Mach_ReL130_N512/preflight_N256/Mt040_N256_mu0p001098989/pdf_diagnostics.npz
+saved PDF plot: results/hit2d/final_thesis_Mach_ReL130_N512/preflight_N256/Mt040_N256_mu0p001098989/postprocess/one_point_pdfs.png
+PDF moments: S_theta=-3.597e+00, F_theta=5.015e+01, S_omega=2.933e-02, F_omega=3.081e+00
