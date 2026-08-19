@@ -33,6 +33,16 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--end-turnover", type=float, default=16.0)
     p.add_argument("--target-re", type=float, default=130.0)
     p.add_argument("--chi-relative-floor", type=float, default=1.0e-4)
+    p.add_argument(
+        "--absolute-spectrum-relative-floor",
+        type=float,
+        default=1.0e-16,
+        help=(
+            "Lower display floor for the absolute density-weighted spectrum, "
+            "relative to the largest plotted spectral value. This only controls "
+            "plot limits/uncertainty shading; it does not alter the spectrum."
+        ),
+    )
     p.add_argument("--dpi", type=int, default=300)
     p.add_argument("--field-machs", nargs=2, type=float, default=(0.10, 0.60))
     return p.parse_args()
@@ -158,7 +168,7 @@ def shade_forcing(ax, shell):
         ax.axvspan(kmin, kmax, alpha=0.07, label="forced shell")
 
 
-def plot_spectra(cases, output_dir, dpi, chi_floor):
+def plot_spectra(cases, output_dir, dpi, chi_floor, absolute_floor):
     loaded = []
     forcing_shell = None
     for mt, case in cases:
@@ -190,6 +200,30 @@ def plot_spectra(cases, output_dir, dpi, chi_floor):
     if len(loaded) < 2:
         return None
 
+    # Determine the visible range from the *mean spectra only*.  Previously the
+    # lower edge of an uncertainty band was clipped to np.finfo(float).tiny
+    # whenever E-sigma became negative.  On a logarithmic axis that artificial
+    # ~1e-308 value forced the y-axis to span hundreds of decades.  The display
+    # floor below is only a plotting safeguard: no spectral values are modified.
+    plotted_means = []
+    for rec in loaded:
+        k = rec["k"]
+        Edw = rec["Edw"]
+        shell_id = np.arange(k.size)
+        valid = (
+            (k > 0) & (shell_id <= rec["complete"]) &
+            np.isfinite(Edw) & (Edw > 0)
+        )
+        if np.any(valid):
+            plotted_means.append(Edw[valid])
+
+    mean_values = np.concatenate(plotted_means)
+    mean_peak = float(np.nanmax(mean_values))
+    positive_mean_min = float(np.nanmin(mean_values))
+    relative_display_floor = max(float(absolute_floor), 0.0) * mean_peak
+    spectrum_ymin = max(0.5 * positive_mean_min, relative_display_floor)
+    spectrum_ymax = 2.0 * mean_peak
+
     fig, axes = plt.subplots(1, 3, figsize=(16.2, 4.9), constrained_layout=True)
     for rec in loaded:
         k, Edw, Es, Ed = rec["k"], rec["Edw"], rec["Es"], rec["Ed"]
@@ -199,10 +233,20 @@ def plot_spectra(cases, output_dir, dpi, chi_floor):
         line = axes[0].loglog(k[valid], Edw[valid], lw=1.8, label=label)[0]
         if rec["Edw_std"] is not None:
             std = rec["Edw_std"]
-            lo = np.maximum(Edw - std, np.finfo(float).tiny)
+            lo = Edw - std
             hi = Edw + std
-            shade = valid & np.isfinite(lo) & np.isfinite(hi) & (hi > 0)
-            axes[0].fill_between(k[shade], lo[shade], hi[shade], alpha=0.05, color=line.get_color())
+            # Draw the uncertainty envelope only where its lower bound remains
+            # positive and inside the meaningful visible range.  This avoids
+            # creating an artificial ~1e-308 lower limit on a log axis.
+            shade = (
+                valid & np.isfinite(lo) & np.isfinite(hi) &
+                (lo > spectrum_ymin) & (hi > lo)
+            )
+            if np.any(shade):
+                axes[0].fill_between(
+                    k[shade], lo[shade], hi[shade],
+                    alpha=0.05, color=line.get_color()
+                )
 
         total = float(np.sum(np.maximum(Edw, 0.0)))
         if total > 0:
@@ -232,6 +276,7 @@ def plot_spectra(cases, output_dir, dpi, chi_floor):
     axes[0].set_title("Density-weighted kinetic-energy spectrum")
     axes[0].set_xlabel("k")
     axes[0].set_ylabel(r"$E_{\sqrt{\rho}u}(k)$")
+    axes[0].set_ylim(spectrum_ymin, spectrum_ymax)
     axes[1].set_title("Normalized spectral shape")
     axes[1].set_xlabel("k")
     axes[1].set_ylabel(r"$E_{\sqrt{\rho}u}(k)/\sum_k E_{\sqrt{\rho}u}(k)$")
@@ -526,7 +571,7 @@ def main():
 
     outputs = []
     for path in (
-        plot_spectra(cases, out, a.dpi, a.chi_relative_floor),
+        plot_spectra(cases, out, a.dpi, a.chi_relative_floor, a.absolute_spectrum_relative_floor),
         plot_trends(rows, out, a.target_re, a.dpi),
         plot_pdf_moments(rows, out, a.dpi),
     ):

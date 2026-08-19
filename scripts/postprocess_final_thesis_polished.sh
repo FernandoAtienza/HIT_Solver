@@ -12,6 +12,7 @@ START_TURNOVER="${START_TURNOVER:-4}"
 END_TURNOVER="${END_TURNOVER:-16}"
 TARGET_RE="${TARGET_RE:-130}"
 CHI_FLOOR="${CHI_FLOOR:-1e-4}"
+ABS_SPECTRUM_FLOOR="${ABS_SPECTRUM_FLOOR:-1e-16}"
 UNCERTAINTY_STRIDE="${UNCERTAINTY_STRIDE:-1}"
 RECOMPUTE_UNCERTAINTY="${RECOMPUTE_UNCERTAINTY:-0}"
 
@@ -25,6 +26,7 @@ echo "FINAL THESIS FIGURE POLISH + TEMPORAL VARIABILITY"
 echo "Started: $(date)"
 echo "Stationary interval: $START_TURNOVER <= N_eddy <= $END_TURNOVER"
 echo "chi_d(k) spectral floor: $CHI_FLOOR"
+echo "absolute-spectrum display floor: $ABS_SPECTRUM_FLOOR x peak"
 echo "============================================================"
 
 for CASE in "$PRODUCTION"/Mt*_N512; do
@@ -70,7 +72,8 @@ MPLBACKEND=Agg python3 -B scripts/plot_final_thesis_polished.py \
   --start-turnover "$START_TURNOVER" \
   --end-turnover "$END_TURNOVER" \
   --target-re "$TARGET_RE" \
-  --chi-relative-floor "$CHI_FLOOR"
+  --chi-relative-floor "$CHI_FLOOR" \
+  --absolute-spectrum-relative-floor "$ABS_SPECTRUM_FLOOR"
 
 echo
 echo "============================================================"

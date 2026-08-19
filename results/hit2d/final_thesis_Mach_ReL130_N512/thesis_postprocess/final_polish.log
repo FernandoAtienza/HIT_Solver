@@ -139,3 +139,31 @@ FINAL POLISH FINISHED: Wed Aug 19 10:36:03 PM CEST 2026
 Outputs: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess
 No simulation was rerun.
 ============================================================
+============================================================
+FINAL THESIS FIGURE POLISH + TEMPORAL VARIABILITY
+Started: Wed Aug 19 10:50:20 PM CEST 2026
+Stationary interval: 4 <= N_eddy <= 16
+chi_d(k) spectral floor: 1e-4
+absolute-spectrum display floor: 1e-16 x peak
+============================================================
+Using cached uncertainty diagnostics for Mt010_N512
+Using cached uncertainty diagnostics for Mt025_N512
+Using cached uncertainty diagnostics for Mt040_N512
+Using cached uncertainty diagnostics for Mt050_N512
+Using cached uncertainty diagnostics for Mt060_N512
+
+Creating polished final figures...
+Final polished outputs:
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_mach_spectra_polished.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_mach_trends_uncertainty.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_pdf_moments_uncertainty.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_low_high_fields_normalized.png
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_uncertainty_statistics.csv
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_uncertainty_statistics.md
+  /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess/final_field_normalization_summary.csv
+
+============================================================
+FINAL POLISH FINISHED: Wed Aug 19 10:50:23 PM CEST 2026
+Outputs: /home/fatienza/github/HIT_Solver/results/hit2d/final_thesis_Mach_ReL130_N512/thesis_postprocess
+No simulation was rerun.
+============================================================
