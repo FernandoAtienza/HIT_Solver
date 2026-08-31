@@ -8,14 +8,14 @@ import matplotlib as mpl
 
 @dataclass(frozen=True)
 class ThesisPlotStyle:
-    base: float = 17.0
-    axes_title: float = 19.0
-    axes_label: float = 18.0
-    ticks: float = 15.0
-    legend: float = 15.0
-    figure_title: float = 21.0
-    colorbar_label: float = 17.0
-    annotation: float = 13.0
+    base: float = 18.0
+    axes_title: float = 22.0
+    axes_label: float = 20.0
+    ticks: float = 17.0
+    legend: float = 14.0
+    figure_title: float = 24.0
+    colorbar_label: float = 19.0
+    annotation: float = 12.0
     min_dpi: int = 300
 
 
@@ -67,6 +67,7 @@ def apply_thesis_style(style: ThesisPlotStyle | None = None):
     old_text = Axes.text
     old_suptitle = Figure.suptitle
     old_savefig = Figure.savefig
+    old_figure_colorbar = Figure.colorbar
     old_cbar_label = Colorbar.set_label
 
     def set_title(self, label, fontdict=None, loc=None, pad=None, *, y=None, **kwargs):
@@ -149,12 +150,19 @@ def apply_thesis_style(style: ThesisPlotStyle | None = None):
             kwargs["dpi"] = max(int(dpi), style.min_dpi)
         return old_savefig(self, fname, *args, **kwargs)
 
+    def figure_colorbar(self, *args, **kwargs):
+        cbar = old_figure_colorbar(self, *args, **kwargs)
+        cbar.ax.tick_params(labelsize=style.ticks)
+        return cbar
+
     def colorbar_label(self, label, *, loc=None, **kwargs):
         kwargs["fontsize"] = max(
             _numeric(kwargs.get("fontsize"), style.colorbar_label),
             style.colorbar_label,
         )
-        return old_cbar_label(self, label, loc=loc, **kwargs)
+        result = old_cbar_label(self, label, loc=loc, **kwargs)
+        self.ax.tick_params(labelsize=style.ticks)
+        return result
 
     Axes.set_title = set_title
     Axes.set_xlabel = set_xlabel
@@ -164,6 +172,7 @@ def apply_thesis_style(style: ThesisPlotStyle | None = None):
     Axes.text = text
     Figure.suptitle = suptitle
     Figure.savefig = savefig
+    Figure.colorbar = figure_colorbar
     Colorbar.set_label = colorbar_label
 
     Axes._thesis_font_patch = True

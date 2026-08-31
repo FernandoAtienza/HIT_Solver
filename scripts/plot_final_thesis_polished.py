@@ -203,7 +203,7 @@ def plot_spectra(cases, output_dir, dpi, chi_floor, absolute_floor):
     vals=np.concatenate(plotted); peak=float(np.nanmax(vals)); pmin=float(np.nanmin(vals))
     ymin=max(0.5*pmin, max(float(absolute_floor),0.0)*peak); ymax=2.0*peak
 
-    fig=plt.figure(figsize=(12.8,10.0), constrained_layout=True)
+    fig=plt.figure(figsize=(14.2,11.2), constrained_layout=True)
     gs=fig.add_gridspec(2,2)
     axes=[fig.add_subplot(gs[0,0]), fig.add_subplot(gs[0,1]), fig.add_subplot(gs[1,:])]
     for rec in loaded:
@@ -252,7 +252,7 @@ def plot_trends(rows, output_dir, target_re, dpi):
     rel = np.array([float(r.get("Re_lambda_mean", np.nan)) for r in rows])
     rel_std = np.array([float(r.get("Re_lambda_std", np.nan)) for r in rows])
 
-    fig, axes = plt.subplots(1, 3, figsize=(15.5, 4.7), constrained_layout=True)
+    fig, axes = plt.subplots(1, 3, figsize=(17.2, 5.5), constrained_layout=True)
 
     valid = np.isfinite(mt) & np.isfinite(chi)
     yerr = np.where(np.isfinite(chi_std[valid]), 100*chi_std[valid], 0.0)
@@ -302,7 +302,7 @@ def plot_trends(rows, output_dir, target_re, dpi):
 def plot_pdf_moments(rows, output_dir, dpi):
     rows=sorted(rows,key=lambda r:float(r["Mt_target"])); mt=np.array([float(r["Mt_target"]) for r in rows])
     variables=[("dilatation","Dilatation"),("vorticity","Vorticity"),("pressure","Pressure fluctuation"),("density","Density fluctuation")]
-    fig,axes=plt.subplots(1,2,figsize=(11.8,4.9),constrained_layout=True)
+    fig,axes=plt.subplots(1,2,figsize=(13.6,5.8),constrained_layout=True)
     for var,label in variables:
         skew=np.array([float(r.get(f"{var}_skewness_temporal_mean",np.nan)) for r in rows]); ss=np.array([float(r.get(f"{var}_skewness_temporal_std",np.nan)) for r in rows])
         flat=np.array([float(r.get(f"{var}_flatness_temporal_mean",np.nan)) for r in rows]); fs=np.array([float(r.get(f"{var}_flatness_temporal_std",np.nan)) for r in rows])

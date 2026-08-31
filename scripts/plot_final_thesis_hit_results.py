@@ -612,7 +612,7 @@ def plot_pdf_comparison(cases: list[tuple[float, Path]], output_dir: Path, dpi: 
         ("pressure", r"$p'/p_{rms}$", "Pressure fluctuation"),
         ("density", r"$\rho'/\rho_{rms}$", "Density fluctuation"),
     ]
-    fig, axes = plt.subplots(2, 2, figsize=(11.8, 8.6), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(13.6, 10.0), constrained_layout=True)
     for ax, (variable, xlabel, title) in zip(axes.flat, variables):
         for rec in loaded:
             x = rec[f"{variable}_bin_centers"]

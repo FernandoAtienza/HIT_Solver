@@ -15,15 +15,30 @@ DPI="${DPI:-300}"
 
 RUNNER="scripts/run_with_thesis_fonts.py"
 
-styled () {
+styled_reference () {
     MPLBACKEND=Agg python3 -B "$RUNNER" \
-      --base 17 \
-      --title 20 \
-      --label 18 \
-      --tick 15 \
-      --legend 15 \
-      --suptitle 21 \
-      --annotation 12 \
+      --base "${REF_BASE_FONT:-18}" \
+      --title "${REF_TITLE_FONT:-22}" \
+      --label "${REF_LABEL_FONT:-20}" \
+      --tick "${REF_TICK_FONT:-17}" \
+      --legend "${REF_LEGEND_FONT:-14}" \
+      --suptitle "${REF_SUPTITLE_FONT:-24}" \
+      --annotation "${REF_ANNOTATION_FONT:-12}" \
+      --dpi "$DPI" \
+      "$@"
+}
+
+# Cross-Mach figures need large axes/titles/ticks, but deliberately slightly
+# smaller legends so the five Mach-number curves are not obscured.
+styled_cross () {
+    MPLBACKEND=Agg python3 -B "$RUNNER" \
+      --base "${CROSS_BASE_FONT:-17}" \
+      --title "${CROSS_TITLE_FONT:-21}" \
+      --label "${CROSS_LABEL_FONT:-19}" \
+      --tick "${CROSS_TICK_FONT:-16}" \
+      --legend "${CROSS_LEGEND_FONT:-10}" \
+      --suptitle "${CROSS_SUPTITLE_FONT:-23}" \
+      --annotation "${CROSS_ANNOTATION_FONT:-11}" \
       --dpi "$DPI" \
       "$@"
 }
@@ -33,15 +48,17 @@ echo "FINAL THESIS FIGURE POST-PROCESSING"
 echo "Reference case: $REF_CASE"
 echo "Final campaign: $FINAL_ROOT"
 echo "No CFD simulation will be launched."
+echo "Reference fonts: title=${REF_TITLE_FONT:-22}, labels=${REF_LABEL_FONT:-20}, ticks=${REF_TICK_FONT:-17}, legend=${REF_LEGEND_FONT:-14}"
+echo "Cross-Mach fonts: title=${CROSS_TITLE_FONT:-21}, labels=${CROSS_LABEL_FONT:-19}, ticks=${CROSS_TICK_FONT:-16}, legend=${CROSS_LEGEND_FONT:-10}"
 echo "============================================================"
 
 # 1) Detailed Mt=0.25 reference case. This reruns plotting/diagnostics only.
-styled 2D/hit2d_viewer.py \
+styled_reference 2D/hit2d_viewer.py \
   --snapshot-dir "$REF_CASE" \
   --physics-plots \
   --history-x-axis turnover
 
-styled 2D/hit2d_isotropy_diagnostics.py \
+styled_reference 2D/hit2d_isotropy_diagnostics.py \
   --snapshot-dir "$REF_CASE" \
   --start-turnover "$START_TURNOVER" \
   --end-turnover "$END_TURNOVER" \
@@ -49,7 +66,7 @@ styled 2D/hit2d_isotropy_diagnostics.py \
 
 # 2) Cross-Mach figures.
 mkdir -p "$FINAL_OUT"
-MPLBACKEND=Agg python3 -B scripts/plot_final_thesis_hit_results.py \
+styled_cross scripts/plot_final_thesis_hit_results.py \
   --root "$FINAL_ROOT" \
   --start-turnover "$START_TURNOVER" \
   --end-turnover "$END_TURNOVER" \
@@ -57,7 +74,7 @@ MPLBACKEND=Agg python3 -B scripts/plot_final_thesis_hit_results.py \
   --dpi "$DPI" \
   --chi-relative-floor 1e-4
 
-MPLBACKEND=Agg python3 -B scripts/plot_final_thesis_polished.py \
+styled_cross scripts/plot_final_thesis_polished.py \
   --root "$FINAL_ROOT" \
   --output-dir "$FINAL_OUT" \
   --start-turnover "$START_TURNOVER" \
@@ -68,7 +85,9 @@ MPLBACKEND=Agg python3 -B scripts/plot_final_thesis_polished.py \
   --dpi "$DPI"
 
 # 3) Collect the exact filenames expected by memoria.tex.
-rm -rf "$EXPORT_DIR"
+# Keep any already-exported thesis figures that this script does not regenerate
+# (e.g. grid-convergence/repeatability figures) and overwrite the regenerated
+# filenames below.
 mkdir -p "$EXPORT_DIR"
 
 copy_if () {

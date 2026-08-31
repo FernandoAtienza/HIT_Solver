@@ -1,45 +1,102 @@
-# Final Results-figure formatting patch
+# Final thesis post-processing — enlarged fonts update
 
-This patch changes post-processing only. It does not modify or rerun the CFD solver.
+This patch supersedes the previous `thesis_final_results_format_patch.zip`.
 
-## Changes
+It changes **plotting/post-processing only**. No CFD simulation is launched and
+no saved numerical results are modified.
 
-- `Mt=0.25` diagnostic figures are regenerated with larger titles, axes, ticks and legends.
-- The `Mt=0.25` PDF figure contains only the four marginal PDFs + Gaussian references (2x2).
-  The joint PDF and pooled moments remain saved in `pdf_diagnostics.npz` for textual/table discussion.
-- Low/high Mach normalized fields use a four-row by two-column layout: one physical field per row and the two Mach cases side by side. This avoids the former four-panels-across layout while preserving all eight maps.
-- The cross-Mach spectral figure uses a triangular layout: two panels on top, dilatational fraction below.
-- The scale-dependent dilatational-fraction threshold note is removed from inside the plot.
-- Cross-Mach PDF legends are smaller, especially in the dilatation panel.
-- PDF-moment legends are smaller and the flatness legend is placed at upper left.
+## Why this update is needed
+
+In the previous launcher, the detailed `M_t=0.25` diagnostics were executed
+through the thesis-font wrapper, but the two cross-Mach plotting scripts were
+called directly. Consequently, these figures still had comparatively small
+axes/title/tick text:
+
+- `mach_pdfs.png`
+- `mach_spectra_polished.png`
+- `mach_trends_uncertainty.png`
+- `pdf_moments_uncertainty.png`
+
+This version sends both cross-Mach scripts through the same font-control layer.
+It also enlarges the `reference_Mt025_fields.png` rendering and colorbar tick
+labels.
+
+## Default font targets
+
+Detailed `M_t=0.25` figures:
+
+- subplot titles: 22 pt
+- axis labels: 20 pt
+- tick labels: 17 pt
+- legends: 14 pt
+- figure title: 24 pt
+
+Cross-Mach figures:
+
+- subplot titles: 21 pt
+- axis labels: 19 pt
+- tick labels: 16 pt
+- legends: 10 pt
+- figure title: 23 pt
+
+The cross-Mach legends are intentionally smaller than the axes text because five
+Mach-number curves must remain visible without the legend covering them.
 
 ## Install
 
 ```bash
 cd ~/github/HIT_Solver
-unzip -o ~/Downloads/thesis_final_results_format_patch.zip -d .
-chmod +x scripts/run_with_thesis_fonts.py scripts/postprocess_thesis_final_format.sh
+
+unzip -o \
+  ~/Downloads/thesis_final_results_large_fonts_patch.zip \
+  -d .
+
+chmod +x \
+  scripts/run_with_thesis_fonts.py \
+  scripts/postprocess_thesis_final_format.sh
 ```
 
-## Run
+## Re-run all thesis post-processing
 
 ```bash
 cd ~/github/HIT_Solver
+
 ./scripts/postprocess_thesis_final_format.sh
 ```
 
-No simulation is launched. Existing snapshots/diagnostics are reused.
+No simulation is rerun.
 
-The exact thesis-ready filenames are collected in:
+The complete updated thesis figure collection is written to:
 
 ```text
 results/hit2d/thesis_figures_final_layout/
 ```
 
-If the reference-case or campaign roots differ, override them:
+The files specifically affected by this update are:
+
+```text
+reference_Mt025_fields.png
+mach_pdfs.png
+mach_spectra_polished.png
+mach_trends_uncertainty.png
+pdf_moments_uncertainty.png
+```
+
+The other reference-case figures are regenerated with the same large-font style
+as well.
+
+## Optional font overrides
+
+If the paper PDF still reduces text too much, for example:
 
 ```bash
-REF_CASE=results/hit2d/solenoidal_Mt025_N512_CFL_0p05 \
-FINAL_ROOT=results/hit2d/final_thesis_Mach_ReL130_N512 \
+REF_TITLE_FONT=24 \
+REF_LABEL_FONT=22 \
+REF_TICK_FONT=18 \
+REF_LEGEND_FONT=15 \
+CROSS_TITLE_FONT=23 \
+CROSS_LABEL_FONT=21 \
+CROSS_TICK_FONT=18 \
+CROSS_LEGEND_FONT=11 \
 ./scripts/postprocess_thesis_final_format.sh
 ```
