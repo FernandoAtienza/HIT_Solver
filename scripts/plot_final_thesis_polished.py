@@ -176,18 +176,13 @@ def plot_spectra(cases, output_dir, dpi, chi_floor, absolute_floor):
         if not path.exists():
             continue
         with np.load(path) as s:
-            required = {
-                "k", "density_weighted_energy_mean", "solenoidal_energy_mean",
-                "dilatational_energy_mean", "complete_shell_max",
-            }
+            required = {"k", "density_weighted_energy_mean", "solenoidal_energy_mean", "dilatational_energy_mean", "complete_shell_max"}
             if not required.issubset(s.files):
                 continue
             rec = {
-                "mt": mt,
-                "k": np.asarray(s["k"], dtype=float),
+                "mt": mt, "k": np.asarray(s["k"], dtype=float),
                 "Edw": np.asarray(s["density_weighted_energy_mean"], dtype=float),
-                "Edw_std": np.asarray(s["density_weighted_energy_std"], dtype=float)
-                if "density_weighted_energy_std" in s.files else None,
+                "Edw_std": np.asarray(s["density_weighted_energy_std"], dtype=float) if "density_weighted_energy_std" in s.files else None,
                 "Es": np.asarray(s["solenoidal_energy_mean"], dtype=float),
                 "Ed": np.asarray(s["dilatational_energy_mean"], dtype=float),
                 "complete": int(np.asarray(s["complete_shell_max"])),
@@ -200,101 +195,39 @@ def plot_spectra(cases, output_dir, dpi, chi_floor, absolute_floor):
     if len(loaded) < 2:
         return None
 
-    # Determine the visible range from the *mean spectra only*.  Previously the
-    # lower edge of an uncertainty band was clipped to np.finfo(float).tiny
-    # whenever E-sigma became negative.  On a logarithmic axis that artificial
-    # ~1e-308 value forced the y-axis to span hundreds of decades.  The display
-    # floor below is only a plotting safeguard: no spectral values are modified.
-    plotted_means = []
+    plotted = []
     for rec in loaded:
-        k = rec["k"]
-        Edw = rec["Edw"]
-        shell_id = np.arange(k.size)
-        valid = (
-            (k > 0) & (shell_id <= rec["complete"]) &
-            np.isfinite(Edw) & (Edw > 0)
-        )
-        if np.any(valid):
-            plotted_means.append(Edw[valid])
+        k, E = rec["k"], rec["Edw"]; sid=np.arange(k.size)
+        valid=(k>0)&(sid<=rec["complete"])&np.isfinite(E)&(E>0)
+        if np.any(valid): plotted.append(E[valid])
+    vals=np.concatenate(plotted); peak=float(np.nanmax(vals)); pmin=float(np.nanmin(vals))
+    ymin=max(0.5*pmin, max(float(absolute_floor),0.0)*peak); ymax=2.0*peak
 
-    mean_values = np.concatenate(plotted_means)
-    mean_peak = float(np.nanmax(mean_values))
-    positive_mean_min = float(np.nanmin(mean_values))
-    relative_display_floor = max(float(absolute_floor), 0.0) * mean_peak
-    spectrum_ymin = max(0.5 * positive_mean_min, relative_display_floor)
-    spectrum_ymax = 2.0 * mean_peak
-
-    fig, axes = plt.subplots(1, 3, figsize=(16.2, 4.9), constrained_layout=True)
+    fig=plt.figure(figsize=(12.8,10.0), constrained_layout=True)
+    gs=fig.add_gridspec(2,2)
+    axes=[fig.add_subplot(gs[0,0]), fig.add_subplot(gs[0,1]), fig.add_subplot(gs[1,:])]
     for rec in loaded:
-        k, Edw, Es, Ed = rec["k"], rec["Edw"], rec["Es"], rec["Ed"]
-        shell_id = np.arange(k.size)
-        valid = (k > 0) & (shell_id <= rec["complete"]) & np.isfinite(Edw) & (Edw > 0)
-        label = rf"$M_t={rec['mt']:.2f}$"
-        line = axes[0].loglog(k[valid], Edw[valid], lw=1.8, label=label)[0]
+        k,E,Es,Ed=rec["k"],rec["Edw"],rec["Es"],rec["Ed"]; sid=np.arange(k.size)
+        valid=(k>0)&(sid<=rec["complete"])&np.isfinite(E)&(E>0); label=rf"$M_t={rec['mt']:.2f}$"
+        line=axes[0].loglog(k[valid],E[valid],lw=2.0,label=label)[0]
         if rec["Edw_std"] is not None:
-            std = rec["Edw_std"]
-            lo = Edw - std
-            hi = Edw + std
-            # Draw the uncertainty envelope only where its lower bound remains
-            # positive and inside the meaningful visible range.  This avoids
-            # creating an artificial ~1e-308 lower limit on a log axis.
-            shade = (
-                valid & np.isfinite(lo) & np.isfinite(hi) &
-                (lo > spectrum_ymin) & (hi > lo)
-            )
-            if np.any(shade):
-                axes[0].fill_between(
-                    k[shade], lo[shade], hi[shade],
-                    alpha=0.05, color=line.get_color()
-                )
-
-        total = float(np.sum(np.maximum(Edw, 0.0)))
-        if total > 0:
-            axes[1].loglog(k[valid], Edw[valid] / total, lw=1.8, label=label)
-
-        helm = Es + Ed
-        peak = max(float(np.nanmax(helm)), np.finfo(float).tiny)
-        threshold = peak * chi_floor
-        cvalid = (
-            (k > 0) & (shell_id <= rec["complete"]) & np.isfinite(helm) &
-            np.isfinite(Ed) & (helm > threshold)
-        )
-        chi = np.zeros_like(helm)
-        np.divide(Ed, helm, out=chi, where=helm > 0)
-        axes[2].semilogx(k[cvalid], 100*chi[cvalid], lw=1.8, label=label)
-
+            lo=E-rec["Edw_std"]; hi=E+rec["Edw_std"]; sh=valid&np.isfinite(lo)&np.isfinite(hi)&(lo>ymin)&(hi>lo)
+            if np.any(sh): axes[0].fill_between(k[sh],lo[sh],hi[sh],alpha=.05,color=line.get_color())
+        total=float(np.sum(np.maximum(E,0.0)))
+        if total>0: axes[1].loglog(k[valid],E[valid]/total,lw=2.0,label=label)
+        helm=Es+Ed; threshold=max(float(np.nanmax(helm)),np.finfo(float).tiny)*chi_floor
+        cvalid=(k>0)&(sid<=rec["complete"])&np.isfinite(helm)&np.isfinite(Ed)&(helm>threshold)
+        chi=np.zeros_like(helm); np.divide(Ed,helm,out=chi,where=helm>0)
+        axes[2].semilogx(k[cvalid],100*chi[cvalid],lw=2.0,label=label)
     for ax in axes:
-        shade_forcing(ax, forcing_shell)
-        ax.grid(True, which="both", alpha=0.25)
-        handles, labels = ax.get_legend_handles_labels()
-        unique = {}
-        for h, lab in zip(handles, labels):
-            if lab not in unique:
-                unique[lab] = h
-        ax.legend(unique.values(), unique.keys(), fontsize=8)
-
-    axes[0].set_title("Density-weighted kinetic-energy spectrum")
-    axes[0].set_xlabel("k")
-    axes[0].set_ylabel(r"$E_{\sqrt{\rho}u}(k)$")
-    axes[0].set_ylim(spectrum_ymin, spectrum_ymax)
-    axes[1].set_title("Normalized spectral shape")
-    axes[1].set_xlabel("k")
-    axes[1].set_ylabel(r"$E_{\sqrt{\rho}u}(k)/\sum_k E_{\sqrt{\rho}u}(k)$")
-    axes[2].set_title("Scale-dependent dilatational fraction")
-    axes[2].set_xlabel("k")
-    axes[2].set_ylabel(r"$\chi_d(k)$ [\%]")
-    axes[2].set_ylim(bottom=0)
-    axes[2].text(
-        0.98, 0.03,
-        rf"shown for $E_s+E_d > {chi_floor:.0e}\,\max(E_s+E_d)$",
-        transform=axes[2].transAxes, ha="right", va="bottom", fontsize=8,
-    )
-
-    out = output_dir / "final_mach_spectra_polished.png"
-    fig.savefig(out, dpi=dpi, bbox_inches="tight")
-    plt.close(fig)
-    return out
-
+        shade_forcing(ax,forcing_shell); ax.grid(True,which="both",alpha=.25); ax.tick_params(labelsize=13)
+        h,l=ax.get_legend_handles_labels(); u={}
+        for hh,ll in zip(h,l): u.setdefault(ll,hh)
+        ax.legend(u.values(),u.keys(),fontsize=9.0,ncol=2 if ax is axes[2] else 1)
+    axes[0].set_title("Density-weighted kinetic-energy spectrum",fontsize=17); axes[0].set_xlabel("k",fontsize=15); axes[0].set_ylabel(r"$E_{\sqrt{\rho}u}(k)$",fontsize=15); axes[0].set_ylim(ymin,ymax)
+    axes[1].set_title("Normalized spectral shape",fontsize=17); axes[1].set_xlabel("k",fontsize=15); axes[1].set_ylabel(r"$E_{\sqrt{\rho}u}(k)/\sum_k E_{\sqrt{\rho}u}(k)$",fontsize=15)
+    axes[2].set_title("Scale-dependent dilatational fraction",fontsize=17); axes[2].set_xlabel("k",fontsize=15); axes[2].set_ylabel(r"$\chi_d(k)$ [\%]",fontsize=15); axes[2].set_ylim(bottom=0)
+    out=output_dir/"final_mach_spectra_polished.png"; fig.savefig(out,dpi=dpi,bbox_inches="tight"); plt.close(fig); return out
 
 def fit_quadratic_through_origin(mt, chi):
     valid = np.isfinite(mt) & np.isfinite(chi)
@@ -367,55 +300,21 @@ def plot_trends(rows, output_dir, target_re, dpi):
 
 
 def plot_pdf_moments(rows, output_dir, dpi):
-    rows = sorted(rows, key=lambda r: float(r["Mt_target"]))
-    mt = np.array([float(r["Mt_target"]) for r in rows])
-    variables = [
-        ("dilatation", "Dilatation"),
-        ("vorticity", "Vorticity"),
-        ("pressure", "Pressure fluctuation"),
-        ("density", "Density fluctuation"),
-    ]
-    fig, axes = plt.subplots(1, 2, figsize=(11.6, 4.7), constrained_layout=True)
-    for var, label in variables:
-        skew = np.array([float(r.get(f"{var}_skewness_temporal_mean", np.nan)) for r in rows])
-        skew_std = np.array([float(r.get(f"{var}_skewness_temporal_std", np.nan)) for r in rows])
-        flat = np.array([float(r.get(f"{var}_flatness_temporal_mean", np.nan)) for r in rows])
-        flat_std = np.array([float(r.get(f"{var}_flatness_temporal_std", np.nan)) for r in rows])
-        good = np.isfinite(skew)
-        axes[0].errorbar(mt[good], skew[good], yerr=np.where(np.isfinite(skew_std[good]), skew_std[good], 0.0), marker="o", capsize=2.5, lw=1.2, label=label)
-        good = np.isfinite(flat) & (flat > 0)
-        axes[1].errorbar(mt[good], flat[good], yerr=np.where(np.isfinite(flat_std[good]), flat_std[good], 0.0), marker="o", capsize=2.5, lw=1.2, label=label)
-
-    axes[0].axhline(0, lw=1.0)
-    axes[0].set_title("Snapshot PDF skewness")
-    axes[0].set_xlabel(r"$M_t$")
-    axes[0].set_ylabel("skewness")
-    axes[0].grid(True, alpha=0.3)
-    axes[0].legend(fontsize=8)
-
-    axes[1].axhline(3, ls="--", lw=1.0, label="Gaussian flatness")
-    axes[1].set_title("Snapshot PDF flatness")
-    axes[1].set_xlabel(r"$M_t$")
-    axes[1].set_ylabel("flatness")
-    axes[1].set_yscale("log")
-    axes[1].grid(True, which="both", alpha=0.3)
-    handles, labels = axes[1].get_legend_handles_labels()
-    unique = {}
-    for h, lab in zip(handles, labels):
-        if lab not in unique:
-            unique[lab] = h
-    axes[1].legend(unique.values(), unique.keys(), fontsize=8)
-
-    fig.text(
-        0.5, -0.01,
-        "Error bars show snapshot-to-snapshot temporal standard deviation over the stationary interval.",
-        ha="center", fontsize=8,
-    )
-    out = output_dir / "final_pdf_moments_uncertainty.png"
-    fig.savefig(out, dpi=dpi, bbox_inches="tight")
-    plt.close(fig)
-    return out
-
+    rows=sorted(rows,key=lambda r:float(r["Mt_target"])); mt=np.array([float(r["Mt_target"]) for r in rows])
+    variables=[("dilatation","Dilatation"),("vorticity","Vorticity"),("pressure","Pressure fluctuation"),("density","Density fluctuation")]
+    fig,axes=plt.subplots(1,2,figsize=(11.8,4.9),constrained_layout=True)
+    for var,label in variables:
+        skew=np.array([float(r.get(f"{var}_skewness_temporal_mean",np.nan)) for r in rows]); ss=np.array([float(r.get(f"{var}_skewness_temporal_std",np.nan)) for r in rows])
+        flat=np.array([float(r.get(f"{var}_flatness_temporal_mean",np.nan)) for r in rows]); fs=np.array([float(r.get(f"{var}_flatness_temporal_std",np.nan)) for r in rows])
+        g=np.isfinite(skew); axes[0].errorbar(mt[g],skew[g],yerr=np.where(np.isfinite(ss[g]),ss[g],0),marker="o",capsize=2.5,lw=1.3,label=label)
+        g=np.isfinite(flat)&(flat>0); axes[1].errorbar(mt[g],flat[g],yerr=np.where(np.isfinite(fs[g]),fs[g],0),marker="o",capsize=2.5,lw=1.3,label=label)
+    axes[0].axhline(0,lw=1); axes[0].set_title("Snapshot PDF skewness"); axes[0].set_xlabel(r"$M_t$"); axes[0].set_ylabel("skewness"); axes[0].grid(True,alpha=.3); axes[0].legend(fontsize=7.0,loc="best")
+    axes[1].axhline(3,ls="--",lw=1,label="Gaussian flatness"); axes[1].set_title("Snapshot PDF flatness"); axes[1].set_xlabel(r"$M_t$"); axes[1].set_ylabel("flatness"); axes[1].set_yscale("log"); axes[1].grid(True,which="both",alpha=.3)
+    h,l=axes[1].get_legend_handles_labels(); u={}
+    for hh,ll in zip(h,l): u.setdefault(ll,hh)
+    axes[1].legend(u.values(),u.keys(),fontsize=7.0,loc="upper left")
+    fig.text(.5,-.01,"Error bars show snapshot-to-snapshot temporal standard deviation over the stationary interval.",ha="center",fontsize=8)
+    out=output_dir/"final_pdf_moments_uncertainty.png"; fig.savefig(out,dpi=dpi,bbox_inches="tight"); plt.close(fig); return out
 
 def nearest_case(cases, target):
     return min(cases, key=lambda item: abs(item[0]-target))
@@ -438,79 +337,31 @@ def centered_rms(values):
 
 
 def plot_normalized_fields(cases, targets, output_dir, dpi):
-    selected = [nearest_case(cases, t) for t in targets]
-    records = []
-    for mt, case in selected:
-        snap = final_snapshot(case)
-        if snap is None:
-            return None, []
+    selected=[nearest_case(cases,t) for t in targets]; records=[]
+    for mt,case in selected:
+        snap=final_snapshot(case)
+        if snap is None: return None,[]
         with np.load(snap) as d:
-            x = np.asarray(d["x"], dtype=float)
-            y = np.asarray(d["y"], dtype=float)
-            rho = np.asarray(d["rho"], dtype=float)
-            u = np.asarray(d["u"], dtype=float)
-            v = np.asarray(d["v"], dtype=float)
-            p = np.asarray(d["pressure"], dtype=float)
-            vort = np.asarray(d["vorticity"], dtype=float)
-            div = np.asarray(d["divergence"], dtype=float)
-        cfg = json.loads((case/"config.json").read_text()) if (case/"config.json").exists() else {}
-        gamma = float(cfg.get("gamma", 1.4))
-        sound = np.sqrt(np.maximum(gamma*p/np.maximum(rho, np.finfo(float).tiny), 0.0))
-        mach = np.sqrt(u**2+v**2)/np.maximum(sound, np.finfo(float).tiny)
-        vort_c, vort_rms = centered_rms(vort)
-        div_c, div_rms = centered_rms(div)
-        rho_c, rho_rms = centered_rms(rho)
-        records.append({
-            "mt": mt, "x": x, "y": y,
-            "vort": vort_c/max(vort_rms, np.finfo(float).tiny),
-            "div": div_c/max(div_rms, np.finfo(float).tiny),
-            "mach": mach/max(mt, np.finfo(float).tiny),
-            "rho": rho_c/max(rho_rms, np.finfo(float).tiny),
-            "vort_rms": vort_rms, "div_rms": div_rms, "rho_rms": rho_rms,
-            "mach_mean": float(np.mean(mach)), "mach_max": float(np.max(mach)),
-        })
-
-    def sym_lim(key):
-        vals = np.concatenate([np.abs(r[key]).ravel() for r in records])
-        return float(np.percentile(vals, 99.5))
-    lims = {key: sym_lim(key) for key in ("vort", "div", "rho")}
-    mach_max = float(np.percentile(np.concatenate([r["mach"].ravel() for r in records]), 99.5))
-
-    fig, axes = plt.subplots(2, 4, figsize=(15.7, 7.4), constrained_layout=True)
-    defs = [
-        ("vort", r"$\omega_z/\omega_{rms}$", "coolwarm", True),
-        ("div", r"$\theta/\theta_{rms}$", "coolwarm", True),
-        ("mach", r"$M(x,y)/M_t$", "magma", False),
-        ("rho", r"$\rho'/\rho'_{rms}$", "coolwarm", True),
-    ]
-    for i, rec in enumerate(records):
-        extent = [float(rec["x"][0]), float(rec["x"][-1]), float(rec["y"][0]), float(rec["y"][-1])]
-        for j, (key, title, cmap, symmetric) in enumerate(defs):
-            ax = axes[i,j]
-            if symmetric:
-                vmin, vmax = -lims[key], lims[key]
-            else:
-                vmin, vmax = 0, mach_max
-            im = ax.imshow(rec[key], origin="lower", extent=extent, aspect="equal", cmap=cmap, vmin=vmin, vmax=vmax)
-            if i == 0:
-                ax.set_title(title)
-            ax.set_xlabel("x")
-            if j == 0:
-                ax.set_ylabel(
-                    rf"$M_t={rec['mt']:.2f}$" + "\n" +
-                    rf"$\omega_{{rms}}={rec['vort_rms']:.3g}$" + "\n" +
-                    rf"$\theta_{{rms}}={rec['div_rms']:.3g}$" + "\n" +
-                    rf"$\rho'_{{rms}}={rec['rho_rms']:.3g}$" + "\n$y$"
-                )
-            else:
-                ax.set_ylabel("y")
-            fig.colorbar(im, ax=ax, shrink=0.82)
-
-    out = output_dir / "final_low_high_fields_normalized.png"
-    fig.savefig(out, dpi=dpi, bbox_inches="tight")
-    plt.close(fig)
-    return out, records
-
+            x=np.asarray(d["x"],float); y=np.asarray(d["y"],float); rho=np.asarray(d["rho"],float); u=np.asarray(d["u"],float); v=np.asarray(d["v"],float); p=np.asarray(d["pressure"],float); vort=np.asarray(d["vorticity"],float); div=np.asarray(d["divergence"],float)
+        cfg=json.loads((case/"config.json").read_text()) if (case/"config.json").exists() else {}; gamma=float(cfg.get("gamma",1.4)); sound=np.sqrt(np.maximum(gamma*p/np.maximum(rho,np.finfo(float).tiny),0)); mach=np.sqrt(u**2+v**2)/np.maximum(sound,np.finfo(float).tiny)
+        vc,vr=centered_rms(vort); dc,dr=centered_rms(div); rc,rr=centered_rms(rho)
+        records.append({"mt":mt,"x":x,"y":y,"vort":vc/max(vr,np.finfo(float).tiny),"div":dc/max(dr,np.finfo(float).tiny),"mach":mach/max(mt,np.finfo(float).tiny),"rho":rc/max(rr,np.finfo(float).tiny),"vort_rms":vr,"div_rms":dr,"rho_rms":rr,"mach_mean":float(np.mean(mach)),"mach_max":float(np.max(mach))})
+    def sl(key): return float(np.percentile(np.concatenate([np.abs(r[key]).ravel() for r in records]),99.5))
+    lim={k:sl(k) for k in ("vort","div","rho")}; mm=float(np.percentile(np.concatenate([r["mach"].ravel() for r in records]),99.5))
+    defs=[("vort",r"$\omega_z/\omega_{rms}$","coolwarm",True),("div",r"$\theta/\theta_{rms}$","coolwarm",True),("mach",r"$M(x,y)/M_t$","magma",False),("rho",r"$\rho'/\rho'_{rms}$","coolwarm",True)]
+    # Four rows (one physical quantity each) x two columns (low/high Mach).
+    # This avoids the former four-across layout while preserving direct
+    # side-by-side comparison of each field between the two Mach numbers.
+    fig,axes=plt.subplots(4,2,figsize=(9.6,14.0),constrained_layout=True)
+    for row,(key,label,cmap,sym) in enumerate(defs):
+        for col,r in enumerate(records):
+            ax=axes[row,col]; ext=[float(r["x"][0]),float(r["x"][-1]),float(r["y"][0]),float(r["y"][-1])]
+            vmin,vmax=(-lim[key],lim[key]) if sym else (0,mm)
+            im=ax.imshow(r[key],origin="lower",extent=ext,aspect="equal",cmap=cmap,vmin=vmin,vmax=vmax)
+            ax.set_title(rf"{label}, $M_t={r['mt']:.2f}$",fontsize=15)
+            ax.set_xlabel("x",fontsize=12); ax.set_ylabel("y",fontsize=12); ax.tick_params(labelsize=10); fig.colorbar(im,ax=ax,shrink=.80)
+    fig.suptitle("Normalized instantaneous fields: low- and high-Mach comparison",fontsize=18)
+    out=output_dir/"final_low_high_fields_normalized.png"; fig.savefig(out,dpi=dpi,bbox_inches="tight"); plt.close(fig); return out,records
 
 def write_uncertainty_tables(rows, field_records, output_dir):
     keys = [

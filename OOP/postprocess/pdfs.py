@@ -166,76 +166,29 @@ class HIT2DPDFDiagnostics:
         path = Path(output_path) if output_path is not None else self.output_dir / "one_point_pdfs.png"
         path.parent.mkdir(parents=True, exist_ok=True)
 
-        fig, axes = plt.subplots(2, 3, figsize=(14.0, 8.2), constrained_layout=True)
+        fig, axes = plt.subplots(2, 2, figsize=(12.2, 9.4), constrained_layout=True)
         definitions = [
             ("dilatation", r"$\theta/\theta_{rms}$", "Dilatation PDF"),
             ("vorticity", r"$\omega_z/\omega_{rms}$", "Vorticity PDF"),
             ("pressure", r"$p'/p_{rms}$", "Pressure-fluctuation PDF"),
             ("density", r"$\rho'/\rho_{rms}$", "Density-fluctuation PDF"),
         ]
-        for ax, (name, xlabel, title) in zip(
-            [axes[0, 0], axes[0, 1], axes[1, 0], axes[1, 1]], definitions
-        ):
+        for ax, (name, xlabel, title) in zip(axes.flat, definitions):
             x = result.bin_centers[name]
             y = result.pdfs[name]
-            visible = y > 0.0
-            ax.semilogy(x[visible], y[visible], linewidth=1.7, label="DNS samples")
+            visible = np.isfinite(x) & np.isfinite(y) & (y > 0.0)
+            ax.semilogy(x[visible], y[visible], linewidth=2.1, label="DNS samples")
             gaussian = np.exp(-0.5 * x**2) / np.sqrt(2.0 * np.pi)
-            ax.semilogy(x, gaussian, linestyle="--", linewidth=1.2, label="Gaussian")
-            ax.set_xlabel(xlabel)
-            ax.set_ylabel("p.d.f.")
-            ax.set_title(title)
+            ax.semilogy(x, gaussian, linestyle="--", linewidth=1.7, label="Gaussian")
+            ax.set_xlabel(xlabel, fontsize=17)
+            ax.set_ylabel("p.d.f.", fontsize=17)
+            ax.set_title(title, fontsize=19)
+            ax.tick_params(labelsize=14)
             ax.grid(True, which="both", alpha=0.3)
-            ax.legend(fontsize=8)
+            ax.legend(fontsize=12, loc="best")
 
-        theta_centers = 0.5 * (result.joint_x_edges[:-1] + result.joint_x_edges[1:])
-        omega_centers = 0.5 * (result.joint_y_edges[:-1] + result.joint_y_edges[1:])
-        positive_joint = result.joint_pdf[result.joint_pdf > 0.0]
-        norm = None
-        if positive_joint.size:
-            norm = LogNorm(
-                vmin=max(float(np.min(positive_joint)), float(np.max(positive_joint)) * 1.0e-6),
-                vmax=float(np.max(positive_joint)),
-            )
-        mesh = axes[0, 2].pcolormesh(
-            theta_centers,
-            omega_centers,
-            result.joint_pdf.T,
-            shading="auto",
-            norm=norm,
-        )
-        axes[0, 2].set_xlabel(r"$\theta/\theta_{rms}$")
-        axes[0, 2].set_ylabel(r"$\omega_z/\omega_{rms}$")
-        axes[0, 2].set_title("Joint dilatation-vorticity PDF")
-        fig.colorbar(mesh, ax=axes[0, 2], label="joint p.d.f.")
-
-        axes[1, 2].axis("off")
-        lines = [
-            f"snapshots: {result.number_of_snapshots}",
-            (
-                "time interval: "
-                f"[{result.selected_time_interval[0]:.4g}, "
-                f"{result.selected_time_interval[1]:.4g}]"
-            ),
-            "",
-        ]
-        labels = {
-            "dilatation": r"$\theta$",
-            "vorticity": r"$\omega_z$",
-            "pressure": r"$p'$",
-            "density": r"$\rho'$",
-        }
-        for name in ("dilatation", "vorticity", "pressure", "density"):
-            info = result.moments[name]
-            lines.append(
-                f"{labels[name]}: skew={info['skewness']:.3f}, "
-                f"flatness={info['flatness']:.3f}"
-            )
-        axes[1, 2].text(0.02, 0.95, "\n".join(lines), va="top", fontsize=10)
-        axes[1, 2].set_title("Pooled one-point moments")
-
-        fig.suptitle("One-point statistics of 2-D solenoidally forced compressible HIT", fontsize=12)
-        fig.savefig(path, dpi=200, bbox_inches="tight")
+        fig.suptitle("One-point statistics of 2-D solenoidally forced compressible HIT", fontsize=20)
+        fig.savefig(path, dpi=300, bbox_inches="tight")
         plt.close(fig)
         return path
 

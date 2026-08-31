@@ -627,7 +627,8 @@ def plot_pdf_comparison(cases: list[tuple[float, Path]], output_dir: Path, dpi: 
         ax.set_xlabel(xlabel)
         ax.set_ylabel("p.d.f.")
         ax.grid(True, which="both", alpha=0.3)
-        ax.legend(fontsize=8)
+        legend_size = 6.5 if variable == "dilatation" else 7.2
+        ax.legend(fontsize=legend_size, loc="best")
     pdf_path = output_dir / "final_mach_pdfs.png"
     fig.savefig(pdf_path, dpi=dpi, bbox_inches="tight")
     plt.close(fig)
