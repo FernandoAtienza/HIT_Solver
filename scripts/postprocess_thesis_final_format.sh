@@ -7,6 +7,7 @@ cd "$REPO"
 REF_CASE="${REF_CASE:-results/hit2d/solenoidal_Mt025_N512_CFL_0p05}"
 FINAL_ROOT="${FINAL_ROOT:-results/hit2d/final_thesis_Mach_ReL130_N512}"
 FINAL_OUT="$FINAL_ROOT/thesis_postprocess"
+AUDIT_ROOT="${AUDIT_ROOT:-results/hit2d/thesis_hit_campaign_v1}"
 EXPORT_DIR="${EXPORT_DIR:-results/hit2d/thesis_figures_final_layout}"
 
 START_TURNOVER="${START_TURNOVER:-4}"
@@ -25,6 +26,7 @@ styled_reference () {
       --suptitle "${REF_SUPTITLE_FONT:-24}" \
       --annotation "${REF_ANNOTATION_FONT:-12}" \
       --dpi "$DPI" \
+      --figure-profile reference-results \
       "$@"
 }
 
@@ -51,6 +53,19 @@ echo "No CFD simulation will be launched."
 echo "Reference fonts: title=${REF_TITLE_FONT:-22}, labels=${REF_LABEL_FONT:-20}, ticks=${REF_TICK_FONT:-17}, legend=${REF_LEGEND_FONT:-14}"
 echo "Cross-Mach fonts: title=${CROSS_TITLE_FONT:-21}, labels=${CROSS_LABEL_FONT:-19}, ticks=${CROSS_TICK_FONT:-16}, legend=${CROSS_LEGEND_FONT:-10}"
 echo "============================================================"
+
+# 0) Grid-convergence and repeatability figures (Figs. 5.1--5.2).
+# These are reconstructed from their processed campaign diagnostics only.
+if [[ -d "$AUDIT_ROOT" ]]; then
+  echo "Regenerating grid-convergence/repeatability figures from $AUDIT_ROOT"
+  MPLBACKEND=Agg python3 -B scripts/summarize_hit_thesis_campaign.py \
+    "$AUDIT_ROOT" \
+    --start-turnover "$START_TURNOVER" \
+    --end-turnover "$END_TURNOVER"
+else
+  echo "WARNING: audit campaign not found: $AUDIT_ROOT"
+  echo "         Figs. 5.1--5.2 will only be retained if EXISTING_RESULTS_DIR is supplied."
+fi
 
 # 1) Detailed Mt=0.25 reference case. This reruns plotting/diagnostics only.
 styled_reference 2D/hit2d_viewer.py \
@@ -100,6 +115,13 @@ copy_if () {
   fi
 }
 
+if [[ -f "$AUDIT_ROOT/thesis_grid_convergence_spectra.png" ]]; then
+  copy_if "$AUDIT_ROOT/thesis_grid_convergence_spectra.png" "grid_convergence_spectra.png"
+fi
+if [[ -f "$AUDIT_ROOT/thesis_repeatability_spectra.png" ]]; then
+  copy_if "$AUDIT_ROOT/thesis_repeatability_spectra.png" "repeatability_spectra.png"
+fi
+
 copy_if "$REF_CASE/postprocess/hit2d_history.png" "reference_Mt025_history.png"
 copy_if "$REF_CASE/postprocess/physics_fields_final.png" "reference_Mt025_fields.png"
 copy_if "$REF_CASE/postprocess/energy_enstrophy_spectra.png" "reference_Mt025_spectra.png"
@@ -107,6 +129,8 @@ copy_if "$REF_CASE/postprocess/one_point_pdfs.png" "reference_Mt025_pdfs.png"
 copy_if "$REF_CASE/postprocess/component_energy_anisotropy.png" "reference_Mt025_anisotropy.png"
 copy_if "$REF_CASE/postprocess/directional_isotropy_correlations.png" "reference_Mt025_correlations.png"
 
+copy_if "$FINAL_OUT/stationarity_Mt025.png" "stationarity_Mt025.png"
+copy_if "$FINAL_OUT/stationarity_Mt060.png" "stationarity_Mt060.png"
 copy_if "$FINAL_OUT/final_low_high_fields_normalized.png" "low_high_fields_normalized.png"
 copy_if "$FINAL_OUT/final_mach_spectra_polished.png" "mach_spectra_polished.png"
 copy_if "$FINAL_OUT/final_mach_trends_uncertainty.png" "mach_trends_uncertainty.png"
@@ -116,7 +140,9 @@ copy_if "$FINAL_OUT/final_mach_pdfs.png" "mach_pdfs.png"
 # Retain other already-used figures if a prior Overleaf export is supplied.
 if [[ -n "${EXISTING_RESULTS_DIR:-}" && -d "$EXISTING_RESULTS_DIR" ]]; then
   for f in grid_convergence_spectra.png repeatability_spectra.png stationarity_Mt025.png stationarity_Mt060.png; do
-    [[ -f "$EXISTING_RESULTS_DIR/$f" ]] && cp -f "$EXISTING_RESULTS_DIR/$f" "$EXPORT_DIR/$f"
+    if [[ ! -f "$EXPORT_DIR/$f" && -f "$EXISTING_RESULTS_DIR/$f" ]]; then
+      cp -f "$EXISTING_RESULTS_DIR/$f" "$EXPORT_DIR/$f"
+    fi
   done
 fi
 

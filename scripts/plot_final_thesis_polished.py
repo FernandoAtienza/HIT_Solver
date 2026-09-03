@@ -45,6 +45,7 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument("--dpi", type=int, default=300)
     p.add_argument("--field-machs", nargs=2, type=float, default=(0.10, 0.60))
+    p.add_argument("--stationarity-machs", nargs=2, type=float, default=(0.25, 0.60))
     return p.parse_args()
 
 
@@ -261,12 +262,13 @@ def plot_trends(rows, output_dir, target_re, dpi):
     if np.isfinite(a):
         xfit = np.linspace(0, max(mt)*1.03, 200)
         axes[0].plot(xfit, 100*a*xfit**2, "--", lw=1.3, label=rf"$\chi_d={a:.3f}M_t^2$, $R^2={r2:.3f}$")
-    axes[0].set_title("Integrated dilatational energy")
-    axes[0].set_xlabel(r"$M_t$")
-    axes[0].set_ylabel(r"$\chi_d$ [\%]")
+    axes[0].set_title("Integrated dilatational energy", fontsize=22)
+    axes[0].set_xlabel(r"$M_t$", fontsize=20)
+    axes[0].set_ylabel(r"$\chi_d$ [\%]", fontsize=20)
+    axes[0].tick_params(axis="both", which="both", labelsize=17)
     axes[0].set_ylim(bottom=0)
     axes[0].grid(True, alpha=0.3)
-    axes[0].legend(fontsize=8)
+    axes[0].legend(fontsize=10)
 
     valid = np.isfinite(mt) & np.isfinite(weno)
     axes[1].errorbar(
@@ -274,9 +276,10 @@ def plot_trends(rows, output_dir, target_re, dpi):
         yerr=np.where(np.isfinite(weno_std[valid]), 100*weno_std[valid], 0.0),
         marker="o", capsize=3, lw=1.5,
     )
-    axes[1].set_title("Shock-capturing activity")
-    axes[1].set_xlabel(r"$M_t$")
-    axes[1].set_ylabel("WENO node fraction [%]")
+    axes[1].set_title("Shock-capturing activity", fontsize=22)
+    axes[1].set_xlabel(r"$M_t$", fontsize=20)
+    axes[1].set_ylabel("WENO node fraction [%]", fontsize=20)
+    axes[1].tick_params(axis="both", which="both", labelsize=17)
     axes[1].set_ylim(bottom=0)
     axes[1].grid(True, alpha=0.3)
 
@@ -287,11 +290,12 @@ def plot_trends(rows, output_dir, target_re, dpi):
         marker="o", capsize=3, lw=1.5, label="mean ± temporal 1σ",
     )
     axes[2].axhline(target_re, ls="--", lw=1.2, label=rf"target $Re_\lambda={target_re:g}$")
-    axes[2].set_title("Taylor-scale Reynolds number")
-    axes[2].set_xlabel(r"$M_t$")
-    axes[2].set_ylabel(r"$Re_{\lambda,2D}$")
+    axes[2].set_title("Taylor-scale Reynolds number", fontsize=22)
+    axes[2].set_xlabel(r"$M_t$", fontsize=20)
+    axes[2].set_ylabel(r"$Re_{\lambda,2D}$", fontsize=20)
+    axes[2].tick_params(axis="both", which="both", labelsize=17)
     axes[2].grid(True, alpha=0.3)
-    axes[2].legend(fontsize=8)
+    axes[2].legend(fontsize=10)
 
     out = output_dir / "final_mach_trends_uncertainty.png"
     fig.savefig(out, dpi=dpi, bbox_inches="tight")
@@ -337,31 +341,126 @@ def centered_rms(values):
 
 
 def plot_normalized_fields(cases, targets, output_dir, dpi):
-    selected=[nearest_case(cases,t) for t in targets]; records=[]
-    for mt,case in selected:
-        snap=final_snapshot(case)
-        if snap is None: return None,[]
+    selected = [nearest_case(cases, t) for t in targets]
+    records = []
+    for mt, case in selected:
+        snap = final_snapshot(case)
+        if snap is None:
+            return None, []
         with np.load(snap) as d:
-            x=np.asarray(d["x"],float); y=np.asarray(d["y"],float); rho=np.asarray(d["rho"],float); u=np.asarray(d["u"],float); v=np.asarray(d["v"],float); p=np.asarray(d["pressure"],float); vort=np.asarray(d["vorticity"],float); div=np.asarray(d["divergence"],float)
-        cfg=json.loads((case/"config.json").read_text()) if (case/"config.json").exists() else {}; gamma=float(cfg.get("gamma",1.4)); sound=np.sqrt(np.maximum(gamma*p/np.maximum(rho,np.finfo(float).tiny),0)); mach=np.sqrt(u**2+v**2)/np.maximum(sound,np.finfo(float).tiny)
-        vc,vr=centered_rms(vort); dc,dr=centered_rms(div); rc,rr=centered_rms(rho)
-        records.append({"mt":mt,"x":x,"y":y,"vort":vc/max(vr,np.finfo(float).tiny),"div":dc/max(dr,np.finfo(float).tiny),"mach":mach/max(mt,np.finfo(float).tiny),"rho":rc/max(rr,np.finfo(float).tiny),"vort_rms":vr,"div_rms":dr,"rho_rms":rr,"mach_mean":float(np.mean(mach)),"mach_max":float(np.max(mach))})
-    def sl(key): return float(np.percentile(np.concatenate([np.abs(r[key]).ravel() for r in records]),99.5))
-    lim={k:sl(k) for k in ("vort","div","rho")}; mm=float(np.percentile(np.concatenate([r["mach"].ravel() for r in records]),99.5))
-    defs=[("vort",r"$\omega_z/\omega_{rms}$","coolwarm",True),("div",r"$\theta/\theta_{rms}$","coolwarm",True),("mach",r"$M(x,y)/M_t$","magma",False),("rho",r"$\rho'/\rho'_{rms}$","coolwarm",True)]
-    # Four rows (one physical quantity each) x two columns (low/high Mach).
-    # This avoids the former four-across layout while preserving direct
-    # side-by-side comparison of each field between the two Mach numbers.
-    fig,axes=plt.subplots(4,2,figsize=(9.6,14.0),constrained_layout=True)
-    for row,(key,label,cmap,sym) in enumerate(defs):
-        for col,r in enumerate(records):
-            ax=axes[row,col]; ext=[float(r["x"][0]),float(r["x"][-1]),float(r["y"][0]),float(r["y"][-1])]
-            vmin,vmax=(-lim[key],lim[key]) if sym else (0,mm)
-            im=ax.imshow(r[key],origin="lower",extent=ext,aspect="equal",cmap=cmap,vmin=vmin,vmax=vmax)
-            ax.set_title(rf"{label}, $M_t={r['mt']:.2f}$",fontsize=15)
-            ax.set_xlabel("x",fontsize=12); ax.set_ylabel("y",fontsize=12); ax.tick_params(labelsize=10); fig.colorbar(im,ax=ax,shrink=.80)
-    fig.suptitle("Normalized instantaneous fields: low- and high-Mach comparison",fontsize=18)
-    out=output_dir/"final_low_high_fields_normalized.png"; fig.savefig(out,dpi=dpi,bbox_inches="tight"); plt.close(fig); return out,records
+            x = np.asarray(d["x"], float)
+            y = np.asarray(d["y"], float)
+            rho = np.asarray(d["rho"], float)
+            u = np.asarray(d["u"], float)
+            v = np.asarray(d["v"], float)
+            p = np.asarray(d["pressure"], float)
+            vort = np.asarray(d["vorticity"], float)
+            div = np.asarray(d["divergence"], float)
+        cfg = json.loads((case / "config.json").read_text()) if (case / "config.json").exists() else {}
+        gamma = float(cfg.get("gamma", 1.4))
+        sound = np.sqrt(np.maximum(gamma * p / np.maximum(rho, np.finfo(float).tiny), 0))
+        mach = np.sqrt(u**2 + v**2) / np.maximum(sound, np.finfo(float).tiny)
+        vc, vr = centered_rms(vort)
+        dc, dr = centered_rms(div)
+        rc, rr = centered_rms(rho)
+        records.append({
+            "mt": mt, "x": x, "y": y,
+            "vort": vc / max(vr, np.finfo(float).tiny),
+            "div": dc / max(dr, np.finfo(float).tiny),
+            "mach": mach / max(mt, np.finfo(float).tiny),
+            "rho": rc / max(rr, np.finfo(float).tiny),
+            "vort_rms": vr, "div_rms": dr, "rho_rms": rr,
+            "mach_mean": float(np.mean(mach)), "mach_max": float(np.max(mach)),
+        })
+
+    def sl(key):
+        return float(np.percentile(np.concatenate([np.abs(r[key]).ravel() for r in records]), 99.5))
+
+    lim = {k: sl(k) for k in ("vort", "div", "rho")}
+    mm = float(np.percentile(np.concatenate([r["mach"].ravel() for r in records]), 99.5))
+    defs = [
+        ("vort", r"$\omega_z/\omega_{rms}$", "coolwarm", True),
+        ("div", r"$\theta/\theta_{rms}$", "coolwarm", True),
+        ("mach", r"$M(x,y)/M_t$", "magma", False),
+        ("rho", r"$\rho'/\rho'_{rms}$", "coolwarm", True),
+    ]
+
+    # Figure 5.10: retain the four-row, two-column physical comparison, but use
+    # the page width more efficiently.  One shared colorbar per row is valid
+    # because both Mach cases use the same normalization and limits.
+    fig, axes = plt.subplots(4, 2, figsize=(11.4, 12.8), constrained_layout=True)
+    try:
+        fig.set_constrained_layout_pads(w_pad=0.03, h_pad=0.035, wspace=0.08, hspace=0.10)
+    except Exception:
+        pass
+
+    for row, (key, label, cmap, sym) in enumerate(defs):
+        row_image = None
+        for col, r in enumerate(records):
+            ax = axes[row, col]
+            ext = [float(r["x"][0]), float(r["x"][-1]), float(r["y"][0]), float(r["y"][-1])]
+            vmin, vmax = (-lim[key], lim[key]) if sym else (0, mm)
+            row_image = ax.imshow(
+                r[key], origin="lower", extent=ext, aspect="equal",
+                cmap=cmap, vmin=vmin, vmax=vmax,
+            )
+            ax.set_title(rf"{label}, $M_t={r['mt']:.2f}$", fontsize=13)
+            ax.set_xlabel(r"$x$", fontsize=12)
+            ax.set_ylabel(r"$y$", fontsize=12)
+            ax.tick_params(axis="both", which="both", labelsize=10)
+        if row_image is not None:
+            cbar = fig.colorbar(row_image, ax=list(axes[row, :]), shrink=0.88, pad=0.02, aspect=28)
+            cbar.ax.tick_params(labelsize=10)
+
+    # No overall title: the thesis caption provides the context and the freed
+    # vertical space is used by the actual flow-field panels.
+    out = output_dir / "final_low_high_fields_normalized.png"
+    fig.savefig(out, dpi=dpi, bbox_inches="tight")
+    plt.close(fig)
+    return out, records
+
+
+def plot_stationarity(cases, targets, output_dir, dpi):
+    """Generate the two half-page stationarity panels used in Figure 5.9."""
+    outputs = []
+    for target in targets:
+        mt, case = nearest_case(cases, target)
+        hist_path = case / "diagnostic_history.npz"
+        if not hist_path.exists():
+            continue
+        time, turnover, _ = turnover_from_history(case)
+        with np.load(hist_path) as h:
+            if "kinetic_energy" not in h.files or "turbulent_mach" not in h.files:
+                continue
+            K = np.asarray(h["kinetic_energy"], dtype=float)
+            Mt = np.asarray(h["turbulent_mach"], dtype=float)
+        if K.shape != turnover.shape or Mt.shape != turnover.shape:
+            continue
+
+        fig, axes = plt.subplots(2, 1, figsize=(8.2, 6.2), sharex=True, constrained_layout=True)
+        axes[0].plot(turnover, K, linewidth=1.6)
+        axes[0].set_title("Turbulent kinetic energy", fontsize=17)
+        axes[0].set_ylabel(r"$K$", fontsize=17)
+
+        axes[1].plot(turnover, Mt, linewidth=1.6)
+        axes[1].set_title("Turbulent Mach number", fontsize=17)
+        axes[1].set_ylabel(r"$M_t$", fontsize=17)
+        axes[1].set_xlabel(r"$N_{\mathrm{eddy}}$", fontsize=17)
+
+        for ax in axes:
+            ax.tick_params(axis="both", which="both", labelsize=14)
+            ax.grid(True, alpha=0.25)
+        try:
+            fig.set_constrained_layout_pads(w_pad=0.03, h_pad=0.035, hspace=0.10, wspace=0.05)
+        except Exception:
+            pass
+
+        mt_tag = int(round(100 * mt))
+        path = output_dir / f"stationarity_Mt{mt_tag:03d}.png"
+        fig.savefig(path, dpi=dpi, bbox_inches="tight")
+        plt.close(fig)
+        outputs.append(path)
+    return outputs
 
 def write_uncertainty_tables(rows, field_records, output_dir):
     keys = [
@@ -426,7 +525,9 @@ def main():
         plot_trends(rows, out, a.target_re, a.dpi),
         plot_pdf_moments(rows, out, a.dpi),
     ):
-        if path is not None: outputs.append(path)
+        if path is not None:
+            outputs.append(path)
+    outputs.extend(plot_stationarity(cases, tuple(a.stationarity_machs), out, a.dpi))
     field_path, field_records = plot_normalized_fields(cases, tuple(a.field_machs), out, a.dpi)
     if field_path is not None: outputs.append(field_path)
     write_uncertainty_tables(rows, field_records, out)

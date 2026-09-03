@@ -250,14 +250,18 @@ def _plot_grid(root: Path, paths: dict[str, Path]):
     if first is not None:
         _shade_forcing(axes[0], first)
         _shade_forcing(axes[1], first)
-    axes[0].set_title(r"Grid convergence: density-weighted $E(k)$")
-    axes[1].set_title(r"Grid convergence: enstrophy $Z(k)$")
+    # Figure 5.1: keep the panels visually dominant in the printed thesis.
+    # The caption already explains that this is the grid-convergence figure, so
+    # subplot titles are intentionally omitted and the ordinate symbols carry
+    # the physical meaning directly.
     for ax in axes:
-        ax.set_xlabel("k")
+        ax.set_title("")
+        ax.set_xlabel(r"$k$", fontsize=16)
+        ax.tick_params(axis="both", which="both", labelsize=14)
         ax.grid(True, which="both", alpha=0.25)
-        ax.legend()
-    axes[0].set_ylabel("spectral energy")
-    axes[1].set_ylabel("enstrophy")
+        ax.legend(fontsize=13)
+    axes[0].set_ylabel(r"$E_{\sqrt{\rho}u}(k)$", fontsize=16)
+    axes[1].set_ylabel(r"$Z(k)$", fontsize=16)
     out = root / "thesis_grid_convergence_spectra.png"
     fig.savefig(out, dpi=220, bbox_inches="tight")
     plt.close(fig)
@@ -369,11 +373,14 @@ def _plot_repeatability(root: Path, paths: dict[str, Path]):
         ax.loglog(k[valid], E[valid], label=f"seed={seed}")
     if first is not None:
         _shade_forcing(ax, first)
+    # Figure 5.2: retain the existing title treatment while increasing the
+    # axes and legend slightly for paper-size readability.
     ax.set_title(r"Independent-realization check: $M_t=0.25$, $N=256$")
-    ax.set_xlabel("k")
-    ax.set_ylabel(r"$E_{\sqrt{\rho}u}(k)$")
+    ax.set_xlabel(r"$k$", fontsize=15)
+    ax.set_ylabel(r"$E_{\sqrt{\rho}u}(k)$", fontsize=15)
+    ax.tick_params(axis="both", which="both", labelsize=14)
     ax.grid(True, which="both", alpha=0.25)
-    ax.legend()
+    ax.legend(fontsize=13)
     out = root / "thesis_repeatability_spectra.png"
     fig.savefig(out, dpi=220, bbox_inches="tight")
     plt.close(fig)

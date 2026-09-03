@@ -1,0 +1,67 @@
+Final thesis Results-figure formatting update
+=============================================
+
+No CFD calculations are changed and no figures were generated while preparing this update.
+All changes are confined to post-processing/plot formatting.
+
+Figure 5.1 - grid_convergence_spectra.png
+- Removed both subplot titles.
+- Replaced generic ordinate labels with E_{sqrt(rho)u}(k) and Z(k).
+- Increased axis/tick/legend font sizes.
+
+Figure 5.2 - repeatability_spectra.png
+- Kept the existing title treatment.
+- Slightly increased axis/tick/legend font sizes.
+
+Figure 5.3 - reference_Mt025_history.png
+- Removed overall figure title.
+- Reduced subplot/axis/tick typography to give more plotting area.
+- Replaced the full turnover-time formula on the abscissa by N_eddy.
+- Removes an empty legend if one is created by the source plotting routine.
+
+Figure 5.4 - reference_Mt025_fields.png
+- Increased subplot titles, axis text, ticks, and colorbar text.
+
+Figure 5.5 - reference_Mt025_spectra.png
+- Reduced the two subplot-title sizes only.
+
+Figure 5.6 - reference_Mt025_pdfs.png
+- Removed overall figure title.
+- Reduced subplot-title sizes; other typography remains unchanged.
+
+Figure 5.7 - reference_Mt025_anisotropy.png
+- Reduced title/axis/tick/legend sizes.
+- Increased vertical spacing between the two panels.
+- Replaced the full turnover-time formula by N_eddy.
+
+Figure 5.8 - reference_Mt025_correlations.png
+- Reduced title/axis/tick/legend sizes.
+- Increased vertical spacing between the two panels.
+- Kept r as the horizontal coordinate because this figure plots two-point correlation versus spatial separation, not turnover count.
+
+Figure 5.9 - stationarity_Mt025.png / stationarity_Mt060.png
+- Added direct regeneration from diagnostic_history.npz in the polished post-processing script.
+- Slightly enlarged axis/tick typography.
+- Uses N_eddy as the horizontal-axis label.
+
+Figure 5.10 - low_high_fields_normalized.png
+- Removed overall title.
+- Reduced panel-title size.
+- Enlarged the field panels by using one shared colorbar per row and a wider layout.
+- Added controlled spacing between rows and columns.
+
+Figure 5.11 - mach_spectra_polished.png
+- No requested formatting change.
+
+Figure 5.12 - mach_trends_uncertainty.png
+- Slightly enlarged panel titles, axis labels, tick labels, and legends.
+
+Workflow changes
+----------------
+- postprocess_thesis_final_format.sh now regenerates Figs. 5.1-5.2 from
+  AUDIT_ROOT (default: results/hit2d/thesis_hit_campaign_v1).
+- It regenerates Figs. 5.9 from the final N=512 production database rather than
+  depending on old pre-exported PNG files.
+- run_with_thesis_fonts.py now supports --figure-profile reference-results,
+  which applies figure-specific formatting immediately before savefig without
+  altering any post-processed numerical data.
