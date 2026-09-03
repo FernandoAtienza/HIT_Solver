@@ -16,6 +16,7 @@ if __package__ is None or __package__ == "":
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from OOP.postprocess.turnover import turnover_from_history
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 MT_RE = re.compile(r"Mt0?(\d+)")
 
@@ -393,12 +394,11 @@ def plot_normalized_fields(cases, targets, output_dir, dpi):
     # A dedicated narrow colorbar column is used for each row.  Anchoring the
     # left and right image axes toward the center avoids the large empty gap
     # that equal-aspect images can otherwise create inside subplot cells.
-    fig = plt.figure(figsize=(7.25, 10.15))
+    fig = plt.figure(figsize=(7.8, 10.55))
     gs = fig.add_gridspec(
-        4, 3,
-        width_ratios=(1.0, 1.0, 0.045),
-        left=0.075, right=0.945, bottom=0.055, top=0.98,
-        wspace=0.16, hspace=0.42,
+        4, 2,
+        left=0.060, right=0.965, bottom=0.050, top=0.978,
+        wspace=0.10, hspace=0.36,
     )
     axes = np.empty((4, 2), dtype=object)
 
@@ -418,36 +418,45 @@ def plot_normalized_fields(cases, targets, output_dir, dpi):
             # physical panels at printed-page size.
             ax.set_title(
                 rf"{label}, $M_t={r['mt']:.2f}$",
-                fontsize=10,
-                pad=2.5,
+                fontsize=13.0,
+                pad=3.0,
+                y=1.005,
             )
             ax.tick_params(
                 axis="both",
                 which="both",
-                labelsize=9,
-                pad=1.0,
+                labelsize=11,
+                pad=0.8,
             )
 
             # Avoid repeating axis labels on every panel.  The y label is shown
             # only in the left column and the x label only in the bottom row.
             if col == 0:
-                ax.set_ylabel(r"$y$", fontsize=10, labelpad=1.0)
+                ax.set_ylabel(r"$y$", fontsize=11, labelpad=0.8)
             else:
                 ax.set_ylabel("")
 
             if row == 3:
-                ax.set_xlabel(r"$x$", fontsize=10, labelpad=1.0)
+                ax.set_xlabel(r"$x$", fontsize=11, labelpad=0.8)
             else:
                 ax.set_xlabel("")
+
+            # Add explicit x ticks so that the first visible labeled tick is 1
+            # rather than 2, improving readability in the thesis layout.
+            ax.set_xticks([1, 2, 3, 4, 5, 6])
 
             # Bring the two square panels in each row toward the center while
             # retaining enough horizontal separation for the subplot titles.
             ax.set_anchor("E" if col == 0 else "W")
 
         if row_image is not None:
-            cax = fig.add_subplot(gs[row, 2])
+            # Attach the colorbar directly to the right-hand panel so that it
+            # remains close to the field instead of occupying a separate
+            # GridSpec column at the far-right edge of the page.
+            divider = make_axes_locatable(axes[row, 1])
+            cax = divider.append_axes("right", size="4%", pad=0.08)
             cbar = fig.colorbar(row_image, cax=cax)
-            cbar.ax.tick_params(labelsize=9, pad=2)
+            cbar.ax.tick_params(labelsize=9.2, pad=1.0)
 
     # No overall title: the thesis caption supplies the context.  Keeping a
     # modest bottom margin leaves room for that caption once the figure is
