@@ -65,3 +65,4 @@ Workflow changes
 - run_with_thesis_fonts.py now supports --figure-profile reference-results,
   which applies figure-specific formatting immediately before savefig without
   altering any post-processed numerical data.
+\n\nFigure 5.10 second-pass update:\n- full-page portrait canvas (7.25 x 10.15 in)\n- larger physical panels through a compact GridSpec layout\n- subtitles reduced to 11.5 pt\n- axes 11 pt and ticks/colorbars 9.5 pt\n- left/right panels anchored toward each other to remove central dead space\n- dedicated narrow shared colorbar column per row\n- no overall title; bottom margin retained for the thesis caption\n

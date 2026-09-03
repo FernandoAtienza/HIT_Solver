@@ -385,37 +385,55 @@ def plot_normalized_fields(cases, targets, output_dir, dpi):
         ("rho", r"$\rho'/\rho'_{rms}$", "coolwarm", True),
     ]
 
-    # Figure 5.10: retain the four-row, two-column physical comparison, but use
-    # the page width more efficiently.  One shared colorbar per row is valid
-    # because both Mach cases use the same normalization and limits.
-    fig, axes = plt.subplots(4, 2, figsize=(11.4, 12.8), constrained_layout=True)
-    try:
-        fig.set_constrained_layout_pads(w_pad=0.03, h_pad=0.035, wspace=0.08, hspace=0.10)
-    except Exception:
-        pass
+    # Figure 5.10: full-page portrait layout.  The figure is intentionally
+    # tall enough to use almost one thesis page while still leaving room below
+    # it for the LaTeX caption.  Compact titles and reduced inter-panel spacing
+    # maximize the physical size of the eight flow-field panels.
+    #
+    # A dedicated narrow colorbar column is used for each row.  Anchoring the
+    # left and right image axes toward the center avoids the large empty gap
+    # that equal-aspect images can otherwise create inside subplot cells.
+    fig = plt.figure(figsize=(7.25, 10.15))
+    gs = fig.add_gridspec(
+        4, 3,
+        width_ratios=(1.0, 1.0, 0.045),
+        left=0.075, right=0.945, bottom=0.045, top=0.985,
+        wspace=0.10, hspace=0.26,
+    )
+    axes = np.empty((4, 2), dtype=object)
 
     for row, (key, label, cmap, sym) in enumerate(defs):
         row_image = None
         for col, r in enumerate(records):
-            ax = axes[row, col]
+            ax = fig.add_subplot(gs[row, col])
+            axes[row, col] = ax
             ext = [float(r["x"][0]), float(r["x"][-1]), float(r["y"][0]), float(r["y"][-1])]
             vmin, vmax = (-lim[key], lim[key]) if sym else (0, mm)
             row_image = ax.imshow(
                 r[key], origin="lower", extent=ext, aspect="equal",
                 cmap=cmap, vmin=vmin, vmax=vmax,
             )
-            ax.set_title(rf"{label}, $M_t={r['mt']:.2f}$", fontsize=13)
-            ax.set_xlabel(r"$x$", fontsize=12)
-            ax.set_ylabel(r"$y$", fontsize=12)
-            ax.tick_params(axis="both", which="both", labelsize=10)
-        if row_image is not None:
-            cbar = fig.colorbar(row_image, ax=list(axes[row, :]), shrink=0.88, pad=0.02, aspect=28)
-            cbar.ax.tick_params(labelsize=10)
 
-    # No overall title: the thesis caption provides the context and the freed
-    # vertical space is used by the actual flow-field panels.
+            # Slightly smaller subtitles than before to return more space to
+            # the physical fields at printed-page size.
+            ax.set_title(rf"{label}, $M_t={r['mt']:.2f}$", fontsize=11.5, pad=3.0)
+            ax.set_xlabel(r"$x$", fontsize=11, labelpad=1.5)
+            ax.set_ylabel(r"$y$", fontsize=11, labelpad=1.5)
+            ax.tick_params(axis="both", which="both", labelsize=9.5, pad=1.5)
+
+            # Bring the two square panels in each row closer together.
+            ax.set_anchor("E" if col == 0 else "W")
+
+        if row_image is not None:
+            cax = fig.add_subplot(gs[row, 2])
+            cbar = fig.colorbar(row_image, cax=cax)
+            cbar.ax.tick_params(labelsize=9.5, pad=2)
+
+    # No overall title: the thesis caption supplies the context.  Keeping a
+    # modest bottom margin leaves room for that caption once the figure is
+    # inserted at approximately text width in LaTeX.
     out = output_dir / "final_low_high_fields_normalized.png"
-    fig.savefig(out, dpi=dpi, bbox_inches="tight")
+    fig.savefig(out, dpi=dpi, bbox_inches="tight", pad_inches=0.03)
     plt.close(fig)
     return out, records
 
